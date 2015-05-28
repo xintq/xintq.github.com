@@ -1,0 +1,2704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[夕阳下的奔跑]]></title>
+  <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://xintq.github.io/"/>
+  <updated>2015-05-28T13:57:51.000Z</updated>
+  <id>http://xintq.github.io/</id>
+  
+  <author>
+    <name><![CDATA[K.X]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[永久关闭Adobe Acrobat Reader DC右侧的侧边栏]]></title>
+    <link href="http://xintq.github.io/2015/05/19/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADAdobe%20Acrobat%20Reader%20DC%E5%8F%B3%E4%BE%A7%E7%9A%84%E4%BE%A7%E8%BE%B9%E6%A0%8F/"/>
+    <id>http://xintq.github.io/2015/05/19/永久关闭Adobe Acrobat Reader DC右侧的侧边栏/</id>
+    <published>2015-05-19T05:16:42.000Z</published>
+    <updated>2015-05-28T13:57:51.000Z</updated>
+    <content type="html"><![CDATA[<p>最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。<br>不知道是谁的脑残设计，于是乎，各种找，发现了下面的方法。</p>
+<p>首先关闭Adobe Acrobat Reader DC</p>
+<p>再找到Adobe Acrobat Reader DC的安装目录，<code>C:\Program Files (x86)\Adobe\Acrobat Reader 2015\Reader\AcroApp\CHS</code>。<br>然后进入这个目录，新建一个子目录，随便起一个名字，比如<code>Disabled</code>，把下面三个文件移动到该目录中：</p>
+<ul>
+<li>AppCenter_R.aapp</li>
+<li>Home.aapp</li>
+<li>Viewer.aapp</li>
+</ul>
+<p>为了保险起见，转到<code>C:\Program Files (x86)\Adobe\Acrobat Reader 2015\Reader\AcroApp\ENU</code>中，也照样把以上目录下的以上三个文件挪到一个子文件夹中。</p>
+<p>最后使用Adobe Acrobat Reader DC打开PDF文件，可以发现讨厌的注释侧边栏已经不见了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。<br>不知道是谁的脑残设计，于是乎，各种找，发现了下面的]]>
+    </summary>
+    
+      <category term="acrobat" scheme="http://xintq.github.io/tags/acrobat/"/>
+    
+      <category term="adobe" scheme="http://xintq.github.io/tags/adobe/"/>
+    
+      <category term="pdf" scheme="http://xintq.github.io/tags/pdf/"/>
+    
+      <category term="pdf reader" scheme="http://xintq.github.io/tags/pdf-reader/"/>
+    
+      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Oracle Secure Global Desktop 部署考虑事项]]></title>
+    <link href="http://xintq.github.io/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/"/>
+    <id>http://xintq.github.io/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/</id>
+    <published>2015-05-13T06:47:42.000Z</published>
+    <updated>2015-05-28T13:57:13.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="概要">概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
+<p>如果你还不知道Oracle Secure Global Desktop是什么的话，请参考<a href="/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/">这篇文章</a>。</p>
+<p>目前IT组织的最大挑战就是为分散在各个地域的用户提供对其特定工作区（应用程序和桌面）的即时，可靠，无性能退化的访问。此外，管理者也需要对这些分散到各个地域的工作区进行集中的访问管理。这并不容易。很多客户通过使用Oracle Secure Global Desktop部署工作区来为其数以千计的员工解决这一问题。Oracle Secure Global Desktop能够成为该问题的理想解决方案的优势如下：</p>
+<ul>
+<li><strong>一致的用户体验：</strong> 用户可以使用几乎任何设备，简单地从浏览器访问一个URL，就可以在任何地方来访问他们的工作区。</li>
+<li><strong>无需客户端软件：</strong> IT部门无需在每一个用户终端上维护一份客户端软件，因为用户可以通过任意支持的浏览器来访问Oracle Secure Global Desktop。在桌面设备上无需客户端软件意味着应用程序完全可以在服务器端进行更新，极大的减少了IT环境更新给用户带来的时间损耗。</li>
+<li><strong>移动会话：</strong> 用户可以在Oracle Secure Global Desktop工作区中暂停，继续，或者终止会话。用户可以暂停会话，然后在别的地方从其他设备继续会话（比如，在公司的电脑上暂停会话，然后回到家中用平板设备继续会话）。加之，无需去维护世界各地无数用户桌面上的客户端软件，从总体上极大地削减了IT部门的管理费用。</li>
+<li><strong>简化和内容控制：</strong> Oracle Secure Global Desktop内置了对用户可访问的应用程序和环境的集中管理。具有负载均衡的应用服务器池使得添加，删除，修改服务器等操作对最终用户完全透明。</li>
+<li><strong>性能：</strong> Oracle Secure Global Desktop使用的自适应网络协议（AIP），智能阵列路由算法(IAR)，以及其他各种性能上的优势，使得SGD即使在高延迟的WLAN环境下，也会有很好的性能表现。这非常关键，因为IT部门往往会有分散在世界各地的用户，这些用户会在日常工作中访问多个应用。</li>
+<li><strong>监视：</strong> 通过在Oracle Enterprise Manager Grid Control中创建一个自定义的Oracle Secure Global Desktop基准表，IT部门能够持续的监视多个部署指标，诸如：1）每天的资源利用峰值，2）用户数量，3）性能等，并把这些指标用一张简明的仪表盘来显示出来，便于与管理层和运维部门进行共享。</li>
+</ul>
+<p><img src="/img/post/1.png" alt="Figure1\. Oracle Secure Global Desktop界面和应用程序支持" title="Oracle Secure Global Desktop界面和应用程序支持"></p>
+<h2 id="系统要求和支持">系统要求和支持</h2><p>注意，下面的硬件要求仅作为参考，请不要看成精确的度量标准。</p>
+<p>运行Oracle Secure Global Desktop的服务器环境可以计算如下（注意：对客户端的要求是不一样的，本文后续会涉及）：</p>
+<ul>
+<li>为了安装和运行Oracle Secure Global Desktop需要什么</li>
+<li>每个用户登录和运行应用程序又需要什么</li>
+</ul>
+<p>安装和运行Oracle Secure Global Desktop的要求如下：</p>
+<ul>
+<li>2GB的空闲磁盘空间</li>
+<li>2GB的内存</li>
+<li>1GHz处理器</li>
+<li>网卡</li>
+</ul>
+<p>这是<em>除操作系统本身所需的资源之外</em>的要求，且假设此服务器只用于运行<br>Oracle Secure Global Desktop。为支持用户登录并且运行应用程序，还有以下的要求：</p>
+<ul>
+<li>每个用户约80MB的内存</li>
+<li>每个用户约50MHz的CPU</li>
+</ul>
+<p>作为一个典型的用户，在工作区中有10个应用程序，并且运行两个应用程序的话，需要大约80MB的内存。对于500个用户的部署，其中每个普通用户运行两个应用程序的话，总计可能需要40GB的内存，5-15GHz的CPU。一个典型的应用程序使用大概10-30MHz的CPU，但是实际上CPU的使用率取决于应用程序自身。某些繁忙的应用程序可能会用到50-100MHz的CPU。</p>
+<p>TABLE 1. 支持的安装平台</p>
+<ul>
+<li><p>Oracle Solaris OS on SPARC platforms</p>
+<ul>
+<li>Solaris 10 update 10, Solaris 10 update 11, Solaris 11, 11.1 </li>
+<li>Trusted Extensions versions of the above</li>
+</ul>
+</li>
+<li><p>Oracle Solaris OS on x86 platforms</p>
+<ul>
+<li>Solaris 10 update 10, Solaris 10 update 11, Solaris 11, 11.1</li>
+<li>Trusted Extensions versions of the above</li>
+</ul>
+</li>
+<li><p>Oracle Linux (32-bit and 64-bit)</p>
+<ul>
+<li>5.8, 5.9</li>
+<li>6.2, 6.3, 6.4</li>
+</ul>
+</li>
+</ul>
+<h2 id="虚拟化支持">虚拟化支持</h2><p>受支持的安装平台也会在Type 1 (bare metal) hypervisor 或者Type 2 hypervisor上受到支持。比如，Oracle VM VirtualBox，Oracle VM Server for x86，或者Oracle VM for SPARC (以前称作 Sun Logical Domains or LDoms)。在其他第三方hypervisor上报告的问题会在Oracle的hypervisor进行相应的测试，如果问题不会再现，用户需要联系相应的虚拟化厂商以取得帮助。</p>
+<p>对于Oracle Solaris 10来说，支持在区域（zone）中安装SGD。Oracle Secure Global Desktop可以安装在全局区域（global zone）中，也可以安装在一个或者多个非全局区域（non-global zone）中。但是，<strong>不支持在全局区域和非全局区域中同时安装SGD</strong>。</p>
+<p>在Oracle Solaris 10 OS Trusted Extensions平台中，SGD必须被安装在标记的区域（labeled zone）中。不要在全局区域中安装SGD。</p>
+<h2 id="支持的应用程序和协议">支持的应用程序和协议</h2><p>可以使用Oracle Secure Global Desktop来访问如下类型的应用程序：</p>
+<ul>
+<li>Microsoft Windows</li>
+<li>Oracle Solaris OS，Linux，HP-UX，以及AIX 应用程序服务器的X应用程序</li>
+<li>Oracle Solaris OS，Linux，HP-UX，以及AIX 应用程序服务器的字符应用程序</li>
+<li>IBM大型主机以及AS/400系统的应用程序</li>
+<li>使用HTML和Java技术的Web应用程序</li>
+</ul>
+<p>Oracle Secure Global Desktop支持使用如下的协议来访问应用程序：</p>
+<ul>
+<li>Microsoft Remote Desktop Protocol (RDP)至少是5.2版本</li>
+<li>X11</li>
+<li>HTTP</li>
+<li>HTTPS</li>
+<li>SSH</li>
+<li>Telnet VT, American National Standards Institute (ANSI)</li>
+<li>TN3270E</li>
+<li>TN5250</li>
+</ul>
+<h2 id="网络需求">网络需求</h2><p>使用Oracle Secure Global Desktop的话，必须配置网络。主要要求如下：</p>
+<ul>
+<li>主机必须拥有所有客户机都能够解析到的域名系统（DNS）</li>
+<li>对于任意主机的DNS正向查找和反向查找必须是成功的</li>
+<li>所有的客户机必须使用DNS</li>
+<li>在安装Oracle Secure Global Desktop时，需要输入Oracle Secure Global Desktop服务器的DNS名称，该DNS名称有如下要求：<ul>
+<li>在包含防火墙的网络中，使用<strong>防火墙内部</strong>可识别的DNS名称作为Oracle Secure Global Desktop主机名</li>
+<li>总是使用完整域名。比如：对于example域，请使用us.example.com。</li>
+</ul>
+</li>
+</ul>
+<p>默认情况下，Oracle Secure Global Desktop在DNS请求时使用ANY类型作为查找类型。某些防火墙的配置会拦截此类型的DNS请求。这会导致问题，特别是在使用管理控制台来配置Active Directory认证时。</p>
+<p>从命令行配置时，如果不使用完整域名的话，在一些需要指定Oracle Secure Global Desktop的DNS名称的命令（如‘tarantella array join‘）后，会输出一条警告信息。</p>
+<p><a href="http://www.oracle.com/technetwork/documentation/sgd-193668.html" target="_blank" rel="external">《Oracle Secure Global Desktop 管理指南》</a>描述了Oracle Secure Global Desktop使用的所有端口的详细信息，以及如何配置防火墙。</p>
+<p>下面列出了通常使用的端口。客户端设备必须能够在这些TCP端口上进行TCP/IP连接。</p>
+<ul>
+<li><strong>80</strong> - 客户端与Oracle Secure Global Desktop Web服务器间的HTTP连接。该端口号取决于安装时选择的端口号。</li>
+<li><strong>443</strong> - 客户端与Oracle Secure Global Desktop Web服务器间的HTTPs连接。</li>
+<li><strong>3144</strong> - Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的标准（非安全）连接</li>
+<li><p><strong>5307</strong> - Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的安全连接。安全连接使用SSL。</p>
+<p>  注意：Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的连接<strong>总是安全的</strong>。当首次安装SGD时，TCP端口5307必须开放给SGD。</p>
+</li>
+</ul>
+<p>要运行应用程序，Oracle Secure Global Desktop必须建立到应用程序服务器的TCP/IP连接。应用程序的类型决定了需要开放的TCP端口号，例如：</p>
+<ul>
+<li><strong>22</strong> – 使用SSH的X应用程序以及字符应用程序</li>
+<li><strong>23</strong> – 使用Telnet的Windows，X，以及字符应用程序</li>
+<li><strong>3389</strong> – 使用Windows Terminal Services的Windows应用程序</li>
+<li><strong>6010</strong> 以上 – X 应用程序</li>
+</ul>
+<p>在使用Oracle Secure Global Desktop时，客户端设备永远不会直接连接到应用程序服务器。取而代之，客户端设备先会使用HTTP或者HTTPs以及Oracle的自适应网络协议（AIP）来连接到Oracle Secure Global Desktop。之后，Oracle Secure Global Desktop才会代替用户连接到应用程序服务器。</p>
+<p>客户端设备通过如下的方式连接到Oracle Secure Global Desktop服务器：</p>
+<ul>
+<li><strong>HTTP连接</strong>： 这是到Oracle Secure Global Desktop的Web服务器的连接。在Oracle Secure Global Desktop的Web服务，Oracle Secure Global Desktop的认证中使用，用以显示工作区。</li>
+<li><strong>AIP连接</strong>: 这是在Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的连接。用于显示应用程序。</li>
+</ul>
+<p>为保证这些连接的安全性，请将Oracle Secure Global Desktop的Web服务器配置为安全Web服务器(HTTPs)，并且开启Oracle Secure Global Desktop安全Web服务。</p>
+<pre><code>注意：SGD Gateway可以在客户端与Oracle Secure <span class="built_in">Global</span> Desktop服务器间提供更高级别的安全性。在使用SGD Gateway时，客户端设备不会直接连接到Oracle Secure <span class="built_in">Global</span> Desktop服务器上。
+</code></pre><p>通过Oracle Secure Global Desktop服务器与应用程序服务器间的连接，可以用来启动应用程序服务器上的应用程序，从应用程序中收发数据，如键盘按下，显示更新等。</p>
+<p>Oracle Secure Global Desktop与应用程序服务器间的安全级别取决于应用程序服务器的类型及其所使用的协议。</p>
+<p>当使用Telnet协议时，所有的通信和密码传输都是以明文方式进行的。为保证到UNIX或者Linux应用程序服务器连接的安全性，请使用SSH。SSH会加密所有Oracle Secure Global Desktop主机间的连接，而且密码在传输前也会被加密。默认情况下，Oracle Secure Global Desktop会通过使用X认证来阻止未认证用户对X显示的访问，从而保证X显示的安全性。</p>
+<p>Windows应用程序使用微软远程桌面协议（Microsoft Remote Desktop，RDP）。即，所有的通信过程都是加密过的，所以到Windows应用程序服务器的连接也是安全的。</p>
+<p>安全水平还取决于运行Web应用程序的Web服务器，如下：</p>
+<ul>
+<li>HTTP Web服务器 - 所有的通信都没有加密</li>
+<li>HTTPS Web服务器 - 所有的通信都有加密</li>
+</ul>
+<p>为了在Web应用程序服务器上使用安全连接，请使用HTTPS Web服务器。</p>
+<p>为了能通过代理服务器连接到Oracle Secure Global Desktop，客户端设备可能会需要配置代理服务器的地址和端口号。Oracle Secure Global Desktop中也可能需要进行配置，以便能为客户端提供关于服务器端代理服务器的信息。</p>
+<h2 id="Microsoft_Windows_远程桌面服务">Microsoft Windows 远程桌面服务</h2><p>Oracle Secure Global Desktop并不包含Microsoft Windows远程桌面服务的许可证。如果需要访问由Microsoft操作系统产品提供的远程桌面服务器功能，还需要从Microsoft购买额外的许可证。请先咨询你所使用的Microsoft操作系统产品相关的许可证协议，从而决定需要购买哪种类型的许可证。</p>
+<p>Oracle Secure Global Desktop支持如下版本Microsoft Windows的RDP连接：</p>
+<ul>
+<li>Windows Server 2008 R2</li>
+<li>Windows Server 2008</li>
+<li>Windows Server 2003 R2</li>
+<li>Windows Server 2003</li>
+<li>Windows 7 SP1</li>
+<li>Windows XP Professional SP3</li>
+</ul>
+<p>在Windows 7和Windows XP平台中，只支持Windows桌面会话功能。单独运行应用程序是不被支持的。显然，在这两个平台下，也不支持无缝窗口的应用程序。</p>
+<p>Oracle Secure Global Desktop 支持如下Windows远程桌面服务功能：</p>
+<ul>
+<li>音频录制</li>
+<li>音频重定向</li>
+<li>剪贴板重定向</li>
+<li>COM端口映射</li>
+<li>压缩</li>
+<li>驱动器重定向</li>
+<li>多显示器</li>
+<li>网络安全性(加密级别)</li>
+<li>会话目录</li>
+<li>智能卡设备重定向</li>
+<li>时区重定向</li>
+<li>Windows打印机映射</li>
+</ul>
+<p>Windows Server 2008 R2 和 Windows 7 支持最高为 44.1 kHz 的音频位速率。默认情况下，SGD 支持最高为 22.05kHz 的位速率。要支持最高为 44.1 kHz 的位速率，请在管理控制台中依次转至 “Global Settings”（全局设置）和 “ClientDevice”（客户端设备）选项卡，并选择 “Windows Audio: High Quality”（Windows 音频：高质量）选项。</p>
+<p>Oracle Secure Global Desktop在Windows远程桌面服务器会话中支持8位，16位，24位和32位的色深。</p>
+<p>在Windows Server 2008，Windows Server 2008 R2和Windows 7平台中，也可以使用32位色深。为了显示32位色，客户端设备也必须能够显示32位色。</p>
+<p>15位色深是不支持的。如果远程桌面服务器中指定了这样的色深，Oracle Secure Global Desktop会自动将色深调整为8位。</p>
+<p>在Oracle Secure Global Desktop中，只能使用低级别的，或是与客户端相兼容的，或是高级别的加密。Oracle Secure Global Desktop不支持美国联邦信息处理标准 (Federal Information Processing Standards，FIPS)级别的加密。</p>
+<p>从Microsoft Windows Server 2003开始，可以在服务器认证时使用传输层安全性（TLS）来加密终端服务器的通信过程。Oracle Secure Global Desktop不支持使用TLS。</p>
+<h2 id="X和字符应用程序">X和字符应用程序</h2><p>为了运行X应用程序和字符应用程序，Oracle Secure Global Desktop必须能够连接到应用程序服务器。Oracle Secure Global Desktop支持SSH和Telnet连接方式。SSH是安全连接的最佳选择。</p>
+<p>Oracle Secure Global Desktop支持SSH v2或以上版本。由于SSH版本兼容性的问题，请在Oracle Secure Global Desktop服务器和应用程序服务器之间使用同一主要版本的SSH，v2或者v3。</p>
+<p>如果使用SSH连接到X应用程序，还必须开启X转发。X转发功能的开启，可以通过配置SSH来实现，也可以在Oracle Secure Global Desktop中进行配置来实现。</p>
+<p>Oracle Secure Global Desktop支持X安全性扩展。X安全性扩展只能工作在支持 <code>-Y</code> 选项的SSH版本中。对于OpenSSH来说，可能是版本3.8或以上版本。</p>
+<p>Oracle Secure Global Desktop中包含了一个基于X11R7.6的X服务器。SGD支持如下X扩展的X应用程序：</p>
+<ul>
+<li>BIG-REQUESTS</li>
+<li>BLINK</li>
+<li>DAMAGE</li>
+<li>DEC-XTRAP</li>
+<li>DOUBLE-BUFFER</li>
+<li>Extended-Visual-Information</li>
+<li>GLX</li>
+<li>MIT-SCREEN-SAVER</li>
+<li>MIT-SHM</li>
+<li>MIT-SUNDRY-NONSTANDARD</li>
+<li>NATIVE-WND</li>
+<li>RDP</li>
+<li>RECORD</li>
+<li>RENDER</li>
+<li>SCO-MISC</li>
+<li>SECURITY</li>
+<li>SGI-GLX</li>
+<li>SHAPE</li>
+<li>SYNC</li>
+<li>TOG-CUP</li>
+<li>X-Resource</li>
+<li>XC-APPGROUP</li>
+<li>XC-MISC</li>
+<li>XFIXES</li>
+<li>XFree86-Bigfont</li>
+<li>XTEST</li>
+<li>XTTDEV</li>
+<li>KEYBOARD</li>
+<li>RANDR</li>
+<li>XINERAMA</li>
+</ul>
+<p>不支持下面的X扩展：</p>
+<ul>
+<li>XVIDEO</li>
+</ul>
+<p>默认情况下，除了C和POSIX之外的locale语言设置下，Oracle Secure Global Desktop为所有UNIX平台的应用程序运行一个输入法（IM）程序。</p>
+<h2 id="SGD增强模块">SGD增强模块</h2><p>SGD增强模块是Oracle Secure Global Desktop中一个软件组件，该组件能够安装在应用程序服务器上，当通过Oracle Secure Global Desktop显示和使用应用程序时提供如下增强机能：</p>
+<ul>
+<li>高级负载均衡</li>
+<li>客户端驱动器映射(只限于UNIX或者Linux平台)</li>
+<li>无缝窗口(只限于Windows平台)</li>
+<li>音频支持 (只限于UNIX或者Linux平台)</li>
+</ul>
+<p>下表列出了SGD增强模块支持的安装平台：</p>
+<p>TABLE 2. SGD增强模块支持的安装平台</p>
+<ul>
+<li><p>Microsoft Windows (64位)</p>
+<ul>
+<li>Windows Server 2008 R2</li>
+</ul>
+</li>
+<li><p>Microsoft Windows (32位和64位)</p>
+<ul>
+<li>Windows Server 2008</li>
+<li>Windows Server 2003 R2</li>
+<li>Windows Server 2003</li>
+</ul>
+</li>
+<li><p>Oracle Solaris OS on SPARC platforms</p>
+<ul>
+<li>Solaris 8, 9, 10, 11, 11.1</li>
+<li>Trusted Extensions versions of the above</li>
+</ul>
+</li>
+<li><p>Oracle Solaris OS on x86 platforms </p>
+<ul>
+<li>Solaris 10, 11, 11.1</li>
+<li>Trusted Extensions versions of the above</li>
+</ul>
+</li>
+<li><p>Oracle Linux (32位和64位)</p>
+<ul>
+<li>5, 6</li>
+</ul>
+</li>
+<li><p>SUSE Linux Enterprise Server (32位和64位)</p>
+<ul>
+<li>10, 11</li>
+</ul>
+</li>
+</ul>
+<h2 id="SGD_Web服务器">SGD Web服务器</h2><p>SGD Web服务器由Apache Web服务器和一个Tomcat JavaServer Pages(JSP)容器组成，为使用Oracle Secure Global Desktop而预先进行了配置。</p>
+<p>TABLE 3. SGD Web服务器组件</p>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>SGD5.0中的组件版本</th>
+<th>SGD4.7中的组件版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apache HTTP Server</td>
+<td>2.2.24</td>
+<td>2.2.22</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td>1.0.0.k</td>
+<td>1.0.0.j</td>
+</tr>
+<tr>
+<td>mod_jk</td>
+<td>1.2.37</td>
+<td>1.2.37</td>
+</tr>
+<tr>
+<td>Apache Jakarta Tomcat</td>
+<td>7.0.37</td>
+<td>7.0.29</td>
+</tr>
+<tr>
+<td>Apache Axis</td>
+<td>1.4</td>
+<td>1.4</td>
+</tr>
+</tbody>
+</table>
+<p>Apache Web服务器中包含了所有标准Apache模块作为共享对象。</p>
+<p>Tomcat JSP容器中Java虚拟机（JVM）的最小堆内存配置是256MB。</p>
+<h3 id="支持的身份认证机制">支持的身份认证机制</h3><p>对Oracle Secure Global Desktop用户作身份认证时支持如下的身份认证机制：</p>
+<ul>
+<li>轻量级目录访问协议(LDAP) v3</li>
+<li>Microsoft Active Directory</li>
+<li>Network Information Service (NIS)</li>
+<li>Microsoft Windows域</li>
+<li>RSA SecurID</li>
+<li>Web服务器认证(HTTP/HTTPS 基本认证), 包含客户端证书的PKI</li>
+</ul>
+<h3 id="SGD_Gateway">SGD Gateway</h3><p>SGD Gateway是部署在隔离区（DMZ）中，Oracle Secure Global Desktop阵列之前的一个代理服务器。它使得Oracle Secure Global Desktop阵列能够部署在组织的内部网络之中。此外，在所有的连接到达阵列中Oracle Secure Global Desktop服务器之前，这些连接能够在DMZ中被认证。</p>
+<p>SGD Gateway负责管理HTTP连接的负载均衡，因此不再需要使用Oracle Secure Global Desktop中内置的JSP负载均衡页面。</p>
+<p>SGD Gateway由如下组件组成：</p>
+<ul>
+<li>路由代理器：是一个基于Java技术的应用程序，负责到Oracle Secure Global Desktop服务器的自适应网络协议(AIP)数据连接和Web Socket连接的路由功能。路由代理器的秘钥库中包含了SGD Gateway安全连接的证书和私钥。路由代理器使用路由令牌来管理AIP连接。路由令牌是一条经过签名和加密的信息，该令牌能够识别到Oracle Secure Global Desktop服务器路由的原地址和目的地址。</li>
+<li>反向代理器：是一个Apache Web服务器，配置成反向代理模式。反向代理器也负责执行HTTP连接的负载均衡功能。</li>
+</ul>
+<p><img src="/img/post/SGD-Architecture.png" alt="Figure2\. 使用SGD Gateway的Oracle Secure Global Desktop部署实例" title="使用SGD Gateway的Oracle Secure Global Desktop部署实例"></p>
+<p>下表列出了受支持的SGD Gateway的安装平台：</p>
+<p>TABLE 4. 受支持的SGD Gateway的安装平台</p>
+<ul>
+<li><p>Oracle Solaris OS on SPARC platforms</p>
+<ul>
+<li>Solaris 10 update 10, Solaris 10 update 11</li>
+<li>Solaris 11, 11.1</li>
+<li>Trusted Extensions versions of the above</li>
+</ul>
+</li>
+<li><p>Oracle Solaris OS on x86 platforms</p>
+<ul>
+<li>Solaris 10 update 10, Solaris 10 update 11</li>
+<li>Solaris 11, 11.1</li>
+<li>Trusted Extensions versions of the above</li>
+</ul>
+</li>
+<li><p>Oracle Linux (32位和64位)</p>
+<ul>
+<li>5.8, 5.9</li>
+<li>6.2, 6.3, 6.4</li>
+</ul>
+</li>
+</ul>
+<p>默认情况下，SGD Gateway被配置成最大支持同时100个HTTP连接，同时512个自适应网络协议(AIP)连接和同时512个Web Socket连接。《Oracle Secure Global Desktop Gateway管理指南》的Appendix C中详细描述了如何对SGD Gateway进行调整以支持相应数量的用户。</p>
+<p>Oracle Secure Global Desktop 服务器与SGD Gateway整合部署时，有如下需求：</p>
+<ul>
+<li>安全模式：默认情况下，SGD Gateway使用安全连接连接到Oracle Secure Global Desktop服务器。因此必须在Oracle Secure Global Desktop服务器上开启安全连接。不能开启防火墙转发功能。</li>
+<li>整合模式：在整合模式下，Oracle Secure Global Desktop客户端不能配置成连接到Oracle Secure Global Desktop服务器。</li>
+<li>Oracle Secure Global Desktop版本：最好使用与SGD Gateway相同版本（或高版本）的Oracle Secure Global Desktop服务器。</li>
+<li>时钟同步：Oracle Secure Global Desktop服务器与SGD Gateway的系统时钟同步非常重要。请使用Network Time Protocol (NTP) 或者 <code>rdate</code> 命令来保证时钟同步。</li>
+</ul>
+<p>随SGD Gateway提供的Apache Web服务器版本是Apache 2.2.24。它包含了反向代理和负载均衡的标准Apache模块。这些模块作为动态共享对象（DSO）模块被安装进来。</p>
+<p>SGD Gateway支持如下SSL连接的加密方式：</p>
+<ul>
+<li>SSL_RSA_WITH_RC4_128_MD5</li>
+<li>SSL_RSA_WITH_RC4_128_SHA</li>
+<li>TLS_RSA_WITH_AES_128_CBC_SHA</li>
+<li>TLS_RSA_WITH_AES_256_CBC_SHA</li>
+<li>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</li>
+<li>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</li>
+<li>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</li>
+<li>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</li>
+<li>SSL_RSA_WITH_3DES_EDE_CBC_SHA</li>
+<li>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</li>
+<li>SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA</li>
+<li>SSL_RSA_WITH_DES_CBC_SHA</li>
+</ul>
+<p>也支持如下的加密方式，但是这些方式必须由用户来配置，请参考《Oracle Secure Global Desktop Gateway管理指南》。</p>
+<ul>
+<li>SSL_DHE_RSA_WITH_DES_CBC_SHA</li>
+<li>SSL_DHE_DSS_WITH_DES_CBC_SHA</li>
+<li>SSL_RSA_EXPORT_WITH_RC4_40_MD5</li>
+<li>SSL_RSA_EXPORT_WITH_DES40_CBC_SHA</li>
+<li>SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA</li>
+<li>SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA</li>
+</ul>
+<h2 id="阵列的故障转移">阵列的故障转移</h2><p>阵列是指一组共享配置信息的Oracle Secure Global Desktop服务器集合。</p>
+<p>由于阵列中的Oracle Secure Global Desktop服务器之间会共享关于用户会话以及应用程序会话的信息，所以在Oracle Secure Global Desktop主机之间功保持时钟同步很重要。请使用Network Time Protocol (NTP)软件或者<code>rdate</code>命令来保证所有Oracle Secure Global Desktop主机的时钟同步。</p>
+<p>Oracle Secure Global Desktop阵列的故障转移默认是未开启的。</p>
+<p>当阵列的故障转移启用时，在主服务器出现故障时，阵列会进行自我修复。</p>
+<p>在阵列故障转移中，阵列中的辅助服务器会自动提升为主服务器。</p>
+<p>在故障转移之后，Oracle Secure Global Desktop支持阵列的自动恢复。</p>
+<p>故障转移过程，及其随后的恢复到原来阵列状态的过程叫做<em>阵列回弹</em>。</p>
+<p>只有当要加入阵列的服务器时钟与阵列中其他服务器上的时钟同步时，才可以进行阵列添加操作。如果时间差超过1分钟的话，阵列添加操作会失败。</p>
+<h2 id="支持的Active_Directory版本">支持的Active Directory版本</h2><p>Active Directory认证和LDAP认证时，支持如下版本的Active Directory：</p>
+<ul>
+<li>Windows Server 2003</li>
+<li>Windows Server 2003 R2</li>
+<li>Windows Server 2008</li>
+<li>Windows Server 2008 R2</li>
+<li>受支持的 LDAP 目录</li>
+</ul>
+<p>Oracle Secure Global Desktop支持标准LDAP协议 v3。可以使用与LDAP v3兼容的任何目录服务器来作LDAP身份认证。但是，Oracle Secure Global Desktop仅支持如下版本的目录服务器：</p>
+<ul>
+<li>Oracle Directory Server Enterprise Edition version 11gR1</li>
+<li>Microsoft Active Directory on Windows Server 2003, 2003 R2, 2008, and 2008 R2</li>
+<li>Oracle Internet Directory 11gR1 (all 11.1.1.x.0 releases)</li>
+</ul>
+<p>其他目录服务器可能会正常工作，但是不被官方支持。</p>
+<h2 id="支持的SecurID版本">支持的SecurID版本</h2><p>Oracle Secure Global Desktop可以与RSA Authentication Manager (也就是之前的ACE/Server)的版本4，5，6，以及7一起工作。Oracle Secure Global Desktop支持系统生成的PIN和用户创建的PIN。</p>
+<h2 id="SSL支持">SSL支持</h2><p>Oracle Secure Global Desktop支持TLS v1.0 和 SSL v3.0。</p>
+<p>Oracle Secure Global Desktop支持Privacy Enhanced Mail (PEM) Base 64-encoded X.509证书。这种证书的结构如下：</p>
+<pre><code><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">BEGIN</span> <span class="comment">CERTIFICATE</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
+<span class="string">.</span><span class="string">.</span><span class="string">.</span><span class="comment">certificate</span><span class="string">.</span><span class="string">.</span><span class="string">.</span>
+<span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">END</span> <span class="comment">CERTIFICATE</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
+</code></pre><p>Oracle Secure Global Desktop支持SSL证书的Subject Alternative Name(subjectAltName)扩展。</p>
+<p>Oracle Secure Global Desktop也支持使用 <code>*</code>通配符来匹配域名的开始部分，例如，<code>*.example.com</code>。</p>
+<p>Oracle Secure Global Desktop包含了对很多认证机构（CA）的支持。</p>
+<p>在<code>/opt/tarantella/etc/data/cacerts.txtfile</code>文件中包含了SGD支持的所有CA证书的X.500 Distinguished Names (DNs) 和 MD5签名。对于未支持的CA签发的SSL证书，需要做额外的配置才能被支持。中级CA机构也是受支持的，但是如果认证链中的存在任何由未支持CA签发的证书，就需要做额外的配置。</p>
+<p>Oracle Secure Global Desktop支持使用外部硬件SSL加速器，但是需要额外的配置。</p>
+<p>Oracle Secure Global Desktop支持如下加密方式：</p>
+<ul>
+<li>RSA_WITH_AES_256_CBC_SHA</li>
+<li>RSA_WITH_AES_128_CBC_SHA</li>
+<li>RSA_WITH_3DES_EDE_CBC_SHA</li>
+<li>RSA_WITH_RC4_128_SHA</li>
+<li>RSA_WITH_RC4_128_MD5</li>
+<li>RSA_WITH_DES_CBC_SHA</li>
+</ul>
+<h2 id="SGD_客户端">SGD 客户端</h2><p>下表列出了SGD客户端支持的客户端平台。同时也包含了在整合模式下使用SGD客户端时，受支持的浏览器和操作系统平台。</p>
+<p>TABLE 6. 受支持的客户端平台</p>
+<ul>
+<li><p>iOS 6.x on Apple iPad 2, 3, 4, mini</p>
+<ul>
+<li>Safari</li>
+</ul>
+</li>
+<li><p>Microsoft Windows 8 (32-bit and 64-bit) Desktop mode only</p>
+<ul>
+<li>Internet Explorer 10</li>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Microsoft Windows 7 (32-bit and 64-bit)</p>
+<ul>
+<li>Internet Explorer 9</li>
+<li>Internet Explorer 8</li>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Microsoft Windows XP Professional SP3 (32-bit)</p>
+<ul>
+<li>Internet Explorer 7, 8</li>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Sun Ray Software on Oracle Solaris (X86 and SPARC platforms)</p>
+</li>
+<li><p>Solaris 10 update 10, 10 update 11, Solaris 11, 11.1</p>
+<ul>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Sun Ray software on Oracle Linux (32-bit and 64-bit)</p>
+</li>
+<li><p>Oracle Linux 5.8, 5.9, 6.2, 6.3, 6.4</p>
+<ul>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Mac OS X 10.7 and 10.8</p>
+<ul>
+<li>Safari 5</li>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Oracle Linux 5.8, 5.9, 6.2, 6.3, 6.4 (32-bit and 64-bit)</p>
+<ul>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+<li><p>Ubuntu 10.04 and 12.04 (32-bit and 64-bit)</p>
+<ul>
+<li>Mozilla Firefox 17.0.2:ESR, 18</li>
+<li>Chrome 24</li>
+</ul>
+</li>
+</ul>
+<p>无论是在Mac OS X上还是iPad客户端设备上，Oracle Secure Global Desktop的管理员控制台都不支持Safari浏览器。</p>
+<p>不支持测试版或者预览版的浏览器。</p>
+<p>浏览器中必须启用JavaScript支持，必须能接受cookie。</p>
+<p>在桌面环境中，为了支持如下机能，浏览器还必须启用对Java技术的支持：</p>
+<ul>
+<li>SGD客户端的自动下载和安装</li>
+<li>从用户默认的浏览器中获取代理服务器设置</li>
+</ul>
+<p>如果Java技术不可用的话，可以手动下载和安装SGD客户端。手动安装包在所有支持的客户端平台下都可以使用。</p>
+<p>作为Java技术的插件，支持的版本是1.6和1.7。</p>
+<p>在使用如iPad的平板设备时，Oracle Secure Global Desktop使用了基于HTML5的客户端来显示应用程序和桌面，这时会在一个新的标签页中显示（比如，在Safari浏览器中）。Oracle Secure Global Desktop的工作区（webtop）也可以通过Safari浏览器来访问。</p>
+<p>当用户在同一设备和浏览器上开启多个用户会话时，用户会话会进行合并，而不是用新会话顶替现有会话。对于这种用户会话的参与方式，浏览器必须配置为接受永久cookie。如果不允许永久cookie的话，用户会话总会被关闭，这会导致应用程序窗口消失。</p>
+<p>为了最佳的效果，客户端设备必须配置成至少256色。</p>
+<p>SGD客户端和工作区支持如下多国语言：</p>
+<ul>
+<li>English</li>
+<li>French</li>
+<li>German</li>
+<li>Italian</li>
+<li>Japanese</li>
+<li>Korean</li>
+<li>Portuguese (Brazilian)</li>
+<li>Spanish</li>
+<li>简体中文</li>
+<li>繁体中文</li>
+</ul>
+<h2 id="支持的代理服务器">支持的代理服务器</h2><p>在通过代理服务器连接到Oracle Secure Global Desktop时，代理服务器必须支持隧道功能。可以使用HTTP，Secure (SSL)或者SOCKS v5的代理服务器。对于SOCKS v5的代理服务器来说，Oracle Secure Global Desktop支持基本认证和No Authentication Required方式。在服务器端无需任何配置。</p>
+<h2 id="打印支持">打印支持</h2><p>Oracle Secure Global Desktop支持两种打印方式：PDF打印和打印机直接打印。</p>
+<ul>
+<li>对于PDF打印来说，Oracle Secure Global Desktop使用Ghostscript来把打印任务转换为PDF格式的文件。Ghostscript的发行版中必须包含ps2pdf程序。为保证最佳效果，请安装最新版本的Ghostscript。</li>
+<li>Oracle Secure Global Desktop支持客户端设备上的如PostScript，Printer Command Language (PCL)以及纯文本打印机的直接打印。Oracle Secure Global Desktop的<code>tta_print_converter</code> 脚本会为客户端打印机正确地格式化打印任务。<code>tta_print_converter</code> 脚本使用Ghostscript把Postscript转化成PCL。为支持这种转换过程，Oracle Secure Global Desktop服务器上必须先安装Ghostscript。为了保证最佳效果，请下载和安装其他需要的字体。</li>
+</ul>
+<p>为了使用PDF打印，在客户端设备上必须安装PDF查看器。Oracle Secure<br>Global Desktop默认支持如下PDF查看器:</p>
+<p>TABLE 7. 受支持的PDF查看器</p>
+<ul>
+<li><p>Microsoft Windows platforms</p>
+<ul>
+<li>Adobe Reader, at least version 4.0</li>
+</ul>
+</li>
+<li><p>Oracle Solaris OS on SPARC platforms</p>
+<ul>
+<li>Adobe Reader (acroread)</li>
+<li>GNOME PDF Viewer (gpdf)</li>
+</ul>
+</li>
+<li><p>Oracle Solaris OS on x86 platforms</p>
+<ul>
+<li>GNOME PDF Viewer (gpdf)</li>
+</ul>
+</li>
+<li><p>Linux</p>
+<ul>
+<li>GNOME PDF Viewer (gpdf)</li>
+<li>Evince Document Viewer (evince)</li>
+<li>X PDF Reader (xpdf)</li>
+</ul>
+</li>
+<li><p>Mac OS X</p>
+<ul>
+<li>Preview App (/Applications/Preview.app)</li>
+</ul>
+</li>
+</ul>
+<p>在Windows应用程序服务器上默认的PDF打印驱动是<em>HP Color LaserJet 2800 Series PS</em>。在平板设备上，会使用浏览器插件来显示PDF文件。</p>
+<h2 id="支持的智能卡">支持的智能卡</h2><p>Oracle Secure Global Desktop中可以使用与任何Microsoft远程桌面服务支持的，与PC智能卡(PC/SC)兼容的智能卡和读卡器。</p>
+<h2 id="附录：Oracle_Secure_Global_Desktop整体构架图">附录：Oracle Secure Global Desktop整体构架图</h2><p><img src="/img/post/SGD-Architecture-details.png" alt="Oracle Secure Global Desktop整体构架图" title="Oracle Secure Global Desktop整体构架图"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="概要">概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
+<p>如果你还不知道Oracle Secure Glo]]>
+    </summary>
+    
+      <category term="aip" scheme="http://xintq.github.io/tags/aip/"/>
+    
+      <category term="application provision" scheme="http://xintq.github.io/tags/application-provision/"/>
+    
+      <category term="rdp" scheme="http://xintq.github.io/tags/rdp/"/>
+    
+      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+    
+      <category term="sizing" scheme="http://xintq.github.io/tags/sizing/"/>
+    
+      <category term="ssh" scheme="http://xintq.github.io/tags/ssh/"/>
+    
+      <category term="应用程序供应" scheme="http://xintq.github.io/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/"/>
+    
+      <category term="部署" scheme="http://xintq.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
+    
+      <category term="配置" scheme="http://xintq.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Oracle Secure Global Desktop (SGD) 介绍]]></title>
+    <link href="http://xintq.github.io/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://xintq.github.io/2015/05/08/Oracle Secure Global Desktop介绍/</id>
+    <published>2015-05-08T09:04:37.000Z</published>
+    <updated>2015-05-28T13:56:14.000Z</updated>
+    <content type="html"><![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Global Desktop可以工作在各种流行的客户端设备上，包括Windows PC，Mac，Linux PC，以及Apple iPad等平板设备和基于Android的设备。通过该软件，用户可以使用几乎任何设备，在任何地方安全地开始工作。同时，也给管理员提供了一个管理工具，用来控制到数据中心内部运行的应用程序和桌面环境的访问过程。</em></p>
+<h2 id="关键特性">关键特性</h2><ul>
+<li>安全远程访问解决方案</li>
+<li>随时随地为几乎任何设备提供云端托管的应用程序和桌面的访问</li>
+<li>支持运行在Windows，Oracle Solaris，Linux，HP-UX，AIX，AS400和大型主机服务器的应用程序</li>
+<li>支持包括Windows PC，Mac，Linux PC，iPad和基于Android的平板设备</li>
+<li>基于浏览器的，可以在LAN和WAN上的快速简洁的访问</li>
+<li>SGD Gateway提供了可穿越防火墙的安全便捷的访问</li>
+<li>在不同设备和地点之间的无缝会话迁移</li>
+<li>高强度身份认证，安全连接，受控的访问</li>
+<li>与Oracle Access Manager集成的单点登录（SSO），让用户只通过一次登录访问多个应用程序，简化密码管理</li>
+<li>通过Oracle Enterprise Manager Cloud Control对多个SGD部署进行集中监视</li>
+<li>通过了Oracle E-Business Suite，Oracle Siebel CRM，Oracle Primavera等Oracle应用程序的使用认证</li>
+<li>与Oracle的Exalogic Elastic Cloud系统取得了认证，为共生于Exalogic的应用程序提供了安全的访问，提供了高响应的用户体验</li>
+</ul>
+<h2 id="主要优势">主要优势</h2><ul>
+<li>在平板设备上免去了下载，配置和维护客户端的问题，也不需要在PC，Mac上事前安装任何客户端软件 —— 你所需要的仅仅是一个浏览器</li>
+<li>保证了到数据中心的安全访问 —— 使用内置的安装网关，不再需要VPN</li>
+<li>通过一个门户页面，简洁的访问所有运行在数据中心的Windows，Oracle Solaris，Linux，Oracle的WBE应用程序，HP-UX，AIX，AS400和大型主机服务器的应用程序</li>
+<li>使用Oracle VM 3导入Oracle VM模板实现一键部署和开箱即用，避免了单独安装和配置Oracle Secure Global Desktop的麻烦</li>
+</ul>
+<h2 id="安全、通用、简洁的远程访问解决方案">安全、通用、简洁的远程访问解决方案</h2><p>最终用户有随时随地使用任何设备工作的需求，而各个企业也有保护企业数字资产和加速应用程序部署的需求。在这种情况下，传统的基于笔记本电脑和PC的业务构架对于一些企业和组织来说不再能满足需求。在目前的消费市场中，越来越多的用户将数据迁移到云端，伴随这一浪潮，越来越多的企业也正在将应用程序和数据从终端设备中迁移到数据中心内部，更容易地保护那些应用程序和数据。在这种构架之下，Oracle Secure Global Desktop为用户提供了一种安全的远程访问方法，用户可以在任何地方使用几乎任何设备来访问运行在数据中心内部的Windows，Linux，UNIX以及大型主机的应用程序。</p>
+<p>这种服务器托管的应用程序模型对于用户和IT来说益处颇多。</p>
+<h2 id="有益于用户">有益于用户</h2><p>Oracle Secure Global Desktop支持用户从企业防火墙内部和外部到应用程序的连接。这意味着用户可以自由地在任何地点开始工作。现在，这种自由现在被扩大到设备的选择上。Oracle Secure Global Desktop支持的客户端设备非常广泛，用户可以使用他们选择的任何设备来使用SGD，而无需担心客户端平台。举例来说，用户可以使用iPad来访问Windows应用程序，或者从Windows的笔记本电脑上访问Linux应用程序。而且，由于Oracle Secure Global Desktop提供了持续会话的功能，用户可以在不同设备之间来回切换，SGD能够在不同设备上保持会话而不受影响。</p>
+<h2 id="有益于IT">有益于IT</h2><p>对于IT管理者来说，Oracle Secure Global Desktop是一个很吸引人的选择。这一构架意味着他们可以在虚拟客户端上部署应用程序而无需在意真实的终端设备。例如，如果某个WEB应用程序需要一个特定版本的浏览器，Java运行时环境，或者插件，那么IT人员可以在服务器端配置这样一个受控的环境。</p>
+<p>而且，由于服务器都部署在IT管控下的安全的环境中，所以企业的数据也会更加安全地被保护起来。</p>
+<p>Oracle Secure Global Desktop给予IT管理者完全的控制权力。用户只能运行那些由管理员通过Oracle Secure Global Desktop管理控制台发布的应用程序。同时，通过与诸如Active Directory或者Oracle Unified Directory等用户目录的集成，应用程序可以发布给符合各种高级查询条件的用户群。</p>
+<p>管理员甚至可以控制应用程序的会话。类似于复制粘贴，打印，驱动器映射等功能都可以进行配置，从而实现对应用程序数据的更加严格地控制。</p>
+<p>此外，Oracle Secure Global Desktop对于可用的带宽进行了优化，它会智能地调整发送到客户端设备的数据量。无论用户通过本地局域网访问还是使用远程的Internet，都可以给用户提供一致的用户体验。为满足严格安全需求而设计，Oracle Secure Global Desktop大力使用了开放标准技术，如HTML5，而且提供了工业级强度的安全性和加密方式。它可以与企业级标准技术集成，比如轻量级目录访问协议（LDAP），UNIX认证，PAM认证模块，Oracle Internet Directory，以及Windows Active Directory等。Oracle Secure Global Desktop也提供了免费的安全网关，允许任意位置的访问，有助于减少VPN基础构架的维护费用。</p>
+<p>Oracle Secure Global Desktop与Oracle的WEB应用程序都进行了使用认证，包括Oracle E-Business Suite，Oracle Siebel CRM，Oracle Primavera等等，简化了对应用客户端，特别是对Oracle应用程序的访问。它也与Oracle的Exalogic Elastic Cloud系统取得了认证，为共生于Exalogic的应用程序提供了安全的访问，提供了高响应的用户体验。此外，在安装和配置Oracle Secure Global Desktop时，作为可选方案，Oracle也提供了Oracle VM模板。通过使用该Oracle VM模板，可以在Oracle虚拟机上实现开箱即用，免去了对操作系统和Oracle Secure Global Desktop的安装和基本配置过程。</p>
+<h2 id="Oracle_Secure_Global_Desktop技术要求">Oracle Secure Global Desktop技术要求</h2><h3 id="支持的应用程序类型">支持的应用程序类型</h3><ul>
+<li>Windows应用程序和桌面</li>
+<li>Oracle Solaris，Linux，HP-UX和AIX的字符应用程序</li>
+<li>Oracle Solaris，Linux，HP-UX和AIX的字符X应用程序</li>
+<li>IBM大型主机和AS/400应用程序</li>
+<li>WEB应用程序（使用HTML和Java技术）</li>
+</ul>
+<h3 id="支持的协议">支持的协议</h3><ul>
+<li>Microsoft 远程桌面协议（RDP）</li>
+<li>HTTP</li>
+<li>HTTPS</li>
+<li>Secure Shell（SSH）</li>
+<li>Telnet VT，ANSI</li>
+<li>TN3270E</li>
+<li>TN5250</li>
+</ul>
+<h3 id="支持的认证机制">支持的认证机制</h3><ul>
+<li>LDAP v3</li>
+<li>Microsoft Active Directory</li>
+<li>RSA SecurID（双因子认证）</li>
+<li>Oracle Unified Directory</li>
+<li>Network Information Service（NIS）</li>
+<li>UNIX用户认证PAM</li>
+<li>Windows域</li>
+<li>HTTP和HTTPS，包括基于客户端证书的PKI</li>
+</ul>
+<h2 id="服务器需求（SGD的安装平台）">服务器需求（SGD的安装平台）</h2><h3 id="硬件">硬件</h3><ul>
+<li>处理器：1GHZ</li>
+<li>内存：2GB + 每个活动用户80MB（正常使用）</li>
+<li><p>磁盘空间：2GB + 安装时的300MB额外空间</p>
+<p>  注意：以上是除了操作系统需求之外的内存和磁盘空间要求。</p>
+</li>
+</ul>
+<h3 id="软件">软件</h3><ul>
+<li><p>操作系统：</p>
+<ul>
+<li>Oracle Linux 5.8+</li>
+<li>Oracle Linux 6.2+</li>
+<li>Oracle Solaris 10+</li>
+<li>Oracle Solaris 10(8/11) with Trusted Extensions以及Solaris 10+</li>
+<li>Oracle Solaris 11+</li>
+<li>Oracle Solaris 11 with Trusted Extensions以及Solaris 11+</li>
+</ul>
+</li>
+<li><p>网卡：网络适配卡</p>
+</li>
+</ul>
+<h2 id="客户端需求">客户端需求</h2><p>支持的客户端平台如下：</p>
+<ul>
+<li>Windows 8和8.1（桌面模式）</li>
+<li>Windows 7</li>
+<li>Mac OS X 10.9和10.10</li>
+<li>Oracle Linux 5和6</li>
+<li>Ubuntu 12.04和14.04</li>
+<li>运行iOS7和8的Apple iPad和iPad mini</li>
+<li><p>Android 4.x和5的平板设备，以及Chromebook（Chrome OS 38.0）</p>
+<p>  注意：在某些客户端平台上会有功能限制。</p>
+</li>
+</ul>
+<p>如果你考虑部署或者测试SGD的话，请参考<a href="/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/">这篇文章</a>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Glo]]>
+    </summary>
+    
+      <category term="EM12c" scheme="http://xintq.github.io/tags/EM12c/"/>
+    
+      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+    
+      <category term="sso" scheme="http://xintq.github.io/tags/sso/"/>
+    
+      <category term="单点登录" scheme="http://xintq.github.io/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
+    
+      <category term="安全访问" scheme="http://xintq.github.io/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
+    
+      <category term="指标" scheme="http://xintq.github.io/tags/%E6%8C%87%E6%A0%87/"/>
+    
+      <category term="环境需求" scheme="http://xintq.github.io/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[[译] Oracle 发布了 Secure Global Desktop Release 5.2]]></title>
+    <link href="http://xintq.github.io/2015/05/08/%5B%E8%AF%91%5D%20Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/"/>
+    <id>http://xintq.github.io/2015/05/08/[译] Oracle 发布了 Secure Global Desktop Release 5.2/</id>
+    <published>2015-05-08T03:22:09.000Z</published>
+    <updated>2015-05-28T13:55:07.000Z</updated>
+    <content type="html"><![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" rel="external">http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx</a></p>
+<p>Oracle已经发布了Oracle Secure Global Desktop (SGD) Release 5.2，作为该公司的远程访问解决方案，为Windows，Linux，Solaris以及大型主机等服务器端托管的企业级应用程序和桌面提供安全的远程访问。</p>
+<p>SGD让用户能够使用任何设备，在任何地方都可以安全地工作，同时为运行在数据中心的应用程序和桌面环境提供管理员可控的访问，在BYOD的世界中为企业提供了非常关键的优势。</p>
+<p>SGD可以工作在流行的客户端设备上，包括Windows PC、Macs、Linux PC以及诸如Apple iPad和基于Android的平板设备。</p>
+<p>尽管其还是以原来的“Tarantella”名字被人熟知，该产品的名称在2005年被Sun Microsystems收购时改成了Sun Secure Global Desktop，之后在Oracle收购Sun之后又被更名为Oracle Secure Global Desktop。</p>
+<p>“其实在收购之前，Oracle就一直是该产品的最大用户”，Wim Coekaerts，Linux和虚拟化工程高级副总裁。在Tarantella时代，Oracle就开始使用它了。“我们将其用在开发环境中，为远程开发者提供托管环境的访问，同时远程用户也通过它来访问集中管理的应用程序环境”，他如是说。</p>
+<p>另外，Oracle本身就有成百上千的的应用程序，这些应用程序大多数是基于Web技术的，Coekaerts提到。当不同版本的应用程序对浏览器的需求也不同的时候，SGD会带来显著的优势。</p>
+<p>“可以是任何类型的客户端，因为它是基于浏览器的。它使用了HTML5，因此你可以使用iPad，或者Android设备，或者你的Mac - 这真的不重要”，Coekaerts说，“应用程序的使用体验就和本地应用一模一样，而且可以在任何网络环境下使用”，而且，从安全性的角度来说，因为本地没有存储数据，所以这是一种访问企业数据的非常安全的方法。</p>
+<p>此外，说到它能提供的功能，Coekaerts说，用户可能会使用某个版本的应用程序，而该应用程序需要Internet Explorer 6，同时他还可能有一个新版本的应用程序需要IE7，可问题是在一个桌面环境中只能运行一个版本的IE。但是，在托管环境中，可以安装多个不同版本的浏览器。“这是一个典型的例子，证明了在真实世界中的客户环境中SGD非常有用。”</p>
+<p>SGD Release 5.2提供一些重要的功能强化，Coekaerts提到。</p>
+<p><strong>与Oracle Access Manager集成的单点登录(Single sign-on)</strong> 能够对应用程序实现即时访问，而用户只需要输入一次身份信息。“可以这么说，我们实际上从一进门开始就集成了单点登录”，Coekaerts说。Oracle Secure Global Desktop与Oracle Access Manager的集成可以使用Oracle Access Manager的单点登录的功能来认证SGD服务器的用户，和从SGD工作区打开的远程应用程序的用户。单点登录使SGD用户在访问多个应用程序时只需要登录一次，简化了密码管理。</p>
+<p><strong>利用 Oracle Enterprise Manager 监视</strong>，在5.2发行版中通过插件来实现的，在Oracle Enterprise Manager中对多个SGD部署环境进行集中的监视。“Oracle Enterprise Manager是Oracle的一站式管理套件，它能够管理数据库，中间件，应用程序，存储设备，Linux等等。Oracle的所有产品都会为这个集中管理工具提供一个插件，这就意味着在监视和管理所有不同的组件时，你只需要在这一个工具中加入一个插件即可”，Coekaerts说，“在5.2中，我们现在支持将SGD作为Enterprise Manager的一个组件或者一个插件”。</p>
+<p>通过这些插件，可以监视和分析SGD服务器以及Gateway服务器的健康和性能状态。对于SGD服务器，该插件收集各种性能和配置指标，诸如阵列状态，用户和应用程序，数据存储对象，SGD服务器进程，版本以及补丁等。对于Gateway服务器，各种性能和配置指标也会被收集，包括服务中的连接信息，注册的SGD服务器，版本，补丁等。这些插件收集的指标数据可以被一些报表工具，如Oracle Business Intelligence Publisher进行进一步的分析和处理。</p>
+<p>在新发行版中的第三个组件是<strong>增强的基于角色的用户管理</strong>机能，Coekaerts说，随着云计算和托管环境的不断增长，这是越来越重要的功能。“传统上，一个产品只需要一个管理员来管理所有不同的用户”。但是，Oracle已经将管理员也分成不同的水平和权限。在这一版本中引入的新命令也简化了SGD部署中软件更新（补丁）的安装过程。除了使用命令行，图形化界面的管理控制台可以用于添加SGD服务器到阵列中，同时使用安全的阵列内通信，“在云环境中，在托管主机服务环境中，这会是一个很不错的加分点”。</p>
+<p>新版本中的<strong>PulseAudio集成</strong>可以对使用PulseAudio的应用程序实现音频重定向，大大增加了SGD支持的音频应用程序范围。此外，新增加的对UNIX音频输入的支持，使之与对Windows的音频支持处于同一水平线上，而且也可以为与OSS,SADA或PulseAudio兼容的应用程序使用音频输入。</p>
+<p>除了新特性和更广泛的服务器，客户端，以及浏览器支持之外，本次发行版也提供了<strong>增强的安全性和性能</strong>，在各种网络环境下提供更丰富的用户体验。</p>
+<p>Oracle Secure Global Desktop 5.2秉持其一贯的简洁性同时更紧密地与Oracle产品，技术以及解决方案进行了集成，如Oracle Managed Cloud Services，Oracle Enterprise Manager，和Oracle Access Manager。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" re]]>
+    </summary>
+    
+      <category term="application virtulization" scheme="http://xintq.github.io/tags/application-virtulization/"/>
+    
+      <category term="em12c" scheme="http://xintq.github.io/tags/em12c/"/>
+    
+      <category term="oam" scheme="http://xintq.github.io/tags/oam/"/>
+    
+      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+    
+      <category term="sso" scheme="http://xintq.github.io/tags/sso/"/>
+    
+      <category term="安全访问" scheme="http://xintq.github.io/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
+    
+      <category term="应用程序虚拟化" scheme="http://xintq.github.io/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[AIP是什么? AIP需要多少网络带宽?]]></title>
+    <link href="http://xintq.github.io/2015/03/10/aip/"/>
+    <id>http://xintq.github.io/2015/03/10/aip/</id>
+    <published>2015-03-10T07:48:58.000Z</published>
+    <updated>2015-05-28T13:53:01.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="http://www.google.com/patents?id=a1MJAAAAEBAJ&amp;dq=adaptive+internet+protocol" target="_blank" rel="external">这里</a>可以找到。</p>
+<p>说白了，AIP是一个协议，用于SGD服务器与SGD客户端间传递应用程序的网络连接中，它被设计用来为那些由SGD发布的应用程序提供优化的网络性能和快速相应。AIP是自适应的协议，（也就是说它可以使用于变化的网络环境），它可以度量网络带宽，发现网络延迟，探测客户端性能以及应用程序表现，以确定最佳的优化策略，为客户端设备提供最优化的性能体验。</p>
+<p>那么，问题来了：在使用AIP的情况下，需要多大的带宽呢？</p>
+<p>这个问题很复杂，因为影响网络带宽的因素太多了。比如屏幕分辨率，色深，应用程序表现，显示的复杂度，屏幕刷新率等等。图形化的应用程序在开始时都会需要更多的资源，当初始化显示完成之后，带宽的需求就比开始少多了。用户的思考时间和空闲时间也常常被用于带宽的计算过程中，人为地减少带宽的“平均值”。因此，对于声明了“随时间推移的平均”带宽需求的协议，都需要持怀疑的态度进行审视，比如，<em>平均</em> 20KB的带宽可能在技术上是准确的，但是在20KB带宽下，即使只有一个用户，获取的性能表现几乎是不可接受的；然而在200KB的共享网络带宽下，10个用户可能都会获取足够的性能。对于某一特定安装的带宽需求的最佳确定方法就是去模拟网络环境，并且在受限条件下测量实际应用程序的行为。</p>
+<p>在评测AIP时的一个常见的错误就是使用不受限的网络连接。正如所提到的，AIP会测量可用网络带宽，并相应地调整其行为。如果是在100Mbps网络带宽下测试，AIP将检测到，并调用相对较少的优化。如果测量在这种条件下所消耗的带宽，你可能会得出AIP需要消耗非常大量带宽的结论。然而，如果客户端连接被限制为，例如，48Kbps的带宽下，AIP将相应地调整其优化技术，以“适应”可用带宽，并且提供最佳的交互响应体验。</p>
+<p>另外要注意，AIP（有一些例外），在会话开始时会发送大量的数据包来分析的可用带宽和网络延迟，所以在做任何测试时一定要运行足够长的时间来“训练”AIP去适应所检测到的带宽。</p>
+<p>说了那么多，<strong>56Kbps的非共享的网络连接</strong>通常被认为是访问“典型”的图形界面应用程序的最低带宽，<strong>推荐的客户端连接带宽是128Kbps</strong>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="]]>
+    </summary>
+    
+      <category term="aip" scheme="http://xintq.github.io/tags/aip/"/>
+    
+      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+    
+      <category term="协议" scheme="http://xintq.github.io/tags/%E5%8D%8F%E8%AE%AE/"/>
+    
+      <category term="带宽" scheme="http://xintq.github.io/tags/%E5%B8%A6%E5%AE%BD/"/>
+    
+      <category term="网络性能" scheme="http://xintq.github.io/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/"/>
+    
+      <category term="自适应协议" scheme="http://xintq.github.io/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Oracle Secure Global Desktop与VPN有何不同]]></title>
+    <link href="http://xintq.github.io/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/"/>
+    <id>http://xintq.github.io/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/</id>
+    <published>2015-03-10T07:36:53.000Z</published>
+    <updated>2015-05-28T14:18:33.000Z</updated>
+    <content type="html"><![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。</p>
+<p>使用VPN时，通常需要在客户端计算机上安装某种形式的VPN客户端软件，并且在专用网的边界上安装VPN集中器(<em>注：VPN集中器。可以支持局域网的连接，支持客户端的连接，支持智能手机系统的拨入。包括iPhone、Andriod等系统，简言之就是把网络集中起来的东西。</em>) 。典型的方法是使用某种形式的身份认证和数据加密（通常是IPSec），当在公共链路上传输信息时使窃听者无法拦截或改变数据。</p>
+<p>VPN技术的一个关键点是，VPN隧道为远程计算机提供了网络的“存在感”。也就是说，远程计算机上的应用在访问虚拟专用网络上的其他计算机和服务时，就好像与那些内网主机在同一个网络上一样，事实上，它们确实是属于同一网络。这些应用程序可能包括访问内部Web服务器的Web浏览器，访问内部邮件服务器的电子邮件客户端。通过在专用计算机上安装相应的模拟软件，客户机还可以访问其他类型的应用，如在专用网络的计算机上运行的Windows（使用RDP协议）和X-Windows（使用X11）。</p>
+<p>SGD与VPN的区别是，SGD不会为远程计算机提供以某种形式存在的网络；客户端连接到SGD服务器时使用的就是本地的专用网络。之后，SGD服务器作为代理，将代替客户端连接到相应的应用服务器。客户端计算机永远不需要直接访问内部网络。在使用VPN的情况下，用户可以浏览内部网络，并且可以与他们想要连接的任何计算机直接通信。这种做法会导致引入恶意软件的风险，如感染客户端计算机的木马或蠕虫。这样的恶意程序，一旦安装在用户的计算机上，就可以直接连接到这些内部系统，还有可能感染他们或窃取数据。这就是为什么有些VPN解决方案具有诸如“端点验证”的技术，以确保连接的客户端有相应的杀毒软件，防火墙和/或安装了补丁。由于SGD不提供客户机网络访问，所以不需要使用这样的技术来保护内部系统。</p>
+<p>等等，还是不能理解么？好吧，看看下面的分析如何。</p>
+<h4 id="定位">定位</h4><ul>
+<li><p><strong>SGD</strong> - 位于应用程序之上，访问层的产品</p>
+</li>
+<li><p><strong>VPN</strong> - 位于网络层之上，底层的网络安全技术</p>
+</li>
+</ul>
+<h4 id="性质">性质</h4><ul>
+<li><p><strong>SGD</strong> - 一个远程访问产品</p>
+</li>
+<li><p><strong>VPN</strong> - 一类网络安全技术的统称</p>
+</li>
+</ul>
+<h4 id="原理">原理</h4><ul>
+<li><p><strong>SGD</strong> - 将应用程序与访问环境分离，同时加密到应用程序的访问过程，以达到安全地连接远程应用程序和桌面的目的</p>
+</li>
+<li><p><strong>VPN</strong> - 将客户端的网络连接全部重新定位到一个安全的网络连接上，通过VPN服务器实现对企业内部网络的安全访问</p>
+</li>
+</ul>
+<h4 id="访问对象">访问对象</h4><ul>
+<li><p><strong>SGD</strong> - 运行在数据中心内部的应用程序和桌面</p>
+</li>
+<li><p><strong>VPN</strong> - 企业内部网络</p>
+</li>
+</ul>
+<h4 id="环境要求">环境要求</h4><ul>
+<li><p><strong>SGD</strong> - 需要部署SGD访问服务器</p>
+</li>
+<li><p><strong>VPN</strong> - 需要部署VPN服务器</p>
+</li>
+</ul>
+<h4 id="客户端要求">客户端要求</h4><ul>
+<li><p><strong>SGD</strong> - 客户端无需任何软件，只需要一个浏览器，几乎是任意客户端</p>
+</li>
+<li><p><strong>VPN</strong> - 需要在客户端安装VPN接入软件，可使用的客户端取决于VPN软件的支持范围。</p>
+</li>
+</ul>
+<h4 id="管理性">管理性</h4><ul>
+<li><p><strong>SGD</strong> - 细粒度的管理。管理员可以控制用户，应用程序，用户操作</p>
+</li>
+<li><p><strong>VPN</strong> - 粗粒度管理。管理员只能知道接入VPN的用户，对于用户的操作以及使用的应用程序无法控制</p>
+</li>
+</ul>
+<h4 id="安全性">安全性</h4><ul>
+<li><p><strong>SGD</strong> - <em>高。</em>只把需要的数据通信过程进行安全加密。在客户端不存储任何数据，保证到内部网络的通信和数据是安全的。即使客户端感染病毒，对内部网络造成威胁的可能也很低。</p>
+</li>
+<li><p><strong>VPN</strong> - <em>中。</em>将所有客户端的数据连接一股脑的接入到内网中，如果客户端环境中有病毒，也可能感染到内网。</p>
+</li>
+</ul>
+<h3 id="总结">总结</h3><ul>
+<li><p>要明确这两种产品的定位不同，一个属于访问层（SGD），一个属于网络层（VPN），之间没有竞争关系，而且在使用VPN的情况下，也可以使用SGD。</p>
+</li>
+<li><p>SGD是通过一个安全入口远程访问不同平台应用程序和桌面的解决方案，而VPN是访问内部网络的解决访问。二者要回答的问题不一样。</p>
+<ul>
+<li><p><strong>SGD回答了：</strong> <em>我不关心内网还是外网，我只想知道如何才能安全的访问企业内部的应用程序和桌面</em></p>
+</li>
+<li><p><strong>VPN回答了：</strong> <em>我不关心有哪些应用程序和桌面，我只想知道如何才能安全的访问企业的内部网络</em></p>
+</li>
+</ul>
+</li>
+<li><p>SGD便捷性，无需任何客户端软件，可以在任何设备上使用，而VPN使用时必须安装客户端软件或者某种类型的VPN卡，可使用的设备有限，而且很容易造成丢失</p>
+</li>
+<li><p>SGD这种高可控的远程访问方式是现在、将来的趋势，已经有很多用户（比如美国的一些大学，研究室，已经政府机构）只使用SGD做远程访问。</p>
+</li>
+<li><p>SGD可以和既存的企业身份认证系统整合，用户不再需要多余的账号，而且如果使用Oracle应用的话，还可以很方便的实现一键登录（SSO），而VPN需要独立的账号，无一键登录功能。</p>
+</li>
+<li><p>SGD可以实现浏览器，插件等配置环境的独立部署，客户不需要再担心自己的环境是否满足企业应用的需求；而VPN太过于底层，不可能实现这种高级功能，需要客户自己操心。</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。V]]>
+    </summary>
+    
+      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+    
+      <category term="vpn" scheme="http://xintq.github.io/tags/vpn/"/>
+    
+      <category term="专用网" scheme="http://xintq.github.io/tags/%E4%B8%93%E7%94%A8%E7%BD%91/"/>
+    
+      <category term="比较" scheme="http://xintq.github.io/tags/%E6%AF%94%E8%BE%83/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SGD v.s. VDI]]></title>
+    <link href="http://xintq.github.io/2014/11/19/sgd-v-s-vdi/"/>
+    <id>http://xintq.github.io/2014/11/19/sgd-v-s-vdi/</id>
+    <published>2014-11-19T03:24:02.000Z</published>
+    <updated>2015-05-28T13:52:22.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，为何能搭配使用，我想花几分钟的时间来解释一下SGD及其在VDI市场中的地位。</p>
+<h2 id="Server_Based_Computing_(SBC)">Server Based Computing (SBC)</h2><p>SGD最初设计的目的是为了让人们在一种混合桌面模型中同时运行本地和远程应用。那些远程应用看起来像本地应用（使用无缝窗口），使用起来（打印，文件系统访问，音频等）也像本地应用一样，不过它们实际上是运行在后端的服务器平台上的。大多数SGD用户会同时使用本地和远程应用，例如，他们会同时打开一些窗口，在这些窗口中同时运行Windows，Solairs，Linux等不同的应用。</p>
+<p>这种方式解决了一些问题，诸如安全性（比如笔记本电脑的丢失），可管理性（应用运行于数据中心之内的服务器上），以及移动性（在任何网络位置使用任何设备）。因此，管理员可以决定哪些应用应该集中在数据中心上，哪些应用应该放在用户的本地PC上。</p>
+<p>但是，假如你不仅仅想供应应用，而是整个桌面环境的话，又当如何？好吧，某些SGD用户现在确实是这么做的，比如，当他们发布整个Windows桌面或者Gnome会话时。但是，传统意义上，这些桌面应该是从Windows Terminal 服务器或者Solaris/Linux服务器上发布出来的。而且，使用Windows Terminal 服务器时有个问题就是，一些应用是不能在Windows 服务器环境下使用的（例如，某些应用只能在唯一的IP环境下运行，或者需要注册表或者文件系统的全部内容进行访问，因为它们是被设计于运行在PC上的）。</p>
+<h2 id="Virtual_Desktop_Infrastructure_(VDI)">Virtual Desktop Infrastructure (VDI)</h2><p>那么，所谓VDI的意思，就是说桌面环境（通常是Windows桌面环境）不再运行于服务器上，而是运行于Windows客户端操作系统中，而这些系统本身又是运行在服务器的单独虚拟机上，例如，在VMware ESX服务器的Windows XP或者Windows Vista实例上。</p>
+<p>这种方式很有意思，因为那些原本不能运行的应用现在可以有更好的机会来运行，它们现在可以运行在它们原本应使用的平台下，Windows PC环境。</p>
+<p>现在，我们需要做的就是提供对这些桌面环境的安全访问，这也是SGD多年以来一直在做的事情…</p>
+<h2 id="SGD_and_VDI">SGD and VDI</h2><p>因此，希望你能意识到SGD同时适用于SBC（基于服务器的计算）和VDI（虚拟桌面基础构架）。</p>
+<blockquote>
+<p>By Fat Bloke on Oct 11, 2007</p>
+<p>From <a href="https://blogs.oracle.com/fatbloke/entry/customizing_your_webtop" target="_blank" rel="external">https://blogs.oracle.com/fatbloke/entry/customizing_your_webtop</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，]]>
+    </summary>
+    
+      <category term="SGD" scheme="http://xintq.github.io/tags/SGD/"/>
+    
+      <category term="sbc" scheme="http://xintq.github.io/tags/sbc/"/>
+    
+      <category term="vdi" scheme="http://xintq.github.io/tags/vdi/"/>
+    
+      <category term="安全访问" scheme="http://xintq.github.io/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
+    
+      <category term="虚拟桌面" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux连接Windows AD服务器配置]]></title>
+    <link href="http://xintq.github.io/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"/>
+    <id>http://xintq.github.io/2014/10/28/Linux连接Windows AD服务器配置/</id>
+    <published>2014-10-28T06:41:29.000Z</published>
+    <updated>2015-05-28T13:50:01.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="前提条件">前提条件</h1><h2 id="目的">目的</h2><p>为了在Windows Active Directory上管理的用户也能在Linux服务器上使用。</p>
+<p><strong>注意：本文不包含AD服务器的搭建过程。</strong></p>
+<h2 id="环境">环境</h2><ul>
+<li><p>AD服务器环境： Windows Server 2008 R2</p>
+<ul>
+<li>全域名（FQDN）为： <em>wins.example.com</em></li>
+</ul>
+</li>
+<li><p>Linux服务器： Oracle Linux 6.4（64bit）</p>
+<ul>
+<li>全域名(FQDN)为： <em>demo.example.com</em></li>
+</ul>
+</li>
+</ul>
+<h1 id="配置Linux服务器网络">配置Linux服务器网络</h1><p>首先请禁用 SELinux和iptables防火墙。</p>
+<h2 id="在HOST文件中加入AD服务器">在HOST文件中加入AD服务器</h2><pre><code>vi /etc/hosts
+<span class="number">127.0</span>.<span class="number">0.1</span>   demo localhost localhost<span class="class">.localdomain</span>
+::<span class="number">1</span>         localhost localhost<span class="class">.localdomain</span> localhost6 localhost6<span class="class">.localdomain6</span>
+
+<span class="number">192.168</span>.<span class="number">56.13</span>  demo<span class="class">.example</span><span class="class">.com</span>
+<span class="number">192.168</span>.<span class="number">56.5</span>   wins<span class="class">.example</span><span class="class">.com</span>
+</code></pre><h2 id="修改resolv-conf文件">修改resolv.conf文件</h2><p>这里要配置DNS服务器得地址，你可以使用Winodws Server来配置一个简单的DNS服务器。<br>也可以参考 <a href="/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/">这篇文档</a>  来用linux搭建一个DNS服务器。</p>
+<pre><code>vi /etc/resolv<span class="class">.conf</span>
+search example<span class="class">.com</span>
+nameserver <span class="number">192.168</span>.<span class="number">56.254</span>
+</code></pre><h2 id="重启网络服务">重启网络服务</h2><pre><code><span class="keyword">service</span> network <span class="literal">restart</span>
+</code></pre><h1 id="安装相关软件包">安装相关软件包</h1><h2 id="确认Winbind和Samba的包">确认Winbind和Samba的包</h2><pre><code>[root@demo ~]<span class="preprocessor"># rpm -qa | grep samba</span>
+samba4-libs-<span class="number">4.0</span>.0-<span class="number">55.</span>el6.rc4.x86_64
+samba-winbind-clients-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+samba-<span class="keyword">common</span>-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+samba-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+samba-<span class="keyword">client</span>-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+samba-winbind-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+</code></pre><p>如果与以上列出的软件不同，请使用下面的命令进行安装：</p>
+<pre><code>yum <span class="keyword">install</span> samba-winbind ...
+</code></pre><p>对于Winbind来说，需要安装下面的包：</p>
+<pre><code>[root<span class="property">@demo</span> ~]<span class="comment"># rpm -qa | grep winbind</span>
+samba-winbind-clients-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+samba-winbind-<span class="number">3.6</span>.9-<span class="number">151.</span>el6.x86_64
+</code></pre><p>在安装好上面的软件包之后， ntlm_auth命令就可以使用了。</p>
+<h1 id="配置服务">配置服务</h1><h2 id="配置smb-conf">配置smb.conf</h2><pre><code>cp -p /etc/samba/smb.conf /etc/samba/smb.conf.orig 
+vim /etc/samba/smb.conf
+<span class="comment"># ---- Settings for Winbind ----</span>
+  security = ads
+  workgroup = <span class="type">EXAMPLE</span>
+  realm = <span class="type">EXAMPLE</span>.<span class="type">COM</span>
+  password server = wins.example.com
+  encrypt passwords = <span class="literal">true</span>
+  idmap uid = <span class="number">10000</span>-<span class="number">25000</span>
+  idmap gid = <span class="number">10000</span>-<span class="number">20000</span>
+  winbind use default domain = yes
+  winbind cache time = <span class="number">90</span>
+<span class="comment">#  winbind nested groups = yes</span>
+  <span class="keyword">template</span> shell = /bin/bash
+<span class="comment">#  template homedir = /home/%U</span>
+</code></pre><h2 id="修改_nsswitch-conf">修改 nsswitch.conf</h2><pre><code>cp -<span class="tag">p</span> /etc/nsswitch<span class="class">.conf</span> /etc/nsswitch<span class="class">.conf</span><span class="class">.orig</span>
+vi /etc/nsswitch<span class="class">.conf</span>
+#----- 
+passwd:     files winbind
+shadow:     files winbind
+group:      files winbind
+</code></pre><h2 id="修改_krb5-conf">修改 krb5.conf</h2><pre><code>cp -p /etc/krb5.conf /etc/krb5.conf.orig
+vi /etc/krb5.conf
+<span class="comment">#----- </span>
+    [logging]
+     default = <span class="constant">FILE</span><span class="symbol">:/var/log/krb5libs</span>.log
+     kdc = <span class="constant">FILE</span><span class="symbol">:/var/log/krb5kdc</span>.log
+     admin_server = <span class="constant">FILE</span><span class="symbol">:/var/log/kadmind</span>.log
+
+    [libdefaults]
+     default_realm = <span class="constant">EXAMPLE</span>.<span class="constant">COM</span>
+     dns_lookup_realm = <span class="keyword">false</span>
+     dns_lookup_kdc = <span class="keyword">false</span>
+     ticket_lifetime = <span class="number">24</span>h
+     renew_lifetime = <span class="number">7</span>d
+     forwardable = <span class="keyword">true</span>
+
+    [realms]
+     <span class="constant">EXAMPLE</span>.<span class="constant">COM</span> = {
+      kdc = wins.example.com
+      admin_server = wins.example.com
+     }
+
+    [domain_realm]
+     .example.com = <span class="constant">EXAMPLE</span>.<span class="constant">COM</span>
+     example.com = <span class="constant">EXAMPLE</span>.<span class="constant">COM</span>
+</code></pre><h1 id="启动服务">启动服务</h1><p>先启动samba服务：</p>
+<pre><code><span class="keyword">service</span> smb <span class="literal">start</span>
+</code></pre><p>再启动winbind服务：</p>
+<pre><code><span class="keyword">service</span> winbind <span class="literal">start</span>
+</code></pre><h1 id="加入到Windows_Domain">加入到Windows Domain</h1><pre><code>[root@demo ~]# net ads join -<span class="type">U</span> administrator
+<span class="type">Enter</span> administrator's password:
+<span class="type">Using</span> short domain name -- <span class="type">EXAMPLE</span>
+<span class="type">Joined</span> <span class="symbol">'DEMO'</span> <span class="keyword">to</span> dns domain <span class="symbol">'example</span>.com'
+<span class="type">No</span> <span class="type">DNS</span> domain configured <span class="keyword">for</span> demo. <span class="type">Unable</span> <span class="keyword">to</span> perform <span class="type">DNS</span> <span class="type">Update</span>.
+<span class="type">DNS</span> update failed!
+</code></pre><p>如果出现错误的话，先尝试与AD服务器同步一下时间：</p>
+<pre><code>net <span class="tag">time</span> set -I wins<span class="class">.example</span><span class="class">.com</span>
+net ads join -U administrator
+</code></pre><h1 id="测试服务">测试服务</h1><h2 id="AD服务器连接确认">AD服务器连接确认</h2><pre><code>[root<span class="annotation">@demo</span> etc]# net ads info
+LDAP <span class="string">server:</span> <span class="number">192.168</span>.56.5
+LDAP server <span class="string">name:</span> wins.example.com
+<span class="string">Realm:</span> EXAMPLE.COM
+Bind <span class="string">Path:</span> dc=EXAMPLE,dc=COM
+LDAP <span class="string">port:</span> <span class="number">389</span>
+Server <span class="string">time:</span> Tue, <span class="number">28</span> Oct <span class="number">2014</span> <span class="number">13</span>:<span class="number">57</span>:<span class="number">05</span> CST
+KDC <span class="string">server:</span> <span class="number">192.168</span>.56.5
+Server time <span class="string">offset:</span> <span class="number">0</span>
+[root<span class="annotation">@demo</span> etc]# net ads testjoin
+Join is OK
+</code></pre><h2 id="列出AD服务器上的用户和组信息">列出AD服务器上的用户和组信息</h2><pre><code>[root<span class="property">@demo</span> etc]<span class="comment"># wbinfo -u</span>
+EXAMPLE<span class="string">\administrator</span>
+EXAMPLE<span class="string">\guest</span>
+EXAMPLE<span class="string">\krbtgt</span>
+EXAMPLE<span class="string">\test</span>
+EXAMPLE<span class="string">\aduser1</span>
+EXAMPLE<span class="string">\aduser2</span>
+
+[root<span class="property">@demo</span> etc]<span class="comment"># wbinfo -g</span>
+EXAMPLE<span class="string">\domain</span> computers
+EXAMPLE<span class="string">\domain</span> controllers
+EXAMPLE<span class="string">\schema</span> admins
+EXAMPLE<span class="string">\enterprise</span> admins
+EXAMPLE<span class="string">\cert</span> publishers
+EXAMPLE<span class="string">\domain</span> admins
+EXAMPLE<span class="string">\domain</span> users
+EXAMPLE<span class="string">\domain</span> guests
+EXAMPLE<span class="string">\group</span> policy creator owners
+EXAMPLE<span class="string">\ras</span> <span class="keyword">and</span> ias servers
+EXAMPLE<span class="string">\allowed</span> rodc password replication group
+EXAMPLE<span class="string">\denied</span> rodc password replication group
+EXAMPLE<span class="string">\read-only</span> domain controllers
+EXAMPLE<span class="string">\enterprise</span> read-only domain controllers
+EXAMPLE<span class="string">\dnsadmins</span>
+EXAMPLE<span class="string">\dnsupdateproxy</span>
+EXAMPLE<span class="string">\ts</span> web access computers
+</code></pre><h2 id="测试用户认证">测试用户认证</h2><pre><code><span class="list">[<span class="keyword">root@demo</span> ~]# id EXAMPLE\\aduser1
+uid=16777216<span class="list">(<span class="keyword">EXAMPLE</span>\aduser1)</span> gid=16777222<span class="list">(<span class="keyword">EXAMPLE</span>\domain users)</span> groups=16777222<span class="list">(<span class="keyword">EXAMPLE</span>\domain users)</span>,<span class="number">16777217</span><span class="list">(<span class="keyword">BUILTIN</span>\users)</span>
+
+<span class="list">[<span class="keyword">root@demo</span> ~]# ntlm_auth --username=EXAMPLE\\aduser1
+password: 
+NT_STATUS_OK: Success <span class="list">(<span class="keyword">0x0</span>)</span></span></span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="前提条件">前提条件</h1><h2 id="目的">目的</h2><p>为了在Windows Active Directory上管理的用户也能在Linux服务器上使用。</p>
+<p><strong>注意：本文不包含AD服务器的搭建过程。</strong></p]]>
+    </summary>
+    
+      <category term="ad" scheme="http://xintq.github.io/tags/ad/"/>
+    
+      <category term="ldap" scheme="http://xintq.github.io/tags/ldap/"/>
+    
+      <category term="linux" scheme="http://xintq.github.io/tags/linux/"/>
+    
+      <category term="windows" scheme="http://xintq.github.io/tags/windows/"/>
+    
+      <category term="windows server" scheme="http://xintq.github.io/tags/windows-server/"/>
+    
+      <category term="域名" scheme="http://xintq.github.io/tags/%E5%9F%9F%E5%90%8D/"/>
+    
+      <category term="认证" scheme="http://xintq.github.io/tags/%E8%AE%A4%E8%AF%81/"/>
+    
+      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Oracle Linux下内网DNS服务器的配置]]></title>
+    <link href="http://xintq.github.io/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
+    <id>http://xintq.github.io/2014/09/09/Oracle Linux下内网DNS服务器的配置/</id>
+    <published>2014-09-09T07:39:31.000Z</published>
+    <updated>2015-05-28T13:49:21.000Z</updated>
+    <content type="html"><![CDATA[<p>在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。</p>
+<h1 id="前提条件">前提条件</h1><ul>
+<li>使用 VirtualBox 虚拟机，联网方式选择 <strong>内部网络</strong>，如果你不知道怎么配置网络，看 <a href="/2014/09/05/virtualbox/">这里</a></li>
+<li>Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好</li>
+<li>不使用IPv6</li>
+<li>不使用DNSSEC</li>
+<li>域名是 example.com</li>
+<li>DNS服务器的内网IP地址是 192.168.0.2</li>
+<li>DNS服务器的主机名是 server.example.com</li>
+<li>DNS服务器的外网IP地址是 192.168.1.2（真正的外网肯定不是这种地址，这里只是实验）</li>
+<li>全部操作以root用户完成</li>
+</ul>
+<h1 id="环境准备">环境准备</h1><p>强烈推荐在安装任何服务之前先把SELinux和iptables（也就是防火墙）暂时禁止掉，这样的话我们可以专注于安装服务本身，而不会被各种SELinux上下文和防火墙规则所干扰。</p>
+<p>在全部服务都安装好之后，你可以根据需要，开启SELinux和iptables。注意，本文不包含SELinux和iptables的配置。</p>
+<h2 id="禁用SELinux">禁用SELinux</h2><pre><code><span class="comment"># vim /etc/sysconfig/selinux</span>
+<span class="variable">SELINUX=</span>disabled   <span class="comment"># 由enforcing 改成 disabled</span>
+</code></pre><h2 id="清空并禁用iptables">清空并禁用iptables</h2><pre><code><span class="preprocessor"># iptables -F</span>
+<span class="preprocessor"># iptables -L</span>
+<span class="preprocessor"># service iptables save</span>
+</code></pre><p>也可以彻底关闭iptables服务：</p>
+<pre><code><span class="preprocessor"># service iptables stop</span>
+<span class="preprocessor"># chkconfig iptables off</span>
+</code></pre><h2 id="打开IP_Forward_功能">打开IP Forward 功能</h2><p>之所以打开这个功能，是因为我想把Linux当做一个路由器来用。</p>
+<pre><code><span class="comment"># vim /etc/sysctl.conf</span>
+net.ipv4.<span class="variable">ip_forward =</span> <span class="number">1</span> <span class="comment">#修改：由0改成1</span>
+
+<span class="comment"># sysctl -p</span>
+</code></pre><h2 id="重启机器">重启机器</h2><p>为了让SELinux的禁用的设置生效，必须重启机器。</p>
+<h1 id="DNS服务器构成规划">DNS服务器构成规划</h1><p>如下图所示：</p>
+<p><img src="/img/post/dns.png" alt="DNS构成"></p>
+<h1 id="配置_DNS服务器">配置 DNS服务器</h1><h2 id="设置IP地址以及主机名">设置IP地址以及主机名</h2><p>这里不使用图形界面，使用命令行的方式来配置。</p>
+<p>首先配置一下IP（192.168.0.2）以及相关的参数(因为我的虚拟机有多个网卡，这里用第二个网卡 eth1 来进行配置)。</p>
+<pre><code><span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-eth1 </span>
+<span class="variable">DEVICE=</span>eth1
+<span class="variable">TYPE=</span>Ethernet
+<span class="variable">UUID=</span><span class="number">06</span>dbc3e2-<span class="number">4</span>d24-<span class="number">4</span>cb5-<span class="number">9</span>b24-<span class="number">89</span>c166a71e5a
+<span class="variable">ONBOOT=</span>yes
+<span class="variable">NM_CONTROLLED=</span>yes
+<span class="variable">BOOTPROTO=</span>none
+<span class="variable">HWADDR=</span><span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">6</span>D:CA:<span class="number">57</span>
+<span class="variable">IPADDR=</span><span class="number">192.168</span>.<span class="number">0.2</span>
+<span class="variable">NETMASK=</span><span class="number">255.255</span>.<span class="number">255.0</span>
+<span class="variable">PREFIX=</span><span class="number">24</span>
+<span class="variable">DEFROUTE=</span>no
+<span class="variable">IPV4_FAILURE_FATAL=</span>yes
+<span class="variable">IPV6INIT=</span>no
+<span class="variable">NAME=</span><span class="string">"System eth1"</span>
+<span class="variable">HWADDR=</span><span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:C6:<span class="number">79</span>:<span class="number">2</span>B
+<span class="variable">MTU=</span><span class="number">1500</span>
+<span class="variable">UUID=</span><span class="number">9</span>c92fad9-<span class="number">6</span>ecb-<span class="number">3</span>e6c-eb4d-<span class="number">8</span>a47c6f50c04
+<span class="variable">LAST_CONNECT=</span><span class="number">1409908255</span>
+</code></pre><p>重启网络服务，并查看eth1的配置信息：</p>
+<pre><code># service network restart
+# ip addr show eth1
+<span class="number">3</span>: <span class="string">eth1:</span> &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc pfifo_fast state UP qlen <span class="number">1000</span>
+    link/ether <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="string">c6:</span><span class="number">79</span>:<span class="number">2</span>b brd <span class="string">ff:</span><span class="string">ff:</span><span class="string">ff:</span><span class="string">ff:</span><span class="string">ff:</span>ff
+    inet <span class="number">192.168</span>.0.2/<span class="number">24</span> brd <span class="number">192.168</span>.0.255 scope global eth1
+    inet6 <span class="string">fe80:</span>:<span class="string">a00:</span><span class="number">27</span><span class="string">ff:</span><span class="string">fec6:</span><span class="number">792</span>b/<span class="number">64</span> scope link 
+       valid_lft forever preferred_lft forever
+</code></pre><p>修改主机名（server.example.com），先：</p>
+<pre><code><span class="comment"># vim /etc/sysconfig/network</span>
+<span class="constant">NETWORKING</span>=yes
+<span class="constant">HOSTNAME</span>=server.example.com
+</code></pre><p>再：</p>
+<pre><code><span class="preprocessor"># vim /etc/hosts</span>
+<span class="number">127.0</span>.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::<span class="number">1</span>         localhost localhost.localdomain localhost6 localhost6.localdomain6
+<span class="number">192.168</span>.0.2 <span class="keyword">server</span>.example.com
+</code></pre><p>重启，使 hostname 生效：</p>
+<pre><code><span class="preprocessor"># reboot</span>
+</code></pre><h2 id="安装Bind">安装Bind</h2><p>使用yum进行安装：</p>
+<pre><code># yum -y install <span class="keyword">bind</span> <span class="keyword">bind</span>-chroot
+</code></pre><p>编写一个 chroot（/root/bind-chroot-admin）脚本，内容如下：</p>
+<pre><code><span class="shebang">#!/bin/sh</span>
+<span class="comment">#bind-chroot install check</span>
+rpm -q <span class="built_in">bind</span>-chroot &gt; /dev/null <span class="number">2</span>&gt;&amp;<span class="number">1</span>
+[ $? <span class="operator">-ne</span> <span class="number">0</span> ] &amp;&amp; <span class="built_in">echo</span> <span class="built_in">bind</span>-chroot not install &amp;&amp; <span class="built_in">exit</span> <span class="number">1</span>
+
+<span class="comment"># bind-chroot enabled</span>
+sed -i <span class="string">'/^ROOTDIR=/d'</span> /etc/sysconfig/named
+<span class="built_in">echo</span> ROOTDIR=/var/named/chroot &gt;&gt; /etc/sysconfig/named
+
+<span class="comment"># file copy</span>
+filelist=`mktemp`
+rpm -ql <span class="built_in">bind</span>|grep ^/etc &gt;&gt; <span class="variable">${filelist}</span>
+rpm -ql <span class="built_in">bind</span>|grep ^/var &gt;&gt; <span class="variable">${filelist}</span>
+<span class="keyword">for</span> file <span class="keyword">in</span> `cat <span class="variable">${filelist}</span>`
+<span class="keyword">do</span>
+  <span class="comment"># directory make</span>
+  <span class="keyword">if</span> [ <span class="operator">-d</span> <span class="variable">${file}</span> ]; <span class="keyword">then</span>
+      DIRNAME=/var/named/chroot<span class="variable">${file}</span>
+      [ ! <span class="operator">-d</span> <span class="variable">${DIRNAME}</span> ] &amp;&amp; mkdir -p <span class="variable">${DIRNAME}</span>
+  <span class="keyword">fi</span>
+  <span class="comment"># file copy</span>
+  <span class="keyword">if</span> [ <span class="operator">-f</span> <span class="variable">${file}</span> ]; <span class="keyword">then</span>
+      DIRNAME=/var/named/chroot`dirname <span class="variable">${file}</span>`
+      [ ! <span class="operator">-d</span> <span class="variable">${DIRNAME}</span> ] &amp;&amp; mkdir -p <span class="variable">${DIRNAME}</span>
+      /bin/cp <span class="operator">-a</span> <span class="variable">${file}</span> <span class="variable">${DIRNAME}</span>
+  <span class="keyword">fi</span>
+<span class="keyword">done</span>
+rm <span class="operator">-f</span> <span class="variable">${filelist}</span>
+
+chown named:named /var/named/chroot/var/named/data
+chmod <span class="number">770</span> /var/named/chroot/var/named/data
+chown named:named /var/named/chroot/var/named/dynamic
+
+<span class="built_in">exit</span>
+</code></pre><p>执行此脚本：</p>
+<pre><code><span class="preprocessor"># sh bind-chroot-admin</span>
+</code></pre><h2 id="配置Bind">配置Bind</h2><h3 id="编辑bind的配置文件（/var/named/chroot/etc/named-conf）：">编辑bind的配置文件（/var/named/chroot/etc/named.conf）：</h3><pre><code>//
+// named.conf
+//
+// <span class="constant">Provided</span> by <span class="constant">Red</span> <span class="constant">Hat</span> bind <span class="keyword">package</span> to configure the <span class="constant">I</span>SC <span class="constant">B</span>IND named(<span class="number">8</span>) <span class="constant">D</span>NS
+// server as a caching only nameserver (as a localhost <span class="constant">D</span>NS resolver only).
+//
+// <span class="constant">See</span> /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+
+<span class="keyword">options {</span>
+        <span class="comment">#listen-on port 53 { 127.0.0.1; };   #注释掉</span>
+        <span class="comment">#listen-on-v6 port 53 { ::1; }; #注释掉</span>
+        <span class="literal">directory</span>       <span class="string">"/var/named"</span>;
+        <span class="literal">dump</span>-<span class="keyword">file</span>       <span class="string">"/var/named/data/cache_dump.db"</span>;
+        statistics-<span class="keyword">file</span> <span class="string">"/var/named/data/named_stats.txt"</span>;
+        memstatistics-<span class="keyword">file</span> <span class="string">"/var/named/data/named_mem_stats.txt"</span>;
+        allow-<span class="keyword">query     {</span> localhost; localnets; <span class="keyword">}</span>; <span class="comment"># 修改: 添加 localnets</span>
+        recursion yes;
+        empty-<span class="built_in">zones</span>-<span class="literal">enable</span> no; <span class="comment">#追加: 启动时对于空的zone的错误日志不输出</span>
+
+        dnssec-<span class="literal">enable</span> no; <span class="comment">#修改: yes -&gt; no, 不使用DNSSEC</span>
+        dnssec-validation no; <span class="comment">#修改: yes -&gt; no, 不使用DNSSEC</span>
+        <span class="comment">#dnssec-lookaside auto; #注释掉</span>
+
+        /* <span class="constant">Path</span> to <span class="constant">I</span>SC <span class="constant">D</span>LV key */
+        bindkeys-<span class="keyword">file</span> <span class="string">"/etc/named.iscdlv.key"</span>;
+
+        <span class="keyword">forwarders{</span>           <span class="comment">#追加</span>
+                <span class="number">192.168</span>.<span class="number">0</span>.<span class="number">2</span>;  <span class="comment">#追加: 路由器的IP，我把本机当路由了</span>
+        <span class="keyword">}</span>;                    <span class="comment">#追加</span>
+
+        managed-<span class="literal">keys</span>-<span class="literal">directory</span> <span class="string">"/var/named/dynamic"</span>;
+<span class="keyword">}</span>;
+
+<span class="keyword">logging {</span>
+        channel <span class="keyword">default_debug {</span>
+                <span class="keyword">file</span> <span class="string">"data/named.run"</span>;
+                severity dynamic;
+        <span class="keyword">}</span>;
+
+        <span class="literal">category</span> lame-<span class="keyword">servers {</span> null; <span class="keyword">}</span>;  <span class="comment">#追加</span>
+<span class="keyword">}</span>;
+
+view <span class="string">"internal"</span> <span class="keyword">{</span>                           <span class="comment">#追加</span>
+        match-<span class="keyword">clients {</span> localnets; <span class="keyword">}</span>;       <span class="comment">#追加</span>
+        match-<span class="keyword">destinations {</span> localnets; <span class="keyword">}</span>;  <span class="comment">#追加</span>
+<span class="keyword">zone</span> <span class="string">"."</span> <span class="keyword">IN {</span>
+        <span class="built_in">type</span> hint;
+        <span class="keyword">file</span> <span class="string">"named.ca"</span>;
+<span class="keyword">}</span>;
+
+<span class="literal">include</span> <span class="string">"/etc/named.rfc1912.zones"</span>;
+<span class="literal">include</span> <span class="string">"/etc/named.root.key"</span>;
+
+        <span class="literal">include</span> <span class="string">"/etc/named.example.com.zone"</span>;  <span class="comment">#追加</span>
+<span class="keyword">}</span>;                                              <span class="comment">#追加</span>
+
+view <span class="string">"external"</span> <span class="keyword">{</span> <span class="comment">#追加，可选，如果你的DNS服务器不准备连接外网的话，这里不用写</span>
+        match-<span class="keyword">clients {</span> any; <span class="keyword">}</span>;<span class="comment">#追加，可选，如果你的DNS服务器不准备连接外网的话，这里不用写</span>
+        match-<span class="keyword">destinations {</span> any; <span class="keyword">}</span>;<span class="comment">#追加，可选，如果你的DNS服务器不准备连接外网的话，这里不用写</span>
+        recursion no;  <span class="comment">#追加，可选，如果你的DNS服务器不准备连接外网的话，这里不用写</span>
+        <span class="literal">include</span> <span class="string">"/etc/named.example.com.zone.wan"</span>;  <span class="comment">#追加：注意这里和你的域名做相应的调整，，可选，如果你的DNS服务器不准备连接外网的话，这里不用写</span>
+<span class="keyword">}</span>;  <span class="comment">#追加，可选，如果你的DNS服务器不准备连接外网的话，这里不用写</span>
+</code></pre><h3 id="编辑内部Zone的定义文件">编辑内部Zone的定义文件</h3><p>文件名： <strong><em>/var/named/chroot/etc/named.example.com.zone</em></strong></p>
+<pre><code><span class="keyword">zone</span> <span class="string">"example.com"</span> <span class="keyword">{</span>
+        <span class="built_in">type</span> master;
+        <span class="keyword">file</span> <span class="string">"example.com.db"</span>;
+<span class="keyword">}</span>;
+<span class="keyword">zone</span> <span class="string">"0.168.192.in-addr.arpa"</span> <span class="keyword">{</span>
+        <span class="built_in">type</span> master;
+        <span class="keyword">file</span> <span class="string">"0.168.192.in-addr.arpa.db"</span>;
+<span class="keyword">}</span>;
+</code></pre><h3 id="编辑外部Zone的定义文件（可选）">编辑外部Zone的定义文件（可选）</h3><p>文件名： <strong><em>/var/named/chroot/etc/named.example.com.zone.wan</em></strong></p>
+<p>如果你的DNS服务器不打算接入Internet的话，这个文件不需要。</p>
+<pre><code><span class="keyword">zone</span> <span class="string">"example.com"</span> <span class="keyword">{</span>
+        <span class="built_in">type</span> master;
+        <span class="keyword">file</span> <span class="string">"example.com.db.wan"</span>;
+        allow-<span class="keyword">query {</span> any; <span class="keyword">}</span>;
+<span class="keyword">}</span>;
+<span class="keyword">zone</span> <span class="string">"1.168.192.in-addr.arpa"</span> <span class="keyword">{</span>
+        <span class="built_in">type</span> master;
+        <span class="keyword">file</span> <span class="string">"1.168.192.in-addr.arpa.db"</span>;
+        allow-<span class="keyword">query {</span> any; <span class="keyword">}</span>;
+<span class="keyword">}</span>;
+</code></pre><h3 id="仅开放IPv4">仅开放IPv4</h3><p>文件名： <strong><em>/etc/sysconfig/named</em></strong></p>
+<pre><code><span class="variable">OPTIONS=</span><span class="string">"-4"</span> <span class="comment"># 在文件的最后加入这行</span>
+</code></pre><h3 id="更新根域名服务器列表（可选）">更新根域名服务器列表（可选）</h3><p>再次提醒，如果你只是内网使用DNS的话，这一小节的内容请无视。</p>
+<pre><code># dig . ns @<span class="number">198.41.</span><span class="number">0.4</span> +bufsize=<span class="number">1024</span> &gt; /var/<span class="keyword">named</span>/chroot/var/<span class="keyword">named</span>/<span class="keyword">named</span>.ca
+</code></pre><p>为了方便起见，可以使用一个自动脚（named.root_update）本来跟新根DNS域名服务器的列表：</p>
+<pre><code><span class="shebang">#!/bin/bash
+</span>
+new=`mktemp`
+errors=`mktemp`
+
+dig . ns @<span class="number">198.41</span>.<span class="number">0.4</span> +bufsize=<span class="number">1024</span> &gt; <span class="variable">$new</span> <span class="number">2</span>&gt; <span class="variable">$errors</span>
+
+<span class="keyword">if</span> [ $? <span class="operator">-eq</span> <span class="number">0</span> ]; <span class="keyword">then</span>
+    sort_new=`mktemp`
+    sort_old=`mktemp`
+    diff_out=`mktemp`
+    sort <span class="variable">$new</span> &gt; <span class="variable">$sort_new</span>
+    sort /var/named/chroot/var/named/named.ca &gt; <span class="variable">$sort_old</span>
+    diff --ignore-matching-lines=^\; <span class="variable">$sort_new</span> <span class="variable">$sort_old</span> &gt; <span class="variable">$diff_out</span>
+    <span class="keyword">if</span> [ $? <span class="operator">-ne</span> <span class="number">0</span> ]; <span class="keyword">then</span>
+        (
+         <span class="built_in">echo</span> <span class="string">'-------------------- old named.root --------------------'</span>
+         cat /var/named/chroot/var/named/named.ca
+         <span class="built_in">echo</span>
+         <span class="built_in">echo</span> <span class="string">'-------------------- new named.root --------------------'</span>
+         cat <span class="variable">$new</span>
+         <span class="built_in">echo</span> <span class="string">'---------------------- difference ----------------------'</span>
+         cat <span class="variable">$diff_out</span>
+        ) | mail <span class="operator">-s</span> <span class="string">'named.root updated'</span> root
+        cp <span class="operator">-f</span> <span class="variable">$new</span> /var/named/chroot/var/named/named.ca
+        chown named. /var/named/chroot/var/named/named.ca
+        chmod <span class="number">644</span> /var/named/chroot/var/named/named.ca
+        /etc/rc.d/init.d/named restart &gt; /dev/null
+    <span class="keyword">fi</span>
+    rm <span class="operator">-f</span> <span class="variable">$sort_new</span> <span class="variable">$sort_old</span> <span class="variable">$diff_out</span>
+<span class="keyword">else</span>
+    cat <span class="variable">$errors</span> | mail <span class="operator">-s</span> <span class="string">'named.root update check error'</span> root
+<span class="keyword">fi</span>
+rm <span class="operator">-f</span> <span class="variable">$new</span> <span class="variable">$errors</span>
+</code></pre><p>然后让这个脚本可执行;</p>
+<pre><code><span class="preprocessor"># chmod 700 named.root_update</span>
+</code></pre><p>最后让这个脚本每个月自动执行（前提是你的crond已经打开）：</p>
+<pre><code><span class="preprocessor"># mv named.root_update /etc/cron.monthly/</span>
+</code></pre><h2 id="配置解析文件">配置解析文件</h2><h3 id="内部用正解文件">内部用正解文件</h3><p>也就是从域名到IP地址的解析关系。</p>
+<p>文件名： <strong><em>/var/named/chroot/var/named/example.com.db</em></strong></p>
+<pre><code><span class="label">$TTL</span>    86400
+@       <span class="keyword">IN</span>      SOA     example.com.  root.example.com.(
+                                      2013120801; Serial
+                                      28800      ; Refresh
+                                      14400      ; Retry
+                                      3600000    ; Expire
+                                      86400 )    ; Minimum
+         <span class="keyword">IN</span> NS    example.com.
+         <span class="keyword">IN</span> MX 10 example.com.
+@        <span class="keyword">IN</span> A     192.168.0.2
+<span class="comment">*        IN A     192.168.0.2</span>
+dns      <span class="keyword">IN</span> A     192.168.0.2
+server   <span class="keyword">IN</span> A     192.168.0.2
+ldap     <span class="keyword">IN</span> A     192.168.0.2
+www      <span class="keyword">IN</span> A     192.168.0.2
+mail     <span class="keyword">IN</span> A     192.168.0.2
+ftp      <span class="keyword">IN</span> A     192.168.0.2
+sgd-server      <span class="keyword">IN</span> A     192.168.0.3
+<span class="keyword">win</span>      <span class="keyword">IN</span> A     192.168.0.4
+lin      <span class="keyword">IN</span> A     192.168.0.5
+sol      <span class="keyword">IN</span> A     192.168.0.6
+wins      <span class="keyword">IN</span> A     192.168.0.7
+</code></pre><h3 id="内部用反解文件">内部用反解文件</h3><p>也就是从IP到域名的关系。</p>
+<p>文件名： <strong><em>/var/named/chroot/var/named/0.168.192.in-addr.arpa.db</em></strong></p>
+<pre><code>$TTL    <span class="number">86400</span>
+@       <span class="keyword">IN</span>      SOA     example.com.  root.example.com.(
+                                      <span class="number">2013120801</span> <span class="comment">; Serial</span>
+                                      <span class="number">28800</span>      <span class="comment">; Refresh</span>
+                                      <span class="number">14400</span>      <span class="comment">; Retry</span>
+                                      <span class="number">3600000</span>    <span class="comment">; Expire</span>
+                                      <span class="number">86400</span> )    <span class="comment">; Minimum</span>
+              <span class="keyword">IN</span>      NS    example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   dns.example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   server.example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   ldap.example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   www.example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   mail.example.com.
+<span class="number">2</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   ftp.example.com.
+<span class="number">3</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   sgd-server.example.com.
+<span class="number">4</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   win.example.com.
+<span class="number">5</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   lin.example.com.
+<span class="number">6</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   sol.example.com.
+<span class="number">7</span>             <span class="keyword">IN</span>      <span class="preprocessor">PTR</span>   wins.example.com.
+</code></pre><h3 id="外部用正解文件（可选）">外部用正解文件（可选）</h3><p>也就是从外部访问时，从域名到IP地址的解析关系。</p>
+<p>文件名： <strong><em>/var/named/chroot/var/named/example.com.db.wan</em></strong></p>
+<pre><code><span class="variable">$TTL</span>    <span class="number">86400</span>
+@       <span class="keyword">IN</span>      SOA     ns1<span class="built_in">.</span>example<span class="built_in">.</span>com<span class="built_in">.  </span>root<span class="built_in">.</span>example<span class="built_in">.</span>com<span class="built_in">.</span>(
+                                      <span class="number">2013120801</span> ; Serial
+                                      <span class="number">7200</span>       ; Refresh
+                                      <span class="number">7200</span>       ; Retry
+                                      <span class="number">2419200</span>    ; Expire
+                                      <span class="number">86400</span> )    ; Minimum
+        <span class="keyword">IN</span> NS    ns1<span class="built_in">.</span>example<span class="built_in">.</span>com<span class="built_in">.
+        </span><span class="keyword">IN</span> MX <span class="number">10</span> example<span class="built_in">.</span>com<span class="built_in">.
+</span>ns1     <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+@       <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+www     <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+ftp     <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+mail    <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+server  <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+ldap    <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+dns     <span class="keyword">IN</span> A     <span class="number">192.168</span><span class="built_in">.1</span><span class="built_in">.2</span>
+example<span class="built_in">.</span>com<span class="built_in">. </span><span class="keyword">IN</span> TXT <span class="string">"v=spf1 ip4:192.168.1.2 ~all"</span>
+</code></pre><h3 id="外部用反解文件（可选）">外部用反解文件（可选）</h3><p>文件名： <strong><em>/var/named/chroot/var/named/1.168.192.in-addr.arpa.db</em></strong></p>
+<pre><code>$TTL    <span class="number">86400</span>
+@       <span class="keyword">IN</span>      SOA     example.com. root.example.com.(
+                        <span class="number">2013120801</span>      ; serial
+                        <span class="number">3600</span>            ; refresh (<span class="number">1</span> <span class="built_in">hour</span>)
+                        <span class="number">900</span>             ; retry (<span class="number">15</span> minutes)
+                        <span class="number">604800</span>          ; expire (<span class="number">1</span> week)
+                        <span class="number">86400</span>           ; negative (<span class="number">1</span> <span class="built_in">day</span>)
+)
+        <span class="keyword">IN</span>      NS              example.com.
+<span class="number">2</span>       <span class="keyword">IN</span>      PTR             example.com.
+</code></pre><h2 id="启动_bind_服务，测试运行">启动 bind 服务，测试运行</h2><p>启动服务：</p>
+<pre><code><span class="preprocessor"># service named start</span>
+</code></pre><p>开机自动运行DNS服务：</p>
+<pre><code><span class="preprocessor"># chkconfig named on</span>
+</code></pre><p>配置网卡eth1的DNS，使用本机做为DNS服务器：</p>
+<pre><code><span class="title"># vim /etc/sysconfig/network-scripts/ifcfg-eth1</span>
+D<span class="label">NS1</span>=<span class="number">127.0.</span><span class="number">0.1</span> 
+</code></pre><h3 id="测试">测试</h3><p>先测试正向解析：</p>
+<pre><code># <span class="tag">dig</span> <span class="tag">example</span><span class="class">.com</span>
+
+; &lt;&lt;&gt;&gt; <span class="tag">DiG</span> 9<span class="class">.8</span><span class="class">.2rc1-RedHat-9</span><span class="class">.8</span><span class="class">.2-0</span><span class="class">.17</span><span class="class">.rc1</span><span class="class">.0</span><span class="class">.2</span><span class="class">.el6_4</span><span class="class">.6</span> &lt;&lt;&gt;&gt; <span class="tag">example</span><span class="class">.com</span>
+;; <span class="tag">global</span> <span class="rule"><span class="attribute">options</span>:<span class="value"> +cmd
+</span></span>;; <span class="tag">Got</span> <span class="rule"><span class="attribute">answer</span>:<span class="value">
+</span></span>;; <span class="tag">-</span>&gt;&gt;<span class="tag">HEADER</span>&lt;&lt;<span class="tag">-</span> <span class="rule"><span class="attribute">opcode</span>:<span class="value"> QUERY, status: NOERROR, id: <span class="number">5153</span>
+</span></span>;; <span class="rule"><span class="attribute">flags</span>:<span class="value"> qr aa rd ra</span></span>; <span class="rule"><span class="attribute">QUERY</span>:<span class="value"> <span class="number">1</span>, ANSWER: <span class="number">1</span>, AUTHORITY: <span class="number">1</span>, ADDITIONAL: <span class="number">0</span>
+
+</span></span>;; <span class="tag">QUESTION</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+</span></span>;<span class="tag">example</span><span class="class">.com</span>.            <span class="tag">IN</span>    <span class="tag">A</span>
+
+;; <span class="tag">ANSWER</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+example.com.        <span class="number">86400</span>    IN    A    <span class="number">192.168</span>.<span class="number">0.2</span>
+
+</span></span>;; <span class="tag">AUTHORITY</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+example.com.        <span class="number">86400</span>    IN    NS    example.com.
+
+</span></span>;; <span class="tag">Query</span> <span class="rule"><span class="attribute">time</span>:<span class="value"> <span class="number">4</span> msec
+</span></span>;; <span class="rule"><span class="attribute">SERVER</span>:<span class="value"> <span class="number">127.0</span>.<span class="number">0.1</span><span class="hexcolor">#53</span>(<span class="number">127.0</span>.<span class="number">0.1</span>)
+</span></span>;; <span class="rule"><span class="attribute">WHEN</span>:<span class="value"> Tue Sep  <span class="number">9</span> <span class="number">15</span>:<span class="number">08</span>:<span class="number">27</span> <span class="number">2014</span>
+</span></span>;; <span class="tag">MSG</span> <span class="tag">SIZE</span>  <span class="rule"><span class="attribute">rcvd</span>:<span class="value"> <span class="number">59</span></span></span>
+</code></pre><p>观察上面的 <strong>ANSWER SECTION</strong>，可以看出解析成功了。</p>
+<p>接下来试试反向解析：</p>
+<pre><code># <span class="tag">dig</span> <span class="tag">-x</span> 192<span class="class">.168</span><span class="class">.0</span><span class="class">.2</span>
+
+; &lt;&lt;&gt;&gt; <span class="tag">DiG</span> 9<span class="class">.8</span><span class="class">.2rc1-RedHat-9</span><span class="class">.8</span><span class="class">.2-0</span><span class="class">.17</span><span class="class">.rc1</span><span class="class">.0</span><span class="class">.2</span><span class="class">.el6_4</span><span class="class">.6</span> &lt;&lt;&gt;&gt; <span class="tag">-x</span> 192<span class="class">.168</span><span class="class">.0</span><span class="class">.2</span>
+;; <span class="tag">global</span> <span class="rule"><span class="attribute">options</span>:<span class="value"> +cmd
+</span></span>;; <span class="tag">Got</span> <span class="rule"><span class="attribute">answer</span>:<span class="value">
+</span></span>;; <span class="tag">-</span>&gt;&gt;<span class="tag">HEADER</span>&lt;&lt;<span class="tag">-</span> <span class="rule"><span class="attribute">opcode</span>:<span class="value"> QUERY, status: NOERROR, id: <span class="number">31947</span>
+</span></span>;; <span class="rule"><span class="attribute">flags</span>:<span class="value"> qr aa rd ra</span></span>; <span class="rule"><span class="attribute">QUERY</span>:<span class="value"> <span class="number">1</span>, ANSWER: <span class="number">7</span>, AUTHORITY: <span class="number">1</span>, ADDITIONAL: <span class="number">1</span>
+
+</span></span>;; <span class="tag">QUESTION</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+</span></span>;2<span class="class">.0</span><span class="class">.168</span><span class="class">.192</span><span class="class">.in-addr</span><span class="class">.arpa</span>.    <span class="tag">IN</span>    <span class="tag">PTR</span>
+
+;; <span class="tag">ANSWER</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    mail.example.com.
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    ftp.example.com.
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    example.com.
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    dns.example.com.
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    server.example.com.
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    ldap.example.com.
+<span class="number">2.0</span>.<span class="number">168.192</span>.in-addr.arpa. <span class="number">86400</span>    IN    PTR    www.example.com.
+
+</span></span>;; <span class="tag">AUTHORITY</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+<span class="number">0.168</span>.<span class="number">192</span>.in-addr.arpa.    <span class="number">86400</span>    IN    NS    example.com.
+
+</span></span>;; <span class="tag">ADDITIONAL</span> <span class="rule"><span class="attribute">SECTION</span>:<span class="value">
+example.com.        <span class="number">86400</span>    IN    A    <span class="number">192.168</span>.<span class="number">0.2</span>
+
+</span></span>;; <span class="tag">Query</span> <span class="rule"><span class="attribute">time</span>:<span class="value"> <span class="number">4</span> msec
+</span></span>;; <span class="rule"><span class="attribute">SERVER</span>:<span class="value"> <span class="number">127.0</span>.<span class="number">0.1</span><span class="hexcolor">#53</span>(<span class="number">127.0</span>.<span class="number">0.1</span>)
+</span></span>;; <span class="rule"><span class="attribute">WHEN</span>:<span class="value"> Tue Sep  <span class="number">9</span> <span class="number">15</span>:<span class="number">09</span>:<span class="number">31</span> <span class="number">2014</span>
+</span></span>;; <span class="tag">MSG</span> <span class="tag">SIZE</span>  <span class="rule"><span class="attribute">rcvd</span>:<span class="value"> <span class="number">210</span></span></span>
+</code></pre><p>观察上面的 <strong>ANSWER SECTION</strong>，可以看出解析也成功了。</p>
+<p>至于外部解析，因为和上面的步骤相同，这里就不在赘述。</p>
+<p>至此为止，所有的配置都完成了。</p>
+<h2 id="参考">参考</h2><p>[1] <a href="http://www.mk-mode.com/octopress/2013/12/21/centos-6-5-bind-installation/" target="_blank" rel="external">http://www.mk-mode.com/octopress/2013/12/21/centos-6-5-bind-installation/</a></p>
+<p>（END）</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。</p>
+<h1 id="前提条件">前提条件</h1><ul>
+<li>使用 VirtualBox 虚拟机，联网方式选择 <strong>内部网络</strong>，如果你不知道怎么]]>
+    </summary>
+    
+      <category term="DNS" scheme="http://xintq.github.io/tags/DNS/"/>
+    
+      <category term="Linux" scheme="http://xintq.github.io/tags/Linux/"/>
+    
+      <category term="nslookup" scheme="http://xintq.github.io/tags/nslookup/"/>
+    
+      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置]]></title>
+    <link href="http://xintq.github.io/2014/09/05/virtualbox/"/>
+    <id>http://xintq.github.io/2014/09/05/virtualbox/</id>
+    <published>2014-09-05T14:24:17.000Z</published>
+    <updated>2015-05-28T13:48:18.000Z</updated>
+    <content type="html"><![CDATA[<p>本文给出了在VirtualBox下搭建一个</p>
+<ul>
+<li>虚拟机之间，以及虚拟机和主机之间内网互通</li>
+<li>主机和虚拟机都有静态IP</li>
+<li>主机和虚拟机都可以访问外网（internet）</li>
+</ul>
+<p>的网络配置方案。</p>
+<h2 id="前提条件">前提条件</h2><p>先定义一下名词：</p>
+<ul>
+<li><strong>主机</strong>： 也叫做host，也就是安装了VirtualBox的环境，物理上存在的实体机</li>
+<li><strong>虚拟机</strong>：也叫做guest，也就是安装在VirtualBox里面的各个操作系统，不需要硬件，虚拟的系统</li>
+</ul>
+<h2 id="环境要求">环境要求</h2><p>最近在使用VirtualBox搭建一个实验环境，由于公司规定了所有的机器都不能使用固定IP，都必须由DHCP自动获取。</p>
+<p>为了不影响公司整理的网络环境，只能把实验用的网络环境限制在使用内部IP上。因此，这个实验环境必须满足如下的需求（注意这三个需求是AND的关系，必须同时满足）：</p>
+<ul>
+<li><strong>需求1</strong>：从主机可以通过静态IP访问到每一个虚拟机，从虚拟机中可以访问主机（主机也有一个固定的静态IP）</li>
+<li><strong>需求2</strong>：虚拟机之间组成一个由静态IP构成的网络，而且虚拟机之间可以互相访问</li>
+<li><strong>需求3</strong>：从主机，从虚拟机都可以访问internet</li>
+</ul>
+<p>类似于这样：</p>
+<p><img src="/img/post/1409911319631.png" alt="网络配置图"></p>
+<p>为了满足以上需求，我在网上找了很多教程，终于有一个叫做 JOB OPEREL 的老哥，给出了一个比较靠谱的解决方法，你可以在 <strong><a href="http://technology.amis.nl/2014/01/27/a-short-guide-to-networking-in-virtual-box-with-oracle-linux-inside/#prettyPhoto" target="_blank" rel="external">这里</a></strong> 找到他的文章。</p>
+<p>我借鉴了他的方法，但是在连接外网的时候，和他的做法（他用的是桥接连接外网，最终还是需要影响外部网络的；而我用的是NAT地址转换来连接外网，不需要外部网络的，如果你不知道我在这里碎碎念什么，那么，无视吧……）不一样。<br>废话少说，开始干活！</p>
+<h2 id="基本思路">基本思路</h2><p>为了满足上面的三个需求，我准备在虚拟机里面加三个网卡来完成，思路如下：</p>
+<ul>
+<li><strong>eth0</strong>: 网卡1，使用 <strong><em>仅主机(Host-Only)适配器</em></strong> 的连接方式，完成 <strong>需求1</strong>，即：从主机可以通过一个静态IP访问到每一个虚拟机，从虚拟机中可以访问主机（主机也有一个固定的静态IP）</li>
+<li><strong>eth1</strong>: 网卡2，使用 <strong><em>内部网络</em></strong> 的连接方式，完成 <strong>需求2</strong>，即：虚拟机之间组成一个由静态IP构成的网络，而且虚拟机之间可以互相访问</li>
+<li><strong>eth2</strong>: 网卡3，使用 <strong><em>网络地址转换(NAT)</em></strong> 的连接方式，完成 <strong>需求3</strong>，即：从主机，从虚拟机都可以访问internet</li>
+</ul>
+<p>说了这么多，其实还差一块，那么到底主机与虚拟机之间是怎么连接的呢？</p>
+<p>细心的人可能会发现，在我们安装好VirtualBox之后，主机的系统里面会多出一个连接，<strong>VirtualBox Host-Only Network</strong>，这个是VirtualBox自动生成的一个连接；而另外一个 <strong>本地连接</strong> 就是实际的网卡的连接:</p>
+<p><img src="/img/post/1409912584529.png" alt="VirtualBox Host-Only Network"></p>
+<p>上图的两个连接，以及虚拟机里面的三块网卡互相配合，组成了下面的网络结构图：</p>
+<p><img src="/img/post/1409913441371.png" alt="网络结构图"></p>
+<h2 id="配置主机的内网静态IP">配置主机的内网静态IP</h2><p>打开 Orcale VM VirtualBox管理器，从菜单中选择 <em>管理</em> — <em>全局设定</em>；在弹出的窗口中选择 <em>网络</em>，然后再选择 <em>仅主机（Host-Only）网络（H）</em> 标签页，双击 <em>VirtualBox Host-Only Ethernet Adapter</em>, 修改里面的IP地址，为了尊重传统，我选择192.168.1.1，如下图所示;</p>
+<p><img src="/img/post/1409913793251.png" alt="修改里面的IP地址"></p>
+<p>接着，关闭DHCP服务器，如下图所示：</p>
+<p><img src="/img/post/1409913824731.png" alt="关闭DHCP服务器"></p>
+<p>也就是说，现在主机由一个静态IP：192.168.1.1。之后，虚拟机就可以通过这个IP地址来访问主机了。</p>
+<p>上述设定完成后，查看主机的地址，可以看到如下的信息;</p>
+<p><img src="/img/post/1409913965758.png" alt="主机的地址"></p>
+<h3 id="配置虚拟机的网卡">配置虚拟机的网卡</h3><p>加入第一块网卡 eth0，将 eth0 配置成如下图的方式：</p>
+<p><img src="/img/post/1409914087976.png" alt="eth0配置"></p>
+<p>接着加入第二块网卡 eth1，将 eth1 配置成如下图的方式：</p>
+<p><img src="/img/post/1409914190359.png" alt="eth1配置"></p>
+<p>注意，虚拟机之间的内网名字可以随便起，这里叫做 neta。如果在配置在第二个虚拟机的时候，也要记得选择 netca 这个内网名字，这样虚拟机之间才可以互相通信。</p>
+<p>最后，加入第三块网卡 eth2，配置如下：</p>
+<p><img src="/img/post/1409914251091.png" alt="eth2配置"></p>
+<p>保存，启动虚拟机，安装系统。</p>
+<h3 id="在虚拟机内部配置网卡">在虚拟机内部配置网卡</h3><p>在这里我使用了Oracle Linux（其实和CentOS，RHEL是一毛一样的）。在配置IP的时候，用命令行来配置各个网卡的IP信息，如果你喜欢，也可以使用GUI（NetworkManager）。</p>
+<p>首先 eth0，这里要与主机保持的一个网段（192.168.1.），把 eth0 的IP地址配置为 192.168.1.2：</p>
+<pre><code><span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-eth0 </span>
+<span class="variable">DEVICE=</span>eth0
+<span class="variable">TYPE=</span>Ethernet
+<span class="variable">ONBOOT=</span>yes
+<span class="variable">NM_CONTROLLED=</span>yes
+<span class="variable">BOOTPROTO=</span>none
+<span class="variable">IPADDR=</span><span class="number">192.168</span>.<span class="number">1.2</span> <span class="comment">#这里要与主机保持的一个网段：192.168.1.</span>
+<span class="variable">PREFIX=</span><span class="number">24</span>
+<span class="variable">DEFROUTE=</span>no
+<span class="variable">IPV4_FAILURE_FATAL=</span>yes
+<span class="variable">IPV6INIT=</span>no
+<span class="variable">NAME=</span><span class="string">"System eth0"</span>
+<span class="variable">NETWORK=</span><span class="number">192.168</span>.<span class="number">1.0</span>
+<span class="variable">BROADCAST=</span><span class="number">192.168</span>.<span class="number">1.255</span>
+<span class="variable">HWADDR=</span><span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">86</span>:D8:<span class="number">01</span>
+<span class="variable">MTU=</span><span class="number">1500</span>
+<span class="variable">UUID=</span><span class="number">5</span>fb06bd0-<span class="number">0</span>bb0-<span class="number">7</span>ffb-<span class="number">45</span>f1-d6edd65f3e03
+<span class="variable">LAST_CONNECT=</span><span class="number">1409908253</span>
+</code></pre><p>其次，配置 eth1，要注意内网我们选择 192.168.0. 这个网段，eth1 的IP地址配置为 192.168.0.2:</p>
+<pre><code><span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-eth1</span>
+<span class="variable">DEVICE=</span>eth1
+<span class="variable">TYPE=</span>Ethernet
+<span class="variable">ONBOOT=</span>yes
+<span class="variable">NM_CONTROLLED=</span>yes
+<span class="variable">BOOTPROTO=</span>none
+<span class="variable">IPADDR=</span><span class="number">192.168</span>.<span class="number">0.2</span> <span class="comment">#内网我们选择 192.168.0\. 这个网段</span>
+<span class="variable">NETMASK=</span><span class="number">255.255</span>.<span class="number">255.0</span>
+<span class="variable">PREFIX=</span><span class="number">24</span>
+<span class="variable">DEFROUTE=</span>no
+<span class="variable">IPV4_FAILURE_FATAL=</span>yes
+<span class="variable">IPV6INIT=</span>no
+<span class="variable">NAME=</span><span class="string">"System eth1"</span>
+<span class="variable">HWADDR=</span><span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:C6:<span class="number">79</span>:<span class="number">2</span>B
+<span class="variable">MTU=</span><span class="number">1500</span>
+<span class="variable">UUID=</span><span class="number">9</span>c92fad9-<span class="number">6</span>ecb-<span class="number">3</span>e6c-eb4d-<span class="number">8</span>a47c6f50c04
+<span class="variable">LAST_CONNECT=</span><span class="number">1409908255</span>
+</code></pre><p>再次，配置 eth2, 因为是NAT地址转换的，这块网卡使用DHCP来自动获取IP，具体如下：</p>
+<pre><code><span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-eth2</span>
+<span class="variable">DEVICE=</span>eth2
+<span class="variable">TYPE=</span>Ethernet
+<span class="variable">ONBOOT=</span>yes
+<span class="variable">NM_CONTROLLED=</span>yes
+<span class="variable">BOOTPROTO=</span>dhcp <span class="comment">#注意这里是DHCP</span>
+<span class="variable">NAME=</span><span class="string">"System eth2"</span>
+<span class="variable">HWADDR=</span><span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:E9:<span class="number">19</span>:A5
+<span class="variable">DEFROUTE=</span>yes
+<span class="variable">PEERDNS=</span>yes
+<span class="variable">PEERROUTES=</span>yes
+<span class="variable">IPV4_FAILURE_FATAL=</span>yes
+<span class="variable">IPV6INIT=</span>no
+<span class="variable">UUID=</span><span class="number">3</span>a73717e-<span class="number">65</span>ab-<span class="number">93</span>e8-b518-<span class="number">24</span>f5af32dc0d
+<span class="variable">LAST_CONNECT=</span><span class="number">1409908256</span>
+</code></pre><p>最后，重新启动一下网络服务：</p>
+<pre><code><span class="preprocessor"># service network restart</span>
+</code></pre><p>查看一下我们配置后的结果：</p>
+<pre><code><span class="comment"># ip addr show</span>
+<span class="number">1</span>: lo: <span class="variable">&lt;LOOPBACK,UP,LOWER_UP&gt;</span> mtu <span class="number">65536</span> qdisc noqueue <span class="keyword">state</span> UNKNOWN 
+    link/loopback <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> brd <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>
+    <span class="keyword">inet</span> <span class="number">127.0</span>.<span class="number">0.1</span>/<span class="number">8</span> scope host lo
+    <span class="keyword">inet6</span> ::<span class="number">1</span>/<span class="number">128</span> scope host 
+       valid_lft forever preferred_lft forever
+<span class="number">2</span>: eth0: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast <span class="keyword">state</span> UP qlen <span class="number">1000</span>
+    link/ether <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">86</span>:d8:<span class="number">01</span> brd ff:ff:ff:ff:ff:ff
+    <span class="keyword">inet</span> <span class="number">192.168</span>.<span class="number">1.2</span>/<span class="number">24</span> brd <span class="number">192.168</span>.<span class="number">1.255</span> scope <span class="keyword">global</span> eth0
+    <span class="keyword">inet6</span> fe80::a00:<span class="number">27</span>ff:fe86:d801/<span class="number">64</span> scope link 
+       valid_lft forever preferred_lft forever
+<span class="number">3</span>: eth1: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast <span class="keyword">state</span> UP qlen <span class="number">1000</span>
+    link/ether <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:c6:<span class="number">79</span>:<span class="number">2</span>b brd ff:ff:ff:ff:ff:ff
+    <span class="keyword">inet</span> <span class="number">192.168</span>.<span class="number">0.2</span>/<span class="number">24</span> brd <span class="number">192.168</span>.<span class="number">0.255</span> scope <span class="keyword">global</span> eth1
+    <span class="keyword">inet6</span> fe80::a00:<span class="number">27</span>ff:fec6:<span class="number">792</span>b/<span class="number">64</span> scope link 
+       valid_lft forever preferred_lft forever
+<span class="number">4</span>: eth2: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast <span class="keyword">state</span> UP qlen <span class="number">1000</span>
+    link/ether <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:e9:<span class="number">19</span>:a5 brd ff:ff:ff:ff:ff:ff
+    <span class="keyword">inet</span> <span class="number">10.0</span>.<span class="number">4.15</span>/<span class="number">24</span> brd <span class="number">10.0</span>.<span class="number">4.255</span> scope <span class="keyword">global</span> eth2
+    <span class="keyword">inet6</span> fe80::a00:<span class="number">27</span>ff:fee9:<span class="number">19</span>a5/<span class="number">64</span> scope link 
+       valid_lft forever preferred_lft forever
+</code></pre><p>也就是说，现在这台虚拟机有三个IP：</p>
+<ul>
+<li>192.168.1.2： 和主机通信使用</li>
+<li>192.168.0.2： 和其他的虚拟机通信使用</li>
+<li>10.0.4.15：   是自动获取的，通过VirtualBox的地址转换功能，用来访问外网internet</li>
+</ul>
+<p>如果再新建一台虚拟机，还是需要参考上面的步骤，为每个虚拟机都设置三块网卡。</p>
+<h2 id="验证">验证</h2><h3 id="对需求1的验证">对需求1的验证</h3><p>通过主机来 ping 虚拟机，结果如图，成功！</p>
+<p><img src="/img/post/1409915127495.png" alt="主机来ping虚拟机"></p>
+<p>反过来，从虚拟机中ping主机，结果如图，成功！</p>
+<p><img src="/img/post/1409915280513.png" alt="从虚拟机中ping主机"></p>
+<h3 id="需求2的验证">需求2的验证</h3><p>虚拟机之间互 ping，结果如图，成功！</p>
+<p><img src="/img/post/1409915369535.png" alt="虚拟机之间互ping"></p>
+<h3 id="需求3的验证">需求3的验证</h3><p>从虚拟机直接上外网，如图，成功！（注意：请确认你的主机和虚拟机都使用了相同的代理服务器设置）</p>
+<p><img src="/img/post/1409915445978.png" alt="虚拟机直接上外网"></p>
+<h2 id="总结">总结</h2><p>通过把 VirtualBox 的几种联网方式的混合运用，就能满足我们大多场合的需求。其实回过头想想，如果一种解决方法解决不了问题，可以尝试一下混合几种解决方案，取长补短，这样带来的加乘效果，往往会让你吃惊。</p>
+<p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文给出了在VirtualBox下搭建一个</p>
+<ul>
+<li>虚拟机之间，以及虚拟机和主机之间内网互通</li>
+<li>主机和虚拟机都有静态IP</li>
+<li>主机和虚拟机都可以访问外网（internet）</li>
+</ul>
+<p>的网络配置方案。</p>]]>
+    </summary>
+    
+      <category term="dhcp" scheme="http://xintq.github.io/tags/dhcp/"/>
+    
+      <category term="ip" scheme="http://xintq.github.io/tags/ip/"/>
+    
+      <category term="virtualbox" scheme="http://xintq.github.io/tags/virtualbox/"/>
+    
+      <category term="网络配置" scheme="http://xintq.github.io/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="虚拟机" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Virtualbox中找不到eth0的解决方法]]></title>
+    <link href="http://xintq.github.io/2014/09/05/Virtualbox%E4%B8%AD%E6%89%BE%E4%B8%8D%E5%88%B0eth0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>http://xintq.github.io/2014/09/05/Virtualbox中找不到eth0的解决方法/</id>
+    <published>2014-09-05T05:59:31.000Z</published>
+    <updated>2015-05-28T13:48:56.000Z</updated>
+    <content type="html"><![CDATA[<p>在Virtualbox中安装完虚拟机之后，可能会有添加网卡，然后删除网卡之类的操作。这种操作一多了的话，虚拟机中的linux系统中，网卡的编号可能会乱套。</p>
+<p>默认情况下，Linux会把第一个网卡识别为eth0，第二个为eth2。<br>但是经过频繁的变更网卡设置后，在网络服务启动时，有可能出现下面的错误（还有人说，在复制虚拟机的时候，也会出现这个问题）：</p>
+<pre><code>“Device eth0 <span class="keyword">does</span> <span class="keyword">not</span> seem <span class="keyword">to</span> be present, delaying initialization.”
+</code></pre><p>如何解决这个问题呢？</p>
+<p>这时可以删除下面的文件，然后重启系统：</p>
+<pre><code><span class="preprocessor"># rm /etc/udev/rules.d/70-persistent-net.rules</span>
+<span class="preprocessor"># reboot</span>
+</code></pre><p>其实该文件在系统启动时可以自动生成的，而且里面的内容确定了网卡编号与MAC地址的绑定关系。在网卡变动或者虚拟机克隆之后，网卡的MAC地址会发生变化，所以系统会错误的认为网络设备不存在。<br>重启之后，再次查看一下下面的文件, 如果eth0还是不存在的话，可以修改一下文件的内容，把里面的eth1或者ethN之类的，改成eth0，我的文件如下;</p>
+<pre><code><span class="comment">#cat /etc/udev/rules.d/70-persistent-net.rules</span>
+<span class="variable">SUBSYSTEM=</span>=<span class="string">"net"</span>, <span class="variable">ACTION=</span>=<span class="string">"add"</span>, <span class="variable">DRIVERS=</span>=<span class="string">"?*"</span>, ATTR{address}==<span class="string">"08:00:27:86:d8:01"</span>, ATTR{type}==<span class="string">"1"</span>, <span class="variable">KERNEL=</span>=<span class="string">"eth*"</span>, <span class="variable">NAME=</span><span class="string">"eth0"</span>
+</code></pre><p>记下里面的MAC地址，修改下面的文件：</p>
+<pre><code><span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-eth0 </span>
+<span class="variable">DEVICE=</span>eth0 <span class="comment">#注意网卡编号</span>
+<span class="variable">TYPE=</span>Ethernet
+<span class="variable">ONBOOT=</span>yes
+<span class="variable">NM_CONTROLLED=</span>no
+<span class="variable">BOOTPROTO=</span>none
+<span class="variable">IPADDR=</span><span class="number">192.168</span>.<span class="number">1.2</span>
+<span class="variable">PREFIX=</span><span class="number">24</span>
+<span class="variable">DEFROUTE=</span>yes
+<span class="variable">IPV4_FAILURE_FATAL=</span>yes
+<span class="variable">IPV6INIT=</span>no
+<span class="variable">NAME=</span><span class="string">"System eth0"</span>
+<span class="variable">NETWORK=</span><span class="number">192.168</span>.<span class="number">1.0</span>
+<span class="variable">BROADCAST=</span><span class="number">192.168</span>.<span class="number">1.255</span>
+<span class="variable">HWADDR=</span><span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">86</span>:d8:<span class="number">01</span> <span class="comment">#这里的MAC地址一定要和70-persistent-net.rules的一致</span>
+<span class="variable">MTU=</span><span class="number">1500</span>
+</code></pre><p>最后，重启一下网络服务，看看eth0有没有起来：</p>
+<pre><code><span class="preprocessor"># service network restart</span>
+</code></pre><p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在Virtualbox中安装完虚拟机之后，可能会有添加网卡，然后删除网卡之类的操作。这种操作一多了的话，虚拟机中的linux系统中，网卡的编号可能会乱套。</p>
+<p>默认情况下，Linux会把第一个网卡识别为eth0，第二个为eth2。<br>但是经过频繁的变更网卡设置]]>
+    </summary>
+    
+      <category term="eth0" scheme="http://xintq.github.io/tags/eth0/"/>
+    
+      <category term="virtualbox" scheme="http://xintq.github.io/tags/virtualbox/"/>
+    
+      <category term="网络配置" scheme="http://xintq.github.io/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Tarantella, virtualization tools, also a poem]]></title>
+    <link href="http://xintq.github.io/2014/08/26/tarantella-virtualization-tools-also-a-poem/"/>
+    <id>http://xintq.github.io/2014/08/26/tarantella-virtualization-tools-also-a-poem/</id>
+    <published>2014-08-26T07:25:42.000Z</published>
+    <updated>2015-05-28T13:47:17.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在折腾Oracle虚拟化的产品，叫做Oracle Secure Global Desktop。在搭建环境的时候，碰到的第一个命令叫做：</p>
+<pre><code><span class="comment">tarantella</span> <span class="comment">object</span> <span class="comment">edit</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">"o=Tarantella</span> <span class="comment">System</span> <span class="comment">Objects/cn=Administrator"</span> <span class="comment">\</span>
+    <span class="literal">-</span><span class="literal">-</span><span class="comment">user</span> <span class="comment">user</span><span class="literal">-</span><span class="comment">name</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">surname</span> <span class="comment">family</span><span class="literal">-</span><span class="comment">name</span>
+</code></pre><p>那么，这个 <strong><em>tarantella</em></strong> 到底是个啥？<br>查了一下，好像是个病毒，还是个舞蹈，另外还是一首诗的名字。</p>
+<p>病毒我不太感兴趣，脏脏的，百度一大片。<br>但是那首诗不错，你可以在<a href="http://www.bookyesok.com/Books/2844.html" target="_blank" rel="external">这里</a>找到原文，如下：</p>
+<pre><code>Tarantella
+<span class="keyword">From</span> <span class="keyword">New</span> Poems (<span class="number">1916</span>).
+
+Sad <span class="keyword">as</span> he sits <span class="keyword">on</span> the white sea-stone
+<span class="keyword">And</span> the suave sea chuckles, <span class="keyword">and</span> turns <span class="keyword">to</span> the moon,
+<span class="keyword">And</span> the moon significant smiles at the cliffs <span class="keyword">and</span> the boulders.
+He sits <span class="keyword">like</span> a shade <span class="keyword">by</span> the flood alone
+<span class="keyword">While</span> I dance a tarantella <span class="keyword">on</span> the rocks, <span class="keyword">and</span> the croon
+<span class="keyword">Of</span> my mockery mocks at him over the waves<span class="comment">' bright shoulders.</span>
+
+What can I <span class="keyword">do</span> but dance alone,
+Dance <span class="keyword">to</span> the sliding sea <span class="keyword">and</span> the moon,
+<span class="keyword">For</span> the moon <span class="keyword">on</span> my breast <span class="keyword">and</span> the air <span class="keyword">on</span> my limbs <span class="keyword">and</span> the foam <span class="keyword">on</span> my feet?
+<span class="keyword">For</span> surely this earnest man has none
+<span class="keyword">Of</span> the night <span class="keyword">in</span> his soul, <span class="keyword">and</span> none <span class="keyword">of</span> the tune
+<span class="keyword">Of</span> the waters within him; only the world<span class="comment">'s old wisdom to bleat.</span>
+
+I wish a wild sea-fellow would come down the glittering shingle,
+A soulless neckar, <span class="keyword">with</span> winking seas <span class="keyword">in</span> his eyes
+<span class="keyword">And</span> falling waves <span class="keyword">in</span> his arms, <span class="keyword">and</span> the lost soul<span class="comment">'s kiss</span>
+<span class="keyword">On</span> his lips: I <span class="built_in">long</span> <span class="keyword">to</span> be soulless, I tingle
+<span class="keyword">To</span> touch the sea <span class="keyword">in</span> the last surprise
+<span class="keyword">Of</span> fiery coldness, <span class="keyword">to</span> be gone <span class="keyword">in</span> a lost soul<span class="comment">'s bliss.</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在折腾Oracle虚拟化的产品，叫做Oracle Secure Global Desktop。在搭建环境的时候，碰到的第一个命令叫做：</p>
+<pre><code><span class="comment">tarantella</span> <span class=]]>
+    </summary>
+    
+      <category term="poem" scheme="http://xintq.github.io/tags/poem/"/>
+    
+      <category term="tarantella" scheme="http://xintq.github.io/tags/tarantella/"/>
+    
+      <category term="virtualization" scheme="http://xintq.github.io/tags/virtualization/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Try octopress on github: fast-forward error]]></title>
+    <link href="http://xintq.github.io/2014/08/07/try-octopress-on-github-fast-forward-error/"/>
+    <id>http://xintq.github.io/2014/08/07/try-octopress-on-github-fast-forward-error/</id>
+    <published>2014-08-06T20:46:39.000Z</published>
+    <updated>2015-05-28T14:01:57.000Z</updated>
+    <content type="html"><![CDATA[<p>今天尝试往 github 上导 octopress，发现了下面的问题：</p>
+<pre><code> ! [rejected]        master -&gt; master (non-fast-forward)
+error: failed <span class="built_in">to</span> push some refs <span class="built_in">to</span> <span class="string">'https://github.com/xxx/xxx.github.io'</span>
+hint: Updates were rejected because <span class="operator">the</span> tip <span class="operator">of</span> your current branch is behind
+hint: its remote counterpart. Integrate <span class="operator">the</span> remote changes (e.g.
+hint: <span class="string">'git pull ...'</span>) <span class="keyword">before</span> pushing again.
+hint: See <span class="operator">the</span> <span class="string">'Note about fast-forwards'</span> <span class="operator">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.
+</code></pre><p>看了很多地方，发现下面两种解决方法：</p>
+<h2 id="方法一">方法一</h2><p>在执行 <code>rake deploy</code> 之后，octpress 会执行 <code>cd _deploy</code> 命令，进入 _deploy 目录，并且尝试向Github提交更新。也就是说，需要在 _deploy 目录下进行一些设置。</p>
+<p>我的做法是，进入 _deploy 目录，执行：</p>
+<pre><code>git config branch<span class="class">.master</span><span class="class">.remote</span> origin
+git config branch<span class="class">.master</span><span class="class">.merge</span> refs/heads/master
+
+git pull
+</code></pre><p>这样就解决了 no-fast forward 这个错误了，然后就可以把更新提交到 Github，或者重新执行 <code>rake deploy</code>。</p>
+<h2 id="方法二">方法二</h2><p>修改 octopress 下的 Rakefile，那下面的内容：</p>
+<pre><code>system <span class="string">"git push origin <span class="subst">#{deploy_branch}</span>"</span>
+</code></pre><p>改成</p>
+<pre><code>system <span class="string">"git push origin +<span class="subst">#{deploy_branch}</span>"</span>
+</code></pre><p>就OK了。</p>
+<hr>
+<p>个人认为，方法二比较靠谱，一劳永逸。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天尝试往 github 上导 octopress，发现了下面的问题：</p>
+<pre><code> ! [rejected]        master -&gt; master (non-fast-forward)
+error: failed <span class=]]>
+    </summary>
+    
+      <category term="github" scheme="http://xintq.github.io/tags/github/"/>
+    
+      <category term="markdown" scheme="http://xintq.github.io/tags/markdown/"/>
+    
+      <category term="octpress" scheme="http://xintq.github.io/tags/octpress/"/>
+    
+      <category term="文本处理" scheme="http://xintq.github.io/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[TDS值和鱼缸水质的KPI]]></title>
+    <link href="http://xintq.github.io/2014/07/31/about-tds/"/>
+    <id>http://xintq.github.io/2014/07/31/about-tds/</id>
+    <published>2014-07-31T15:00:44.000Z</published>
+    <updated>2015-05-28T13:43:42.000Z</updated>
+    <content type="html"><![CDATA[<p>这几天折腾小鱼小虾接触到了TDS这个东西，今天查了一下，把自己的理解总结一下。</p>
+<p>TDS表示溶解于水中的固体含量(ppm: parts per million)，通俗来说就是一升水中包含的杂质的数量。一般认为，TDS越高，表示水质越差。</p>
+<p>TDS和水的硬度以及纯度的参考关系（小日本的说法）如下：</p>
+<ul>
+<li><p>硬度</p>
+<ul>
+<li>软水： ≤100ppm</li>
+<li>中硬水： 100~300ppm</li>
+<li>硬水： ≥300ppm</li>
+</ul>
+</li>
+<li><p>纯度</p>
+<ul>
+<li>一般河水： ±60ppm</li>
+<li>自来水： 40~200ppm</li>
+<li>RO水： 0~7ppm</li>
+</ul>
+</li>
+</ul>
+<p>在有水草缸里面的TDS一般认为在500ppm以下为宜。</p>
+<p>高于500ppm的水质由于可溶物太高，会造成水草的生理脱水，最甚会造成水草的溶叶，萎缩，光合作用受到影响等等不良现象，而且500ppm也是藻类爆发临界值。</p>
+<p>而低于20ppm，水中的可溶物过少，水草也会营养不良。</p>
+<p>也就是说，适合小鱼小虾的有水草的鱼缸内，TDS要控制在下面的范围：</p>
+<pre><code>20ppm ≤ TDS ≤ 500ppm
+</code></pre><p>从网上查了一下各个水草合适的TDS范围值，列举如下：</p>
+<ul>
+<li>绿宫廷 20~150ppm</li>
+<li>小水榕 20~150ppm</li>
+<li>大宝塔 50~120ppm</li>
+<li>矮　柳 30~110ppm</li>
+<li>绿蝴蝶 40~130ppm</li>
+<li>小水兰 20~80ppm</li>
+<li>黑木蕨 30~50ppm</li>
+<li>大龙鞭 20~110ppm</li>
+<li>小龙鞭 10~120ppm</li>
+<li>矮珍珠 20~120ppm</li>
+<li>迷你矮 20~120ppm</li>
+</ul>
+<p>上面都是理想值，我没有验证过。但是我把鱼缸里的水从tds 800ppm降低到 300ppm后，水草开始冒泡了，而且之前溶掉的水草叶子也开始返青了，说明还是有一定道理的，可以作为继PH值之后，又一个鱼缸的KPI。</p>
+<p>从没有想到养个鱼还是这么麻烦的，还得用KPI来衡量。</p>
+<p>唉，IT男真苦逼啊……</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这几天折腾小鱼小虾接触到了TDS这个东西，今天查了一下，把自己的理解总结一下。</p>
+<p>TDS表示溶解于水中的固体含量(ppm: parts per million)，通俗来说就是一升水中包含的杂质的数量。一般认为，TDS越高，表示水质越差。</p>
+<p>TDS和水]]>
+    </summary>
+    
+      <category term="kpi" scheme="http://xintq.github.io/tags/kpi/"/>
+    
+      <category term="tds" scheme="http://xintq.github.io/tags/tds/"/>
+    
+      <category term="水质" scheme="http://xintq.github.io/tags/%E6%B0%B4%E8%B4%A8/"/>
+    
+      <category term="鱼缸" scheme="http://xintq.github.io/tags/%E9%B1%BC%E7%BC%B8/"/>
+    
+      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[VIM替换 压箱底的技巧]]></title>
+    <link href="http://xintq.github.io/2014/07/31/vim-tricks/"/>
+    <id>http://xintq.github.io/2014/07/31/vim-tricks/</id>
+    <published>2014-07-31T10:03:45.000Z</published>
+    <updated>2015-05-28T13:45:26.000Z</updated>
+    <content type="html"><![CDATA[<p>VIM是在Linux下使用最广泛的的文本编辑器，尤其是文本查找和替换命令，结合了正则表达式，非常强大。</p>
+<p>本文列举了我经常使用的一些替换方法，仅供参考。</p>
+<h1 id="单词替换">单词替换</h1><pre><code><span class="tag">%<span class="title">s</span></span>/four/4/g
+↑         ↑
+|         +-- 替换行中所有的匹配项目
+在所有行中执行替换
+</code></pre><p>替换结果：</p>
+<pre><code><span class="constant">four</span> <span class="comment">--&gt; 4</span>
+thirtyfour <span class="comment">--&gt; thirty4</span>
+</code></pre><ul>
+<li><strong>\&lt;</strong> 指定匹配单词的开始</li>
+<li><p><strong>></strong> 指定匹配单词的结尾</p>
+<pre><code>:<span class="preprocessor">%</span>s/\&lt;four\&gt;/<span class="number">4</span>/gc    <span class="comment">//只替换 four</span>
+                ↑
+                在每次替换前提示确认
+</code></pre></li>
+</ul>
+<h1 id="正则表达式：将_Last,_First_改成_First,_Last，_如何做呢？">正则表达式：将 <em>Last, First</em> 改成 <em>First, Last</em>， 如何做呢？</h1><ul>
+<li>原文： Doe, John Smith Peter</li>
+<li>改成： John Doe  Peter Smith</li>
+</ul>
+<p>替换命令</p>
+<pre><code><span class="preprocessor">%</span>s/\<span class="comment">([^,]*\)</span>,\<span class="comment">(.*\)</span>/\<span class="number">2</span> \<span class="number">1</span>/
+</code></pre><p>对命令的解释：</p>
+<pre><code>%s <span class="keyword">from</span><span class="pi">/to   /</span>/正斜杠区分 <span class="keyword">from</span> 和 <span class="keyword">to</span> 部分
+</code></pre><h2 id="from部分">from部分</h2><pre><code>`<span class="command">\(</span><span class="special">[</span>^,<span class="special">]</span>*<span class="command">\)</span>,<span class="command">\(</span>.*<span class="command">\)</span>`
+</code></pre><p>具体解释：</p>
+<ul>
+<li><code>\(     \)</code>   : 匹配”Last”部分</li>
+<li><code>[^,]</code>        : 匹配除了逗号（,）之外的任何东西</li>
+<li><code>*</code>           : 任意多次</li>
+<li><code>,</code>           : 匹配逗号（,）</li>
+<li><code>\(    \)</code>    : 匹配”First”部分</li>
+<li><code>.</code>           : 匹配任意字符</li>
+<li><code>,</code>           : 任意多次</li>
+</ul>
+<h2 id="to部分">to部分</h2><pre><code><span class="string">\2</span> <span class="string">\1</span>   
+</code></pre><p>其中，“\2”与“\1”称为反向引用，反向引用就是指前面from部分中 <code>\(</code> 和 <code>\)</code> 之间的部分。</p>
+<p>具体解释：</p>
+<ul>
+<li><code>\2</code>    : 指代第二对 <code>\(</code> 和 <code>\)</code> 之间的部分，也就是 First部分</li>
+<li><code>\1</code>    : 指代第一对 <code>\(</code> 和 <code>\)</code> 之间的部分，也就是 Last部分</li>
+</ul>
+<p>在替换时，最多可以使用9个反向引用。<code>\0</code> 表示整个匹配的部分。</p>
+<h1 id="常用替换技巧">常用替换技巧</h1><h2 id="删除多余的空格">删除多余的空格</h2><pre><code><span class="preprocessor">%</span>s/\s\+$<span class="comment">//</span>
+</code></pre><p>其中 <code>\s\+$</code> 表示匹配 <em>行末（<code>$</code>）</em> 前面的 <em>一个或者多个（<code>\+</code>）</em> <em>空格（<code>\s</code>）</em></p>
+<h2 id="使用宏在多个文件中替换">使用宏在多个文件中替换</h2><p>例如，有一个包含C++代码的文件夹，所有文件都以 “*.cpp” 结尾，有一个名为 “GetResp” 的函数，现在要把它的名字改为 “GetAnswer”。</p>
+<p>具体步骤如下：</p>
+<pre><code><span class="title">vim</span> <span class="regexp">*.cpp</span>
+</code></pre><p>vim启动后会待在第一个文件上，此时执行下面的命令：</p>
+<pre><code>qq
+</code></pre><p>意思是用q作为寄存器启动一次记录，也可以使用qa~qz。<br>接着执行下面的命令：</p>
+<pre><code><span class="symbol">:%s/</span>\&lt;<span class="constant">GetResp\</span>&gt;<span class="regexp">/GetAnswer/g</span>
+</code></pre><p>意思是在第一个文件中替换并执行，接着执行下面的命令：</p>
+<pre><code><span class="attribute">:wnext</span>
+</code></pre><p>意思是保存文件，并转到下一个文件。接着执行下面的命令：</p>
+<pre><code><span class="literal">q</span>
+</code></pre><p>意思是终止记录，然后执行下面的命令：</p>
+<pre><code><span class="annotation">@q</span>
+</code></pre><p>意思是回放寄存器q中的操作过程，这回执行又一次的替换和 <code>:wnext</code>命令，这时可以看看录制的宏有没有出问题。</p>
+<p>没有问题的话，接着执行下面的命令：</p>
+<pre><code><span class="number">999</span><span class="annotation">@q</span>
+</code></pre><p>意思是对于剩下的文件执行寄存器q中录制的命令，执行999遍（999好像 <code>@q</code> 的最大值）。</p>
+<p>此时会有一个问题，任何错误都会终止回放过程，如果有一个文件不包含 “GetResp”，VIM会报错，而且整个替换过程也会终止。为了避免此问题，改用下面的替换命令重新录制一下宏：</p>
+<pre><code><span class="symbol">:%s/</span>\&lt;<span class="constant">GetResp\</span>&gt;<span class="regexp">/GetAnswer/ge</span>
+</code></pre><p>其中，<strong>e</strong> 是标记通知，表示命令找不到的话，不算是错误。</p>
+<h2 id="单词统计">单词统计</h2><p>统计整个文件的单词可以使用下面的命令：</p>
+<pre><code><span class="title">gCtrl</span> + g
+</code></pre><p>统计选项部分的单词，可以进入可视模式，选中区域，然后执行 <code>gCtrl+g</code>。</p>
+<h2 id="删除Windows文本文件中的_“^M”_标记">删除Windows文本文件中的 “^M” 标记</h2><p>使用下面的命令即可：</p>
+<pre><code><span class="symbol">:%s/</span>\r/<span class="regexp">/g</span>
+</code></pre><p>或者</p>
+<pre><code>:%s/[<span class="link_label">Ctrl+v</span>][<span class="link_reference">Enter</span>]//g
+</code></pre><p>上面的 <code>[Ctrl+v][Enter]</code> 意思是 使用组合键 Ctrl+v之后，按下回车。</p>
+<p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>VIM是在Linux下使用最广泛的的文本编辑器，尤其是文本查找和替换命令，结合了正则表达式，非常强大。</p>
+<p>本文列举了我经常使用的一些替换方法，仅供参考。</p>
+<h1 id="单词替换">单词替换</h1><pre><code><span class="tag]]>
+    </summary>
+    
+      <category term="vim" scheme="http://xintq.github.io/tags/vim/"/>
+    
+      <category term="编辑" scheme="http://xintq.github.io/tags/%E7%BC%96%E8%BE%91/"/>
+    
+      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux下合并PDF文件]]></title>
+    <link href="http://xintq.github.io/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/"/>
+    <id>http://xintq.github.io/2014/07/31/Linux下合并PDF文件/</id>
+    <published>2014-07-31T02:19:56.000Z</published>
+    <updated>2015-05-28T13:45:05.000Z</updated>
+    <content type="html"><![CDATA[<p>Mark一下，Linux下合并PDF文件可以使用Gost Script和PDFtk。</p>
+<h2 id="运行如下命令：">运行如下命令：</h2><pre><code>gs -q <span class="operator">-d</span>NOPAUSE <span class="operator">-s</span>DEVICE=pdfwrite <span class="operator">-s</span>OUTPUTFILE=test.pdf <span class="operator">-d</span>BATCH *.pdf
+</code></pre><h2 id="结果：">结果：</h2><pre><code>把当前目录下所有的 pdf 文件全部合并到 test<span class="class">.pdf</span> 中。
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>Mark一下，Linux下合并PDF文件可以使用Gost Script和PDFtk。</p>
+<h2 id="运行如下命令：">运行如下命令：</h2><pre><code>gs -q <span class="operator">-d</span>NOPAUSE <spa]]>
+    </summary>
+    
+      <category term="gs" scheme="http://xintq.github.io/tags/gs/"/>
+    
+      <category term="pdf" scheme="http://xintq.github.io/tags/pdf/"/>
+    
+      <category term="合并" scheme="http://xintq.github.io/tags/%E5%90%88%E5%B9%B6/"/>
+    
+      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[JNI入门之HelloWorld]]></title>
+    <link href="http://xintq.github.io/2014/07/31/JNI%E5%85%A5%E9%97%A8%E4%B9%8BHelloWorld/"/>
+    <id>http://xintq.github.io/2014/07/31/JNI入门之HelloWorld/</id>
+    <published>2014-07-31T02:16:51.000Z</published>
+    <updated>2015-05-28T14:00:11.000Z</updated>
+    <content type="html"><![CDATA[<p>首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。</p>
+<h2 id="程序的流程">程序的流程</h2><p>在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.</p>
+<h2 id="首先编写Hello-java">首先编写Hello.java</h2><pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span>
+</span>{
+    <span class="keyword">static</span>
+    {
+        <span class="keyword">try</span>
+        {
+            <span class="comment">//此处即为本地方法所在链接库名</span>
+            System.loadLibrary(<span class="string">"hello"</span>);
+        }
+        <span class="keyword">catch</span>(UnsatisfiedLinkError e)
+        {
+            System.err.println( <span class="string">"Cannot load hello library:  "</span>+ e.toString() );
+        }
+    }
+    <span class="function"><span class="keyword">public</span> <span class="title">Hello</span><span class="params">()</span></span>{}
+
+    <span class="comment">//声明的本地方法</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">SayHello</span><span class="params">(String strName)</span></span>;
+} 
+</code></pre><h2 id="编译该文件，生成_Hello-class">编译该文件，生成 Hello.class</h2><pre><code><span class="title">javac</span> Hello.java
+</code></pre><h2 id="运行javah，产生头文件Hello-h">运行javah，产生头文件Hello.h</h2><pre><code><span class="title">javah</span> Hello
+</code></pre><p>Hello.h中的内容不要做修改，先打开它，看看本地方法是怎么声明的：</p>
+<pre><code><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;jni.h&gt;</span>
+<span class="comment">/* Header for class Hello */</span>
+
+<span class="preprocessor">#ifndef _Included_Hello</span>
+<span class="preprocessor">#<span class="keyword">define</span> _Included_Hello</span>
+<span class="preprocessor">#ifdef __cplusplus</span>
+<span class="keyword">extern</span> <span class="string">"C"</span> {
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+<span class="comment">/*
+ * Class:     Hello
+ * Method:    SayHello
+ * Signature: (Ljava/lang/String;)V
+ */</span>
+<span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_Hello_SayHello</span>
+  <span class="params">(JNIEnv *, jobject, jstring)</span></span>;
+
+<span class="preprocessor">#ifdef __cplusplus</span>
+}
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+</code></pre><h2 id="然后按照Hello-h中的声明方法，编写本地方法的实现文件Hello-c：">然后按照Hello.h中的声明方法，编写本地方法的实现文件Hello.c：</h2><pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;jni.h&gt;</span>
+<span class="preprocessor">#<span class="keyword">include</span> "Hello.h"</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+
+<span class="comment">//与Hello.h中函数声明相同</span>
+<span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_Hello_SayHello</span>  <span class="params">(JNIEnv * env, jobject arg, jstring instring)</span>
+</span>{
+    <span class="comment">//从instring字符串取得指向字符串UTF编码的指针</span>
+    <span class="keyword">char</span> *str = (<span class="keyword">char</span> *)(*env)-&gt;GetStringUTFChars( env, instring, NULL);
+
+    <span class="built_in">printf</span>(<span class="string">"Hello, %s "</span>, str);
+
+    <span class="comment">//通知虚拟机本地代码不再需要通过str访问Java字符串。</span>
+    (*env)-&gt;ReleaseStringUTFChars( env, instring, NULL);
+}
+</code></pre><h2 id="编译和加载库文件">编译和加载库文件</h2><p>其实以上的步骤并没有什么难度，只是一个模板流程而已，我认为对于初学者来说，让人头疼的部分还是编译和加载库文件，下面就是这一关键的步骤。为了编译方便，我先写了一个makefile：</p>
+<pre><code><span class="comment"># 最后生成的库文件：libhello.so依赖于Hello.o和makefile</span>
+libhello.so:<span class="constant">Hello</span>.o makefile
+
+    <span class="comment"># 这句就是gcc下编译共享库文件的方法</span>
+    gcc -<span class="constant">Wall</span> -rdynamic -<span class="literal">shared</span> -o libhello.so <span class="constant">Hello</span>.o
+
+<span class="comment"># 目标文件Hello.o是由Hello.c和Hello.h编译生成的</span>
+<span class="constant">Hello</span>.o:<span class="constant">Hello</span>.c <span class="constant">Hello</span>.h
+
+    <span class="comment"># 这就是编译c文件的方法，“-I”选项指出了编译时需要使用JDK提供的一些文件，</span>
+    <span class="comment"># 在我的机器上JDK的目录是/usr/java/jdk1.5.0_04，你可以根据具体情况来改变它</span>
+    gcc -<span class="constant">Wall</span> -c <span class="constant">Hello</span>.c -<span class="constant">I</span>./ -<span class="constant">I</span>/usr/java/jdk1.<span class="number">5.0_04</span>/<span class="literal">include</span> -<span class="constant">I</span>/usr/java/jdk1.<span class="number">5.0_04</span>/<span class="literal">include</span>/linux
+
+<span class="comment"># 这是清理标志位，如果你使用的命令是make cl，则会删除所有产生的目标文件*.o和库文件*.so，</span>
+<span class="comment"># 这通常用来要重新编译所有文件的情况下，先执行make cl，然后执行 make</span>
+cl:
+    rm -rf *.o *.so
+</code></pre><p>(注意：以“#”开头的部分是注释，你可以全部删除之， gcc和rm等命令的开头必须用tab键做一个空格)</p>
+<p>运行一下命令来编译我们的库文件：</p>
+<pre><code>#sudo chmod +x makefile
+#make
+gcc -Wall -c Hello.c -I.<span class="regexp">/ -I/</span>usr<span class="regexp">/java/</span>jdk1.5.0_04<span class="regexp">/include -I/</span>usr<span class="regexp">/java/</span>jdk1.5.0_04<span class="regexp">/include/</span>linux
+Hello.<span class="string">c:</span><span class="number">15</span>:<span class="number">2</span>: <span class="string">warning:</span> no newline at end of file
+gcc -Wall -rdynamic -shared -o libhello.so Hello.o
+</code></pre><p>那个警告信息我们可以不管，这样的话就在当前目录下生成了库文件：libhello.so</p>
+<p>再写一个类来调用我们的本地方法：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ToSay</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String argv[])</span>
+    </span>{
+        ToSay say = <span class="keyword">new</span> ToSay();
+    }
+    <span class="function"><span class="keyword">public</span> <span class="title">ToSay</span><span class="params">()</span>
+    </span>{
+        Hello h = <span class="keyword">new</span> Hello();
+
+        <span class="comment">//调用本地方法向John问好</span>
+        h.SayHello(<span class="string">"John"</span>);            
+    }
+}
+</code></pre><p>编译该文件：</p>
+<pre><code><span class="title">javac</span> ToSay.java
+</code></pre><p>最后就是配置java的运行环境了，使用JNI加载库文件时，必须修改环境变量：LD_LIBRARY_PATH，这样java程序才能准确的找到库文件的位置，在网上有很多关于修改LD_LIBRARY_PATH的方法，但是到我这里都行不通。</p>
+<p>我的处理方法是这样的，为运行方便我们先写一个运行脚本，不妨就叫它run.sh：</p>
+<pre><code><span class="shebang">#!/bin/bash</span>
+<span class="built_in">export</span> LD_LIBRARY_PATH=.:<span class="variable">$PATH</span>:<span class="variable">$LD_LIBRARY_PATH</span>
+java ToSay
+
+注意，我把PATH也加进来了。这样库文件的路径就包括：当前目录，系统的PATH路径以及原来的LD_LIBRARY_PATH路径，在程序执行时，它就会按照以上的顺序来搜索需要的库文件。
+</code></pre><p>用以下的命令来执行这个脚本:</p>
+<pre><code>sudo chmod +x <span class="keyword">run</span>.<span class="keyword">sh</span>
+./<span class="keyword">run</span>.<span class="keyword">sh</span>
+</code></pre><p>运行的结果是：</p>
+<pre><code><span class="preprocessor"># ./run.sh</span>
+Hello, John
+<span class="preprocessor">#</span>
+</code></pre><p>Have a nice day!!!</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。</p>
+<h2 id="程序的流程">程序的流程</h2><p>在JAVA程序中输入用户名“John”]]>
+    </summary>
+    
+      <category term="java" scheme="http://xintq.github.io/tags/java/"/>
+    
+      <category term="jni" scheme="http://xintq.github.io/tags/jni/"/>
+    
+      <category term="swig" scheme="http://xintq.github.io/tags/swig/"/>
+    
+      <category term="本地借口" scheme="http://xintq.github.io/tags/%E6%9C%AC%E5%9C%B0%E5%80%9F%E5%8F%A3/"/>
+    
+      <category term="java" scheme="http://xintq.github.io/categories/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[我的 Linux 学习经历]]></title>
+    <link href="http://xintq.github.io/2014/07/31/%E6%88%91%E7%9A%84%20Linux%20%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/"/>
+    <id>http://xintq.github.io/2014/07/31/我的 Linux 学习经历/</id>
+    <published>2014-07-30T16:56:18.000Z</published>
+    <updated>2015-05-28T13:46:07.000Z</updated>
+    <content type="html"><![CDATA[<p>本文写于2007年，原题是《我的 FC 学习经历》。那时我研究生一年级，在折腾了半年 Linux 之后，把各种感慨总结了一下。原题目中的 FC 就是现在 Redhat 的官方社区版 Fedora Core 的缩写。</p>
+<p>记得当时我只有一个四手的 Thinkpad T20，900元淘来的，配置很低，CUP 是 P3 的，只有256MB 的内存，20GB 硬盘。但是，这对于那个时候的我来说，已经是很奢侈的配置了。</p>
+<p>当时的教研室有几个师兄，很迷恋 Linux，也很喜欢折腾各种 Linux 的发行版，我也加入了进去，希望在自己配置很低的小本子上，能捣鼓出一台运行流畅而且很 NB 的发行版。</p>
+<p>于是乎，折腾开始了。</p>
+<p>和很多大学生一样，我最早接触的 Linux 发行版本是 Redhat，但是当时自己的基础实在太差，分区啊，命令啊，啥都不懂，很多基础的概念都闹不明白，系统老是装不起来，老不容易装上了也不会操作，最后顶多也就是看看而已。</p>
+<p>2006年，读研之后，当时教研室也是各种发行版，有的人用 FC，有的人钟爱 Debian，有的人迷恋 Ubuntu（那个时候 Ubuntu 刚出，还免费送光盘呢）。自然而然的，我选择了 FC，毕竟和 Redhat 一样的，亲切。其实下面的文章就是当时配置好了 FC 之后的总结。</p>
+<p>坦白的说，我到2008年开始，就不再使用 FC 了，转向了一个更加小众的发行版 Archlinux。主要的原因，有两点：</p>
+<ul>
+<li><strong>客观原因</strong>：我的 T20 配置太差，跑 FC 和 Debian 之类的大发行版太慢了，我需要一个轻量级的发行版，实现最大程度的自定义</li>
+<li><strong>主观原因</strong>：Archlinux 的思想我很认同，到现在也是，KISS 原则，即 <em>Keep it simple and stupid</em></li>
+</ul>
+<p>我使用了将近三年的 Archlinux，直到2010年，我的工资能支付起一台新的 Thinkpad，也就是那个时候开始，我暂时告别了 Linux，进入了世俗的 Windows 世界。</p>
+<p>2009年，我参加工作，在 Panasonic 做软件开发，那时候才发现，原来企业里面用的还是 Redhat多，即使不用 Redhat，也用比较稳定的 CentOS。</p>
+<p>于是乎，我开始接触并学习了 CentOS。再后来，参加 RHCE 认证考试，也就100%的选择和使用 Redhat 系列的 Linux 发行版了。</p>
+<p>无独有偶，2011年的时候，我开始接触开源的虚拟化解决方案，使用了一个叫做 Proxmox 的虚拟机管理系统，是基于 Debian 的，于是又把之前扔掉的 Ubuntu 的一些命令和知识点捡了捡，学了一整子 Debian。</p>
+<p>总结起来，我的Linux学习历程如下：</p>
+<ul>
+<li>2004 ~ 2006 <strong>Redhat, 红旗 Linux</strong>：系统安装，图形界面的简单操作，LPI认证等</li>
+<li>2007 ~ 2008 <strong>Fedora Core, Ubuntu, Debian, Slackware</strong>：各种桌面管理器（Gnome, KDE, XFce, FVWM, LXDE）的配置，中文支持，程序编译，Windows 替代软件的使用等</li>
+<li>2008 ~ 2010 <strong>Archlinux</strong>：完全代替 Winodows，日常使用的 OS</li>
+<li>2011 ~ 2014 <strong>CentOS, RHEL</strong>：软件开发，环境配置，RHCE 认证考试</li>
+<li>2012 ~ 2014 <strong>Debian</strong>：虚拟机的配置，管理</li>
+<li>2013 ~ 现在 <strong>MacOS（FreeBSD）</strong>：日常使用的 OS（Macbook pro 13’）</li>
+</ul>
+<hr>
+<p>（以下是原文）</p>
+<p>因为研究工作的需要，我选择了 Linux 作为工作环境，以前只是兴趣索然而去玩 Linux，而这次是来真的，我用了大约一个礼拜对时间才把基本的环境配置好，真是太折磨人了！但是，现在用起来还真顺手，心里有一种成就感。也许这就是 Linux 的魅力所在吧: 必先苦其心志，才能得到最后的果实。</p>
+<p>为了纪念这段难忘的经历，我把它都写下来。如果哪位朋友不幸看到了，如果对你有帮助对话那就更好了。</p>
+<p>我选择的系统是 Fedora Core 6， 还是一个比较新的系统版本。因为以前用过 RedHat。 想必这俩个本是一家的 OS 也应该有几分相似。幸亏有师兄帮忙，要不然就更费事了。</p>
+<h3 id="系统安装—-进不了图形界面">系统安装—-进不了图形界面</h3><p>从安装开始我就感觉前途迷茫了。因为师兄是从 iso 镜像直接安装的。具体的安装方法网上到处都是，就不再说明了。</p>
+<p>问题就出在安装之后 X 怎么也启动不起来，一直报错说什么没有找到显卡缓存，或者没有正确配置显示器之类的。我上网查了一下，有人说什么把 BIOS 里对显卡设置从 1M 改到 8M。我看了一下，我的本来就是8M。</p>
+<p>最后没有办法，我放弃了，选择重装。但是当我第二次引导的时候我看到里有 “update the system” 选择(具体记不住了，反正就是类似于更新，升级之类的话)。死马当活马医，我选择了升级系统。不料，升级完毕之后就能进入图形界面了。</p>
+<p>这个问题到现在我还不知道是为什么。我的显卡是 Intel845 集成显卡。同样的问题发生在我同学的机器上，解决方法也一样，见鬼了!</p>
+<pre><code><span class="label">NOTE: </span>当你 FC6 进入不了图形界面时，不要着急重新安装，做一次系统升级试一试。
+</code></pre><h3 id="字体配置—-中文乱码">字体配置—-中文乱码</h3><p>中国人使用 Linux 最郁闷的就是汉字的显示问题。在这个万码奔腾的年代，虽然有UTF-8的包容。但是面对各种本地化的汉字编码，该乱的时候还是乱了。</p>
+<p>FC6 默认的汉字编码是 zh_CN.UTF-8， 在访问 Windows 分区的时候会有乱码，曾经有人建议说改一些配置文件:</p>
+<ul>
+<li>/etc/sysconfig/i18n</li>
+<li>~/.bashrc</li>
+<li>~/.bash_profile</li>
+<li>甚至还有 /etc/environment. </li>
+</ul>
+<p>这些文件我都改过，无非是加入以下几行内容:</p>
+<pre><code><span class="variable">LANGUAGE=</span><span class="string">"zh_CN.GB18030:zh_CN.GB2312:zh_CN"</span>
+<span class="variable">SUPPORTED=</span><span class="string">"zh_CN.GB18030:zh_CN:en_US.UTF-8:en_US:en"</span>
+<span class="variable">SYSFONT=</span><span class="string">"lat0-sun16"</span>
+export <span class="variable">LC_ALL=</span><span class="string">"zh_CN.GB18030"</span>
+</code></pre><p>这样的改法很恐怖，因为改完了之后终端里面是没有什么乱码了。但是，Windows 分区里面的乱码怎么也消除不了，有的汉字能显示，有的不能。不管我怎么改，用 locale 查看的时候 LANG 始终都是 zh_CN.UTF-8。</p>
+<p>最后我干脆不改了，想要恢复到初始时候的样子，于是又一顿叨逼叨。</p>
+<pre><code>NOTE： 当你想要改变系统的设置时，不要轻易改动 <span class="regexp">/etc 下的文件，推荐的做法是在你的 ~/</span> 下进行修改。
+</code></pre><p>我先将系统的编码恢复到zh_CN.UTF-8。然后 </p>
+<pre><code><span class="title">vim</span> ~/.i18n
+</code></pre><p>在这个文件里也加入了</p>
+<pre><code><span class="setting">LANG=<span class="value"><span class="string">"zh_CN.UTF-8"</span></span></span>
+</code></pre><p>其实这句不加都行，如果你想改成其他的编码，就改这个文件吧。<br>在 ~/.bashrc 里面加入:</p>
+<pre><code><span class="built_in">export</span> LC_TYPE=<span class="string">"zh_CN"</span>
+<span class="built_in">export</span> LANG=<span class="string">"zh_CN.UTF-8"</span>
+</code></pre><p>这样一来，Windows 分区的乱码解决了。对了，要在开机时自动挂载 Windows 分区，还需要在 /etc/fstab 中加入下面几行:</p>
+<pre><code>/dev/hda1 /mnt/c vfat user,rw,exec,<span class="variable">umask=</span><span class="number">000</span>,<span class="variable">codepage=</span><span class="number">936</span>,<span class="variable">iocharset=</span>cp936,<span class="variable">shortname=</span>mixed  <span class="number">0</span>  <span class="number">0</span>
+/dev/hda5 /mnt/d vfat user,rw,exec,<span class="variable">umask=</span><span class="number">000</span>,<span class="variable">codepage=</span><span class="number">936</span>,<span class="variable">iocharset=</span>cp936,<span class="variable">shortname=</span>mixed  <span class="number">0</span>  <span class="number">0</span>
+/dev/hda6 /mnt/e vfat user,rw,exec,<span class="variable">umask=</span><span class="number">000</span>,<span class="variable">codepage=</span><span class="number">936</span>,<span class="variable">iocharset=</span>cp936,<span class="variable">shortname=</span>mixed  <span class="number">0</span>  <span class="number">0</span>
+</code></pre><p>现在的问题是用 vim 时，中文显示还是乱码，我在 ~/.vimrc 中加入了下面几行:</p>
+<pre><code><span class="keyword">let</span> &amp;<span class="variable">termencoding=</span>&amp;encoding
+set <span class="variable">fileencodings=</span>utf-<span class="number">8</span>,gbk,ucs-bom,cp936 
+</code></pre><p>这样，vim 中的乱码就全部解决了。</p>
+<p>至此，系统的乱码问题基本上算是解决了，但是还遗留了不少问题，如:</p>
+<ul>
+<li>使用者 gftp 访问 Windows 下的 ftp 时中文目录会有乱码(网上说要打补丁，我嫌麻烦，用 lftp 了);</li>
+<li>在终端下用 less 或者 more 查看中文文档时还会出现乱码;</li>
+</ul>
+<p>这些问题如果哪位牛人能解决不妨告诉大家。</p>
+<h3 id="桌面环境—-XFce_4">桌面环境—-XFce 4</h3><p>装完 FC6 之后，Gnome 的桌面很让人震撼，窗口特效非常棒，巨炫，但是，这些都是以更多的 cpu 和内存消耗为代价的。如果你追求完美，喜欢漂亮华丽的桌面，推荐使用 Gnome，感觉比 Vista 要好很多。其实，在这个版本里，还有两个主题: <strong>KDE</strong> 和 <strong>XFce</strong>。 </p>
+<p>KDE 大家都不陌生，庞大而笨重，但是提供了更多的功能，我系统里的中文字体就是在 KDE 下用图形界面装的，很省事(不要见笑，毕竟是初学者)。但是 KDE 很不稳定，里面有很多的程序用一会儿就崩溃了，而且巨耗资源。</p>
+<p>XFce 我个人看来是很完美的选择。FC6 里面带有 XFce4 的安装包，它占用系统资源少，速度快。是务实、简约的代表。当然，它也有毛病。在 XFce 里提供了很多的设置选项，比如说 Settings Manager，你可以高度自定义桌面的风格，但是不要太贪心，里面的一些功能如: Splash Screen， Window Manager 等最好不要改动，因为把系统主题或者图标更改之后，桌面就会死掉，任凭你重启多少次也进不去 XFce 桌面。</p>
+<p>这个问题的解决办法是，换个主题曲（如 Gnome）或直接进入字符终端，把在 ~/.config/ 里面以 .Xfce* 打头的文件全部删除，接着来个 Ctr + Alt + Backspace ，重新启动 X， 在会话里选择 XFce，重新设置。</p>
+<h3 id="输入法_—-_小企鹅输入法">输入法 —- 小企鹅输入法</h3><p>虽然在 FC6 里面自带了 SCIM 输入法，但是它的智能拼音经常出现一些不智能的毛病，比如说诺大的工具栏每次都要手动隐藏，输入汉字时输入框老是会定位在一个很 SB 的地方，但是，值得称赞的是智能拼音提供了用音调选字，很不错的。</p>
+<p>但是，我还是选择了 Fcitx (小企鹅输入法)。</p>
+<p>要想使用 Fcitx，必须屏蔽掉 SCIM，可以在 ~/ 下建立 .xinput.d/zh_CN，在里面输入:</p>
+<pre><code><span class="variable">XIM=</span>fcitx
+<span class="variable">XIM_PROGRAM=</span>fcitx
+<span class="variable">GTK_IM_MODULE=</span>fcitx
+<span class="variable">XMODIFIERS=</span><span class="string">"@im=fcitx"</span>
+gnome-im-settings-daemon &gt;/dev/<span class="constant">null</span>
+</code></pre><p>然后在 /etc/X11/xinit/ 中把 xinputrc 的原来的内容全部注释掉(用#)，加入下面的内容:</p>
+<pre><code><span class="variable">XIM=</span>fcitx
+<span class="variable">XIM_PROGRAM=</span>fcitx
+<span class="variable">GTK_IM_MODULE=</span>fcitx
+<span class="variable">XMODIFIERS=</span><span class="string">"@im=fcitx"</span>
+gnome-im-settings-daemon &gt;/dev/<span class="constant">null</span>
+</code></pre><p>重新启动 X 界面，就能看到小企鹅已经出来了。</p>
+<p>至此，系统基本上配置好了，至于像多媒体播放等方面的东西就太多了。如果听歌的话，建议使用 xmms，简单易用，还好安装；如果装了 wma 的解码器仍然放不了 wma 的话，不妨找到libwma.so，拷贝到 ~/.xmms/Plugins/ 里面。</p>
+<p>这只是我初次使用 FC6 时的遇到一些问题和解决方法，乱糟糟的，没有多少条理；如果有什么更好的方法，大家交流一下。</p>
+<hr>
+<p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文写于2007年，原题是《我的 FC 学习经历》。那时我研究生一年级，在折腾了半年 Linux 之后，把各种感慨总结了一下。原题目中的 FC 就是现在 Redhat 的官方社区版 Fedora Core 的缩写。</p>
+<p>记得当时我只有一个四手的 Thinkpad ]]>
+    </summary>
+    
+      <category term="fc" scheme="http://xintq.github.io/tags/fc/"/>
+    
+      <category term="linux" scheme="http://xintq.github.io/tags/linux/"/>
+    
+      <category term="经验" scheme="http://xintq.github.io/tags/%E7%BB%8F%E9%AA%8C/"/>
+    
+      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ Latex 中英文混排模板]]></title>
+    <link href="http://xintq.github.io/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/"/>
+    <id>http://xintq.github.io/2014/07/31/Latex 中英文混排模板/</id>
+    <published>2014-07-30T16:04:25.000Z</published>
+    <updated>2015-05-28T14:01:06.000Z</updated>
+    <content type="html"><![CDATA[<p>下面是我日常使用的一个Latex中英文混排的论文模板，整理与2007年。该模板借助于cmap包，能支持PDF的拷贝，中文书签。在编译的时候最好用latexpdf进行编译。</p>
+<h3 id="具体的使用方法如下">具体的使用方法如下</h3><pre><code><span class="string">\documentclass[11pt,</span> a4paper]{article}
+<span class="string">\input{head}</span> %%%包含我提供的头文件
+<span class="string">\begin{document}</span>
+<span class="string">\begin{CJK*}{GBK}{song}</span>
+This <span class="keyword">is</span> your <span class="built_in">document</span>
+在这里开始您的大作.......
+<span class="string">\end{CJK*}</span>
+<span class="string">\end{document}</span>
+</code></pre><h3 id="下面是_head-tex的具体内容">下面是 head.tex的具体内容</h3><pre><code><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+%        Latex通用中英文混排模板
+%
+%    Kevin Xin (xintianqing<span class="variable">@gmail</span>.com)
+%
+%             <span class="number">2007</span>-<span class="number">12</span>-<span class="number">8</span>
+%
+% 支持的功能：pdflatex和latex/dvipdf
+%  <span class="number">1.</span>代码插入(直接写和导入源文件)
+%  <span class="number">2.</span>图片插入
+%  <span class="number">3.</span>超链接
+%  <span class="number">4.</span>配合gbk2uni生成中文索引
+%
+%
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>  不用CJK支持，在导言区加入中文
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+\makeatletter
+\<span class="variable">@tempcnta</span>=<span class="number">128</span>
+\loop \catcode\<span class="variable">@tempcnta</span>=<span class="number">13</span> \ifnum\<span class="variable">@tempcnta</span>&lt;<span class="number">255</span> \advance \<span class="variable">@tempcnta</span> \<span class="variable">@ne</span>
+\repeat
+\makeatother
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>             输入编码设置               <span class="variable">%%</span>
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+% 创建中文可以复制的PDF
+\usepackage{cmap}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span> 定义是用 pdftex 还是 latex 的宏 \ifpdf
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+\pdffalse
+\<span class="keyword">else</span>
+\pdfoutput=<span class="number">1</span>
+\pdftrue
+\fi
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>     CJK 包的设置，支持中英文混排
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+\usepackage{CJK}
+<span class="variable">%正</span>确分行
+\CJKtilde
+
+% 中文段落首行缩进
+\usepackage{indentfirst}
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>%   重新定义中文字体    <span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>%
+% 宋体
+\newcommand{\song}{\CJKfamily{song}}
+
+% 仿宋体
+\newcommand{\fangsong}{\CJKfamily{fs}}
+
+% 楷体
+\newcommand{\kai}{\CJKfamily{kai}}
+
+% 黑体
+\newcommand{\hei}{\CJKfamily{hei}}
+
+% 隶书
+\newcommand{\li}{\CJKfamily{li}}
+
+% 幼圆
+\newcommand{\youyuang}{\CJKfamily{you}}
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>%   重新定义中文字号    <span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>%
+% 四号
+\newcommand{\sihao}{
+    \fontsize{<span class="number">14</span>pt}{\baselineskip}\selectfont
+}
+
+% 小四号
+\newcommand{\xiaosihao}{
+    \fontsize{<span class="number">12</span>pt}{\baselineskip}\selectfont
+}
+
+% 五号
+\newcommand{\wuhao}{
+    \fontsize{<span class="number">10.5</span>pt}{\baselineskip}\selectfont
+}
+
+% 小五号
+\newcommand{\xiaowuhao}{
+    \fontsize{<span class="number">9</span>pt}{\baselineskip}\selectfont
+}
+
+% 六号
+\newcommand{\liuhao}{
+    \fontsize{<span class="number">7.875</span>pt}{\baselineskip}\selectfont
+}
+
+% 七号
+\newcommand{\qihao}{
+    \fontsize{<span class="number">5.25</span>pt}{\baselineskip}\selectfont
+}
+
+\begin{CJK<span class="variable">*}</span>{GBK}{song}
+<span class="variable">%%</span>测试中文间距
+\newlength\onechineseword
+\settowidth\onechineseword{字}
+\end{CJK<span class="variable">*}</span>
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>      页边距的设置
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%修</span>改上下边距
+\topmargin = <span class="number">0</span>pt
+
+<span class="variable">%文</span>本的宽度
+\textwidth= <span class="number">165</span>mm
+
+<span class="variable">%文</span>本的高度
+\textheight= <span class="number">240</span>mm
+
+<span class="variable">%修</span>改左右边距
+\oddsidemargin =<span class="number">1</span>pt
+\evensidemargin = <span class="number">0</span>pt
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>      页眉和页脚的设置
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+% 支持页眉和页脚
+\usepackage{fancyhdr}
+
+\begin{CJK<span class="variable">*}</span>{GBK}{song}
+\pagestyle{fancy}
+<span class="variable">%\</span>renewcommand{\chaptermark}[<span class="number">1</span>]&lt;!--￼<span class="number">0</span>--&gt;
+\renewcommand{\sectionmark}[<span class="number">1</span>]{\markright{\thesection.\ #<span class="number">1</span>}}
+
+<span class="variable">%删</span>除当前页脚和页眉的设置
+\fancyhf{}
+
+% E-奇数页，O-偶数页
+% L-页眉或页脚的左边，R-页眉或者页脚的右边
+% C-页眉或页脚的中间
+% H-页眉,F-页脚
+% \thepage 显示当前页码
+% 在奇数页的左侧，偶数页的右侧显示页码
+<span class="variable">%\</span>fancyhead[LE,RO]{\bfseries\thepage}
+
+% 在页眉的右侧显示页码
+\fancyhead[R]{\bfseries\thepage}
+
+% \rightmark 包含了页面中第一个\markboth的右参数，
+% 或者第一个\markright的唯一参数
+% 在偶数页左侧显示
+<span class="variable">%\</span>fancyhead[LO]{\bfseries\rightmark}
+
+% \leftmark 包含了页面中最后一个\markboth的左参数
+<span class="variable">%\</span>fancyhead[RE]{\bfseries\leftmark}
+
+% 在页眉的左侧显示学校名称
+\fancyhead[L]{\bfseries Dalian University of Technology}
+<span class="variable">%\</span>fancyhead[L]{\bfseries RMI 入门使用}
+
+\renewcommand{\headrulewidth}{<span class="number">0.5</span>pt}
+\renewcommand{\footrulewidth}{<span class="number">0</span>pt}
+\addtolength{\headheight}{\baselineskip}
+\fancypagestyle{plain}{
+    \fancyhead{}
+    \renewcommand{\headrulewidth}{<span class="number">0</span>pt}
+}
+
+<span class="variable">%页</span>眉的设置
+\pagestyle{fancy}
+\end{CJK<span class="variable">*}</span>
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>                插图设置
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+\ifpdf
+    \usepackage[pdftex]{graphicx}
+    \pdfcompresslevel=<span class="number">9</span>
+\<span class="keyword">else</span>
+    \usepackage{graphicx}
+    \DeclareGraphicsRule{.jpg}{eps}{.bb}{}
+    \DeclareGraphicsRule{.png}{eps}{.bb}{}
+\fi
+
+<span class="variable">%%</span> 图片路径: img\
+<span class="variable">%%</span> 要插入的图片放在这个文件夹
+\graphicspath&lt;!--￼<span class="number">1</span>--&gt;
+
+<span class="variable">%%</span> 定义插图规则：系统会查找后缀的图片
+<span class="variable">%%</span> 在插入图片时不用写后缀
+\DeclareGraphicsExtensions{.jpg, .eps, .gif, .bmp, {}}
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>              源代码引用设置            <span class="variable">%%</span>
+<span class="variable">%%</span>  源代码中最好不用中文注释，会出错！！！<span class="variable">%%</span>
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+% 使用颜色宏包,语法高亮显示
+\usepackage{xcolor}
+
+<span class="variable">%使</span>用该包引用源代码
+\usepackage{listings}
+
+\lstset{,%
+    tabsize=<span class="number">4</span>, %
+    frame=shadowbox, <span class="variable">%把</span>代码用带有阴影的框圈起来
+    commentstyle=\<span class="keyword">color</span>{red!<span class="number">50</span>!green!<span class="number">50</span>!blue!<span class="number">50</span>},<span class="variable">%浅</span>灰色的注释
+    rulesepcolor=\<span class="keyword">color</span>{red!<span class="number">20</span>!green!<span class="number">20</span>!blue!<span class="number">20</span>},<span class="variable">%代</span>码块边框为淡青色
+    keywordstyle=\<span class="keyword">color</span>{blue!<span class="number">90</span>}\bfseries, <span class="variable">%代</span>码关键字的颜色为蓝色，粗体
+    showstringspaces=false,<span class="variable">%不</span>显示代码字符串中间的空格标记
+    stringstyle=\ttfamily, % 代码字符串的特殊格式
+    keepspaces=true, %
+    breakindent=<span class="number">22</span>pt, %
+    numbers=left,<span class="variable">%左</span>侧显示行号
+    stepnumber=<span class="number">1</span>,%
+    numberstyle=\tiny, <span class="variable">%行</span>号字体用小号
+    basicstyle=\footnotesize, %
+    showspaces=false, %
+    flexiblecolumns=true, %
+    breaklines=true, <span class="variable">%对</span>过长的代码自动换行
+    breakautoindent=true,%
+    breakindent=<span class="number">4</span>em, %
+    escapeinside={\<span class="variable">*@</span>}{<span class="variable">@*</span>\} ,<span class="variable">%跳</span>脱在 \* 和 <span class="variable">*\</span> 之间得字符
+    <span class="variable">%escapeinside</span>=<span class="string">``</span>, %
+    aboveskip=<span class="number">1</span>em <span class="variable">%代</span>码块边框
+}
+
+% 使用方法：
+% \begin{lstlisting}[language=JAVA]
+%  这里插入源代码...
+% \end{lstlisting}
+% 或者直接从外部文件导入：
+% \lstinputlisting[language={[ANSI]C}]{test.c}
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>          超链接、书签的设置            <span class="variable">%%</span>
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+\usepackage[%
+    dvipdf, %
+    pdfstartview=FitH,%
+    CJKbookmarks=true,%
+    bookmarks=true,%
+    bookmarksnumbered=true,%
+    bookmarksopen=true,%
+    colorlinks=true,%
+    citecolor=blue,%
+    linkcolor=blue,%
+    anchorcolor=green,%
+    urlcolor=blue%
+]{hyperref}
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>               其他有用的设置
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+\usepackage{array}
+<span class="variable">%调</span>整表格行距为默认的<span class="number">1.2</span>倍
+\renewcommand{\arraystretch}{<span class="number">1.2</span>}
+
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+<span class="variable">%%</span>               导言区结束
+<span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span><span class="variable">%%</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>下面是我日常使用的一个Latex中英文混排的论文模板，整理与2007年。该模板借助于cmap包，能支持PDF的拷贝，中文书签。在编译的时候最好用latexpdf进行编译。</p>
+<h3 id="具体的使用方法如下">具体的使用方法如下</h3><pre><code><sp]]>
+    </summary>
+    
+      <category term="cjk" scheme="http://xintq.github.io/tags/cjk/"/>
+    
+      <category term="latex" scheme="http://xintq.github.io/tags/latex/"/>
+    
+      <category term="tex" scheme="http://xintq.github.io/tags/tex/"/>
+    
+      <category term="模板" scheme="http://xintq.github.io/tags/%E6%A8%A1%E6%9D%BF/"/>
+    
+      <category term="文本处理" scheme="http://xintq.github.io/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[堆排序 (Heap Sort)的分析和实现（C）]]></title>
+    <link href="http://xintq.github.io/2014/07/30/%E5%A0%86%E6%8E%92%E5%BA%8F%20(Heap%20Sort)%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://xintq.github.io/2014/07/30/堆排序 (Heap Sort)的分析和实现/</id>
+    <published>2014-07-30T15:51:53.000Z</published>
+    <updated>2015-05-28T13:42:10.000Z</updated>
+    <content type="html"><![CDATA[<p>（这篇文章是2006年我发布在博客园上面的，想想已经八年有余。今天好不容易找到了，挪到这里，收藏一下吧。）</p>
+<h1 id="堆排序_(Heap_Sort)">堆排序 (Heap Sort)</h1><p>堆排序分为两个步骤：</p>
+<ul>
+<li>第一步，根据初始输入数据，利用堆的调整算法形成初始堆。</li>
+<li>第二步，通过一系列的记录交换和重新调整堆进行排序。</li>
+</ul>
+<h2 id="最大堆的向下调整算法分析">最大堆的向下调整算法分析</h2><p>调用了O(n)次Adjust()算法，堆排序的时间复杂性为O(nlog2n)。</p>
+<p>该算法的附加存储主要是执行记录交换时所用的一个临时记录。<br>因此，该算法的空间复杂性为O(1)。</p>
+<p>堆排序是一个不稳定的排序方法。</p>
+<p>基于C的实现代码如下：</p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+
+<span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">int</span> &amp;y)</span>
+</span>{
+    <span class="keyword">int</span> temp = x;
+    x = y;
+    y = temp;
+}
+
+<span class="function"><span class="keyword">void</span> <span class="title">Adjust</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> parent, <span class="keyword">int</span> high)</span>
+</span>{
+    <span class="keyword">int</span> l = <span class="number">2</span> * parent + <span class="number">1</span>;
+    <span class="keyword">int</span> r = l + <span class="number">1</span>;
+    <span class="keyword">int</span> flag = parent;
+
+    <span class="keyword">if</span> (l&lt;=high &amp;&amp; a[l]&gt;a[flag]) {
+        flag = l;
+    }
+    <span class="keyword">if</span> (r&lt;=high &amp;&amp; a[r]&gt;a[flag]) {
+        flag = r;
+    }
+    <span class="keyword">if</span> (flag != parent) {
+        swap(a[parent], a[flag]);
+        Adjust(a, flag, high);
+    }
+}
+
+<span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span>
+</span>{
+    <span class="keyword">int</span> i;
+
+    <span class="keyword">for</span> (i=n-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--) {
+        Adjust(a, i, n - <span class="number">1</span>);
+    }
+    <span class="keyword">for</span> (i=n-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--) {
+        swap(a[<span class="number">0</span>], a[i]);
+        Adjust(a, <span class="number">0</span>, i - <span class="number">1</span>);
+    }
+}
+
+<span class="function"><span class="keyword">void</span> <span class="title">Output</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span>
+</span>{
+    <span class="keyword">int</span> i;
+
+    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;n; i++) {
+        <span class="built_in">printf</span>(<span class="string">"\t%d"</span>, a[i]);
+    }
+    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    <span class="keyword">int</span> a[] = { <span class="number">49</span>, <span class="number">38</span>, <span class="number">65</span>, <span class="number">97</span>, <span class="number">76</span>, <span class="number">13</span>, <span class="number">27</span>, <span class="number">49</span> };
+    <span class="keyword">int</span> n = <span class="number">8</span>;
+
+    Output(a, n);
+    HeapSort(a, n);
+    Output(a, n);
+
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+
+<span class="comment">/*
+        49      38      65      97      76      13      27      49
+        13      27      38      49      49      65      76      97
+Press any key to continue
+*/</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>（这篇文章是2006年我发布在博客园上面的，想想已经八年有余。今天好不容易找到了，挪到这里，收藏一下吧。）</p>
+<h1 id="堆排序_(Heap_Sort)">堆排序 (Heap Sort)</h1><p>堆排序分为两个步骤：</p>
+<ul>
+<li>第一步，根据初]]>
+    </summary>
+    
+      <category term="heapsort" scheme="http://xintq.github.io/tags/heapsort/"/>
+    
+      <category term="堆" scheme="http://xintq.github.io/tags/%E5%A0%86/"/>
+    
+      <category term="堆排序" scheme="http://xintq.github.io/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="算法" scheme="http://xintq.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="算法" scheme="http://xintq.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+</feed>
