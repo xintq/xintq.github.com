@@ -1,0 +1,582 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>各种图算法 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="以下这几个算法，是当时学习算法的时候总结的。今天整理过去纸质资料的时候发现的。这里面的内容，很多都已经看不懂了。
+现在整理了一下，不为别的，只为了告诉自己：你曾经搞过怎么变态的一些算法分析，还有什么比这个更难的么？
+特别说明的是，这里面的算法我没有具体用代码实现过，当时是为了分析时间复杂度和空间复杂度而整理的伪代码。特别是Dijkstra算法，可能都不是完整的，遗憾归遗憾，现在实在是没有心思整理完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各种图算法">
+<meta property="og:url" content="http://xintq.github.io/2014/07/30/各种图算法/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="以下这几个算法，是当时学习算法的时候总结的。今天整理过去纸质资料的时候发现的。这里面的内容，很多都已经看不懂了。
+现在整理了一下，不为别的，只为了告诉自己：你曾经搞过怎么变态的一些算法分析，还有什么比这个更难的么？
+特别说明的是，这里面的算法我没有具体用代码实现过，当时是为了分析时间复杂度和空间复杂度而整理的伪代码。特别是Dijkstra算法，可能都不是完整的，遗憾归遗憾，现在实在是没有心思整理完">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="各种图算法">
+<meta name="twitter:description" content="以下这几个算法，是当时学习算法的时候总结的。今天整理过去纸质资料的时候发现的。这里面的内容，很多都已经看不懂了。
+现在整理了一下，不为别的，只为了告诉自己：你曾经搞过怎么变态的一些算法分析，还有什么比这个更难的么？
+特别说明的是，这里面的算法我没有具体用代码实现过，当时是为了分析时间复杂度和空间复杂度而整理的伪代码。特别是Dijkstra算法，可能都不是完整的，遗憾归遗憾，现在实在是没有心思整理完">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xintq.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/30/各种图算法/" title="各种图算法" itemprop="url">各种图算法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-30T12:38:39.000Z" itemprop="datePublished"> 发表于 2014-07-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Prim算法（普利姆）"><span class="toc-number">1.</span> <span class="toc-text">Prim算法（普利姆）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述"><span class="toc-number">1.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kruscal算法（克鲁斯卡尔）"><span class="toc-number">2.</span> <span class="toc-text">Kruscal算法（克鲁斯卡尔）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-1"><span class="toc-number">2.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述-1"><span class="toc-number">2.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Floyd算法（弗洛伊德）"><span class="toc-number">3.</span> <span class="toc-text">Floyd算法（弗洛伊德）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-2"><span class="toc-number">3.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述-2"><span class="toc-number">3.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dijkstra算法（迪杰斯特拉）"><span class="toc-number">4.</span> <span class="toc-text">Dijkstra算法（迪杰斯特拉）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-3"><span class="toc-number">4.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述-3"><span class="toc-number">4.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>以下这几个算法，是当时学习算法的时候总结的。今天整理过去纸质资料的时候发现的。这里面的内容，很多都已经看不懂了。</p>
+<p>现在整理了一下，不为别的，只为了告诉自己：你曾经搞过怎么变态的一些算法分析，还有什么比这个更难的么？</p>
+<p>特别说明的是，这里面的算法我没有具体用代码实现过，当时是为了分析时间复杂度和空间复杂度而整理的伪代码。特别是Dijkstra算法，可能都不是完整的，遗憾归遗憾，现在实在是没有心思整理完整的算法描述了……</p>
+<h1 id="Prim算法（普利姆）">Prim算法（普利姆）</h1><h2 id="定义">定义</h2><p>从图的顶点集合V中任意选择一个单顶点，作为序列中的初始子树，每次迭代时，选择不在树中的最近的顶点加入到树中。</p>
+<h2 id="算法描述">算法描述</h2><pre><code>Prim(<span class="keyword">G</span>)
+输入：加权连通图 <span class="keyword">G</span>=&lt;V,<span class="keyword">E</span>&gt;
+输出：Et, 组成<span class="keyword">G</span>的MST边的集合
+BEGIN
+    Vt = {Vo};<span class="comment">// 可以用热议低昂点来初始化树的顶点集合</span>
+    Et = {∅};
+    <span class="keyword">for</span> i <span class="keyword">in</span> [1..|V|-1)
+        在所有的边(v,<span class="keyword">u</span>)中，求权重最小的边 <span class="keyword">e</span>' = (v', <span class="keyword">u</span>')，使v在Vt中，而<span class="keyword">u</span>在V-Vt中;
+        Vt = Vt ∪ {<span class="keyword">u</span>'};
+        Et = Et ∪ {<span class="keyword">e</span>'}<span class="keyword">l</span>
+    end <span class="keyword">for</span>
+    <span class="keyword">return</span> Et;
+END
+</code></pre><h1 id="Kruscal算法（克鲁斯卡尔）">Kruscal算法（克鲁斯卡尔）</h1><h2 id="定义-1">定义</h2><p>算法开始时，按照权重的非递减顺序对图中的边进行排序，然后从一个空子图开始扫描这个有序列表，并试图把列表中的下一条边加到当前的子图中，如果产生回路，则跳过。</p>
+<h2 id="算法描述-1">算法描述</h2><pre><code>Kruscal(<span class="keyword">G</span>)
+输入：加权连通图 <span class="keyword">G</span>=&lt;V, <span class="keyword">E</span>&gt;
+输出：Et，组成<span class="keyword">G</span>的MST的边的集合
+BEGIN
+    按照边的权重 <span class="literal">w</span>(ei1 ≤ ... ≤ ei|<span class="keyword">E</span>|)的非递减顺序对<span class="keyword">E</span>排序；
+    Et={∅}; <span class="comment">// 初始化边的集合</span>
+    ec = 0; <span class="comment">// 集合的规模</span>
+    k = 0; <span class="comment">// 初始化已经处理边的数量</span>
+    <span class="keyword">while</span> ec &lt; |v| - 1
+        k++;
+        <span class="keyword">if</span> Et ∪ {ejk} 无回路
+            Et = Et ∪ {ejk};
+            ec++;
+        end <span class="keyword">if</span>
+    end <span class="keyword">while</span>
+    <span class="keyword">return</span> Et;
+END
+</code></pre><h1 id="Floyd算法（弗洛伊德）">Floyd算法（弗洛伊德）</h1><h2 id="定义-2">定义</h2><ul>
+<li>k=0, dij[0] = wij</li>
+<li>k≥1, dij[k] = min{dij[k-1], dik[k-1]+dkj[k-1]}</li>
+</ul>
+<p>把当前距离矩阵D[k-1]中的第i行第j列元素替换为第i行第k列元素和第k行第j列元素的和，当且仅当后者的和小于它的当前值</p>
+<h2 id="算法描述-2">算法描述</h2><pre><code>Floyd(w[1..<span class="keyword">n</span>, 1..<span class="keyword">n</span>])
+输入：图的权重矩阵<span class="literal">w</span>
+输出：包含最短路径长度的距离矩阵<span class="literal">D</span>
+BEGIN
+    <span class="keyword">D</span>=w;
+    <span class="keyword">for</span> k <span class="keyword">in</span> [1..<span class="keyword">n</span>]
+        <span class="keyword">for</span> i <span class="keyword">in</span> [1..<span class="keyword">n</span>]
+            <span class="keyword">for</span> j <span class="keyword">in</span> [1..<span class="keyword">n</span>]
+                <span class="keyword">D</span>[i,j]=min{<span class="keyword">D</span>[i,j], <span class="keyword">D</span>[i,k]+<span class="keyword">D</span>[k,j]}
+            end <span class="keyword">for</span>
+        end <span class="keyword">for</span>
+    end <span class="keyword">for</span>
+    <span class="keyword">return</span> <span class="keyword">D</span>;
+END
+</code></pre><h1 id="Dijkstra算法（迪杰斯特拉）">Dijkstra算法（迪杰斯特拉）</h1><h2 id="定义-3">定义</h2><p>顶点标记 v(f, d)：</p>
+<ul>
+<li>d：目前求出从起点到该顶点键间最短路径长度</li>
+<li>f：这条路径上倒数第二个顶点的名字</li>
+</ul>
+<p>算法只需找到具有最小的d值得边缘顶点就可以，确定加入u’后：把u’从边缘集合移到树集合，对于余下的每一个边缘u，如果通过w(u’, u)的边与u’相连，当du’ + w(u’, u) &lt; du时，更新u的标记为(u’, du+w(u’, u))。</p>
+<h2 id="算法描述-3">算法描述</h2><pre><code>Dijkstra(G, S)
+输入：加权连通图G=&lt;V, E&gt;，以及出发点S
+输出：对于V中的每个顶点v来说，从S到V的最短路径长度dv，以及路径上倒数第二个顶点Pv
+BEGIN
+    Initialize(Q);// 将顶点优先队列初始化为空
+    <span class="keyword">for</span> V中的每一个顶点 v
+        dv = ∞; pv = null;
+        Insert(Q, V, dv);// 初始化优先队列中顶点的优先度
+    end <span class="keyword">for</span>
+
+    ds = <span class="number">0</span>;
+    Decrease(Q, S, ds);// 将s的优先级更新为ds
+    Vt = ∅;
+    <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0.</span>.|v|-<span class="number">1</span>)
+        <span class="string">u' = DeleteMin(Q);// 删除优先级最小的元素
+        Vt = Vt ∪ {u'</span>};
+        <span class="keyword">for</span> V-Vt中每一个与<span class="string">u'相邻的顶点u
+            if du'</span> + w(<span class="string">u', u) &lt; du
+                du = du'</span> + w(<span class="string">u', u);
+                Pu = u'</span>;
+                Decrease(Q, u, du);// 将u的优先级更新为du
+            end <span class="keyword">if</span>
+        end <span class="keyword">for</span>
+    end <span class="keyword">for</span>
+END
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/prim/">prim</a><a href="/tags/图论/">图论</a><a href="/tags/算法/">算法</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.github.io/2014/07/30/各种图算法/" data-title="各种图算法 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/07/30/LVM的基本概念和部署/" title="LVM的基本概念和部署">
+  <strong>上一篇：</strong><br/>
+  <span>
+  LVM的基本概念和部署</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/30/Linux进阶练习与回顾/"  title="Linux进阶练习与回顾">
+ <strong>下一篇：</strong><br/> 
+ <span>Linux进阶练习与回顾
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/07/30/各种图算法/" data-title="各种图算法" data-url="http://xintq.github.io/2014/07/30/各种图算法/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Prim算法（普利姆）"><span class="toc-number">1.</span> <span class="toc-text">Prim算法（普利姆）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述"><span class="toc-number">1.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kruscal算法（克鲁斯卡尔）"><span class="toc-number">2.</span> <span class="toc-text">Kruscal算法（克鲁斯卡尔）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-1"><span class="toc-number">2.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述-1"><span class="toc-number">2.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Floyd算法（弗洛伊德）"><span class="toc-number">3.</span> <span class="toc-text">Floyd算法（弗洛伊德）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-2"><span class="toc-number">3.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述-2"><span class="toc-number">3.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dijkstra算法（迪杰斯特拉）"><span class="toc-number">4.</span> <span class="toc-text">Dijkstra算法（迪杰斯特拉）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义-3"><span class="toc-number">4.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述-3"><span class="toc-number">4.2.</span> <span class="toc-text">算法描述</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/WEB基础/" title="WEB基础">WEB基础<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>3</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>10</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html" target="_blank" title="Oracle SGD">Oracle SGD</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m K.X in Oracle. <br/>
+			This is my blog, believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2015 
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xintq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

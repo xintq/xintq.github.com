@@ -1,0 +1,567 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Oracle Secure Global Desktop与VPN有何不同 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。
+使用VPN时，通常需要在客户端计算机上安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle Secure Global Desktop与VPN有何不同">
+<meta property="og:url" content="http://xintq.github.io/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。
+使用VPN时，通常需要在客户端计算机上安">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle Secure Global Desktop与VPN有何不同">
+<meta name="twitter:description" content="概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。
+使用VPN时，通常需要在客户端计算机上安">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xintq.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/" title="Oracle Secure Global Desktop与VPN有何不同" itemprop="url">Oracle Secure Global Desktop与VPN有何不同</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2015-03-10T07:36:53.000Z" itemprop="datePublished"> 发表于 2015-03-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#定位"><span class="toc-number">1.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质"><span class="toc-number">2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问对象"><span class="toc-number">4.</span> <span class="toc-text">访问对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境要求"><span class="toc-number">5.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端要求"><span class="toc-number">6.</span> <span class="toc-text">客户端要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#管理性"><span class="toc-number">7.</span> <span class="toc-text">管理性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安全性"><span class="toc-number">8.</span> <span class="toc-text">安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
+		
+		</div>
+		
+		<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。</p>
+<p>使用VPN时，通常需要在客户端计算机上安装某种形式的VPN客户端软件，并且在专用网的边界上安装VPN集中器(<em>注：VPN集中器。可以支持局域网的连接，支持客户端的连接，支持智能手机系统的拨入。包括iPhone、Andriod等系统，简言之就是把网络集中起来的东西。</em>) 。典型的方法是使用某种形式的身份认证和数据加密（通常是IPSec），当在公共链路上传输信息时使窃听者无法拦截或改变数据。</p>
+<p>VPN技术的一个关键点是，VPN隧道为远程计算机提供了网络的“存在感”。也就是说，远程计算机上的应用在访问虚拟专用网络上的其他计算机和服务时，就好像与那些内网主机在同一个网络上一样，事实上，它们确实是属于同一网络。这些应用程序可能包括访问内部Web服务器的Web浏览器，访问内部邮件服务器的电子邮件客户端。通过在专用计算机上安装相应的模拟软件，客户机还可以访问其他类型的应用，如在专用网络的计算机上运行的Windows（使用RDP协议）和X-Windows（使用X11）。</p>
+<p>SGD与VPN的区别是，SGD不会为远程计算机提供以某种形式存在的网络；客户端连接到SGD服务器时使用的就是本地的专用网络。之后，SGD服务器作为代理，将代替客户端连接到相应的应用服务器。客户端计算机永远不需要直接访问内部网络。在使用VPN的情况下，用户可以浏览内部网络，并且可以与他们想要连接的任何计算机直接通信。这种做法会导致引入恶意软件的风险，如感染客户端计算机的木马或蠕虫。这样的恶意程序，一旦安装在用户的计算机上，就可以直接连接到这些内部系统，还有可能感染他们或窃取数据。这就是为什么有些VPN解决方案具有诸如“端点验证”的技术，以确保连接的客户端有相应的杀毒软件，防火墙和/或安装了补丁。由于SGD不提供客户机网络访问，所以不需要使用这样的技术来保护内部系统。</p>
+<p>等等，还是不能理解么？好吧，看看下面的分析如何。</p>
+<h4 id="定位">定位</h4><ul>
+<li><p><strong>SGD</strong> - 位于应用程序之上，访问层的产品</p>
+</li>
+<li><p><strong>VPN</strong> - 位于网络层之上，底层的网络安全技术</p>
+</li>
+</ul>
+<h4 id="性质">性质</h4><ul>
+<li><p><strong>SGD</strong> - 一个远程访问产品</p>
+</li>
+<li><p><strong>VPN</strong> - 一类网络安全技术的统称</p>
+</li>
+</ul>
+<h4 id="原理">原理</h4><ul>
+<li><p><strong>SGD</strong> - 将应用程序与访问环境分离，同时加密到应用程序的访问过程，以达到安全地连接远程应用程序和桌面的目的</p>
+</li>
+<li><p><strong>VPN</strong> - 将客户端的网络连接全部重新定位到一个安全的网络连接上，通过VPN服务器实现对企业内部网络的安全访问</p>
+</li>
+</ul>
+<h4 id="访问对象">访问对象</h4><ul>
+<li><p><strong>SGD</strong> - 运行在数据中心内部的应用程序和桌面</p>
+</li>
+<li><p><strong>VPN</strong> - 企业内部网络</p>
+</li>
+</ul>
+<h4 id="环境要求">环境要求</h4><ul>
+<li><p><strong>SGD</strong> - 需要部署SGD访问服务器</p>
+</li>
+<li><p><strong>VPN</strong> - 需要部署VPN服务器</p>
+</li>
+</ul>
+<h4 id="客户端要求">客户端要求</h4><ul>
+<li><p><strong>SGD</strong> - 客户端无需任何软件，只需要一个浏览器，几乎是任意客户端</p>
+</li>
+<li><p><strong>VPN</strong> - 需要在客户端安装VPN接入软件，可使用的客户端取决于VPN软件的支持范围。</p>
+</li>
+</ul>
+<h4 id="管理性">管理性</h4><ul>
+<li><p><strong>SGD</strong> - 细粒度的管理。管理员可以控制用户，应用程序，用户操作</p>
+</li>
+<li><p><strong>VPN</strong> - 粗粒度管理。管理员只能知道接入VPN的用户，对于用户的操作以及使用的应用程序无法控制</p>
+</li>
+</ul>
+<h4 id="安全性">安全性</h4><ul>
+<li><p><strong>SGD</strong> - <em>高。</em>只把需要的数据通信过程进行安全加密。在客户端不存储任何数据，保证到内部网络的通信和数据是安全的。即使客户端感染病毒，对内部网络造成威胁的可能也很低。</p>
+</li>
+<li><p><strong>VPN</strong> - <em>中。</em>将所有客户端的数据连接一股脑的接入到内网中，如果客户端环境中有病毒，也可能感染到内网。</p>
+</li>
+</ul>
+<h3 id="总结">总结</h3><ul>
+<li><p>要明确这两种产品的定位不同，一个属于访问层（SGD），一个属于网络层（VPN），之间没有竞争关系，而且在使用VPN的情况下，也可以使用SGD。</p>
+</li>
+<li><p>SGD是通过一个安全入口远程访问不同平台应用程序和桌面的解决方案，而VPN是访问内部网络的解决访问。二者要回答的问题不一样。</p>
+<ul>
+<li><p><strong>SGD回答了：</strong> <em>我不关心内网还是外网，我只想知道如何才能安全的访问企业内部的应用程序和桌面</em></p>
+</li>
+<li><p><strong>VPN回答了：</strong> <em>我不关心有哪些应用程序和桌面，我只想知道如何才能安全的访问企业的内部网络</em></p>
+</li>
+</ul>
+</li>
+<li><p>SGD便捷性，无需任何客户端软件，可以在任何设备上使用，而VPN使用时必须安装客户端软件或者某种类型的VPN卡，可使用的设备有限，而且很容易造成丢失</p>
+</li>
+<li><p>SGD这种高可控的远程访问方式是现在、将来的趋势，已经有很多用户（比如美国的一些大学，研究室，已经政府机构）只使用SGD做远程访问。</p>
+</li>
+<li><p>SGD可以和既存的企业身份认证系统整合，用户不再需要多余的账号，而且如果使用Oracle应用的话，还可以很方便的实现一键登录（SSO），而VPN需要独立的账号，无一键登录功能。</p>
+</li>
+<li><p>SGD可以实现浏览器，插件等配置环境的独立部署，客户不需要再担心自己的环境是否满足企业应用的需求；而VPN太过于底层，不可能实现这种高级功能，需要客户自己操心。</p>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/虚拟化/">虚拟化</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/sgd/">sgd</a><a href="/tags/vpn/">vpn</a><a href="/tags/专用网/">专用网</a><a href="/tags/比较/">比较</a><a href="/tags/虚拟化/">虚拟化</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.github.io/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/" data-title="Oracle Secure Global Desktop与VPN有何不同 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/03/10/aip/" title="AIP是什么? AIP需要多少网络带宽?">
+  <strong>上一篇：</strong><br/>
+  <span>
+  AIP是什么? AIP需要多少网络带宽?</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/19/sgd-v-s-vdi/"  title="SGD v.s. VDI">
+ <strong>下一篇：</strong><br/> 
+ <span>SGD v.s. VDI
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/03/10/Oracle Secure Global Desktop与VPN有何不同/" data-title="Oracle Secure Global Desktop与VPN有何不同" data-url="http://xintq.github.io/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#定位"><span class="toc-number">1.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质"><span class="toc-number">2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问对象"><span class="toc-number">4.</span> <span class="toc-text">访问对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境要求"><span class="toc-number">5.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端要求"><span class="toc-number">6.</span> <span class="toc-text">客户端要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#管理性"><span class="toc-number">7.</span> <span class="toc-text">管理性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安全性"><span class="toc-number">8.</span> <span class="toc-text">安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/WEB基础/" title="WEB基础">WEB基础<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>3</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>10</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html" target="_blank" title="Oracle SGD">Oracle SGD</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m K.X in Oracle. <br/>
+			This is my blog, believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2015 
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xintq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

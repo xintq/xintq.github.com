@@ -1,0 +1,624 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JNI入门之HelloWorld | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。
+程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.
+首先编写Hello.javapublic class Hello
+{
+    static
+    {">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JNI入门之HelloWorld">
+<meta property="og:url" content="http://xintq.github.io/2014/07/31/JNI入门之HelloWorld/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。
+程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.
+首先编写Hello.javapublic class Hello
+{
+    static
+    {">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JNI入门之HelloWorld">
+<meta name="twitter:description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。
+程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.
+首先编写Hello.javapublic class Hello
+{
+    static
+    {">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xintq.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/31/JNI入门之HelloWorld/" title="JNI入门之HelloWorld" itemprop="url">JNI入门之HelloWorld</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-31T02:16:51.000Z" itemprop="datePublished"> 发表于 2014-07-31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#程序的流程"><span class="toc-number">1.</span> <span class="toc-text">程序的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#首先编写Hello-java"><span class="toc-number">2.</span> <span class="toc-text">首先编写Hello.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译该文件，生成_Hello-class"><span class="toc-number">3.</span> <span class="toc-text">编译该文件，生成 Hello.class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行javah，产生头文件Hello-h"><span class="toc-number">4.</span> <span class="toc-text">运行javah，产生头文件Hello.h</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#然后按照Hello-h中的声明方法，编写本地方法的实现文件Hello-c："><span class="toc-number">5.</span> <span class="toc-text">然后按照Hello.h中的声明方法，编写本地方法的实现文件Hello.c：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译和加载库文件"><span class="toc-number">6.</span> <span class="toc-text">编译和加载库文件</span></a></li></ol>
+		
+		</div>
+		
+		<p>首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。</p>
+<h2 id="程序的流程">程序的流程</h2><p>在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.</p>
+<h2 id="首先编写Hello-java">首先编写Hello.java</h2><pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span>
+</span>{
+    <span class="keyword">static</span>
+    {
+        <span class="keyword">try</span>
+        {
+            <span class="comment">//此处即为本地方法所在链接库名</span>
+            System.loadLibrary(<span class="string">"hello"</span>);
+        }
+        <span class="keyword">catch</span>(UnsatisfiedLinkError e)
+        {
+            System.err.println( <span class="string">"Cannot load hello library:  "</span>+ e.toString() );
+        }
+    }
+    <span class="function"><span class="keyword">public</span> <span class="title">Hello</span><span class="params">()</span></span>{}
+
+    <span class="comment">//声明的本地方法</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">SayHello</span><span class="params">(String strName)</span></span>;
+} 
+</code></pre><h2 id="编译该文件，生成_Hello-class">编译该文件，生成 Hello.class</h2><pre><code><span class="title">javac</span> Hello.java
+</code></pre><h2 id="运行javah，产生头文件Hello-h">运行javah，产生头文件Hello.h</h2><pre><code><span class="title">javah</span> Hello
+</code></pre><p>Hello.h中的内容不要做修改，先打开它，看看本地方法是怎么声明的：</p>
+<pre><code><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;jni.h&gt;</span>
+<span class="comment">/* Header for class Hello */</span>
+
+<span class="preprocessor">#ifndef _Included_Hello</span>
+<span class="preprocessor">#<span class="keyword">define</span> _Included_Hello</span>
+<span class="preprocessor">#ifdef __cplusplus</span>
+<span class="keyword">extern</span> <span class="string">"C"</span> {
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+<span class="comment">/*
+ * Class:     Hello
+ * Method:    SayHello
+ * Signature: (Ljava/lang/String;)V
+ */</span>
+<span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_Hello_SayHello</span>
+  <span class="params">(JNIEnv *, jobject, jstring)</span></span>;
+
+<span class="preprocessor">#ifdef __cplusplus</span>
+}
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+</code></pre><h2 id="然后按照Hello-h中的声明方法，编写本地方法的实现文件Hello-c：">然后按照Hello.h中的声明方法，编写本地方法的实现文件Hello.c：</h2><pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;jni.h&gt;</span>
+<span class="preprocessor">#<span class="keyword">include</span> "Hello.h"</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+
+<span class="comment">//与Hello.h中函数声明相同</span>
+<span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_Hello_SayHello</span>  <span class="params">(JNIEnv * env, jobject arg, jstring instring)</span>
+</span>{
+    <span class="comment">//从instring字符串取得指向字符串UTF编码的指针</span>
+    <span class="keyword">char</span> *str = (<span class="keyword">char</span> *)(*env)-&gt;GetStringUTFChars( env, instring, NULL);
+
+    <span class="built_in">printf</span>(<span class="string">"Hello, %s "</span>, str);
+
+    <span class="comment">//通知虚拟机本地代码不再需要通过str访问Java字符串。</span>
+    (*env)-&gt;ReleaseStringUTFChars( env, instring, NULL);
+}
+</code></pre><h2 id="编译和加载库文件">编译和加载库文件</h2><p>其实以上的步骤并没有什么难度，只是一个模板流程而已，我认为对于初学者来说，让人头疼的部分还是编译和加载库文件，下面就是这一关键的步骤。为了编译方便，我先写了一个makefile：</p>
+<pre><code><span class="comment"># 最后生成的库文件：libhello.so依赖于Hello.o和makefile</span>
+libhello.so:<span class="constant">Hello</span>.o makefile
+
+    <span class="comment"># 这句就是gcc下编译共享库文件的方法</span>
+    gcc -<span class="constant">Wall</span> -rdynamic -<span class="literal">shared</span> -o libhello.so <span class="constant">Hello</span>.o
+
+<span class="comment"># 目标文件Hello.o是由Hello.c和Hello.h编译生成的</span>
+<span class="constant">Hello</span>.o:<span class="constant">Hello</span>.c <span class="constant">Hello</span>.h
+
+    <span class="comment"># 这就是编译c文件的方法，“-I”选项指出了编译时需要使用JDK提供的一些文件，</span>
+    <span class="comment"># 在我的机器上JDK的目录是/usr/java/jdk1.5.0_04，你可以根据具体情况来改变它</span>
+    gcc -<span class="constant">Wall</span> -c <span class="constant">Hello</span>.c -<span class="constant">I</span>./ -<span class="constant">I</span>/usr/java/jdk1.<span class="number">5.0_04</span>/<span class="literal">include</span> -<span class="constant">I</span>/usr/java/jdk1.<span class="number">5.0_04</span>/<span class="literal">include</span>/linux
+
+<span class="comment"># 这是清理标志位，如果你使用的命令是make cl，则会删除所有产生的目标文件*.o和库文件*.so，</span>
+<span class="comment"># 这通常用来要重新编译所有文件的情况下，先执行make cl，然后执行 make</span>
+cl:
+    rm -rf *.o *.so
+</code></pre><p>(注意：以“#”开头的部分是注释，你可以全部删除之， gcc和rm等命令的开头必须用tab键做一个空格)</p>
+<p>运行一下命令来编译我们的库文件：</p>
+<pre><code>#sudo chmod +x makefile
+#make
+gcc -Wall -c Hello.c -I.<span class="regexp">/ -I/</span>usr<span class="regexp">/java/</span>jdk1.5.0_04<span class="regexp">/include -I/</span>usr<span class="regexp">/java/</span>jdk1.5.0_04<span class="regexp">/include/</span>linux
+Hello.<span class="string">c:</span><span class="number">15</span>:<span class="number">2</span>: <span class="string">warning:</span> no newline at end of file
+gcc -Wall -rdynamic -shared -o libhello.so Hello.o
+</code></pre><p>那个警告信息我们可以不管，这样的话就在当前目录下生成了库文件：libhello.so</p>
+<p>再写一个类来调用我们的本地方法：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ToSay</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String argv[])</span>
+    </span>{
+        ToSay say = <span class="keyword">new</span> ToSay();
+    }
+    <span class="function"><span class="keyword">public</span> <span class="title">ToSay</span><span class="params">()</span>
+    </span>{
+        Hello h = <span class="keyword">new</span> Hello();
+
+        <span class="comment">//调用本地方法向John问好</span>
+        h.SayHello(<span class="string">"John"</span>);            
+    }
+}
+</code></pre><p>编译该文件：</p>
+<pre><code><span class="title">javac</span> ToSay.java
+</code></pre><p>最后就是配置java的运行环境了，使用JNI加载库文件时，必须修改环境变量：LD_LIBRARY_PATH，这样java程序才能准确的找到库文件的位置，在网上有很多关于修改LD_LIBRARY_PATH的方法，但是到我这里都行不通。</p>
+<p>我的处理方法是这样的，为运行方便我们先写一个运行脚本，不妨就叫它run.sh：</p>
+<pre><code><span class="shebang">#!/bin/bash</span>
+<span class="built_in">export</span> LD_LIBRARY_PATH=.:<span class="variable">$PATH</span>:<span class="variable">$LD_LIBRARY_PATH</span>
+java ToSay
+
+注意，我把PATH也加进来了。这样库文件的路径就包括：当前目录，系统的PATH路径以及原来的LD_LIBRARY_PATH路径，在程序执行时，它就会按照以上的顺序来搜索需要的库文件。
+</code></pre><p>用以下的命令来执行这个脚本:</p>
+<pre><code>sudo chmod +x <span class="keyword">run</span>.<span class="keyword">sh</span>
+./<span class="keyword">run</span>.<span class="keyword">sh</span>
+</code></pre><p>运行的结果是：</p>
+<pre><code><span class="preprocessor"># ./run.sh</span>
+Hello, John
+<span class="preprocessor">#</span>
+</code></pre><p>Have a nice day!!!</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a><a href="/tags/jni/">jni</a><a href="/tags/swig/">swig</a><a href="/tags/本地借口/">本地借口</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.github.io/2014/07/31/JNI入门之HelloWorld/" data-title="JNI入门之HelloWorld | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/07/31/Linux下合并PDF文件/" title="Linux下合并PDF文件">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Linux下合并PDF文件</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/31/我的 Linux 学习经历/"  title="我的 Linux 学习经历">
+ <strong>下一篇：</strong><br/> 
+ <span>我的 Linux 学习经历
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/07/31/JNI入门之HelloWorld/" data-title="JNI入门之HelloWorld" data-url="http://xintq.github.io/2014/07/31/JNI入门之HelloWorld/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#程序的流程"><span class="toc-number">1.</span> <span class="toc-text">程序的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#首先编写Hello-java"><span class="toc-number">2.</span> <span class="toc-text">首先编写Hello.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译该文件，生成_Hello-class"><span class="toc-number">3.</span> <span class="toc-text">编译该文件，生成 Hello.class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行javah，产生头文件Hello-h"><span class="toc-number">4.</span> <span class="toc-text">运行javah，产生头文件Hello.h</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#然后按照Hello-h中的声明方法，编写本地方法的实现文件Hello-c："><span class="toc-number">5.</span> <span class="toc-text">然后按照Hello.h中的声明方法，编写本地方法的实现文件Hello.c：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译和加载库文件"><span class="toc-number">6.</span> <span class="toc-text">编译和加载库文件</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/WEB基础/" title="WEB基础">WEB基础<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>3</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>10</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html" target="_blank" title="Oracle SGD">Oracle SGD</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m K.X in Oracle. <br/>
+			This is my blog, believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2015 
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xintq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
