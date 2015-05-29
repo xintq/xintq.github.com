@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xintq.net/"/>
-  <updated>2015-05-28T13:57:51.000Z</updated>
+  <updated>2015-05-29T07:03:05.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -13,6 +13,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[SGD 5.2 中单点登陆(Single Sign-On)功能详解]]></title>
+    <link href="http://xintq.net/2015/05/29/SGD-and-SSO/"/>
+    <id>http://xintq.net/2015/05/29/SGD-and-SSO/</id>
+    <published>2015-05-29T05:54:15.000Z</published>
+    <updated>2015-05-29T07:03:05.000Z</updated>
+    <content type="html"><![CDATA[<p>2015年5月1日，Oracle发布了新版本的Oracle Secure Global Desktop 5.2。这是一个主要修复的版本，产品的体系结构和功能没有大的变化。其中，最为亮眼的新功能就是与Oracle Access Manager（OAM）的整合插件。通过使用该插件，SGD可以使用OAM的单点登录（Single Sign-On，SSO）功能，实现了对SGD服务器，以及从SGD上打开的远程Oracle应用程序的单点登录。</p>
+<p>其实在SGD5.2发布之前，已经有很多用户把SGD与OAM或者OpenSSO进行了整合，实现了单点登录功能。只不过当时SGD没有提供任何插件或者接口，需要客户自己去修改SGD的内部配置文件，过程非常复杂。在5.2中，通过引入SSO插件，使得这个配置过程和整合更容易。</p>
+<a id="more"></a>
+<p>话说回来，无论是那种方式的整合，原理上都是一样的，都是通过在SGD服务器上配置一个代理（WebGate）来完成整合，系统构成如下图所示：</p>
+<p><img src="/img/post/sgd-sso.png" alt="SGD与SSO整合体系图"></p>
+<p>在SGD中，下面两个场景可以实现单点登录（SSO）。</p>
+<h4 id="场景1：登录到SGD服务器时验证到SGD服务器的登录">场景1：登录到SGD服务器时验证到SGD服务器的登录</h4><p><strong>假设用户在登陆到SGD服务器之前，已经使用SSO登录过</strong>，这时，使用过程如下：</p>
+<ol>
+<li>打开浏览器，登陆到某个使用SSO的应用程序</li>
+<li>这时会被系统重定向到SSO的登陆页面</li>
+<li>输入SSO的用户名和密码</li>
+<li>登陆到此使用SSO的应用程序中</li>
+<li>转到SGD服务器的登陆页面</li>
+<li>这时<em>无需再输入任何用户名和密码，直接登录到SGD工作区中</em></li>
+<li>至此，完成到SGD服务器的登陆验证过程</li>
+</ol>
+<h4 id="场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆">场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</h4><p>具体的说，用户要进入SGD的工作区，在SGD工作区中打开一个远程浏览器，然后再从远程浏览器中打开一个Oracle应用程序。</p>
+<p><strong>假设用户在登陆到SGD服务器之前，没有使用SSO登陆过</strong>，这时，使用过程如下：</p>
+<ol>
+<li>打开浏览器，输入SGD服务器的地址并访问</li>
+<li>显示SGD服务器的登陆页面，此时输入SSO的用户名和密码</li>
+<li>登录到SGD工作区中，显示工作区</li>
+<li>从SGD工作区中启动一个远程浏览器</li>
+<li>在远程浏览器中打开一个使用SSO的Oracle应用程序</li>
+<li><em>直接登录到该Oracle应用程序，无需输入任何用户名和密码</em></li>
+</ol>
+<h4 id="特殊说明">特殊说明</h4><p>在场景1中，如果在第7步之后，进行如下操作的话，可能还会需要输入用户名和密码：</p>
+<ol>
+<li>从SGD工作区中启动一个远程浏览器</li>
+<li>在远程浏览器中打开一个使用SSO的Oracle应用程序</li>
+<li>这时可能会被重定向到SSO的登录页面</li>
+</ol>
+<p>这种情况是不能实现SSO功能的。</p>
+<p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>2015年5月1日，Oracle发布了新版本的Oracle Secure Global Desktop 5.2。这是一个主要修复的版本，产品的体系结构和功能没有大的变化。其中，最为亮眼的新功能就是与Oracle Access Manager（OAM）的整合插件。通过使用该插件，SGD可以使用OAM的单点登录（Single Sign-On，SSO）功能，实现了对SGD服务器，以及从SGD上打开的远程Oracle应用程序的单点登录。</p>
+<p>其实在SGD5.2发布之前，已经有很多用户把SGD与OAM或者OpenSSO进行了整合，实现了单点登录功能。只不过当时SGD没有提供任何插件或者接口，需要客户自己去修改SGD的内部配置文件，过程非常复杂。在5.2中，通过引入SSO插件，使得这个配置过程和整合更容易。</p>]]>
+    
+    </summary>
+    
+      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
+    
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
+    
+      <category term="sso" scheme="http://xintq.net/tags/sso/"/>
+    
+      <category term="webgate" scheme="http://xintq.net/tags/webgate/"/>
+    
+      <category term="单点登录" scheme="http://xintq.net/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[永久关闭Adobe Acrobat Reader DC右侧的侧边栏]]></title>
@@ -1752,44 +1813,6 @@ Hello, John
       <category term="模板" scheme="http://xintq.net/tags/%E6%A8%A1%E6%9D%BF/"/>
     
       <category term="文本处理" scheme="http://xintq.net/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[堆排序 (Heap Sort)的分析和实现（C）]]></title>
-    <link href="http://xintq.net/2014/07/30/%E5%A0%86%E6%8E%92%E5%BA%8F%20(Heap%20Sort)%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://xintq.net/2014/07/30/堆排序 (Heap Sort)的分析和实现/</id>
-    <published>2014-07-30T15:51:53.000Z</published>
-    <updated>2015-05-29T04:05:22.000Z</updated>
-    <content type="html"><![CDATA[<p>（这篇文章是2006年我发布在博客园上面的，想想已经八年有余。今天好不容易找到了，挪到这里，收藏一下吧。）</p>
-<h1 id="堆排序_(Heap_Sort)">堆排序 (Heap Sort)</h1><p>堆排序分为两个步骤：</p>
-<ul>
-<li>第一步，根据初始输入数据，利用堆的调整算法形成初始堆。</li>
-<li>第二步，通过一系列的记录交换和重新调整堆进行排序。</li>
-</ul>
-<h2 id="最大堆的向下调整算法分析">最大堆的向下调整算法分析</h2><p>调用了O(n)次Adjust()算法，堆排序的时间复杂性为O(nlog2n)。</p>
-<p>该算法的附加存储主要是执行记录交换时所用的一个临时记录。<br>因此，该算法的空间复杂性为O(1)。</p>
-<p>堆排序是一个不稳定的排序方法。</p>
-<p>基于C的实现代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">int</span> &amp;y)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Adjust</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> parent, <span class="keyword">int</span> high)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">2</span> * parent + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> r = l + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> flag = parent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (l&lt;=high &amp;&amp; a[l]&gt;a[flag]) &#123;</span><br><span class="line">        flag = l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (r&lt;=high &amp;&amp; a[r]&gt;a[flag]) &#123;</span><br><span class="line">        flag = r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flag != parent) &#123;</span><br><span class="line">        swap(a[parent], a[flag]);</span><br><span class="line">        Adjust(a, flag, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i=n-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">        Adjust(a, i, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i=n-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">        swap(a[<span class="number">0</span>], a[i]);</span><br><span class="line">        Adjust(a, <span class="number">0</span>, i - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Output</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        printf(<span class="string">"\t%d"</span>, a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[] = &#123; <span class="number">49</span>, <span class="number">38</span>, <span class="number">65</span>, <span class="number">97</span>, <span class="number">76</span>, <span class="number">13</span>, <span class="number">27</span>, <span class="number">49</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    Output(a, n);</span><br><span class="line">    HeapSort(a, n);</span><br><span class="line">    Output(a, n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line">        49      38      65      97      76      13      27      49</span><br><span class="line">        13      27      38      49      49      65      76      97</span><br><span class="line">Press any key to continue</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
-<p>(END)</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>（这篇文章是2006年我发布在博客园上面的，想想已经八年有余。今天好不容易找到了，挪到这里，收藏一下吧。）</p>
-<h1 id="堆排序_(Heap_Sort)">堆排序 (Heap Sort)</h1><p>堆排序分为两个步骤：</p>
-<ul>
-<li>第一步，根据初]]>
-    </summary>
-    
-      <category term="heapsort" scheme="http://xintq.net/tags/heapsort/"/>
-    
-      <category term="堆" scheme="http://xintq.net/tags/%E5%A0%86/"/>
-    
-      <category term="堆排序" scheme="http://xintq.net/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/"/>
-    
-      <category term="算法" scheme="http://xintq.net/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="算法" scheme="http://xintq.net/categories/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
