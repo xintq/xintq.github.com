@@ -3,9 +3,9 @@
   <title><![CDATA[夕阳下的奔跑]]></title>
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://xintq.github.io/"/>
+  <link href="http://xintq.net/"/>
   <updated>2015-05-28T13:57:51.000Z</updated>
-  <id>http://xintq.github.io/</id>
+  <id>http://xintq.net/</id>
   
   <author>
     <name><![CDATA[K.X]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[永久关闭Adobe Acrobat Reader DC右侧的侧边栏]]></title>
-    <link href="http://xintq.github.io/2015/05/19/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADAdobe%20Acrobat%20Reader%20DC%E5%8F%B3%E4%BE%A7%E7%9A%84%E4%BE%A7%E8%BE%B9%E6%A0%8F/"/>
-    <id>http://xintq.github.io/2015/05/19/永久关闭Adobe Acrobat Reader DC右侧的侧边栏/</id>
+    <link href="http://xintq.net/2015/05/19/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADAdobe%20Acrobat%20Reader%20DC%E5%8F%B3%E4%BE%A7%E7%9A%84%E4%BE%A7%E8%BE%B9%E6%A0%8F/"/>
+    <id>http://xintq.net/2015/05/19/永久关闭Adobe Acrobat Reader DC右侧的侧边栏/</id>
     <published>2015-05-19T05:16:42.000Z</published>
     <updated>2015-05-28T13:57:51.000Z</updated>
     <content type="html"><![CDATA[<p>最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。<br>不知道是谁的脑残设计，于是乎，各种找，发现了下面的方法。</p>
@@ -35,22 +35,22 @@
     <![CDATA[<p>最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。<br>不知道是谁的脑残设计，于是乎，各种找，发现了下面的]]>
     </summary>
     
-      <category term="acrobat" scheme="http://xintq.github.io/tags/acrobat/"/>
+      <category term="acrobat" scheme="http://xintq.net/tags/acrobat/"/>
     
-      <category term="adobe" scheme="http://xintq.github.io/tags/adobe/"/>
+      <category term="adobe" scheme="http://xintq.net/tags/adobe/"/>
     
-      <category term="pdf" scheme="http://xintq.github.io/tags/pdf/"/>
+      <category term="pdf" scheme="http://xintq.net/tags/pdf/"/>
     
-      <category term="pdf reader" scheme="http://xintq.github.io/tags/pdf-reader/"/>
+      <category term="pdf reader" scheme="http://xintq.net/tags/pdf-reader/"/>
     
-      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+      <category term="杂谈" scheme="http://xintq.net/categories/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Oracle Secure Global Desktop 部署考虑事项]]></title>
-    <link href="http://xintq.github.io/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/"/>
-    <id>http://xintq.github.io/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/</id>
+    <link href="http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/"/>
+    <id>http://xintq.net/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/</id>
     <published>2015-05-13T06:47:42.000Z</published>
     <updated>2015-05-28T13:57:13.000Z</updated>
     <content type="html"><![CDATA[<h2 id="概要">概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
@@ -591,32 +591,32 @@
 <p>如果你还不知道Oracle Secure Glo]]>
     </summary>
     
-      <category term="aip" scheme="http://xintq.github.io/tags/aip/"/>
+      <category term="aip" scheme="http://xintq.net/tags/aip/"/>
     
-      <category term="application provision" scheme="http://xintq.github.io/tags/application-provision/"/>
+      <category term="application provision" scheme="http://xintq.net/tags/application-provision/"/>
     
-      <category term="rdp" scheme="http://xintq.github.io/tags/rdp/"/>
+      <category term="rdp" scheme="http://xintq.net/tags/rdp/"/>
     
-      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
-      <category term="sizing" scheme="http://xintq.github.io/tags/sizing/"/>
+      <category term="sizing" scheme="http://xintq.net/tags/sizing/"/>
     
-      <category term="ssh" scheme="http://xintq.github.io/tags/ssh/"/>
+      <category term="ssh" scheme="http://xintq.net/tags/ssh/"/>
     
-      <category term="应用程序供应" scheme="http://xintq.github.io/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/"/>
+      <category term="应用程序供应" scheme="http://xintq.net/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/"/>
     
-      <category term="部署" scheme="http://xintq.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
+      <category term="部署" scheme="http://xintq.net/tags/%E9%83%A8%E7%BD%B2/"/>
     
-      <category term="配置" scheme="http://xintq.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="http://xintq.net/tags/%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Oracle Secure Global Desktop (SGD) 介绍]]></title>
-    <link href="http://xintq.github.io/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://xintq.github.io/2015/05/08/Oracle Secure Global Desktop介绍/</id>
+    <link href="http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://xintq.net/2015/05/08/Oracle Secure Global Desktop介绍/</id>
     <published>2015-05-08T09:04:37.000Z</published>
     <updated>2015-05-28T13:56:14.000Z</updated>
     <content type="html"><![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Global Desktop可以工作在各种流行的客户端设备上，包括Windows PC，Mac，Linux PC，以及Apple iPad等平板设备和基于Android的设备。通过该软件，用户可以使用几乎任何设备，在任何地方安全地开始工作。同时，也给管理员提供了一个管理工具，用来控制到数据中心内部运行的应用程序和桌面环境的访问过程。</em></p>
@@ -714,28 +714,28 @@
     <![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Glo]]>
     </summary>
     
-      <category term="EM12c" scheme="http://xintq.github.io/tags/EM12c/"/>
+      <category term="EM12c" scheme="http://xintq.net/tags/EM12c/"/>
     
-      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
-      <category term="sso" scheme="http://xintq.github.io/tags/sso/"/>
+      <category term="sso" scheme="http://xintq.net/tags/sso/"/>
     
-      <category term="单点登录" scheme="http://xintq.github.io/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
+      <category term="单点登录" scheme="http://xintq.net/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
     
-      <category term="安全访问" scheme="http://xintq.github.io/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
+      <category term="安全访问" scheme="http://xintq.net/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
     
-      <category term="指标" scheme="http://xintq.github.io/tags/%E6%8C%87%E6%A0%87/"/>
+      <category term="指标" scheme="http://xintq.net/tags/%E6%8C%87%E6%A0%87/"/>
     
-      <category term="环境需求" scheme="http://xintq.github.io/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/"/>
+      <category term="环境需求" scheme="http://xintq.net/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[[译] Oracle 发布了 Secure Global Desktop Release 5.2]]></title>
-    <link href="http://xintq.github.io/2015/05/08/%5B%E8%AF%91%5D%20Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/"/>
-    <id>http://xintq.github.io/2015/05/08/[译] Oracle 发布了 Secure Global Desktop Release 5.2/</id>
+    <link href="http://xintq.net/2015/05/08/%5B%E8%AF%91%5D%20Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/"/>
+    <id>http://xintq.net/2015/05/08/[译] Oracle 发布了 Secure Global Desktop Release 5.2/</id>
     <published>2015-05-08T03:22:09.000Z</published>
     <updated>2015-05-28T13:55:07.000Z</updated>
     <content type="html"><![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" rel="external">http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx</a></p>
@@ -760,28 +760,28 @@
     <![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" re]]>
     </summary>
     
-      <category term="application virtulization" scheme="http://xintq.github.io/tags/application-virtulization/"/>
+      <category term="application virtulization" scheme="http://xintq.net/tags/application-virtulization/"/>
     
-      <category term="em12c" scheme="http://xintq.github.io/tags/em12c/"/>
+      <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
-      <category term="oam" scheme="http://xintq.github.io/tags/oam/"/>
+      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
     
-      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
-      <category term="sso" scheme="http://xintq.github.io/tags/sso/"/>
+      <category term="sso" scheme="http://xintq.net/tags/sso/"/>
     
-      <category term="安全访问" scheme="http://xintq.github.io/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
+      <category term="安全访问" scheme="http://xintq.net/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
     
-      <category term="应用程序虚拟化" scheme="http://xintq.github.io/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="应用程序虚拟化" scheme="http://xintq.net/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[AIP是什么? AIP需要多少网络带宽?]]></title>
-    <link href="http://xintq.github.io/2015/03/10/aip/"/>
-    <id>http://xintq.github.io/2015/03/10/aip/</id>
+    <link href="http://xintq.net/2015/03/10/aip/"/>
+    <id>http://xintq.net/2015/03/10/aip/</id>
     <published>2015-03-10T07:48:58.000Z</published>
     <updated>2015-05-28T13:53:01.000Z</updated>
     <content type="html"><![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="http://www.google.com/patents?id=a1MJAAAAEBAJ&amp;dq=adaptive+internet+protocol" target="_blank" rel="external">这里</a>可以找到。</p>
@@ -796,26 +796,26 @@
     <![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="]]>
     </summary>
     
-      <category term="aip" scheme="http://xintq.github.io/tags/aip/"/>
+      <category term="aip" scheme="http://xintq.net/tags/aip/"/>
     
-      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
-      <category term="协议" scheme="http://xintq.github.io/tags/%E5%8D%8F%E8%AE%AE/"/>
+      <category term="协议" scheme="http://xintq.net/tags/%E5%8D%8F%E8%AE%AE/"/>
     
-      <category term="带宽" scheme="http://xintq.github.io/tags/%E5%B8%A6%E5%AE%BD/"/>
+      <category term="带宽" scheme="http://xintq.net/tags/%E5%B8%A6%E5%AE%BD/"/>
     
-      <category term="网络性能" scheme="http://xintq.github.io/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/"/>
+      <category term="网络性能" scheme="http://xintq.net/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/"/>
     
-      <category term="自适应协议" scheme="http://xintq.github.io/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/"/>
+      <category term="自适应协议" scheme="http://xintq.net/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Oracle Secure Global Desktop与VPN有何不同]]></title>
-    <link href="http://xintq.github.io/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/"/>
-    <id>http://xintq.github.io/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/</id>
+    <link href="http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/"/>
+    <id>http://xintq.net/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/</id>
     <published>2015-03-10T07:36:53.000Z</published>
     <updated>2015-05-28T14:18:33.000Z</updated>
     <content type="html"><![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。</p>
@@ -896,24 +896,24 @@
     <![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。V]]>
     </summary>
     
-      <category term="sgd" scheme="http://xintq.github.io/tags/sgd/"/>
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
-      <category term="vpn" scheme="http://xintq.github.io/tags/vpn/"/>
+      <category term="vpn" scheme="http://xintq.net/tags/vpn/"/>
     
-      <category term="专用网" scheme="http://xintq.github.io/tags/%E4%B8%93%E7%94%A8%E7%BD%91/"/>
+      <category term="专用网" scheme="http://xintq.net/tags/%E4%B8%93%E7%94%A8%E7%BD%91/"/>
     
-      <category term="比较" scheme="http://xintq.github.io/tags/%E6%AF%94%E8%BE%83/"/>
+      <category term="比较" scheme="http://xintq.net/tags/%E6%AF%94%E8%BE%83/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[SGD v.s. VDI]]></title>
-    <link href="http://xintq.github.io/2014/11/19/sgd-v-s-vdi/"/>
-    <id>http://xintq.github.io/2014/11/19/sgd-v-s-vdi/</id>
+    <link href="http://xintq.net/2014/11/19/sgd-v-s-vdi/"/>
+    <id>http://xintq.net/2014/11/19/sgd-v-s-vdi/</id>
     <published>2014-11-19T03:24:02.000Z</published>
     <updated>2015-05-28T13:52:22.000Z</updated>
     <content type="html"><![CDATA[<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，为何能搭配使用，我想花几分钟的时间来解释一下SGD及其在VDI市场中的地位。</p>
@@ -933,24 +933,24 @@
     <![CDATA[<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，]]>
     </summary>
     
-      <category term="SGD" scheme="http://xintq.github.io/tags/SGD/"/>
+      <category term="SGD" scheme="http://xintq.net/tags/SGD/"/>
     
-      <category term="sbc" scheme="http://xintq.github.io/tags/sbc/"/>
+      <category term="sbc" scheme="http://xintq.net/tags/sbc/"/>
     
-      <category term="vdi" scheme="http://xintq.github.io/tags/vdi/"/>
+      <category term="vdi" scheme="http://xintq.net/tags/vdi/"/>
     
-      <category term="安全访问" scheme="http://xintq.github.io/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
+      <category term="安全访问" scheme="http://xintq.net/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/"/>
     
-      <category term="虚拟桌面" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/"/>
+      <category term="虚拟桌面" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linux连接Windows AD服务器配置]]></title>
-    <link href="http://xintq.github.io/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"/>
-    <id>http://xintq.github.io/2014/10/28/Linux连接Windows AD服务器配置/</id>
+    <link href="http://xintq.net/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"/>
+    <id>http://xintq.net/2014/10/28/Linux连接Windows AD服务器配置/</id>
     <published>2014-10-28T06:41:29.000Z</published>
     <updated>2015-05-28T13:50:01.000Z</updated>
     <content type="html"><![CDATA[<h1 id="前提条件">前提条件</h1><h2 id="目的">目的</h2><p>为了在Windows Active Directory上管理的用户也能在Linux服务器上使用。</p>
@@ -1101,28 +1101,28 @@ NT_STATUS_OK: Success <span class="list">(<span class="keyword">0x0</span>)</spa
 <p><strong>注意：本文不包含AD服务器的搭建过程。</strong></p]]>
     </summary>
     
-      <category term="ad" scheme="http://xintq.github.io/tags/ad/"/>
+      <category term="ad" scheme="http://xintq.net/tags/ad/"/>
     
-      <category term="ldap" scheme="http://xintq.github.io/tags/ldap/"/>
+      <category term="ldap" scheme="http://xintq.net/tags/ldap/"/>
     
-      <category term="linux" scheme="http://xintq.github.io/tags/linux/"/>
+      <category term="linux" scheme="http://xintq.net/tags/linux/"/>
     
-      <category term="windows" scheme="http://xintq.github.io/tags/windows/"/>
+      <category term="windows" scheme="http://xintq.net/tags/windows/"/>
     
-      <category term="windows server" scheme="http://xintq.github.io/tags/windows-server/"/>
+      <category term="windows server" scheme="http://xintq.net/tags/windows-server/"/>
     
-      <category term="域名" scheme="http://xintq.github.io/tags/%E5%9F%9F%E5%90%8D/"/>
+      <category term="域名" scheme="http://xintq.net/tags/%E5%9F%9F%E5%90%8D/"/>
     
-      <category term="认证" scheme="http://xintq.github.io/tags/%E8%AE%A4%E8%AF%81/"/>
+      <category term="认证" scheme="http://xintq.net/tags/%E8%AE%A4%E8%AF%81/"/>
     
-      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Oracle Linux下内网DNS服务器的配置]]></title>
-    <link href="http://xintq.github.io/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
-    <id>http://xintq.github.io/2014/09/09/Oracle Linux下内网DNS服务器的配置/</id>
+    <link href="http://xintq.net/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
+    <id>http://xintq.net/2014/09/09/Oracle Linux下内网DNS服务器的配置/</id>
     <published>2014-09-09T07:39:31.000Z</published>
     <updated>2015-05-28T13:49:21.000Z</updated>
     <content type="html"><![CDATA[<p>在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。</p>
@@ -1511,20 +1511,20 @@ example.com.        <span class="number">86400</span>    IN    A    <span class=
 <li>使用 VirtualBox 虚拟机，联网方式选择 <strong>内部网络</strong>，如果你不知道怎么]]>
     </summary>
     
-      <category term="DNS" scheme="http://xintq.github.io/tags/DNS/"/>
+      <category term="DNS" scheme="http://xintq.net/tags/DNS/"/>
     
-      <category term="Linux" scheme="http://xintq.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="http://xintq.net/tags/Linux/"/>
     
-      <category term="nslookup" scheme="http://xintq.github.io/tags/nslookup/"/>
+      <category term="nslookup" scheme="http://xintq.net/tags/nslookup/"/>
     
-      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置]]></title>
-    <link href="http://xintq.github.io/2014/09/05/virtualbox/"/>
-    <id>http://xintq.github.io/2014/09/05/virtualbox/</id>
+    <link href="http://xintq.net/2014/09/05/virtualbox/"/>
+    <id>http://xintq.net/2014/09/05/virtualbox/</id>
     <published>2014-09-05T14:24:17.000Z</published>
     <updated>2015-05-28T13:48:18.000Z</updated>
     <content type="html"><![CDATA[<p>本文给出了在VirtualBox下搭建一个</p>
@@ -1682,24 +1682,24 @@ example.com.        <span class="number">86400</span>    IN    A    <span class=
 <p>的网络配置方案。</p>]]>
     </summary>
     
-      <category term="dhcp" scheme="http://xintq.github.io/tags/dhcp/"/>
+      <category term="dhcp" scheme="http://xintq.net/tags/dhcp/"/>
     
-      <category term="ip" scheme="http://xintq.github.io/tags/ip/"/>
+      <category term="ip" scheme="http://xintq.net/tags/ip/"/>
     
-      <category term="virtualbox" scheme="http://xintq.github.io/tags/virtualbox/"/>
+      <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="网络配置" scheme="http://xintq.github.io/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+      <category term="网络配置" scheme="http://xintq.net/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="虚拟机" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+      <category term="虚拟机" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Virtualbox中找不到eth0的解决方法]]></title>
-    <link href="http://xintq.github.io/2014/09/05/Virtualbox%E4%B8%AD%E6%89%BE%E4%B8%8D%E5%88%B0eth0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
-    <id>http://xintq.github.io/2014/09/05/Virtualbox中找不到eth0的解决方法/</id>
+    <link href="http://xintq.net/2014/09/05/Virtualbox%E4%B8%AD%E6%89%BE%E4%B8%8D%E5%88%B0eth0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>http://xintq.net/2014/09/05/Virtualbox中找不到eth0的解决方法/</id>
     <published>2014-09-05T05:59:31.000Z</published>
     <updated>2015-05-28T13:48:56.000Z</updated>
     <content type="html"><![CDATA[<p>在Virtualbox中安装完虚拟机之后，可能会有添加网卡，然后删除网卡之类的操作。这种操作一多了的话，虚拟机中的linux系统中，网卡的编号可能会乱套。</p>
@@ -1738,20 +1738,20 @@ example.com.        <span class="number">86400</span>    IN    A    <span class=
 <p>默认情况下，Linux会把第一个网卡识别为eth0，第二个为eth2。<br>但是经过频繁的变更网卡设置]]>
     </summary>
     
-      <category term="eth0" scheme="http://xintq.github.io/tags/eth0/"/>
+      <category term="eth0" scheme="http://xintq.net/tags/eth0/"/>
     
-      <category term="virtualbox" scheme="http://xintq.github.io/tags/virtualbox/"/>
+      <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="网络配置" scheme="http://xintq.github.io/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+      <category term="网络配置" scheme="http://xintq.net/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Tarantella, virtualization tools, also a poem]]></title>
-    <link href="http://xintq.github.io/2014/08/26/tarantella-virtualization-tools-also-a-poem/"/>
-    <id>http://xintq.github.io/2014/08/26/tarantella-virtualization-tools-also-a-poem/</id>
+    <link href="http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/"/>
+    <id>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</id>
     <published>2014-08-26T07:25:42.000Z</published>
     <updated>2015-05-28T13:47:17.000Z</updated>
     <content type="html"><![CDATA[<p>最近在折腾Oracle虚拟化的产品，叫做Oracle Secure Global Desktop。在搭建环境的时候，碰到的第一个命令叫做：</p>
@@ -1788,22 +1788,22 @@ A soulless neckar, <span class="keyword">with</span> winking seas <span class="k
 <pre><code><span class="comment">tarantella</span> <span class=]]>
     </summary>
     
-      <category term="poem" scheme="http://xintq.github.io/tags/poem/"/>
+      <category term="poem" scheme="http://xintq.net/tags/poem/"/>
     
-      <category term="tarantella" scheme="http://xintq.github.io/tags/tarantella/"/>
+      <category term="tarantella" scheme="http://xintq.net/tags/tarantella/"/>
     
-      <category term="virtualization" scheme="http://xintq.github.io/tags/virtualization/"/>
+      <category term="virtualization" scheme="http://xintq.net/tags/virtualization/"/>
     
-      <category term="虚拟化" scheme="http://xintq.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
-      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+      <category term="杂谈" scheme="http://xintq.net/categories/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Try octopress on github: fast-forward error]]></title>
-    <link href="http://xintq.github.io/2014/08/07/try-octopress-on-github-fast-forward-error/"/>
-    <id>http://xintq.github.io/2014/08/07/try-octopress-on-github-fast-forward-error/</id>
+    <link href="http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/"/>
+    <id>http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/</id>
     <published>2014-08-06T20:46:39.000Z</published>
     <updated>2015-05-28T14:01:57.000Z</updated>
     <content type="html"><![CDATA[<p>今天尝试往 github 上导 octopress，发现了下面的问题：</p>
@@ -1835,20 +1835,20 @@ git pull
 error: failed <span class=]]>
     </summary>
     
-      <category term="github" scheme="http://xintq.github.io/tags/github/"/>
+      <category term="github" scheme="http://xintq.net/tags/github/"/>
     
-      <category term="markdown" scheme="http://xintq.github.io/tags/markdown/"/>
+      <category term="markdown" scheme="http://xintq.net/tags/markdown/"/>
     
-      <category term="octpress" scheme="http://xintq.github.io/tags/octpress/"/>
+      <category term="octpress" scheme="http://xintq.net/tags/octpress/"/>
     
-      <category term="文本处理" scheme="http://xintq.github.io/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
+      <category term="文本处理" scheme="http://xintq.net/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[TDS值和鱼缸水质的KPI]]></title>
-    <link href="http://xintq.github.io/2014/07/31/about-tds/"/>
-    <id>http://xintq.github.io/2014/07/31/about-tds/</id>
+    <link href="http://xintq.net/2014/07/31/about-tds/"/>
+    <id>http://xintq.net/2014/07/31/about-tds/</id>
     <published>2014-07-31T15:00:44.000Z</published>
     <updated>2015-05-28T13:43:42.000Z</updated>
     <content type="html"><![CDATA[<p>这几天折腾小鱼小虾接触到了TDS这个东西，今天查了一下，把自己的理解总结一下。</p>
@@ -1899,22 +1899,22 @@ error: failed <span class=]]>
 <p>TDS和水]]>
     </summary>
     
-      <category term="kpi" scheme="http://xintq.github.io/tags/kpi/"/>
+      <category term="kpi" scheme="http://xintq.net/tags/kpi/"/>
     
-      <category term="tds" scheme="http://xintq.github.io/tags/tds/"/>
+      <category term="tds" scheme="http://xintq.net/tags/tds/"/>
     
-      <category term="水质" scheme="http://xintq.github.io/tags/%E6%B0%B4%E8%B4%A8/"/>
+      <category term="水质" scheme="http://xintq.net/tags/%E6%B0%B4%E8%B4%A8/"/>
     
-      <category term="鱼缸" scheme="http://xintq.github.io/tags/%E9%B1%BC%E7%BC%B8/"/>
+      <category term="鱼缸" scheme="http://xintq.net/tags/%E9%B1%BC%E7%BC%B8/"/>
     
-      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+      <category term="杂谈" scheme="http://xintq.net/categories/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[VIM替换 压箱底的技巧]]></title>
-    <link href="http://xintq.github.io/2014/07/31/vim-tricks/"/>
-    <id>http://xintq.github.io/2014/07/31/vim-tricks/</id>
+    <link href="http://xintq.net/2014/07/31/vim-tricks/"/>
+    <id>http://xintq.net/2014/07/31/vim-tricks/</id>
     <published>2014-07-31T10:03:45.000Z</published>
     <updated>2015-05-28T13:45:26.000Z</updated>
     <content type="html"><![CDATA[<p>VIM是在Linux下使用最广泛的的文本编辑器，尤其是文本查找和替换命令，结合了正则表达式，非常强大。</p>
@@ -1999,18 +1999,18 @@ thirtyfour <span class="comment">--&gt; thirty4</span>
 <h1 id="单词替换">单词替换</h1><pre><code><span class="tag]]>
     </summary>
     
-      <category term="vim" scheme="http://xintq.github.io/tags/vim/"/>
+      <category term="vim" scheme="http://xintq.net/tags/vim/"/>
     
-      <category term="编辑" scheme="http://xintq.github.io/tags/%E7%BC%96%E8%BE%91/"/>
+      <category term="编辑" scheme="http://xintq.net/tags/%E7%BC%96%E8%BE%91/"/>
     
-      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linux下合并PDF文件]]></title>
-    <link href="http://xintq.github.io/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/"/>
-    <id>http://xintq.github.io/2014/07/31/Linux下合并PDF文件/</id>
+    <link href="http://xintq.net/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/"/>
+    <id>http://xintq.net/2014/07/31/Linux下合并PDF文件/</id>
     <published>2014-07-31T02:19:56.000Z</published>
     <updated>2015-05-28T13:45:05.000Z</updated>
     <content type="html"><![CDATA[<p>Mark一下，Linux下合并PDF文件可以使用Gost Script和PDFtk。</p>
@@ -2022,20 +2022,20 @@ thirtyfour <span class="comment">--&gt; thirty4</span>
 <h2 id="运行如下命令：">运行如下命令：</h2><pre><code>gs -q <span class="operator">-d</span>NOPAUSE <spa]]>
     </summary>
     
-      <category term="gs" scheme="http://xintq.github.io/tags/gs/"/>
+      <category term="gs" scheme="http://xintq.net/tags/gs/"/>
     
-      <category term="pdf" scheme="http://xintq.github.io/tags/pdf/"/>
+      <category term="pdf" scheme="http://xintq.net/tags/pdf/"/>
     
-      <category term="合并" scheme="http://xintq.github.io/tags/%E5%90%88%E5%B9%B6/"/>
+      <category term="合并" scheme="http://xintq.net/tags/%E5%90%88%E5%B9%B6/"/>
     
-      <category term="linux" scheme="http://xintq.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[JNI入门之HelloWorld]]></title>
-    <link href="http://xintq.github.io/2014/07/31/JNI%E5%85%A5%E9%97%A8%E4%B9%8BHelloWorld/"/>
-    <id>http://xintq.github.io/2014/07/31/JNI入门之HelloWorld/</id>
+    <link href="http://xintq.net/2014/07/31/JNI%E5%85%A5%E9%97%A8%E4%B9%8BHelloWorld/"/>
+    <id>http://xintq.net/2014/07/31/JNI入门之HelloWorld/</id>
     <published>2014-07-31T02:16:51.000Z</published>
     <updated>2015-05-28T14:00:11.000Z</updated>
     <content type="html"><![CDATA[<p>首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。</p>
@@ -2162,22 +2162,22 @@ Hello, John
 <h2 id="程序的流程">程序的流程</h2><p>在JAVA程序中输入用户名“John”]]>
     </summary>
     
-      <category term="java" scheme="http://xintq.github.io/tags/java/"/>
+      <category term="java" scheme="http://xintq.net/tags/java/"/>
     
-      <category term="jni" scheme="http://xintq.github.io/tags/jni/"/>
+      <category term="jni" scheme="http://xintq.net/tags/jni/"/>
     
-      <category term="swig" scheme="http://xintq.github.io/tags/swig/"/>
+      <category term="swig" scheme="http://xintq.net/tags/swig/"/>
     
-      <category term="本地借口" scheme="http://xintq.github.io/tags/%E6%9C%AC%E5%9C%B0%E5%80%9F%E5%8F%A3/"/>
+      <category term="本地借口" scheme="http://xintq.net/tags/%E6%9C%AC%E5%9C%B0%E5%80%9F%E5%8F%A3/"/>
     
-      <category term="java" scheme="http://xintq.github.io/categories/java/"/>
+      <category term="java" scheme="http://xintq.net/categories/java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[我的 Linux 学习经历]]></title>
-    <link href="http://xintq.github.io/2014/07/31/%E6%88%91%E7%9A%84%20Linux%20%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/"/>
-    <id>http://xintq.github.io/2014/07/31/我的 Linux 学习经历/</id>
+    <link href="http://xintq.net/2014/07/31/%E6%88%91%E7%9A%84%20Linux%20%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/"/>
+    <id>http://xintq.net/2014/07/31/我的 Linux 学习经历/</id>
     <published>2014-07-30T16:56:18.000Z</published>
     <updated>2015-05-28T13:46:07.000Z</updated>
     <content type="html"><![CDATA[<p>本文写于2007年，原题是《我的 FC 学习经历》。那时我研究生一年级，在折腾了半年 Linux 之后，把各种感慨总结了一下。原题目中的 FC 就是现在 Redhat 的官方社区版 Fedora Core 的缩写。</p>
@@ -2280,20 +2280,20 @@ gnome-im-settings-daemon &gt;/dev/<span class="constant">null</span>
 <p>记得当时我只有一个四手的 Thinkpad ]]>
     </summary>
     
-      <category term="fc" scheme="http://xintq.github.io/tags/fc/"/>
+      <category term="fc" scheme="http://xintq.net/tags/fc/"/>
     
-      <category term="linux" scheme="http://xintq.github.io/tags/linux/"/>
+      <category term="linux" scheme="http://xintq.net/tags/linux/"/>
     
-      <category term="经验" scheme="http://xintq.github.io/tags/%E7%BB%8F%E9%AA%8C/"/>
+      <category term="经验" scheme="http://xintq.net/tags/%E7%BB%8F%E9%AA%8C/"/>
     
-      <category term="杂谈" scheme="http://xintq.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+      <category term="杂谈" scheme="http://xintq.net/categories/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ Latex 中英文混排模板]]></title>
-    <link href="http://xintq.github.io/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/"/>
-    <id>http://xintq.github.io/2014/07/31/Latex 中英文混排模板/</id>
+    <link href="http://xintq.net/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/"/>
+    <id>http://xintq.net/2014/07/31/Latex 中英文混排模板/</id>
     <published>2014-07-30T16:04:25.000Z</published>
     <updated>2015-05-28T14:01:06.000Z</updated>
     <content type="html"><![CDATA[<p>下面是我日常使用的一个Latex中英文混排的论文模板，整理与2007年。该模板借助于cmap包，能支持PDF的拷贝，中文书签。在编译的时候最好用latexpdf进行编译。</p>
@@ -2586,22 +2586,22 @@ This <span class="keyword">is</span> your <span class="built_in">document</span>
 <h3 id="具体的使用方法如下">具体的使用方法如下</h3><pre><code><sp]]>
     </summary>
     
-      <category term="cjk" scheme="http://xintq.github.io/tags/cjk/"/>
+      <category term="cjk" scheme="http://xintq.net/tags/cjk/"/>
     
-      <category term="latex" scheme="http://xintq.github.io/tags/latex/"/>
+      <category term="latex" scheme="http://xintq.net/tags/latex/"/>
     
-      <category term="tex" scheme="http://xintq.github.io/tags/tex/"/>
+      <category term="tex" scheme="http://xintq.net/tags/tex/"/>
     
-      <category term="模板" scheme="http://xintq.github.io/tags/%E6%A8%A1%E6%9D%BF/"/>
+      <category term="模板" scheme="http://xintq.net/tags/%E6%A8%A1%E6%9D%BF/"/>
     
-      <category term="文本处理" scheme="http://xintq.github.io/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
+      <category term="文本处理" scheme="http://xintq.net/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[堆排序 (Heap Sort)的分析和实现（C）]]></title>
-    <link href="http://xintq.github.io/2014/07/30/%E5%A0%86%E6%8E%92%E5%BA%8F%20(Heap%20Sort)%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://xintq.github.io/2014/07/30/堆排序 (Heap Sort)的分析和实现/</id>
+    <link href="http://xintq.net/2014/07/30/%E5%A0%86%E6%8E%92%E5%BA%8F%20(Heap%20Sort)%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://xintq.net/2014/07/30/堆排序 (Heap Sort)的分析和实现/</id>
     <published>2014-07-30T15:51:53.000Z</published>
     <updated>2015-05-28T13:42:10.000Z</updated>
     <content type="html"><![CDATA[<p>（这篇文章是2006年我发布在博客园上面的，想想已经八年有余。今天好不容易找到了，挪到这里，收藏一下吧。）</p>
@@ -2689,15 +2689,15 @@ Press any key to continue
 <li>第一步，根据初]]>
     </summary>
     
-      <category term="heapsort" scheme="http://xintq.github.io/tags/heapsort/"/>
+      <category term="heapsort" scheme="http://xintq.net/tags/heapsort/"/>
     
-      <category term="堆" scheme="http://xintq.github.io/tags/%E5%A0%86/"/>
+      <category term="堆" scheme="http://xintq.net/tags/%E5%A0%86/"/>
     
-      <category term="堆排序" scheme="http://xintq.github.io/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/"/>
+      <category term="堆排序" scheme="http://xintq.net/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/"/>
     
-      <category term="算法" scheme="http://xintq.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="http://xintq.net/tags/%E7%AE%97%E6%B3%95/"/>
     
-      <category term="算法" scheme="http://xintq.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="http://xintq.net/categories/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
