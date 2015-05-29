@@ -1,17 +1,11 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   
-    <title>RMI教程：入门与编译方法 | 夕阳下的奔跑</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    
-    <meta name="author" content="K.X">
-    
-
-    
-    <meta name="description" content="这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。
+  <title>RMI教程：入门与编译方法 | 夕阳下的奔跑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。
 这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真劲儿的祭奠，现在，越来越少了……
 分布式对象和RMI分布式对象技术主要是在分布式异构环境下简历应用系统框架和对象构件。在">
 <meta property="og:type" content="article">
@@ -27,86 +21,217 @@
 <meta name="twitter:description" content="这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。
 这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真劲儿的祭奠，现在，越来越少了……
 分布式对象和RMI分布式对象技术主要是在分布式异构环境下简历应用系统框架和对象构件。在">
-
-    
+  
     <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
-    
-    
+  
+  
     <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/jacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script -->
+  <script src="/js/jquery-2.0.3.min.js"></script>
 </head>
 
-  <body>
-    <header>
-      
-<div>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">K.X</a></h1>
+		</hgroup>
+
 		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+		<p class="header-subtitle">不积跬步 无以至千里</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
 			</div>
-			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
-				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/xintq/xintq.github.com" title="github">github</a>
+					        
+								<a class="linkedin" target="_blank" href="https://cn.linkedin.com/in/xintq" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://my.oschina.net/xintq/blog">开源中国</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html">Oracle SGD</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Hi, I am K.X from Oracle. Believe it or not, this is my blog…</div>
+				</section>
+				
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					<ul>
-					 
-						<li><a href="/">主页</a></li>
-					
-						<li><a href="/archives">归档</a></li>
-					
-						<li><a href="/about">关于</a></li>
-					
-					<li>
- 					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:xintq.github.io">
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
-</div>
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
-  
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/07/22/rmi/" title="RMI教程：入门与编译方法" itemprop="url">RMI教程：入门与编译方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
-		
-  <p class="article-time">
-    <time datetime="2014-07-22T09:32:23.000Z" itemprop="datePublished"> 发表于 2014-07-22</time>
-    
-  </p>
-</header>
-	<div class="article-content">
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分布式对象和RMI"><span class="toc-number">1.</span> <span class="toc-text">分布式对象和RMI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RMI程序构成"><span class="toc-number">2.</span> <span class="toc-text">RMI程序构成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用实例详解"><span class="toc-number">3.</span> <span class="toc-text">应用实例详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统模型"><span class="toc-number">3.1.</span> <span class="toc-text">系统模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-number">3.2.</span> <span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#远程对象接口（RMethod-java）"><span class="toc-number">3.2.1.</span> <span class="toc-text">远程对象接口（RMethod.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程对象实现（RMethodImpl-java）"><span class="toc-number">3.2.2.</span> <span class="toc-text">远程对象实现（RMethodImpl.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公共配置接口（Config-java）"><span class="toc-number">3.2.3.</span> <span class="toc-text">公共配置接口（Config.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI服务器端（Server-java）"><span class="toc-number">3.2.4.</span> <span class="toc-text">RMI服务器端（Server.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI客户端（Client-java）"><span class="toc-number">3.2.5.</span> <span class="toc-text">RMI客户端（Client.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安全策略文件（java-policy）"><span class="toc-number">3.2.6.</span> <span class="toc-text">安全策略文件（java.policy）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译已经运行方式"><span class="toc-number">4.</span> <span class="toc-text">编译已经运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行模式"><span class="toc-number">4.1.</span> <span class="toc-text">命令行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译："><span class="toc-number">4.1.1.</span> <span class="toc-text">编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行服务器端："><span class="toc-number">4.1.2.</span> <span class="toc-text">运行服务器端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行客户端："><span class="toc-number">4.1.3.</span> <span class="toc-text">运行客户端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器端对应的输出为："><span class="toc-number">4.1.4.</span> <span class="toc-text">服务器端对应的输出为：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eclipse中运行RMI程序"><span class="toc-number">4.2.</span> <span class="toc-text">Eclipse中运行RMI程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载RMI_Eclipse插件："><span class="toc-number">4.2.1.</span> <span class="toc-text">下载RMI Eclipse插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">4.2.2.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">4.2.3.</span> <span class="toc-text">使用方法</span></a></li></ol></li></ol></li></ol>
-		
 		</div>
-		
-		<p>这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。</p>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">K.X</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">K.X</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">不积跬步 无以至千里</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/xintq/xintq.github.com" title="github">github</a>
+			        
+						<a class="linkedin" target="_blank" href="https://cn.linkedin.com/in/xintq" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-rmi" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/22/rmi/" class="article-date">
+  	<time datetime="2014-07-22T09:32:23.000Z" itemprop="datePublished">2014-07-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RMI教程：入门与编译方法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RMI/">RMI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Remote/">Remote</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/java/">java</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。</p>
 <p>这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真劲儿的祭奠，现在，越来越少了……</p>
 <h1 id="分布式对象和RMI">分布式对象和RMI</h1><p>分布式对象技术主要是在分布式异构环境下简历应用系统框架和对象构件。在应用系统框架的支撑下，开发者可以将软件功能封装为更易于管理和使用的对象，这些对象可以跨越不同的软、硬件平台进行互操作。目前，分布式互操作标准主要有Microsoft的COM/DCOM标准、Oracle（前Sun）公司的Java RMI标准、OMG组织的CORBRA标准。</p>
 <p>在Java中RMI在包java.rmi和java.rmi.server中。RMI是开发网络应用程序的一种强有力的技术，而不用担心底层的网络细节。RMI凭借一个更为通用的原创对象模型胜过了C/S模型。在这个模型里，有服务器定义客户端可以远程使用的对象，就好像它确实是一个运行在和客户端相同的环境下的本地对象。RMI隐藏了底层的有关传输方法参数和通过网络返回方法返回值的机制。一个参数或者返回值可以是一个简单值或者任何Serializable（可序列化：即对象可以转化成文件，存储在磁盘上）对象。</p>
@@ -279,375 +404,125 @@ Client-Chandler: invoking <span class="string">" sayHello "</span>
 </span>    -<span class="ruby">--&gt; [<span class="constant">Run</span>]</span>
 </code></pre><p>这时在Eclipse底部的终端中就会看到客户端程序也已经运行起来了。</p>
 <p>以上就是在Eclipse下运行RMI程序的方法。</p>
-  
-	</div>
-		<footer class="article-footer clearfix">
-<div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/java/">java</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/RMI/">RMI</a><a href="/tags/Remote/">Remote</a>
+      
+    </div>
+    
   </div>
-
-</div>
-
-
-
-	<div class="article-share" id="share">
-	
-	  <div data-url="http://xintq.github.io/2014/07/22/rmi/" data-title="RMI教程：入门与编译方法 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
-	  </div>
-	
-	</div>
-
-
-</footer>
-
-   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2014/07/23/培养爱好说/" title="培养爱好说">
-  <strong>上一篇：</strong><br/>
-  <span>
-  培养爱好说</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2014/07/22/离职信中的打油诗/"  title="对理想生活的向往 - 离职信中的打油诗有感">
- <strong>下一篇：</strong><br/> 
- <span>对理想生活的向往 - 离职信中的打油诗有感
-</span>
-</a>
-</div>
-
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/07/23/培养爱好说/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          培养爱好说
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/07/22/离职信中的打油诗/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对理想生活的向往 - 离职信中的打油诗有感</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
 </nav>
 
-	
-<section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2014/07/22/rmi/" data-title="RMI教程：入门与编译方法" data-url="http://xintq.github.io/2014/07/22/rmi/"></div>
-</section>
-
-
-</div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分布式对象和RMI"><span class="toc-number">1.</span> <span class="toc-text">分布式对象和RMI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RMI程序构成"><span class="toc-number">2.</span> <span class="toc-text">RMI程序构成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用实例详解"><span class="toc-number">3.</span> <span class="toc-text">应用实例详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统模型"><span class="toc-number">3.1.</span> <span class="toc-text">系统模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-number">3.2.</span> <span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#远程对象接口（RMethod-java）"><span class="toc-number">3.2.1.</span> <span class="toc-text">远程对象接口（RMethod.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程对象实现（RMethodImpl-java）"><span class="toc-number">3.2.2.</span> <span class="toc-text">远程对象实现（RMethodImpl.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公共配置接口（Config-java）"><span class="toc-number">3.2.3.</span> <span class="toc-text">公共配置接口（Config.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI服务器端（Server-java）"><span class="toc-number">3.2.4.</span> <span class="toc-text">RMI服务器端（Server.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI客户端（Client-java）"><span class="toc-number">3.2.5.</span> <span class="toc-text">RMI客户端（Client.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安全策略文件（java-policy）"><span class="toc-number">3.2.6.</span> <span class="toc-text">安全策略文件（java.policy）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译已经运行方式"><span class="toc-number">4.</span> <span class="toc-text">编译已经运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行模式"><span class="toc-number">4.1.</span> <span class="toc-text">命令行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译："><span class="toc-number">4.1.1.</span> <span class="toc-text">编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行服务器端："><span class="toc-number">4.1.2.</span> <span class="toc-text">运行服务器端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行客户端："><span class="toc-number">4.1.3.</span> <span class="toc-text">运行客户端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器端对应的输出为："><span class="toc-number">4.1.4.</span> <span class="toc-text">服务器端对应的输出为：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eclipse中运行RMI程序"><span class="toc-number">4.2.</span> <span class="toc-text">Eclipse中运行RMI程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载RMI_Eclipse插件："><span class="toc-number">4.2.1.</span> <span class="toc-text">下载RMI Eclipse插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">4.2.2.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">4.2.3.</span> <span class="toc-text">使用方法</span></a></li></ol></li></ol></li></ol>
- 
-  </div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
   
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/WEB基础/" title="WEB基础">WEB基础<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/java/" title="java">java<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>3</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>8</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>10</sup></a></li>
-		  
-		
-		</ul>
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
 </div>
 
 
-  
-  <div class="tagcloudlist">
-    <p class="asidetitle">标签云</p>
-    <div class="tagcloudlist clearfix">
-       <a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="rmi" data-title="RMI教程：入门与编译方法" data-url="http://xintq.github.io/2014/07/22/rmi/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"xintq"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 K.X
+    	</div>
+      	<div class="footer-right">
+      		<a href="/about/index-en.html">About me</a>
+      	</div>
     </div>
   </div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html" target="_blank" title="Oracle SGD">Oracle SGD</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<section class="info">
-		<p> Hello ,I&#39;m K.X in Oracle. <br/>
-			This is my blog, believe it or not.</p>
-	</section>
-	 
-	<div class="social-font" class="clearfix">
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-			
-		
-
-		<p class="copyright">
-		 © 2015 
-		
-		<a href="/about" target="_blank" title="K.X">K.X</a>
-		
-		
-		</p>
-</div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
-  
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else{
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
-        
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
     }
-  });
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
 });
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});     
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
 
-<script type="text/javascript">
-  var duoshuoQuery = {short_name:"xintq"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script> 
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
-</script>
-
-
-
-<!-- Analytics Begin -->
-
-
-
-
-
-<!-- Analytics End -->
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-<!-- Totop End -->
-
-<!-- MathJax Begin -->
-<!-- mathjax config similar to math.stackexchange -->
-
-
-<!-- MathJax End -->
-
-<!-- Tiny_search Begin -->
-
-<!-- Tiny_search End -->
-
-  </body>
+  </div>
+</body>
 </html>

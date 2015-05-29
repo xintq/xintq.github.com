@@ -1,17 +1,11 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   
-    <title>夕阳下的奔跑</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    
-    <meta name="author" content="K.X">
-    
-
-    
-    <meta name="description" content="个人总结, 工作日志, 技术原创">
+  <title>夕阳下的奔跑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="个人总结, 工作日志, 技术原创">
 <meta property="og:type" content="website">
 <meta property="og:title" content="夕阳下的奔跑">
 <meta property="og:url" content="http://xintq.github.io/page/3/index.html">
@@ -20,546 +14,1424 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="夕阳下的奔跑">
 <meta name="twitter:description" content="个人总结, 工作日志, 技术原创">
-
-    
+  
     <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
-    
-    
+  
+  
     <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/jacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script -->
+  <script src="/js/jquery-2.0.3.min.js"></script>
 </head>
 
-  <body>
-    <header>
-      
-<div>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">K.X</a></h1>
+		</hgroup>
+
 		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+		<p class="header-subtitle">不积跬步 无以至千里</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
 			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/xintq/xintq.github.com" title="github">github</a>
+					        
+								<a class="linkedin" target="_blank" href="https://cn.linkedin.com/in/xintq" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://my.oschina.net/xintq/blog">开源中国</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html">Oracle SGD</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Hi, I am K.X from Oracle. Believe it or not, this is my blog…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">K.X</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">K.X</h1>
+			</hgroup>
 			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
-				<h2 class="blog-motto">不积跬步 无以至千里</h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
+			<p class="header-subtitle">不积跬步 无以至千里</p>
+			
+			<nav class="header-menu">
 				<ul>
-					<ul>
-					 
-						<li><a href="/">主页</a></li>
-					
-						<li><a href="/archives">归档</a></li>
-					
-						<li><a href="/about">关于</a></li>
-					
-					<li>
- 					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:xintq.github.io">
-					</form>
-					
-					</li>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
 				</ul>
-			</nav>			
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/xintq/xintq.github.com" title="github">github</a>
+			        
+						<a class="linkedin" target="_blank" href="https://cn.linkedin.com/in/xintq" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-一个LaTeXCJK中文文档的简单而实用的模板" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/一个LaTeXCJK中文文档的简单而实用的模板/" class="article-date">
+  	<time datetime="2014-07-30T15:04:10.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/一个LaTeXCJK中文文档的简单而实用的模板/">一个LaTeX/CJK中文文档的简单而实用的模板</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>(本文是2007年我发布在CSDN上的文章，终于找到了。)</p>
+<p>LaTex是在Linux下撰写科技文献的一个很强大的系统，网上的教程有很多，下面是我经常用到的两个很基本的模板。</p>
+<p>注意： ％后面的内容都是注释。</p>
+<h1 id="小论文，期刊，或者简短说明文档使用的模板">小论文，期刊，或者简短说明文档使用的模板</h1><pre><code><span class="comment">%要运行该模板，LaTex需要安装CJK库以支持汉字.</span>
+<span class="comment">%字体大小为12像素，文档类型为article</span>
+<span class="comment">%如果你要写论文，就用report代替article</span>
+<span class="comment">%所有LaTex文档开头必须使用这句话</span>
+/documentclass[<span class="number">12</span>pt]<span class="tuple">{article}</span>
+
+<span class="comment">%使用支持汉字的CJK包</span>
+/usepackage<span class="tuple">{<span class="variable">CJK</span>}</span>
+
+<span class="comment">%开始CJK环境,只有在这句话之后,你才能使用汉字</span>
+<span class="comment">%另外,如果在Linux下,请将文件的编码格式设置成GBK</span>
+<span class="comment">%否则会显示乱码</span>
+/<span class="keyword">begin</span><span class="tuple">{<span class="variable">CJK</span>*}</span><span class="tuple">{<span class="variable">GBK</span>}</span><span class="tuple">{song}</span>
+
+<span class="comment">%这是文章的标题</span>
+/title<span class="tuple">{<span class="variable">LaTex</span> 常用模板}</span>
+
+<span class="comment">%这是文章的作者</span>
+/author<span class="tuple">{<span class="variable">Kevin</span>}</span>
+
+<span class="comment">%这是文章的时间</span>
+<span class="comment">%如果没有这行将显示当前时间</span>
+<span class="comment">%如果不想显示时间则使用 /date{}</span>
+/date<span class="tuple">{<span class="number">2008</span>/<span class="number">10</span>/<span class="number">12</span>}</span>
+
+<span class="comment">%以上部分叫做"导言区",下面才开始写正文</span>
+/<span class="keyword">begin</span><span class="tuple">{document}</span>
+
+<span class="comment">%先插入标题</span>
+/maketitle
+<span class="comment">%再插入目录</span>
+/tableofcontents
+/section<span class="tuple">{<span class="variable">LaTex</span> 简介}</span>
+<span class="variable">LaTex</span>是一个宏包,目的是使作者能够利用一个
+预先定义好的专业页面设置,
+从而得以高质量的排版和打印他们的作品.
+
+<span class="comment">%第二段使用黑体,上面的一个空行表示另起一段</span>
+/<span class="variable">CJKfamily</span><span class="tuple">{hei}</span><span class="variable">LaTex</span> 将空格和制表符视为相同的距离.
+多个连续的空白字符 等同为一个空白字符
+/section<span class="tuple">{<span class="variable">LaTex</span>源文件}</span>
+<span class="comment">%在第二段我们使用隶书</span>
+/<span class="variable">CJKfamily</span><span class="tuple">{li}</span><span class="variable">LaTex</span> 源文件格式为普通的<span class="variable">ASCII</span>文件,
+你可以使用任何文本编辑器来创建.
+
+<span class="variable">LaTex</span>源文件不仅包括你要排版的文本, 还包括<span class="variable">LaTex</span>
+所能识别的,如何排版这些文本的命令.
+/section<span class="tuple">{结论}</span>
+<span class="comment">%在结论部分我们使用仿宋体</span>
+/<span class="variable">CJKfamily</span><span class="tuple">{fs}</span><span class="variable">LaTeX</span>, 我看行!
+
+/<span class="keyword">end</span><span class="tuple">{<span class="variable">CJK</span>*}</span>
+/<span class="keyword">end</span><span class="tuple">{document}</span>
+</code></pre><h1 id="编译上面的源文档">编译上面的源文档</h1><pre><code><span class="preprocessor"># latex test.tex</span>
+<span class="preprocessor"># latex test.tex</span>
+<span class="preprocessor"># latex test.tex #多编译几次以便正确生成目录</span>
+<span class="preprocessor"># dvipdf test.dvi</span>
+</code></pre><p>这样就会生成 test.pdf.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cjk/">cjk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/latex/">latex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/论文/">论文</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/文本处理/">文本处理</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Proxmox 服务器的自签名证书的SSL设定" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/Proxmox 服务器的自签名证书的SSL设定/" class="article-date">
+  	<time datetime="2014-07-30T14:41:40.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/Proxmox 服务器的自签名证书的SSL设定/">Proxmox 服务器的自签名证书的SSL设定</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在使用Proxmox服务器时，会使用SSL访问它的WEB管理平台。</p>
+<p>由于默认的安装中SSL证书没有签署，所以浏览器老是会弹出证书错误，是否继续之类的错误信息，很是碍眼。</p>
+<p>为了在一定程度上避免这种现象，本文使用自签名的证书来配置Promox的HTTPS。</p>
+<p><img src="/img/post/000116_AaqD_157257.png" alt="https"></p>
+<p>即使点了“仍然继续”，https前面还是会出现下面的小红叉叉，难看的很：</p>
+<p><img src="/img/post/000249_5B0c_157257.png" alt="https-ugly"></p>
+<h1 id="概念">概念</h1><p>关于自签名的证书，啰嗦几句。</p>
+<p>常规的证书（那些NB的CA机构颁发的证书），允许使用该证书的服务器向用户说:</p>
+<pre><code><span class="blockquote">&gt; 你应该信任我，因为你信任的机构（NB的CA机构）是这么说的</span>
+</code></pre><p>而自签名的证书就比较无耻了，它允许使用该证书的服务器对用户说：</p>
+<pre><code><span class="blockquote">&gt; 你应该信任我，因为这是我说的</span>
+</code></pre><p>我们访问各种网银是，必须都是HTTPS（如果你不是，那你悲剧了），而他们的证书都是常规的证书。而我天朝的12306，好像是使用自签名的证书（个中原因，you know…）。</p>
+<h1 id="前提">前提</h1><p>首先已经安装好了Proxmox，而且网络，IP都已经配置好了。</p>
+<p>假设，Proxmox服务器的IP是： 10.194.153.6</p>
+<p>为了简单起见，Proxmox服务器没有绑定域名，总是以IP访问。</p>
+<h1 id="生成证书">生成证书</h1><p>本例中的证书是自我签署的证书。在默认的状态下，自我签署的证书在浏览器里会弹出警告，而不是讨人厌的错误提示。如果吧自我签署的证书事前安装好的话，就可以正常的使用了。</p>
+<p>因此，如果只是（公司，实验室，局域网）内部使用的话，使用自我签署的证书是没有问题的。如果需要开放给外部访问，最好还是到CA认证机构去购买和申请正规的证书吧（不过据说很贵）。</p>
+<p>闲话少叙，开始干活</p>
+<h2 id="生成私钥">生成私钥</h2><pre><code>～<span class="preprocessor"># cd /etc/ssl/certs </span>
+/etc/ssl/certs<span class="preprocessor"># openssl genrsa -des3 -out server.key 1024 </span>
+Generating RSA <span class="keyword">private</span> <span class="keyword">key</span>, <span class="number">1024</span> bit <span class="built_in">long</span> modulus
+.....................................................................++++++
+.......++++++
+e <span class="keyword">is</span> <span class="number">65537</span> (<span class="number">0x10001</span>)
+Enter pass phrase <span class="keyword">for</span> server.<span class="keyword">key</span>:                 <span class="preprocessor"># 输入pass phrase</span>
+Verifying - Enter pass phrase <span class="keyword">for</span> server.<span class="keyword">key</span>:   <span class="preprocessor"># 再次输入</span>
+</code></pre><h2 id="从私钥中删除pass_phrase">从私钥中删除pass phrase</h2><pre><code>/etc/ssl/certs# openssl rsa -in server.<span class="variable">key</span> -out server.<span class="variable">key</span> 
+Enter pass phrase <span class="keyword">for</span> server.<span class="variable">key</span>:# 输入刚才输入的pass phrase
+writing RSA <span class="variable">key</span>
+</code></pre><h2 id="生成证书-1">生成证书</h2><pre><code>/etc/ssl/certs<span class="comment"># openssl req -new -days 3650 -key server.key -out server.csr </span>
+You are <span class="keyword">about</span> <span class="keyword">to</span> be asked <span class="keyword">to</span> enter information <span class="keyword">that</span> will be incorporated
+<span class="keyword">into</span> your certificate request.
+What you are <span class="keyword">about</span> <span class="keyword">to</span> enter <span class="keyword">is</span> what <span class="keyword">is</span> called a Distinguished Name <span class="keyword">or</span> a DN.
+There are quite a few fields <span class="keyword">but</span> you can leave <span class="keyword">some</span> blank
+For <span class="keyword">some</span> fields there will be a default value,
+If you enter '.', <span class="keyword">the</span> field will be left blank.
+<span class="comment">-----</span>
+Country Name (<span class="number">2</span> letter code) [AU]:CN     <span class="comment">#国家代码</span>
+State <span class="keyword">or</span> Province Name (full <span class="property">name</span>) [Some-State]:LN   <span class="comment">#区域代码，也就是我们所谓的省</span>
+Locality Name (eg, city) []:DL   <span class="comment">#城市</span>
+Organization Name (eg, company) [Internet Widgits Pty Ltd]: TESTWork   <span class="comment">#公司名称，随便填</span>
+Organizational Unit Name (eg, section) []:VM Manager   <span class="comment">#部门名称，随便写</span>
+Common Name (eg, YOUR <span class="property">name</span>) []:<span class="number">10.193</span>.153.6   
+       <span class="comment">#服务器全名（FQDN），本例中因为都使用的是IP，所以直接把IP写上了。</span>
+       <span class="comment">#这是证书生成过程中最重要的一步，这里填写的Common Name必须要保证与apache中配置的Server name一致，</span>
+       <span class="comment">#否则生成后的证书还是不好用。</span>
+       <span class="comment">#如果你使用的Proxmox已经在DNS服务器里面绑定了域名，比如：proxmox.abc.com</span>
+       <span class="comment">#而且在apache配置中，虚拟主机的Server Name也是：proxmox.abc.com</span>
+       <span class="comment">#那末，这一步，就必须填写：proxmox.abc.com，这样生成的证书才好使。</span>
+
+Email Address []:admin@<span class="number">10.194</span>.153.6  <span class="comment">#管理员邮件地址，随便填。</span>
+Please enter <span class="keyword">the</span> following 'extra' attributes
+<span class="keyword">to</span> be sent <span class="keyword">with</span> your certificate request
+A challenge password []:  <span class="comment">#这里不输入也可以，直接回车</span>
+An optional company <span class="property">name</span> []: <span class="comment">#这里不输入也可以，直接回车</span>
+</code></pre><h2 id="创建自签署证书">创建自签署证书</h2><pre><code>/etc/ssl/certs<span class="comment"># openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 3650</span>
+Signature ok
+<span class="variable">subject=</span>/<span class="variable">C=</span>CN/<span class="variable">ST=</span>LN/<span class="variable">L=</span>DL/<span class="variable">O=</span>PSDCD/<span class="variable">OU=</span><span class="number">10.194</span>.<span class="number">153.6</span>/<span class="variable">CN=</span><span class="number">10.194</span>.<span class="number">153.6</span>
+Getting Private key
+</code></pre><h2 id="修改证书和密钥的权限">修改证书和密钥的权限</h2><pre><code>/etc/ssl/certs<span class="preprocessor"># chmod 400 server.*</span>
+</code></pre><h1 id="SSL设置">SSL设置</h1><p>Promox的apache配置在下面的位置：</p>
+<pre><code><span class="regexp">/etc/</span>apache2<span class="regexp">/sites-enabled/</span>pve.conf
+<span class="regexp">/etc/</span>apache2<span class="regexp">/sites-enabled/</span>pve-redirect.conf
+</code></pre><p>修改这两个个文件。</p>
+<h2 id="确认Server_Name是否和刚次生成证书是输入的Common_Name一致">确认Server Name是否和刚次生成证书是输入的Common Name一致</h2><p>不一致的情况下，有两条道：重新生成证书并签署，或者修改此处</p>
+<pre><code><span class="title">ServerName</span> <span class="number">10.194.153.6</span>
+</code></pre><h1 id="配置刚才生成的证书和公钥到apache中">配置刚才生成的证书和公钥到apache中</h1><pre><code><span class="variable">&lt;VirtualHost *:8006&gt;</span>
+    SSLEngine <span class="keyword">on</span>
+    SSLProtocol <span class="literal">all</span> -SSLv2
+    <span class="comment"># 为了保险起见，先注释掉默认的SSL配置</span>
+    <span class="comment">#SSLCertificateFile /etc/pve/local/pve-ssl.pem  #这是默认的配置</span>
+    <span class="comment">#SSLCertificateKeyFile /etc/pve/local/pve-ssl.key  #这是默认的配置</span>
+
+    <span class="comment"># 加入新的配置</span>
+    SSLCertificateFile /etc/ssl/certs/server.crt <span class="comment">#这是新的配置</span>
+    SSLCertificateKeyFile /etc/ssl/certs/server.key <span class="comment">#这是新的配置</span>
+    … 此处省略N个字…
+</code></pre><h1 id="重启apache">重启apache</h1><pre><code>/etc/apache2/sites-<span class="literal">enabled</span><span class="comment"># apache2ctl restart</span>
+</code></pre><h1 id="测试（IE这货就不测了，Proxmox不支持IE，赞）">测试（IE这货就不测了，Proxmox不支持IE，赞）</h1><h2 id="Firefox">Firefox</h2><pre><code>打开promox的WEB管理平台，给出了警告。点击“添加例外”。
+</code></pre><p><img src="/img/post/000450_71uY_157257.png" alt="ff"></p>
+<p>点击确认“安全例外”：</p>
+<p><img src="/img/post/000611_a5Zv_157257.png" alt="expt"></p>
+<p>终于看到了久违的登陆画面，注意，地址栏里面的https前不再会显示大红叉，而是正常的一个锁的样子了，说明自签名证书成功了。</p>
+<p><img src="/img/post/000729_cLE1_157257.png" alt="ff-ok"></p>
+<h2 id="Chrome的结果">Chrome的结果</h2><p><img src="/img/post/000813_MeX1_157257.png" alt="chrome-ok"></p>
+<p>(END)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proxmox/">proxmox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssl/">ssl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自签名/">自签名</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/证书/">证书</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/虚拟化/">虚拟化</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Proxmox2.x 双节点集群配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/Proxmox2.x 双节点集群配置/" class="article-date">
+  	<time datetime="2014-07-30T14:34:13.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/Proxmox2.x 双节点集群配置/">Proxmox2.x 双节点集群配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考： <a href="http://pve.proxmox.com/wiki/Proxmox_VE_2.0_Cluster" target="_blank" rel="external">http://pve.proxmox.com/wiki/Proxmox_VE_2.0_Cluster</a></p>
+<h1 id="环境">环境</h1><ul>
+<li>主服务器： P2（10.194.153.9）</li>
+<li>从服务器： P22（10.194.153.10）</li>
+</ul>
+<h1 id="在主服务器（P2）上创建集群">在主服务器（P2）上创建集群</h1><pre><code><span class="label">p2:</span>~<span class="preprocessor"># pvecm create abc #创建群集名称</span>
+cluster master successfully created
+</code></pre><h1 id="在从服务器上加入到集群">在从服务器上加入到集群</h1><pre><code><span class="attribute">p22</span>:~# pvecm add <span class="number">10.194</span>.<span class="number">153.9</span>     #输入集群所在的主服务器的IP
+
+Are you sure you want to continue connecting (yes/no)? yes
+<span class="attribute">Warning</span>: Permanently added ‘<span class="number">10.194</span>.<span class="number">153.9</span>′ (RSA) to the list of known hosts. 
+root<span class="variable">@10</span>.<span class="number">194.153</span>.<span class="number">9</span>’s <span class="attribute">password</span>:
+....一大堆重启服务的信息....
+successfully added node <span class="string">'p2'</span> to cluster.
+</code></pre><h1 id="在主服务器上查看集群的节点状态">在主服务器上查看集群的节点状态</h1><p><img src="/img/post/221234_iApX_157257.png" alt="node-status"></p>
+<p>说明一切正常工作。</p>
+<h1 id="到主服务器的控制台下检查">到主服务器的控制台下检查</h1><p><img src="/img/post/221854_j59r_157257.png" alt="master"></p>
+<h1 id="到从服务器的控制台下检查">到从服务器的控制台下检查</h1><p><img src="/img/post/221946_bDJ7_157257.png" alt="slave"></p>
+<p>接下来，就可以基于这个集群创建高可用（HA）的虚拟服务了。</p>
+<p>(END)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HA/">HA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proxmox/">proxmox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pvecm/">pvecm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集群/">集群</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/虚拟化/">虚拟化</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Linux防火墙的基本概念和使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/Linux防火墙的基本概念和使用方法/" class="article-date">
+  	<time datetime="2014-07-30T14:14:02.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/Linux防火墙的基本概念和使用方法/">Linux防火墙的基本概念和使用方法(未完待续)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要理解Linux防火墙，先记住下面两张图（未完待续）：</p>
+<h1 id="图1_Netfilter_packet_flow">图1 Netfilter packet flow</h1><p><img src="/img/post/02231053_VU5M.png" alt="图1 Netfilter packet flow"></p>
+<h1 id="图2_详细处理">图2 详细处理</h1><p><img src="/img/post/02231052_uEGk.png" alt="图2 详细处理"></p>
+<p>(END)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/firewall/">firewall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/防火墙/">防火墙</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/linux/">linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-MacOS下MySQL的安装、配置、删除" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/MacOS下MySQL的安装、配置、删除/" class="article-date">
+  	<time datetime="2014-07-30T14:10:22.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/MacOS下MySQL的安装、配置、删除/">MacOS下MySQL的安装、配置、删除</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MacOS下，MySQL的安装方法和Linux下几乎一样，我这里安装后的目录是：</p>
+<pre><code>/usr/<span class="keyword">local</span>/mysql
+</code></pre><p>安装之后，发现下面两个问题。</p>
+<h2 id="中文乱码">中文乱码</h2><p>这是由于默认安装的时候，数据库服务器用的是latin的编码所造成的。<br>修改方法如下：</p>
+<p>打开终端,输入</p>
+<pre><code><span class="built_in">cd</span> /    <span class="comment">#回到根目录</span>
+</code></pre><p>拷贝/usr/local/mysql/support-files下的任意一个*.cnf文件到/etc/my.cnf</p>
+<p>至于拷贝的语句自己百度一下，再就是下面要使用vi来修改文件，所以必须要有一定的vi操作基础</p>
+<p>在my.cnf文件的</p>
+<ul>
+<li><p>［client］后面添加</p>
+<pre><code><span class="keyword">default</span>-character-<span class="keyword">set</span> = utf8
+</code></pre></li>
+<li><p>［mysqld］后面添加如下三句：</p>
+<pre><code>default-storage-engine = INNODB
+character-<span class="operator"><span class="keyword">set</span>-<span class="keyword">server</span> = utf8
+<span class="keyword">collation</span>-<span class="keyword">server</span> = utf8_general_ci</span>
+</code></pre></li>
+</ul>
+<p>修改完之后，需要重启数据库服务，MacOSX Lion之中，MySQL数据库服务的操作方法如下：</p>
+<ul>
+<li><p>启动Mysql服务</p>
+<pre><code>sudo <span class="regexp">/Library/</span>StartupItems<span class="regexp">/MySQLCOM/My</span>SQLCOM start
+</code></pre></li>
+<li><p>停止Mysql服务</p>
+<pre><code>sudo <span class="regexp">/Library/</span>StartupItems<span class="regexp">/MySQLCOM/My</span>SQLCOM stop
+</code></pre></li>
+<li><p>重启Mysql服务</p>
+<pre><code>sudo <span class="regexp">/Library/</span>StartupItems<span class="regexp">/MySQLCOM/My</span>SQLCOM restart
+</code></pre></li>
+</ul>
+<h2 id="如何卸载呢？">如何卸载呢？</h2><p>mac下mysql的DMG格式安装内有安装文件，却没有卸载文件……很郁闷的事。<br>网上搜了一下，发现给的方法原来得手动去删。</p>
+<p>很多文章记述要删的文件不完整，后来在stackoverflow 这里发现了一个遗漏的地方，所以将完整版记述在这里，以供查阅。</p>
+<p>先停止所有mysql有关进程。</p>
+<pre><code>sudo <span class="keyword">rm</span> /usr/<span class="keyword">local</span>/mysql
+sudo <span class="keyword">rm</span> -rf /usr/<span class="keyword">local</span>/mysql*
+sudo <span class="keyword">rm</span> -rf /Library/StartupItems/MySQLCOM
+sudo <span class="keyword">rm</span> -rf /Library/PreferencePanes/My*
+vim /etc/hostconfig and removed the <span class="keyword">line</span> MYSQLCOM=-YES-
+<span class="keyword">rm</span> -rf ~/Library/PreferencePanes/My*
+sudo <span class="keyword">rm</span> -rf /Library/Receipts/mysql*
+sudo <span class="keyword">rm</span> -rf /Library/Receipts/MySQL*
+sudo <span class="keyword">rm</span> -rf /<span class="keyword">var</span>/<span class="keyword">db</span>/receipts/com.mysql.*
+</code></pre><p>此外，直接下载dmg安装，安装后，会在系统偏好设置里出现一个mysql控制。<br>可以使用这个控制面板来配置数据库的一些参数。</p>
+<p>(END)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/数据库/">数据库</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-unicodeencodeerror-ascii-codec-cant-encode" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/" class="article-date">
+  	<time datetime="2014-07-30T14:03:51.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/">UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode ...</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在研究Django，当网站发布到Linux服务器上时，出现了下面的错误：</p>
+<pre><code>Traceback (most recent call last):
+<span class="keyword">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;
+UnicodeEncodeError: <span class="attribute">'ascii</span>' codec can<span class="attribute">'t</span> encode characters <span class="keyword">in</span> position <span class="number">0</span>-<span class="number">5</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)
+</code></pre><p>原因是Python默认的编码不是UTF8的缘故。</p>
+<p>解决方法如下：</p>
+<p>在下面的目录（我机器上Python的安装目录）中新建一个PY文件：sitecustomize.py</p>
+<pre><code><span class="regexp">/usr/</span>lib<span class="regexp">/python2.6/</span>site-packages<span class="regexp">/</span>
+</code></pre><p>sitecustomize.py的内容如下</p>
+<pre><code>import sys
+sys.<span class="function"><span class="title">setdefaultencoding</span><span class="params">(<span class="string">'utf-8'</span>)</span></span>
+</code></pre><p>（完）</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/WEB基础/">WEB基础</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-centos6apache2django1-4的配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/centos6apache2django1-4的配置/" class="article-date">
+  	<time datetime="2014-07-30T14:00:42.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/centos6apache2django1-4的配置/">CentOS6+Apache2+Django1.4的配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="环境">环境</h1><ul>
+<li>OS：CentOS 6.2 x64</li>
+<li>Apache：2</li>
+<li>Python：2.6</li>
+<li>Django：1.4.2</li>
+</ul>
+<h1 id="场景">场景</h1><p>我的应用名称是beaver，放在下面的位置：</p>
+<pre><code><span class="regexp">/var/</span>www<span class="regexp">/cgi-bin/</span>beaver
+</code></pre><h1 id="需求">需求</h1><p>使用wsgi，把Django项目，发布到apache下。</p>
+<h2 id="第一步：建立beaver-wsgi">第一步：建立beaver.wsgi</h2><p>在上面的目录中新建一个文件：beaver.wsgi</p>
+<pre><code>vi <span class="regexp">/var/</span>www<span class="regexp">/cgi-bin/</span>beaver<span class="regexp">/django.wsgi</span>
+</code></pre><p>输入如下内容:</p>
+<pre><code>import os
+import sys
+
+sys<span class="class">.path</span><span class="class">.append</span>(<span class="string">'/var/www/cgi-bin/beaver'</span>) #这里是应用的主目录
+os<span class="class">.environ</span>[<span class="string">'DJANGO_SETTINGS_MODULE'</span>] = <span class="string">'beaver.settings'</span> #配置文件
+
+os<span class="class">.environ</span>[<span class="string">'PYTHON_EGG_CACHE'</span>] = <span class="string">'/var/www/cgi-bin/beaver/.python-egg'</span>
+
+import django<span class="class">.core</span><span class="class">.handlers</span><span class="class">.wsgi</span>
+application = django<span class="class">.core</span><span class="class">.handlers</span><span class="class">.wsgi</span><span class="class">.WSGIHandler</span>()
+</code></pre><h2 id="第二步：为Apache建立配置文件_apache_django_wsgi-conf">第二步：为Apache建立配置文件 apache_django_wsgi.conf</h2><p>该文件存在在下面的位置：</p>
+<pre><code><span class="regexp">/etc/</span>httpd<span class="regexp">/conf.d/</span>
+</code></pre><p>输入下面的内容：</p>
+<pre><code><span class="keyword">vi</span> /etc/httpd/conf.d/apache_django_wsgi.conf
+<span class="comment">#测试用的配置，可以无视</span>
+<span class="keyword">WSGIScriptAlias</span> /test /var/www/cgi-bin/hello.py 
+
+<span class="comment">#配置顶级目录</span>
+<span class="keyword">AddHandler</span> wsgi-script .wsgi
+<span class="keyword">WSGIScriptAlias</span> / <span class="string">"/var/www/cgi-bin/beaver/django.wsgi"</span>
+<span class="comment">#项目目录的访问权限</span>
+<span class="tag">&lt;Directory "/var/www/cgi-bin/beaver"&gt;</span>
+        <span class="keyword"><span class="common">Order</span></span> deny,allow
+        <span class="keyword"><span class="common">Allow</span></span> from <span class="literal">all</span>
+        <span class="keyword"><span class="common">Options</span></span> FollowSymLinks
+<span class="tag">&lt;/Directory&gt;</span>
+
+<span class="comment">#设置静态页面的路径，由于使用Django的Admin模块</span>
+<span class="comment">#为了Admin模块中的CSS，JS，图片等能正常显示</span>
+<span class="comment">#必须设置/static的对应目录。</span>
+<span class="keyword">Alias</span> /static <span class="string">"/usr/lib/python2.6/site-packages/django/contrib/admin/static"</span>
+<span class="tag">&lt;Directory "/usr/lib/python2.6/site-packages/django/contrib/admin/static"&gt;</span>
+        <span class="keyword"><span class="common">Order</span></span> deny,allow
+        <span class="keyword"><span class="common">Allow</span></span> from <span class="literal">all</span>
+        <span class="keyword">IndexOptions</span> FancyIndexing
+        <span class="keyword"><span class="common">Options</span></span> FollowSymLinks Indexes MultiViews
+        <span class="keyword">AllowOverride</span> None
+<span class="tag">&lt;/Directory&gt;</span>
+</code></pre><h1 id="第三步：_修改应用目录的属性，使Apache能有权访问应用目录：">第三步： 修改应用目录的属性，使Apache能有权访问应用目录：</h1><pre><code>chown <span class="string">apache:</span>apache -R <span class="regexp">/var/</span>www<span class="regexp">/cgi-bin/</span>beaver/
+</code></pre><h1 id="第四步：启动apache">第四步：启动apache</h1><pre><code><span class="keyword">service</span> httpd <span class="literal">start</span>
+</code></pre><h1 id="第五步：输入http://localhost进行验证">第五步：输入<a href="http://localhost进行验证" target="_blank" rel="external">http://localhost进行验证</a></h1>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Centos/">Centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/linux/">linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-CentOS下Samba服务的配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/CentOS下Samba服务的配置/" class="article-date">
+  	<time datetime="2014-07-30T13:54:53.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/CentOS下Samba服务的配置/">CentOS下Samba服务的配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文源于网络上的各种教程，但是结合自己的实际情况，个别细节的地方修改了一下。<br>虽然简单，但是我相信好记性不如烂笔头，先记录下来，方便大家，也方便自己。<br>Samba是Linux与Window实现网络共享的一种常用方法。<br>一旦配置好了，Windows用户就可以访问Linux服务器的共享目录，<br>实现跨系统的文件传输。 </p>
+<p>下面给出在CentOS下配置Samba服务器的方法。 </p>
+<h1 id="安装Samba软件包">安装Samba软件包</h1><p>首先，确认是否已经安装的samaba的RPM： </p>
+<pre><code>~<span class="preprocessor"># rpm -qa|grep samba</span>
+samba-<span class="keyword">client</span>-<span class="number">3.5</span>.10-<span class="number">114.</span>el6.i686
+samba-<span class="number">3.5</span>.10-<span class="number">114.</span>el6.i686
+samba4-libs-<span class="number">4.0</span>.0-<span class="number">23.</span>alpha11.el6.i686
+samba-winbind-<span class="number">3.5</span>.10-<span class="number">114.</span>el6.i686
+samba-winbind-clients-<span class="number">3.5</span>.10-<span class="number">114.</span>el6.i686
+samba-<span class="keyword">common</span>-<span class="number">3.5</span>.10-<span class="number">114.</span>el6.i686
+</code></pre><p>如果没有看到上面的输出的话，就需要安装缺少的samba包了。<br>建议使用yum安装，只消一个命令就可以装好了：</p>
+<pre><code>~<span class="preprocessor"># yum install samba</span>
+</code></pre><h1 id="修改防火墙的设置">修改防火墙的设置</h1><p>为了简单起见，用下面的命令清空防火墙规则 </p>
+<pre><code>~<span class="preprocessor"># iptables -F</span>
+~<span class="preprocessor"># service iptables save</span>
+</code></pre><p>(注意：如果你必须使用防火墙的话，那就要添加规则了，这个有点难搞，先略过) </p>
+<h1 id="创建共享目录并设置SElinux上下文">创建共享目录并设置SElinux上下文</h1><pre><code>~<span class="comment"># mkdir /share  #在根下创建文件夹(除了root的目录下不能创建其他都可以)</span>
+~<span class="comment"># chmod a+rw #让所有人都可以读写</span>
+</code></pre><p>接下来，修改SELinux的上下文。 </p>
+<p><strong>这一步很关键，特别是SELinux模式是Enforcing的状态下</strong>，如果忘记了的话，无论 /share 目录的权限怎么设置，都没有办法访问共享目录的。 </p>
+<pre><code>~<span class="preprocessor"># chcon -t samba_share_t /share</span>
+</code></pre><p>其实，上面的设置方法在samba的配置文件（/etc/samba/sm.conf）里面就有说明<br>，一般在23行开始，关于SELinux设置还有很多的设置。 </p>
+<h1 id="编辑samba配置文件">编辑samba配置文件</h1><pre><code>~# <span class="keyword">vi</span> /etc/samba/smb.<span class="keyword">conf</span>
+</code></pre><p>在文件末尾添加下面的配置：</p>
+<pre><code><span class="title">[share]</span>
+<span class="setting">comment = <span class="value">Public Stuff</span></span>
+<span class="setting">path = <span class="value">/share</span></span>
+<span class="setting">public = <span class="value"><span class="keyword">yes</span></span></span>
+<span class="setting">writable = <span class="value"><span class="keyword">yes</span></span></span>
+</code></pre><h1 id="为samba用户设置密码">为samba用户设置密码</h1><pre><code>~<span class="comment"># smbpasswd -a redhat  # redhat是我的用户名</span>
+</code></pre><p>然后输入密码p4ssw0rd，完成密码设置。</p>
+<h1 id="启动samba服务">启动samba服务</h1><pre><code>~<span class="array"># service smb start </span>#启动smb服务
+~<span class="array"># chkconfig smb on </span><span class="array"># </span>保证samba开机启动
+</code></pre><h1 id="测试samba服务">测试samba服务</h1><h2 id="Windows">Windows</h2><p>在windows下的“运行”里输入linux的\ip，就会弹出用户名和密码，</p>
+<ul>
+<li>输入用户名： redhat</li>
+<li>密码： p4ssw0rd </li>
+</ul>
+<p>就可以访问共享目录了。 </p>
+<h1 id="Linux">Linux</h1><p>先安装Samba的客户端: </p>
+<pre><code>yum install samba-<span class="keyword">client</span>
+</code></pre><p>然后用下面的命令来访问共享目录： </p>
+<pre><code>smbclient <span class="comment">//ip/share -Uredhat%p4ssw0rd</span>
+</code></pre><p>至此，Samba服务器的配置完成。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/samba/">samba</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/smb/">smb</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/linux/">linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-WEB应用脆弱性防止策略" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/WEB应用脆弱性防止策略/" class="article-date">
+  	<time datetime="2014-07-30T13:38:12.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/WEB应用脆弱性防止策略/">WEB应用脆弱性防止策略</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>事实上，WEB应用是很脆弱的。因为这种应用的灵活性很大，用户输入的自由度也很高，所以对于WEB应用的恶意攻击也比较容易。</p>
+<p>本文对常见的16种WEB攻击，给出了部分解决方案。</p>
+<h1 id="1-_SQL注入(SQL_Injection)">1. SQL注入(SQL Injection)</h1><p>对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个包装类，把这些固定的SQL操作控制起来。</p>
+<p>而对于动态生成的SQL语句，就需要对用户的输入进行处理，一般的处理是把【’】转换成【“】 。如：</p>
+<pre><code>abc”<span class="function"><span class="keyword">def</span>”<span class="title">ghi</span></span>’jkl’mno → abc”<span class="function"><span class="keyword">def</span>”<span class="title">ghi</span></span>’’jkl’’mno
+</code></pre><h1 id="2-_跨站点脚本攻击（XSS，Cross_Site_Scripting）">2. 跨站点脚本攻击（XSS，Cross Site Scripting）</h1><p>如果用户输入，URL参数在页面上表示时，必须对特殊文字进行过滤处理。</p>
+<h2 id="2-1_如果用户输入和URL参数中含有下列敏感文字，则删除_之：">2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之：</h2><ul>
+<li>Script</li>
+<li>Object</li>
+<li>Embed</li>
+<li>Applet</li>
+</ul>
+<h2 id="2-2_如果用户输入和URL参数中含有下列敏感文字，则转换_之：">2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之：</h2><pre><code>&amp;    →    &amp;amp;
+&lt;    →    &amp;<span class="keyword">lt</span>;
+&gt;    →    &amp;<span class="keyword">gt</span>;
+“     →    &amp;quot;
+‘      →    &amp;<span class="title">#39</span>;
+</code></pre><h1 id="3-_操作系统命令注入（OS_Command_Injection）">3. 操作系统命令注入（OS Command Injection）</h1><p>要尽量避免执行系统命令，如果非使用不可的话，要对以下的用户输入或者参数做处理：</p>
+<pre><code><span class="string">| ! &amp; `      命令执行总要使用的字符</span>
+“ ‘            字符串的区分字符
+/ -            命令参数指定时使用的字符
+“ . / ¥       目录指定时使用的字符
+&lt; &gt;          文件操作是使用的字符
+$             环境变量指定时使用的字符
+( { [ ] } )   命令间的区分字符
+</code></pre><h1 id="4-_换行字符注入（Line_Feed_Code_Injection）">4. 换行字符注入（Line Feed Code Injection）</h1><p>在用户的输入信息中，检查是否不包含【0x0d】【0x0a】 这种换行的输入。</p>
+<h1 id="5-_LDAP注入（LDAP_Injection）">5. LDAP注入（LDAP Injection）</h1><p>在LDAP使用的场合，要检查用户输入信息中，是否不包含下列LDAP的保留字：</p>
+<pre><code><span class="comment">(    )</span>     *    ¥    <span class="label">NULL</span>
+</code></pre><h1 id="6-_Xpath注入（XPath_Injection）">6. Xpath注入（XPath Injection）</h1><p>在XPath使用的场合，要检查用户输入信息中，是否不包含下列Xpath的保留字：</p>
+<pre><code><span class="tag">&lt;    &gt;</span>    “    ‘    &amp;
+</code></pre><h1 id="7-_SSI注入（SSI_Injection）">7. SSI注入（SSI Injection）</h1><p>检查用户输入中，是否不包含SSI相关的危险关键字。</p>
+<h1 id="8-_目录遍历（Directory_Traversal）">8. 目录遍历（Directory Traversal）</h1><p>检查用户输入中，是否不包含访问文件系统的特殊文字【/】 和【\】 。</p>
+<h1 id="9-_强制浏览（Forced_Browsing）">9. 强制浏览（Forced Browsing）</h1><p>这种攻击的防止比较复杂，一般的策略是：</p>
+<ul>
+<li>验证请求是否是从合法的页面发送而来的，一般是检查请求的Referer。</li>
+<li>用户授权控制，认证认可</li>
+</ul>
+<p>对于静态资源来说，WEB程序是无法防止这种强制浏览攻击的，只有通过设置中间件（如WEB服务器）来防止：</p>
+<ul>
+<li>对公开化网站目录的设定（比如在站点目录下禁止显示文件列表）</li>
+<li>在URL中指定目录的时候，必须提供index文件（如index.html等）</li>
+<li>对于下载文件的存放位置，要特别谨慎的设置</li>
+</ul>
+<h1 id="10-_跨站点请求伪装（Cross_Site_Request_Forgery）">10. 跨站点请求伪装（Cross Site Request Forgery）</h1><p>明确页面的操作流程，对于不符合操作流程而来的请求进行过滤。</p>
+<h1 id="11-_不正确的文件和目录分配（Invalid_Allocation_of_Files_and_Directories）">11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）</h1><p>不公开的配置文件，备份文件，数据文件等，不要在站点的公共目录(WebRoot或者www/htdocs)下存放WEB应用程序使用的库文件，不要再站点的公共目录下存放。</p>
+<p>适合在公共目录下存放的资源如下所示：</p>
+<pre><code>/<span class="keyword">var</span>/www/htdocs/
+                Img/
+                css/
+                data/
+                <span class="keyword">index</span>.html
+</code></pre><h1 id="12-_不正确的错误处理（Invalid_Error_Handling）">12. 不正确的错误处理（Invalid Error Handling）</h1><p>一定要进行错误处理，错误处理的消息要显示为用户可理解的内容，不要把中间件（WEB服务器）的错误消息显示出来。</p>
+<h1 id="13-_不必要的信息（Unnecessary_Information）">13. 不必要的信息（Unnecessary Information）</h1><p>比如在用户登陆时，提示的这样的错误信息【用户密码不正确】，从侧面就说明了系统中存在一个叫做【userid】的用户。这就为恶意攻击者提供了情报。</p>
+<p>所以，在处理系统显示的消息是，点到为止，不能暴露多余的用户细节。</p>
+<h1 id="14-_后门和调试选项（Backdoor_&amp;_Debug_Option）">14. 后门和调试选项（Backdoor &amp; Debug Option）</h1><ul>
+<li>避免特殊的密码输入和认证策略</li>
+<li>指定调试选项是，调试选项和程序的参数都可以改变和查看</li>
+<li>要做出测试专用的页面</li>
+</ul>
+<p>对于程序后门，可以通过代码复查力度强化来进行防止。<br>而对于调试选择，要统一开发标准，使用统一的调试开关。</p>
+<h1 id="15-_客户端注释（Client_Side_Comment）">15. 客户端注释（Client Side Comment）</h1><p>对于WEB应用来说，客户端可以通过浏览器直接看到页面的代码。发送到浏览器的代码中，可以开发者的注释。对于恶意攻击者来说，这些注释信息会暴露出WEB应用的很多细节。</p>
+<p>比如说下面所说的注释就应该引起关注：</p>
+<ul>
+<li>对于请求参数的注释</li>
+<li>Javascript的内部逻辑的注释</li>
+<li>注释外的Javascript内部逻辑和URL请求</li>
+</ul>
+<p>解决方法如下：</p>
+<ul>
+<li>对于代码的注释，事先要有统一的代码规范</li>
+<li>尽量使用服务器端得注释标签，如JSP的【&lt;%— —%&gt;】，这样的注释内容不会发送到客户端。</li>
+</ul>
+<h1 id="16-_缓冲区溢出（Buffer_Over_Flow）">16. 缓冲区溢出（Buffer Over Flow）</h1><p>如果用户输入中包含了超过服务器缓冲区大小的输入，很可能会导致服务器存储不足，甚至导致服务器停机。</p>
+<p>解决方法如下：</p>
+<ul>
+<li>一定要检查用户输入的大小</li>
+<li>文件上传是，对于上传文件的大小进行检查和限制。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脆弱性/">脆弱性</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/WEB基础/">WEB基础</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-LVM的基本概念和部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/30/LVM的基本概念和部署/" class="article-date">
+  	<time datetime="2014-07-30T12:45:41.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/LVM的基本概念和部署/">LVM的基本概念和部署</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。</p>
+<h1 id="写在前面">写在前面</h1><p>最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。</p>
+<p>本部分是第一个重点内容：Linux Logical Volume Manager</p>
+<h1 id="基本概念">基本概念</h1><p>个人认为LVM是建立在硬盘和分区之上的一个逻辑层，可以用下面的图来理解：</p>
+<p><img src="/img/post/11234826_AkJ0.png" alt="LVM的基本组成结构图"></p>
+<p>上图右侧是LVM的基本组成结构。 </p>
+<p>LVM相关的概念罗列如下： </p>
+<ul>
+<li><strong>物理卷（Physical Volume）</strong>：标记为LVM的可用空间的分区，在MBR磁盘上，用分区类型0x8e标记。 </li>
+<li><strong>卷组（Volume Group）</strong>：一个或者多个物理卷的集合。可以认为是一个虚拟的大硬盘。</li>
+<li><strong>逻辑卷（Logical Volume）</strong>：可以认为是对于卷组的虚拟分区。逻辑卷在使用之前必须格式化为特定的文件系统。</li>
+</ul>
+<h1 id="部署LVM的步骤">部署LVM的步骤</h1><p>概要图如下：</p>
+<p><img src="/img/post/11234308_nXl1.png" alt="概要图"></p>
+<p>下面详细介绍每一步的操作。</p>
+<h2 id="实验环境：">实验环境：</h2><ul>
+<li>OS = Red Hat Enterprise Linux 6.2 x64 </li>
+<li>Client = SSH from Mac OS X ML</li>
+</ul>
+<h2 id="安装时自动分区的分析">安装时自动分区的分析</h2><p>以我实验用的机器为例，首先查看现在的硬盘结构: （如果你分区的时候是选择自动分区，应该能看到和下面相同的分区结构） </p>
+<p><img src="/img/post/14215608_qUMZ.png" alt="分区结构"></p>
+<p>其中，/dev/sda2 这个分区就是一个物理卷，用于存放 / 的各个文件。 接下来详细查看一下/dev/sda2这个物理卷的结构：</p>
+<pre><code>[root@localhost ~]# pvdisplay /dev/sda2
+--- Physical volume ---
+PV <span class="keyword">Name</span> /dev/sda2
+VG <span class="keyword">Name</span> VolGroup
+PV <span class="built_in">Size</span> <span class="number">19.51</span> GiB / not usable <span class="number">3.00</span> MiB
+<span class="type">Allocatable</span> yes (but full)
+PE <span class="built_in">Size</span> <span class="number">4.00</span> MiB
+Total PE <span class="number">4994</span>
+Free PE <span class="number">0</span>
+<span class="built_in">Allocated</span> PE <span class="number">4994</span>
+PV UUID W1MfcE-e6m-NZ79-YPRq-ZnTE-<span class="number">3169</span>-Hre0T
+[root@localhost ~]#
+</code></pre><p>可以看到，这个物理卷属于卷组VolGroup，看看VolGroup的结构：</p>
+<pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># lvscan</span>
+ACTIVE <span class="string">'/dev/VolGroup/lv_root'</span> [<span class="number">17.54</span> GiB] inherit
+ACTIVE <span class="string">'/dev/VolGroup/lv_swap'</span> [<span class="number">1.97</span> GiB] inherit
+[root<span class="property">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><p>真像大白了，卷组VolGroup中有两个逻辑卷，那么这两个逻辑卷有对应了文件系统中的那个文件呢？ 查看/etc/fstab可以看出各个文件挂载点详细信息： </p>
+<p><img src="/img/post/14230007_kW4G.png" alt="各个文件挂载点详细信息"></p>
+<p>从上面的图中可以看出，其实系统中 </p>
+<ul>
+<li><strong>/</strong> 使用了 lv_root这个逻辑卷 </li>
+<li><strong>swap(也就是常说的交换分区)</strong> 使用了lv_swap这个逻辑卷</li>
+<li><strong>/boot</strong> 使用了UUID标识的一个东西（如果再追究会发现，这个UUID其实就是/dev/sda1这个分区了）</li>
+</ul>
+<p>也就是说，现在系统中的 / 和 swap 都可以根据需要动态的调整大小，而 /boot 则不能。（其实，/boot 也不要调整大小，它的size基本上是固定的）</p>
+<h2 id="部署实例1_—_建立物理卷和卷组">部署实例1 — 建立物理卷和卷组</h2><h3 id="需求">需求</h3><p>增加了一块硬盘/dev/sdb, 创建三个分区，并建立三个物理卷 ，三个物理卷中前两个属于一个卷组VolGroup_data，最后一个属于卷组VolGroup_log.</p>
+<h3 id="解决方案">解决方案</h3><h4 id="1-创建分区">1.创建分区</h4><p>篇幅限制，具体的分区过程省略，详细参考fdisk的使用手册，注意点: 在分区结束之后，一定要执行下面的命令，告诉内核最新的分区信息</p>
+<pre><code>~$ partx -<span class="tag">a</span> /dev/sdb
+</code></pre><p>如果忘记这步的话，在/dev下，是看不到/dev/sdb1，/dev/sdb2, /dev/sdb3等等的文件，只能重启系统。 分区结果如下：</p>
+<p><img src="/img/post/14230008_5Erg.png" alt="分区结果"></p>
+<h4 id="2-物理卷的创建(pvcreate)">2.物理卷的创建(pvcreate)</h4><pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># pvcreate /dev/sdb{1,2,3}</span>
+Writing physical volume data <span class="keyword">to</span> disk <span class="string">"/dev/sdb1"</span>
+Physical volume <span class="string">"/dev/sdb1"</span> successfully created
+Writing physical volume data <span class="keyword">to</span> disk <span class="string">"/dev/sdb2"</span>
+Physical volume <span class="string">"/dev/sdb2"</span> successfully created
+Writing physical volume data <span class="keyword">to</span> disk <span class="string">"/dev/sdb3"</span>
+Physical volume <span class="string">"/dev/sdb3"</span> successfully created
+[root<span class="property">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><p>至此，/dev/sdb1，/dev/sdb2, /dev/sdb3就由分区转换成了物理卷。 可以用下面的命令查看创建后的物理卷： </p>
+<pre><code>[root<span class="annotation">@localhost</span> ~]# pvscan
+PV <span class="regexp">/dev/</span>sda2 VG VolGroup lvm2 [<span class="number">19.51</span> GiB / <span class="number">0</span> free]
+PV <span class="regexp">/dev/</span>sdb1 lvm2 [<span class="number">512.00</span> MiB]
+PV <span class="regexp">/dev/</span>sdb2 lvm2 [<span class="number">1.00</span> GiB]
+PV <span class="regexp">/dev/</span>sdb3 lvm2 [<span class="number">511.00</span> MiB]
+<span class="string">Total:</span> <span class="number">4</span> [<span class="number">21.51</span> GiB] <span class="regexp">/ in use: 1 [19.51 GiB] /</span> <span class="keyword">in</span> no <span class="string">VG:</span> <span class="number">3</span> [<span class="number">2.00</span> GiB]
+[root<span class="annotation">@localhost</span> ~]#
+</code></pre><p>值得注意的是，sdb1，sdb2，sdb3之后都出现了lvm2这个标识，说明创建物理卷成功。</p>
+<h4 id="3-卷组的创建（vgcreate）">3.卷组的创建（vgcreate）</h4><pre><code>[root@localhost ~]<span class="comment"># vgcreate VolGroup_data /dev/sdb1 /dev/sdb2</span>
+<span class="built_in">Volume</span> <span class="bash">group <span class="string">"VolGroup_data"</span> successfully created
+</span>[root@localhost ~]<span class="comment"># vgcreate VolGroup_log /dev/sdb3</span>
+<span class="built_in">Volume</span> <span class="bash">group <span class="string">"VolGroup_log"</span> successfully created
+</span>[root@localhost ~]<span class="comment">#</span>
+</code></pre><p>接下来看看刚刚创建好的卷组：</p>
+<pre><code>[root<span class="macrocall">@localhost</span> ~]<span class="comment"># vgscan</span>
+Reading all physical volumes. This may take a <span class="keyword">while</span>...
+Found volume group <span class="string">"VolGroup_log"</span> <span class="keyword">using</span> metadata <span class="keyword">type</span> lvm2
+Found volume group <span class="string">"VolGroup_data"</span> <span class="keyword">using</span> metadata <span class="keyword">type</span> lvm2
+Found volume group <span class="string">"VolGroup"</span> <span class="keyword">using</span> metadata <span class="keyword">type</span> lvm2
+[root<span class="macrocall">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><p>再次查看物理卷：</p>
+<pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># pvscan</span>
+PV <span class="regexp">/dev/sdb3 VG VolGroup_log lvm2 [508.00 MiB /</span> <span class="number">508.00</span> MiB free]
+PV <span class="regexp">/dev/sdb1 VG VolGroup_data lvm2 [508.00 MiB /</span> <span class="number">508.00</span> MiB free]
+PV <span class="regexp">/dev/sdb2 VG VolGroup_data lvm2 [1020.00 MiB /</span> <span class="number">1020.00</span> MiB free]
+PV <span class="regexp">/dev/sda2 VG VolGroup lvm2 [19.51 GiB /</span> <span class="number">0</span> free]
+<span class="attribute">Total</span>: <span class="number">4</span> [<span class="number">21.50</span> GiB] / <span class="keyword">in</span> <span class="attribute">use</span>: <span class="number">4</span> [<span class="number">21.50</span> GiB] / <span class="keyword">in</span> <span class="literal">no</span> <span class="attribute">VG</span>: <span class="number">0</span> [<span class="number">0</span> ]
+[root<span class="property">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><p>至此，物理卷和卷组已经关联好了。</p>
+<h2 id="部署实例2_—_建立逻辑卷并使用">部署实例2 — 建立逻辑卷并使用</h2><h3 id="需求-1">需求</h3><p>在上面建立好的卷组</p>
+<ul>
+<li><strong>VolGroup_log</strong> 中建立一个逻辑分区lv_log，文件系统为Ext4，大小为300MB，挂载点为/da/log。</li>
+<li><strong>VolGroup_data</strong> 中建立一个逻辑分区 lv_data，文件系统为Ext4，大小为1.2GB，挂载点为 /da/data。</li>
+</ul>
+<h3 id="解决方案-1">解决方案</h3><h4 id="1-建立逻辑分区（lvcreate_-L_逻辑分区大小_-n_逻辑分区名_卷组名）">1.建立逻辑分区（lvcreate -L 逻辑分区大小 -n 逻辑分区名 卷组名）</h4><pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># lvcreate -L 300M -n lv_log VolGroup_log</span>
+Logical volume <span class="string">"lv_log"</span> created
+[root<span class="property">@localhost</span> ~]<span class="comment"># lvcreate -L 1.2G -n lv_data VolGroup_data</span>
+Rounding up size <span class="keyword">to</span> full physical extent <span class="number">1.20</span> GiB
+Logical volume <span class="string">"lv_data"</span> created
+[root<span class="property">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><h4 id="2-格式化分区（mkfs-ext4_/dev/卷组名/逻辑分区）">2.格式化分区（mkfs.ext4 /dev/卷组名/逻辑分区）</h4><pre><code>[<span class="atom">root</span>@<span class="atom">localhost</span> ~]# <span class="atom">mkfs</span>.<span class="atom">ext4</span> /<span class="atom">dev</span>/<span class="name">VolGroup_log</span>/<span class="atom">lv_log</span>
+...
+此处省略<span class="name">N</span>个字...
+...
+[<span class="atom">root</span>@<span class="atom">localhost</span> ~]# <span class="atom">mkfs</span>.<span class="atom">ext4</span> /<span class="atom">dev</span>/<span class="name">VolGroup_data</span>/<span class="atom">lv_data</span>
+...
+此处省略<span class="name">M</span>个字...
+...
+[<span class="atom">root</span>@<span class="atom">localhost</span> ~]#
+</code></pre><h4 id="3-挂载分区（mount_/dev/卷组名/逻辑分区_挂载点）">3.挂载分区（mount /dev/卷组名/逻辑分区 挂载点）</h4><pre><code>[root<span class="annotation">@localhost</span> ~]# mkdir -p <span class="regexp">/da/</span>log <span class="regexp">/da/</span>data
+[root<span class="annotation">@localhost</span> ~]# mount <span class="regexp">/dev/</span>VolGroup_log<span class="regexp">/lv_log /</span>da/log
+[root<span class="annotation">@localhost</span> ~]# mount <span class="regexp">/dev/</span>VolGroup_data<span class="regexp">/lv_data /</span>da/data
+</code></pre><h4 id="4-结果（mount）">4.结果（mount）</h4><p>用mount命令查看整个系统的挂载情况。</p>
+<pre><code>[root@localhost ~]<span class="comment"># mount</span>
+/dev/mapper/<span class="type">VolGroup</span>-lv_root on / <span class="keyword">type</span> ext4 (rw)
+<span class="keyword">proc</span> on /<span class="keyword">proc</span> <span class="keyword">type</span> <span class="keyword">proc</span> (rw)
+sysfs on /sys <span class="keyword">type</span> sysfs (rw)
+devpts on /dev/pts <span class="keyword">type</span> devpts (rw,gid=<span class="number">5</span>,mode=<span class="number">620</span>)
+tmpfs on /dev/shm <span class="keyword">type</span> tmpfs (rw,rootcontext=<span class="string">"system_u:object_r:tmpfs_t:s0"</span>)
+/dev/sda1 on /boot <span class="keyword">type</span> ext4 (rw)
+none on /media/psf <span class="keyword">type</span> prl_fs (rw,nosuid,nodev,sync,_netdev,noatime,share,context=<span class="string">"system_u:object_r:removable_t:s0"</span>)
+none on /<span class="keyword">proc</span>/sys/fs/binfmt_misc <span class="keyword">type</span> binfmt_misc (rw)
+sunrpc on /<span class="keyword">var</span>/lib/nfs/rpc_pipefs <span class="keyword">type</span> rpc_pipefs (rw)
+/dev/mapper/<span class="type">VolGroup_log</span>-lv_log on /da/log <span class="keyword">type</span> ext4 (rw)
+/dev/mapper/<span class="type">VolGroup_data</span>-lv_data on /da/data <span class="keyword">type</span> ext4 (rw)
+[root@localhost ~]<span class="comment">#</span>
+</code></pre><p>经过上面的步骤，整个系统磁盘存储结构如下图所示： </p>
+<p><img src="/img/post/154040_MhhX_157257.png" alt="系统磁盘存储结构图"></p>
+<h2 id="部署实例3_—_调整逻辑卷的容量">部署实例3 — 调整逻辑卷的容量</h2><h3 id="需求-2">需求</h3><p>经过一段时间的运行，发现 /da/log 的容量不足了，需要从原来的300MB扩充到500MB，而 /da/data 的容量有浪费，需要从原来的1.2GB缩小到600MB。 并且，在分区容量调整的时候不能影响现在系统的运行。</p>
+<h3 id="解决方案-2">解决方案</h3><h4 id="1-增加逻辑卷的容量">1.增加逻辑卷的容量</h4><h5 id="1-1_查看所属物理卷的总大小，确保卷组中有足够的空间（vgdisplay_卷组名）">1.1 查看所属物理卷的总大小，确保卷组中有足够的空间（vgdisplay 卷组名）</h5><pre><code>[root@localhost ~]# vgdisplay VolGroup_log
+--- Volume group ---
+VG <span class="keyword">Name</span> VolGroup_log
+System ID
+<span class="keyword">Format</span> lvm2
+Metadata Areas <span class="number">1</span>
+Metadata <span class="keyword">Sequence</span> No <span class="number">2</span>
+VG <span class="keyword">Access</span> read/<span class="built_in">write</span>
+VG <span class="keyword">Status</span> resizable
+<span class="built_in">MAX</span> LV <span class="number">0</span>
+Cur LV <span class="number">1</span>
+Open LV <span class="number">1</span>
+<span class="built_in">Max</span> PV <span class="number">0</span>
+Cur PV <span class="number">1</span>
+Act PV <span class="number">1</span> **VG <span class="built_in">Size</span> <span class="number">508.00</span> MiB **PE <span class="built_in">Size</span> <span class="number">4.00</span> MiB
+Total PE <span class="number">127</span>
+Alloc PE / <span class="built_in">Size</span> <span class="number">75</span> / <span class="number">300.00</span> MiB
+Free PE / <span class="built_in">Size</span> <span class="number">52</span> / <span class="number">208.00</span> MiB
+VG UUID PCrgv-Xf2G-lF3-g0Rc-aNHd-XmMw-gtDRZ
+[root@localhost ~]#
+</code></pre><h5 id="1-2_增加逻辑卷的大小（_lvextend_-L_增加到的大小_逻辑卷）">1.2 增加逻辑卷的大小（ lvextend -L 增加到的大小 逻辑卷）</h5><pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># lvextend -L 500M /dev/VolGroup_log/lv_log</span>
+Extending logical volume lv_log <span class="keyword">to</span> <span class="number">500.00</span> MiB
+Logical volume lv_log successfully resized
+[root<span class="property">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><h5 id="1-3_调整文件系统以启动新空间（_resize2fs_逻辑卷）">1.3 调整文件系统以启动新空间（ resize2fs 逻辑卷）</h5><pre><code>[root@localhost ~]<span class="comment"># resize2fs /dev/mapper/VolGroup_log-lv_log </span>
+resize2fs <span class="number">1.41</span>.12 (<span class="number">17</span>-May-<span class="number">2010</span>)
+Filesystem <span class="keyword">at</span> /dev/mapper/VolGroup_log-lv_log <span class="keyword">is</span> mounted <span class="function_start"><span class="keyword">on</span></span> /da/<span class="command">log</span>; 
+<span class="function_start"><span class="keyword">on</span></span>-line resizing requiredold desc_blocks = <span class="number">2</span>, new_desc_blocks = <span class="number">2</span>
+Performing an <span class="function_start"><span class="keyword">on</span></span>-line resize <span class="keyword">of</span> /dev/mapper/VolGroup_log-lv_log <span class="keyword">to</span> <span class="number">512000</span> (<span class="number">1</span>k) blocks.
+The filesystem <span class="function_start"><span class="keyword">on</span></span> /dev/mapper/VolGroup_log-lv_log <span class="keyword">is</span> now <span class="number">512000</span> blocks long.
+[root@localhost ~]<span class="comment">#</span>
+</code></pre><p>【注意】上面的命令中，使用了/dev/mapper下面的一个符号链接VolGroup_log-lv_log。 通过整个符号链接的名字，可以猜出其命名方式：</p>
+<pre><code>卷组名-逻辑卷名。 
+</code></pre><p>当然，也可以使用真实的文件，在本例中，可以使用：</p>
+<pre><code>/dev/VolGroup_<span class="built_in">log</span>/lv_<span class="built_in">log</span>
+</code></pre><h5 id="1-4_检查扩容结果（df_-h_目录名）">1.4 检查扩容结果（df -h 目录名）</h5><pre><code>[root@localhost ~]<span class="comment"># df -h /da/log</span>
+文件系统                                              容量 已用 可用 已用%% 挂载点
+/dev/mapper/VolGroup_<span class="built_in">log</span>-lv_<span class="built_in">log</span> <span class="number">485</span>M <span class="number">11</span>M <span class="number">450</span>M <span class="number">3</span>% /da/<span class="built_in">log</span>
+[root@localhost ~]<span class="comment"># ** **</span>
+</code></pre><h4 id="2-减小逻辑卷的容量_—_针对_/da/data_(注意：此操作不能Online执行，必须先卸载逻辑卷)">2.减小逻辑卷的容量 — 针对 /da/data (注意：此操作不能Online执行，必须先卸载逻辑卷)</h4><h5 id="2-1_查看已经使用的空间，以确保缩小后不会破坏现有的数据（df_-h_目录名）">2.1 查看已经使用的空间，以确保缩小后不会破坏现有的数据（df -h 目录名）</h5><pre><code>[root<span class="variable">@localhost</span> ~]<span class="comment"># df -h /da/data</span>
+文件系统                                                   容量 已用 可用 已用%% 挂载点
+/dev/mapper/<span class="constant">VolGroup_data-</span>lv_data <span class="number">1.2</span>G <span class="number">34</span>M <span class="number">1.1</span>G <span class="number">3</span>% <span class="regexp">/da/data</span>
+[root<span class="variable">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><h5 id="2-2_检查逻辑卷的状态（e2fsck_-f_逻辑卷）">2.2 检查逻辑卷的状态（e2fsck -f 逻辑卷）</h5><p>在检查之前，请确保逻辑卷不在挂载状态，或者卸载逻辑卷。否则，e2fsck会有如下的警告</p>
+<pre><code>[root<span class="comment">@localhost ~]# e2fsck /dev/mapper/VolGroup_data-lv_data </span>
+e2fsck 1.41.12 (17-May-2010)/dev/mapper/VolGroup_data-lv_data 已挂载.
+
+WARNING!!! The filesystem is mounted. 
+If you continue you <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>WILL<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>cause <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>SEVERE<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> filesystem damage.
+你真的想要要继续 (y/n)? n
+检查被中止
+[root<span class="comment">@localhost ~]#</span>
+</code></pre><p>为了安全起见，建议先卸载逻辑卷：</p>
+<pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># umount /da/data</span>
+</code></pre><p>然后开始检查文件系统</p>
+<pre><code><span class="list">[<span class="keyword">root@localhost</span> ~]# e2fsck -f /dev/mapper/VolGroup_data-lv_data 
+e2fsck <span class="number">1.41</span>.12 <span class="list">(<span class="keyword">17-May-2010</span>)</span>
+第一步: 检查inode,块,和大小
+第二步: 检查目录结构
+第3步: 检查目录连接性
+Pass <span class="number">4</span>: Checking reference counts
+第5步: 检查簇概要信息
+/dev/mapper/VolGroup_data-lv_data: <span class="number">11/78880</span> files <span class="list">(<span class="keyword">0.0%</span> non-contiguous)</span>, <span class="number">13616/315392</span> blocks
+<span class="list">[<span class="keyword">root@localhost</span> ~]#</span></span>
+</code></pre><h5 id="2-3_缩小文件系统以释放文件系统空间（resize2fs_逻辑卷_缩小后的大小）">2.3 缩小文件系统以释放文件系统空间（resize2fs 逻辑卷 缩小后的大小）</h5><pre><code>[root@localhost ~]<span class="comment"># resize2fs /dev/mapper/VolGroup_data-lv_data 600M</span>
+resize2fs <span class="number">1.41</span>.12 (<span class="number">17</span>-May-<span class="number">2010</span>)
+Resizing <span class="keyword">the</span> filesystem <span class="function_start"><span class="keyword">on</span></span> /dev/mapper/VolGroup_data-lv_data <span class="keyword">to</span> <span class="number">153600</span> (<span class="number">4</span>k) blocks.
+The filesystem <span class="function_start"><span class="keyword">on</span></span> /dev/mapper/VolGroup_data-lv_data <span class="keyword">is</span> now <span class="number">153600</span> blocks long.
+[root@localhost ~]<span class="comment">#</span>
+</code></pre><h5 id="2-4_缩小物理卷（lvreduce_-L_缩小后的大小_逻辑卷）">2.4 缩小物理卷（lvreduce -L 缩小后的大小 逻辑卷）</h5><pre><code>[root<span class="property">@localhost</span> ~]<span class="comment"># lvreduce -L 600M /dev/mapper/VolGroup_data-lv_data</span>
+   <span class="attribute">WARNING</span>: Reducing active logical volume <span class="keyword">to</span> <span class="number">600.00</span> MiB
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+Do you really want <span class="keyword">to</span> reduce lv_data? [y/n]: y 
+Reducing logical volume lv_data <span class="keyword">to</span> <span class="number">600.00</span> MiB 
+Logical volume lv_data successfully resized
+[root<span class="property">@localhost</span> ~]<span class="comment">#</span>
+</code></pre><h5 id="2-5_查看缩小后的结果">2.5 查看缩小后的结果</h5><pre><code>[root@localhost ~]# lvdisplay /dev/mapper/VolGroup_data-lv_data 
+  --- Logical volume ---
+  <span class="keyword">LV</span> Path                /dev/VolGroup_data/lv_data
+  <span class="keyword">LV</span> Name                lv_data
+  VG Name                VolGroup_data
+  <span class="keyword">LV</span> UUID                LZEvpU-ZrM7-Ynua-0fRx-GvVB-o6Fs-RhoKXK
+  <span class="keyword">LV</span> Write Access        <span class="keyword">read</span>/write
+  <span class="keyword">LV</span> Creation host, time localhost.localdomain, 2012-11-18 22:19:55 +0800
+  <span class="keyword">LV</span> Status              available
+  # <span class="keyword">open</span>                 0
+  <span class="keyword">LV</span> Size                600.00 MiB
+  Current LE             150
+  Segments               1
+  Allocation             inherit
+  <span class="keyword">Read</span> ahead sectors     auto
+  - currently <span class="keyword">set</span> to     256
+  Block device           253:3
+</code></pre><p>挂载缩小后的逻辑卷，开始使用：</p>
+<pre><code>[root<span class="annotation">@localhost</span> ~]# mount <span class="regexp">/dev/</span>mapper<span class="regexp">/VolGroup_data-lv_data /</span>da/data
+</code></pre><h5 id="3-最终结果">3.最终结果</h5><p>结果上面的步骤之后，整个系统的磁盘存储结构如下： </p>
+<p><img src="/img/post/154222_cJ7n_157257.png" alt="系统的磁盘存储结构图"></p>
+<p>(完)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LVM/">LVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/linux/">linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    </nav>
+  
 </div>
-    </header>
-    <div id="container">
-      <div id="main">
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/一个LaTeXCJK中文文档的简单而实用的模板/" title="一个LaTeX/CJK中文文档的简单而实用的模板" itemprop="url">
-  
-    <h1 itemprop="name">一个LaTeX/CJK中文文档的简单而实用的模板</h1>
-    
-     
-           <p itemprop="description" >(本文是2007年我发布在CSDN上的文章，终于找到了。)
-LaTex是在Linux下撰写科技文献的一个很强大的系统，网上的教程有很多，下面是我经常用到的两个很基本的模板。
-注意： ％后面的内容都是注释。
-小论文，期刊，或者简短说明文档使用的模板%要运行该模板，LaTex需要安装</p>
-        
-    
-    <time datetime="2014-07-30T15:04:10.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/Proxmox 服务器的自签名证书的SSL设定/" title="Proxmox 服务器的自签名证书的SSL设定" itemprop="url">
-  
-    <h1 itemprop="name">Proxmox 服务器的自签名证书的SSL设定</h1>
-    
-     
-           <p itemprop="description" >在使用Proxmox服务器时，会使用SSL访问它的WEB管理平台。
-由于默认的安装中SSL证书没有签署，所以浏览器老是会弹出证书错误，是否继续之类的错误信息，很是碍眼。
-为了在一定程度上避免这种现象，本文使用自签名的证书来配置Promox的HTTPS。
-
-即使点了“仍然继续”，h</p>
-        
-    
-    <time datetime="2014-07-30T14:41:40.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/Proxmox2.x 双节点集群配置/" title="Proxmox2.x 双节点集群配置" itemprop="url">
-  
-    <h1 itemprop="name">Proxmox2.x 双节点集群配置</h1>
-    
-     
-           <p itemprop="description" >参考： http://pve.proxmox.com/wiki/Proxmox_VE_2.0_Cluster
-环境
-主服务器： P2（10.194.153.9）
-从服务器： P22（10.194.153.10）
-
-在主服务器（P2）上创建集群p2:~# pvecm create </p>
-        
-    
-    <time datetime="2014-07-30T14:34:13.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/Linux防火墙的基本概念和使用方法/" title="Linux防火墙的基本概念和使用方法(未完待续)" itemprop="url">
-  
-    <h1 itemprop="name">Linux防火墙的基本概念和使用方法(未完待续)</h1>
-    
-     
-           <p itemprop="description" >要理解Linux防火墙，先记住下面两张图（未完待续）：
-图1 Netfilter packet flow
-图2 详细处理
-(END)</p>
-        
-    
-    <time datetime="2014-07-30T14:14:02.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/MacOS下MySQL的安装、配置、删除/" title="MacOS下MySQL的安装、配置、删除" itemprop="url">
-  
-    <h1 itemprop="name">MacOS下MySQL的安装、配置、删除</h1>
-    
-     
-           <p itemprop="description" >MacOS下，MySQL的安装方法和Linux下几乎一样，我这里安装后的目录是：
-/usr/local/mysql
-安装之后，发现下面两个问题。
-中文乱码这是由于默认安装的时候，数据库服务器用的是latin的编码所造成的。修改方法如下：
-打开终端,输入
-cd /    #回到根目</p>
-        
-    
-    <time datetime="2014-07-30T14:10:22.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/" title="UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode ..." itemprop="url">
-  
-    <h1 itemprop="name">UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode ...</h1>
-    
-     
-           <p itemprop="description" >最近在研究Django，当网站发布到Linux服务器上时，出现了下面的错误：
-Traceback (most recent call last):
-File &quot;&amp;lt;stdin&amp;gt;&quot;, line 1, in &amp;lt;module&amp;gt;
-UnicodeEncodeError</p>
-        
-    
-    <time datetime="2014-07-30T14:03:51.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/centos6apache2django1-4的配置/" title="CentOS6+Apache2+Django1.4的配置" itemprop="url">
-  
-    <h1 itemprop="name">CentOS6+Apache2+Django1.4的配置</h1>
-    
-     
-           <p itemprop="description" >环境
-OS：CentOS 6.2 x64
-Apache：2
-Python：2.6
-Django：1.4.2
-
-场景我的应用名称是beaver，放在下面的位置：
-/var/www/cgi-bin/beaver
-需求使用wsgi，把Django项目，发布到apache下。
-第一步：建</p>
-        
-    
-    <time datetime="2014-07-30T14:00:42.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/CentOS下Samba服务的配置/" title="CentOS下Samba服务的配置" itemprop="url">
-  
-    <h1 itemprop="name">CentOS下Samba服务的配置</h1>
-    
-     
-           <p itemprop="description" >本文源于网络上的各种教程，但是结合自己的实际情况，个别细节的地方修改了一下。虽然简单，但是我相信好记性不如烂笔头，先记录下来，方便大家，也方便自己。Samba是Linux与Window实现网络共享的一种常用方法。一旦配置好了，Windows用户就可以访问Linux服务器的共享目录</p>
-        
-    
-    <time datetime="2014-07-30T13:54:53.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/WEB应用脆弱性防止策略/" title="WEB应用脆弱性防止策略" itemprop="url">
-  
-    <h1 itemprop="name">WEB应用脆弱性防止策略</h1>
-    
-     
-           <p itemprop="description" >事实上，WEB应用是很脆弱的。因为这种应用的灵活性很大，用户输入的自由度也很高，所以对于WEB应用的恶意攻击也比较容易。
-本文对常见的16种WEB攻击，给出了部分解决方案。
-1. SQL注入(SQL Injection)对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个</p>
-        
-    
-    <time datetime="2014-07-30T13:38:12.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/LVM的基本概念和部署/" title="LVM的基本概念和部署" itemprop="url">
-  
-    <h1 itemprop="name">LVM的基本概念和部署</h1>
-    
-     
-           <p itemprop="description" >本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。
-写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写B</p>
-        
-    
-    <time datetime="2014-07-30T12:45:41.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
-  </nav>
-
-</div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/WEB基础/" title="WEB基础">WEB基础<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/java/" title="java">java<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/linux/" title="linux">linux<sup>10</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>3</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>8</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>10</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
-  <div class="tagcloudlist">
-    <p class="asidetitle">标签云</p>
-    <div class="tagcloudlist clearfix">
-       <a href="/tags/Centos/" style="font-size: 10px;">Centos</a><a href="/tags/DNS/" style="font-size: 10px;">DNS</a><a href="/tags/Django/" style="font-size: 10px;">Django</a><a href="/tags/EM12c/" style="font-size: 10px;">EM12c</a><a href="/tags/HA/" style="font-size: 10px;">HA</a><a href="/tags/Java/" style="font-size: 10px;">Java</a><a href="/tags/LVM/" style="font-size: 10px;">LVM</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/RHCE/" style="font-size: 13.33px;">RHCE</a><a href="/tags/RMI/" style="font-size: 10px;">RMI</a><a href="/tags/Remote/" style="font-size: 10px;">Remote</a><a href="/tags/SGD/" style="font-size: 10px;">SGD</a><a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a><a href="/tags/ad/" style="font-size: 10px;">ad</a><a href="/tags/adobe/" style="font-size: 10px;">adobe</a><a href="/tags/aip/" style="font-size: 13.33px;">aip</a><a href="/tags/application-provision/" style="font-size: 10px;">application provision</a><a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a><a href="/tags/centos/" style="font-size: 10px;">centos</a><a href="/tags/cjk/" style="font-size: 13.33px;">cjk</a><a href="/tags/code/" style="font-size: 10px;">code</a><a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a><a href="/tags/django/" style="font-size: 10px;">django</a><a href="/tags/em12c/" style="font-size: 10px;">em12c</a><a href="/tags/eth0/" style="font-size: 10px;">eth0</a><a href="/tags/fc/" style="font-size: 10px;">fc</a><a href="/tags/firewall/" style="font-size: 10px;">firewall</a><a href="/tags/github/" style="font-size: 10px;">github</a><a href="/tags/gs/" style="font-size: 10px;">gs</a><a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a><a href="/tags/ip/" style="font-size: 10px;">ip</a><a href="/tags/java/" style="font-size: 10px;">java</a><a href="/tags/jni/" style="font-size: 10px;">jni</a><a href="/tags/kpi/" style="font-size: 10px;">kpi</a><a href="/tags/latex/" style="font-size: 13.33px;">latex</a><a href="/tags/ldap/" style="font-size: 10px;">ldap</a><a href="/tags/linux/" style="font-size: 16.67px;">linux</a><a href="/tags/mac/" style="font-size: 10px;">mac</a><a href="/tags/markdown/" style="font-size: 10px;">markdown</a><a href="/tags/mysql/" style="font-size: 10px;">mysql</a><a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a><a href="/tags/oam/" style="font-size: 10px;">oam</a><a href="/tags/octpress/" style="font-size: 10px;">octpress</a><a href="/tags/pdf/" style="font-size: 13.33px;">pdf</a><a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a><a href="/tags/poem/" style="font-size: 10px;">poem</a><a href="/tags/prim/" style="font-size: 10px;">prim</a><a href="/tags/proxmox/" style="font-size: 13.33px;">proxmox</a><a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a><a href="/tags/python/" style="font-size: 10px;">python</a><a href="/tags/rdp/" style="font-size: 10px;">rdp</a><a href="/tags/samba/" style="font-size: 10px;">samba</a><a href="/tags/sbc/" style="font-size: 10px;">sbc</a><a href="/tags/sgd/" style="font-size: 20px;">sgd</a><a href="/tags/sizing/" style="font-size: 10px;">sizing</a><a href="/tags/smb/" style="font-size: 10px;">smb</a><a href="/tags/ssh/" style="font-size: 10px;">ssh</a><a href="/tags/ssl/" style="font-size: 10px;">ssl</a><a href="/tags/sso/" style="font-size: 13.33px;">sso</a><a href="/tags/swig/" style="font-size: 10px;">swig</a><a href="/tags/tarantella/" style="font-size: 10px;">tarantella</a><a href="/tags/tds/" style="font-size: 10px;">tds</a><a href="/tags/tex/" style="font-size: 10px;">tex</a><a href="/tags/vdi/" style="font-size: 10px;">vdi</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/virtualbox/" style="font-size: 13.33px;">virtualbox</a><a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a><a href="/tags/vpn/" style="font-size: 10px;">vpn</a><a href="/tags/web/" style="font-size: 10px;">web</a><a href="/tags/windows/" style="font-size: 10px;">windows</a><a href="/tags/windows-server/" style="font-size: 10px;">windows server</a><a href="/tags/专用网/" style="font-size: 10px;">专用网</a><a href="/tags/协议/" style="font-size: 10px;">协议</a><a href="/tags/单点登录/" style="font-size: 10px;">单点登录</a><a href="/tags/合并/" style="font-size: 10px;">合并</a><a href="/tags/图论/" style="font-size: 10px;">图论</a><a href="/tags/域名/" style="font-size: 10px;">域名</a><a href="/tags/堆/" style="font-size: 10px;">堆</a><a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a><a href="/tags/安全访问/" style="font-size: 16.67px;">安全访问</a><a href="/tags/带宽/" style="font-size: 10px;">带宽</a><a href="/tags/应用程序供应/" style="font-size: 10px;">应用程序供应</a><a href="/tags/应用程序虚拟化/" style="font-size: 10px;">应用程序虚拟化</a><a href="/tags/指标/" style="font-size: 10px;">指标</a><a href="/tags/本地借口/" style="font-size: 10px;">本地借口</a><a href="/tags/模板/" style="font-size: 13.33px;">模板</a><a href="/tags/比较/" style="font-size: 10px;">比较</a><a href="/tags/水质/" style="font-size: 10px;">水质</a><a href="/tags/环境需求/" style="font-size: 10px;">环境需求</a><a href="/tags/算法/" style="font-size: 13.33px;">算法</a><a href="/tags/经验/" style="font-size: 10px;">经验</a><a href="/tags/编码/" style="font-size: 10px;">编码</a><a href="/tags/编辑/" style="font-size: 10px;">编辑</a><a href="/tags/网络性能/" style="font-size: 10px;">网络性能</a><a href="/tags/网络配置/" style="font-size: 13.33px;">网络配置</a><a href="/tags/脆弱性/" style="font-size: 10px;">脆弱性</a><a href="/tags/自签名/" style="font-size: 10px;">自签名</a><a href="/tags/自适应协议/" style="font-size: 10px;">自适应协议</a><a href="/tags/虚拟化/" style="font-size: 13.33px;">虚拟化</a><a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a><a href="/tags/虚拟桌面/" style="font-size: 10px;">虚拟桌面</a><a href="/tags/认证/" style="font-size: 13.33px;">认证</a><a href="/tags/论文/" style="font-size: 10px;">论文</a><a href="/tags/证书/" style="font-size: 10px;">证书</a><a href="/tags/逻辑卷/" style="font-size: 10px;">逻辑卷</a><a href="/tags/部署/" style="font-size: 10px;">部署</a><a href="/tags/配置/" style="font-size: 10px;">配置</a><a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a><a href="/tags/集群/" style="font-size: 10px;">集群</a><a href="/tags/鱼缸/" style="font-size: 10px;">鱼缸</a>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 K.X
+    	</div>
+      	<div class="footer-right">
+      		<a href="/about/index-en.html">About me</a>
+      	</div>
     </div>
   </div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://www.oracle.com/us/technologies/virtualization/secure-global-desktop/overview/index.html" target="_blank" title="Oracle SGD">Oracle SGD</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<section class="info">
-		<p> Hello ,I&#39;m K.X in Oracle. <br/>
-			This is my blog, believe it or not.</p>
-	</section>
-	 
-	<div class="social-font" class="clearfix">
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-			
-		
-
-		<p class="copyright">
-		 © 2015 
-		
-		<a href="/about" target="_blank" title="K.X">K.X</a>
-		
-		
-		</p>
-</div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
-  
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else{
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
-        
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
     }
-  });
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
 });
 </script>
 
-
-
-
-<script type="text/javascript">
-  var duoshuoQuery = {short_name:"xintq"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script> 
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
 
-<!-- Analytics Begin -->
-
-
-
-
-
-<!-- Analytics End -->
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-<!-- Totop End -->
-
-<!-- MathJax Begin -->
-<!-- mathjax config similar to math.stackexchange -->
-
-
-<!-- MathJax End -->
-
-<!-- Tiny_search Begin -->
-
-<!-- Tiny_search End -->
-
-  </body>
- </html>
+  </div>
+</body>
+</html>
