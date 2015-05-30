@@ -775,7 +775,7 @@
     <![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Glo]]>
     </summary>
     
-      <category term="EM12c" scheme="http://xintq.net/tags/EM12c/"/>
+      <category term="EM12c" scheme="http://xintq.net/tags/em12c/"/>
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1221,9 +1221,9 @@ D<span class="label">NS1</span>=<span class="number">127.0.</span><span class="n
 <li>使用 VirtualBox 虚拟机，联网方式选择 <strong>内部网络</strong>，如果你不知道怎么]]>
     </summary>
     
-      <category term="DNS" scheme="http://xintq.net/tags/DNS/"/>
+      <category term="DNS" scheme="http://xintq.net/tags/dns/"/>
     
-      <category term="Linux" scheme="http://xintq.net/tags/Linux/"/>
+      <category term="Linux" scheme="http://xintq.net/tags/linux/"/>
     
       <category term="nslookup" scheme="http://xintq.net/tags/nslookup/"/>
     
@@ -1372,7 +1372,7 @@ D<span class="label">NS1</span>=<span class="number">127.0.</span><span class="n
   </entry>
   
   <entry>
-    <title><![CDATA[Tarantella, virtualization tools, also a poem]]></title>
+    <title><![CDATA[Tarantella, Virtualization Tools, Also a Poem]]></title>
     <link href="http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/"/>
     <id>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</id>
     <published>2014-08-26T07:25:42.000Z</published>
@@ -1423,7 +1423,7 @@ A soulless neckar, <span class="keyword">with</span> winking seas <span class="k
   </entry>
   
   <entry>
-    <title><![CDATA[Try octopress on github: fast-forward error]]></title>
+    <title><![CDATA[Try Octopress on Github: Fast-Forward Error]]></title>
     <link href="http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/"/>
     <id>http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/</id>
     <published>2014-08-06T20:46:39.000Z</published>
