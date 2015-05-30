@@ -113,7 +113,7 @@
     <link href="http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/"/>
     <id>http://xintq.net/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/</id>
     <published>2015-05-13T06:47:42.000Z</published>
-    <updated>2015-05-28T13:57:13.000Z</updated>
+    <updated>2015-05-30T00:46:44.000Z</updated>
     <content type="html"><![CDATA[<h2 id="概要">概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
 <p>如果你还不知道Oracle Secure Global Desktop是什么的话，请参考<a href="/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/">这篇文章</a>。</p>
 <p>目前IT组织的最大挑战就是为分散在各个地域的用户提供对其特定工作区（应用程序和桌面）的即时，可靠，无性能退化的访问。此外，管理者也需要对这些分散到各个地域的工作区进行集中的访问管理。这并不容易。很多客户通过使用Oracle Secure Global Desktop部署工作区来为其数以千计的员工解决这一问题。Oracle Secure Global Desktop能够成为该问题的理想解决方案的优势如下：</p>
@@ -679,7 +679,7 @@
     <link href="http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/"/>
     <id>http://xintq.net/2015/05/08/Oracle Secure Global Desktop介绍/</id>
     <published>2015-05-08T09:04:37.000Z</published>
-    <updated>2015-05-28T13:56:14.000Z</updated>
+    <updated>2015-05-30T00:46:29.000Z</updated>
     <content type="html"><![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Global Desktop可以工作在各种流行的客户端设备上，包括Windows PC，Mac，Linux PC，以及Apple iPad等平板设备和基于Android的设备。通过该软件，用户可以使用几乎任何设备，在任何地方安全地开始工作。同时，也给管理员提供了一个管理工具，用来控制到数据中心内部运行的应用程序和桌面环境的访问过程。</em></p>
 <h2 id="关键特性">关键特性</h2><ul>
 <li>安全远程访问解决方案</li>
@@ -798,7 +798,7 @@
     <link href="http://xintq.net/2015/05/08/%5B%E8%AF%91%5D%20Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/"/>
     <id>http://xintq.net/2015/05/08/[译] Oracle 发布了 Secure Global Desktop Release 5.2/</id>
     <published>2015-05-08T03:22:09.000Z</published>
-    <updated>2015-05-28T13:55:07.000Z</updated>
+    <updated>2015-05-30T00:47:24.000Z</updated>
     <content type="html"><![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" rel="external">http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx</a></p>
 <p>Oracle已经发布了Oracle Secure Global Desktop (SGD) Release 5.2，作为该公司的远程访问解决方案，为Windows，Linux，Solaris以及大型主机等服务器端托管的企业级应用程序和桌面提供安全的远程访问。</p>
 <p>SGD让用户能够使用任何设备，在任何地方都可以安全地工作，同时为运行在数据中心的应用程序和桌面环境提供管理员可控的访问，在BYOD的世界中为企业提供了非常关键的优势。</p>
@@ -844,7 +844,7 @@
     <link href="http://xintq.net/2015/03/10/aip/"/>
     <id>http://xintq.net/2015/03/10/aip/</id>
     <published>2015-03-10T07:48:58.000Z</published>
-    <updated>2015-05-28T13:53:01.000Z</updated>
+    <updated>2015-05-30T00:48:28.000Z</updated>
     <content type="html"><![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="http://www.google.com/patents?id=a1MJAAAAEBAJ&amp;dq=adaptive+internet+protocol" target="_blank" rel="external">这里</a>可以找到。</p>
 <p>说白了，AIP是一个协议，用于SGD服务器与SGD客户端间传递应用程序的网络连接中，它被设计用来为那些由SGD发布的应用程序提供优化的网络性能和快速相应。AIP是自适应的协议，（也就是说它可以使用于变化的网络环境），它可以度量网络带宽，发现网络延迟，探测客户端性能以及应用程序表现，以确定最佳的优化策略，为客户端设备提供最优化的性能体验。</p>
 <p>那么，问题来了：在使用AIP的情况下，需要多大的带宽呢？</p>
@@ -878,7 +878,7 @@
     <link href="http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/"/>
     <id>http://xintq.net/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/</id>
     <published>2015-03-10T07:36:53.000Z</published>
-    <updated>2015-05-28T14:18:33.000Z</updated>
+    <updated>2015-05-30T00:47:57.000Z</updated>
     <content type="html"><![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。</p>
 <p>使用VPN时，通常需要在客户端计算机上安装某种形式的VPN客户端软件，并且在专用网的边界上安装VPN集中器(<em>注：VPN集中器。可以支持局域网的连接，支持客户端的连接，支持智能手机系统的拨入。包括iPhone、Andriod等系统，简言之就是把网络集中起来的东西。</em>) 。典型的方法是使用某种形式的身份认证和数据加密（通常是IPSec），当在公共链路上传输信息时使窃听者无法拦截或改变数据。</p>
 <p>VPN技术的一个关键点是，VPN隧道为远程计算机提供了网络的“存在感”。也就是说，远程计算机上的应用在访问虚拟专用网络上的其他计算机和服务时，就好像与那些内网主机在同一个网络上一样，事实上，它们确实是属于同一网络。这些应用程序可能包括访问内部Web服务器的Web浏览器，访问内部邮件服务器的电子邮件客户端。通过在专用计算机上安装相应的模拟软件，客户机还可以访问其他类型的应用，如在专用网络的计算机上运行的Windows（使用RDP协议）和X-Windows（使用X11）。</p>
@@ -976,7 +976,7 @@
     <link href="http://xintq.net/2014/11/19/sgd-v-s-vdi/"/>
     <id>http://xintq.net/2014/11/19/sgd-v-s-vdi/</id>
     <published>2014-11-19T03:24:02.000Z</published>
-    <updated>2015-05-28T13:52:22.000Z</updated>
+    <updated>2015-05-30T00:49:16.000Z</updated>
     <content type="html"><![CDATA[<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，为何能搭配使用，我想花几分钟的时间来解释一下SGD及其在VDI市场中的地位。</p>
 <h2 id="Server_Based_Computing_(SBC)">Server Based Computing (SBC)</h2><p>SGD最初设计的目的是为了让人们在一种混合桌面模型中同时运行本地和远程应用。那些远程应用看起来像本地应用（使用无缝窗口），使用起来（打印，文件系统访问，音频等）也像本地应用一样，不过它们实际上是运行在后端的服务器平台上的。大多数SGD用户会同时使用本地和远程应用，例如，他们会同时打开一些窗口，在这些窗口中同时运行Windows，Solairs，Linux等不同的应用。</p>
 <p>这种方式解决了一些问题，诸如安全性（比如笔记本电脑的丢失），可管理性（应用运行于数据中心之内的服务器上），以及移动性（在任何网络位置使用任何设备）。因此，管理员可以决定哪些应用应该集中在数据中心上，哪些应用应该放在用户的本地PC上。</p>
@@ -994,9 +994,9 @@
     <![CDATA[<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，]]>
     </summary>
     
-      <category term="SGD" scheme="http://xintq.net/tags/SGD/"/>
-    
       <category term="sbc" scheme="http://xintq.net/tags/sbc/"/>
+    
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
       <category term="vdi" scheme="http://xintq.net/tags/vdi/"/>
     
@@ -1376,7 +1376,7 @@ D<span class="label">NS1</span>=<span class="number">127.0.</span><span class="n
     <link href="http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/"/>
     <id>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</id>
     <published>2014-08-26T07:25:42.000Z</published>
-    <updated>2015-05-29T04:26:21.000Z</updated>
+    <updated>2015-05-30T00:49:51.000Z</updated>
     <content type="html"><![CDATA[<p>最近在折腾Oracle虚拟化的产品，叫做Oracle Secure Global Desktop。在搭建环境的时候，碰到的第一个命令叫做：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tarantella object edit --name <span class="string">"o=Tarantella System Objects/cn=Administrator"</span> \</span><br><span class="line">	--user user-name --surname family-name</span><br></pre></td></tr></table></figure></p>
 <p>那么，这个 <strong><em>tarantella</em></strong> 到底是个啥？<br>查了一下，好像是个病毒，还是个舞蹈，另外还是一首诗的名字。</p>
 <p>病毒我不太感兴趣，脏脏的，百度一大片。<br>但是那首诗不错，你可以在<a href="http://www.bookyesok.com/Books/2844.html" target="_blank" rel="external">这里</a>找到原文，如下：</p>
@@ -1409,6 +1409,8 @@ A soulless neckar, <span class="keyword">with</span> winking seas <span class="k
     </summary>
     
       <category term="poem" scheme="http://xintq.net/tags/poem/"/>
+    
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
       <category term="tarantella" scheme="http://xintq.net/tags/tarantella/"/>
     
