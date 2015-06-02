@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/about/index.html</loc>
+    <lastmod>2015-06-02T04:53:33.384Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/about/index-en.html</loc>
+    <lastmod>2015-06-02T04:52:21.832Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/</loc>
     <lastmod>2015-06-02T02:04:57.098Z</lastmod>
   </url>
@@ -199,16 +209,6 @@
   <url>
     <loc>http://xintq.net/search/index.html</loc>
     <lastmod>2015-06-01T07:47:09.685Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/about/index.html</loc>
-    <lastmod>2015-06-01T07:47:09.528Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/about/index-en.html</loc>
-    <lastmod>2015-06-01T07:47:09.522Z</lastmod>
   </url>
   
 </urlset>
