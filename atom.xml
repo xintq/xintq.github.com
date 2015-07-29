@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xintq.net/"/>
-  <updated>2015-07-03T05:27:21.137Z</updated>
+  <updated>2015-07-29T02:50:41.942Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -13,6 +13,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Oracle Database 12c 安装问题ORA-00838，ORA-00845的解决]]></title>
+    <link href="http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/"/>
+    <id>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</id>
+    <published>2015-07-29T02:28:04.000Z</published>
+    <updated>2015-07-29T02:50:41.942Z</updated>
+    <content type="html"><![CDATA[<p>在安装Oracle Database 12c后，启动数据库时，可能会遇到下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; startup;</span><br><span class="line">ORA-00838: Specified value of MEMORY_TARGET is too small, needs to be at least 3072M</span><br></pre></td></tr></table></figure>
+<p>导致这一问题的原因可能是修改了pfile，导致内存指定值过低，数据库启动会失败。</p>
+<p>解决方法网上一大堆，无非是先指定一个临时的pfile，手动修改内存指定值，再试着启动数据库实例：</p>
+<p>首先登陆到数据库，创建临时pfile<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[oracle@em bin]$ sqlplus / AS SYSDBA</span><br><span class="line"></span><br><span class="line">SQL*Plus: <span class="operator"><span class="keyword">Release</span> <span class="number">12.1</span>.0.2.0 Production <span class="keyword">on</span> Tue Jul <span class="number">28</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">51</span> <span class="number">2015</span></span><br><span class="line"></span><br><span class="line">Copyright (c) <span class="number">1982</span>, <span class="number">2014</span>, Oracle.  <span class="keyword">All</span> rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected <span class="keyword">to</span>:</span><br><span class="line">Oracle <span class="keyword">Database</span> <span class="number">12</span>c Enterprise Edition <span class="keyword">Release</span> <span class="number">12.1</span>.0.2.0 - <span class="number">64</span><span class="built_in">bit</span> Production</span><br><span class="line"><span class="keyword">With</span> the Partitioning, OLAP, Advanced Analytics <span class="keyword">and</span> <span class="built_in">Real</span> Application Testing options</span><br><span class="line"><span class="keyword">SQL</span>&gt; <span class="keyword">create</span> pfile=<span class="string">'/tmp/pfile.bac'</span> <span class="keyword">from</span> spfile;</span></span><br></pre></td></tr></table></figure></p>
+<p>手动修改这个临时的pfile中的内存指定值：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@em ~]<span class="comment"># cat /tmp/pfile.bac </span></span><br><span class="line">......</span><br><span class="line">*.memory_target=<span class="number">3221225472</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>然后以这个临时文件试着启动数据库实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; startup pfile=/tmp/pfile.bac</span><br><span class="line">ORA-00845: MEMORY_TARGET not supported on this system</span><br></pre></td></tr></table></figure>
+<p>启动失败了，又遇到了ORA-00845错误。导致该错误的原因是系统中tmpfs的空间不足。可以先查看一下系统的tmpfs空间：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@em ~]<span class="comment"># df -h</span></span><br><span class="line">Filesystem                 Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg_em-lv_root   <span class="number">50</span>G   <span class="number">20</span>G   <span class="number">28</span>G  <span class="number">42</span>% /</span><br><span class="line">tmpfs                      <span class="number">2.0</span>G  <span class="number">424</span>K  <span class="number">2.0</span>G   <span class="number">1</span>% /dev/shm</span><br><span class="line">/dev/sda1                  <span class="number">477</span>M   <span class="number">55</span>M  <span class="number">397</span>M  <span class="number">13</span>% /boot</span><br><span class="line">/dev/mapper/vg_em-lv_home   <span class="number">73</span>G   <span class="number">54</span>M   <span class="number">69</span>G   <span class="number">1</span>% /home</span><br><span class="line">Desktop1                   <span class="number">147</span>G   <span class="number">99</span>G   <span class="number">49</span>G  <span class="number">67</span>% /home/oracle/win</span><br></pre></td></tr></table></figure></p>
+<p>可以看到tmpfs可用空间发现只有2G可用，显然是不够的，按照下面的方法，增加tmpfs的空间：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@em ~]<span class="comment"># mount -t tmpfs shmfs -o size=3500m /dev/shm</span></span><br><span class="line">[root@em ~]<span class="comment"># df -h</span></span><br><span class="line">Filesystem                 Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg_em-lv_root   <span class="number">50</span>G   <span class="number">20</span>G   <span class="number">28</span>G  <span class="number">42</span>% /</span><br><span class="line">tmpfs                      <span class="number">3.5</span>G     <span class="number">0</span>  <span class="number">3.5</span>G   <span class="number">0</span>% /dev/shm</span><br><span class="line">/dev/sda1                  <span class="number">477</span>M   <span class="number">55</span>M  <span class="number">397</span>M  <span class="number">13</span>% /boot</span><br><span class="line">/dev/mapper/vg_em-lv_home   <span class="number">73</span>G   <span class="number">54</span>M   <span class="number">69</span>G   <span class="number">1</span>% /home</span><br><span class="line">Desktop1                   <span class="number">147</span>G   <span class="number">99</span>G   <span class="number">49</span>G  <span class="number">67</span>% /home/oracle/win</span><br><span class="line">shmfs                      <span class="number">3.5</span>G     <span class="number">0</span>  <span class="number">3.5</span>G   <span class="number">0</span>% /dev/shm</span><br></pre></td></tr></table></figure></p>
+<p>修改/etc/fstab，确保系统重新启动时tmpfs的设置依然有效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@em ~]<span class="comment"># vim /etc/fstab </span></span><br><span class="line"><span class="comment">#在文件的最后加入如下一行</span></span><br><span class="line">tmpfs          /dev/shm         tmpfs          size=<span class="number">3500</span>m         <span class="number">0</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>最后，再次以临时pfile启动数据库实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; startup pfile=/tmp/pfile.bac</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 3221225472 bytes</span><br><span class="line">Fixed Size		    2929552 bytes</span><br><span class="line">Variable Size		 1879051376 bytes</span><br><span class="line">Database Buffers	 1325400064 bytes</span><br><span class="line">Redo Buffers		   13844480 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br></pre></td></tr></table></figure>
+<p>然后按照临时pfile中的内容重新创建pfile：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; CREATE SPFILE FROM PFILE;</span><br><span class="line"></span><br><span class="line">File created.</span><br></pre></td></tr></table></figure>
+<p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在安装Oracle Database 12c后，启动数据库时，可能会遇到下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><b]]>
+    </summary>
+    
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+    
+      <category term="ORA-00838" scheme="http://xintq.net/tags/ora-00838/"/>
+    
+      <category term="ORA-00845" scheme="http://xintq.net/tags/ora-00845/"/>
+    
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
+    
+      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[手把手教你搭建Oracle Secure Global Desktop演示环境]]></title>
@@ -1843,110 +1887,6 @@ Hello, John
       <category term="本地接口" scheme="http://xintq.net/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/"/>
     
       <category term="java" scheme="http://xintq.net/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[我的 Linux 学习经历]]></title>
-    <link href="http://xintq.net/2014/07/31/%E6%88%91%E7%9A%84%20Linux%20%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/"/>
-    <id>http://xintq.net/2014/07/31/我的 Linux 学习经历/</id>
-    <published>2014-07-30T16:56:18.000Z</published>
-    <updated>2015-06-02T02:02:17.241Z</updated>
-    <content type="html"><![CDATA[<p>本文写于2007年，原题是《我的 FC 学习经历》。那时我研究生一年级，在折腾了半年 Linux 之后，把各种感慨总结了一下。原题目中的 FC 就是现在 Redhat 的官方社区版 Fedora Core 的缩写。</p>
-<p>记得当时我只有一个四手的 Thinkpad T20，900元淘来的，配置很低，CUP 是 P3 的，只有256MB 的内存，20GB 硬盘。但是，这对于那个时候的我来说，已经是很奢侈的配置了。</p>
-<p>当时的教研室有几个师兄，很迷恋 Linux，也很喜欢折腾各种 Linux 的发行版，我也加入了进去，希望在自己配置很低的小本子上，能捣鼓出一台运行流畅而且很 NB 的发行版。</p>
-<p>于是乎，折腾开始了。</p>
-<p>和很多大学生一样，我最早接触的 Linux 发行版本是 Redhat，但是当时自己的基础实在太差，分区啊，命令啊，啥都不懂，很多基础的概念都闹不明白，系统老是装不起来，老不容易装上了也不会操作，最后顶多也就是看看而已。</p>
-<p>2006年，读研之后，当时教研室也是各种发行版，有的人用 FC，有的人钟爱 Debian，有的人迷恋 Ubuntu（那个时候 Ubuntu 刚出，还免费送光盘呢）。自然而然的，我选择了 FC，毕竟和 Redhat 一样的，亲切。其实下面的文章就是当时配置好了 FC 之后的总结。</p>
-<p>坦白的说，我到2008年开始，就不再使用 FC 了，转向了一个更加小众的发行版 Archlinux。主要的原因，有两点：</p>
-<ul>
-<li><strong>客观原因</strong>：我的 T20 配置太差，跑 FC 和 Debian 之类的大发行版太慢了，我需要一个轻量级的发行版，实现最大程度的自定义</li>
-<li><strong>主观原因</strong>：Archlinux 的思想我很认同，到现在也是，KISS 原则，即 <em>Keep it simple and stupid</em></li>
-</ul>
-<p>我使用了将近三年的 Archlinux，直到2010年，我的工资能支付起一台新的 Thinkpad，也就是那个时候开始，我暂时告别了 Linux，进入了世俗的 Windows 世界。</p>
-<p>2009年，我参加工作，在 Panasonic 做软件开发，那时候才发现，原来企业里面用的还是 Redhat多，即使不用 Redhat，也用比较稳定的 CentOS。</p>
-<p>于是乎，我开始接触并学习了 CentOS。再后来，参加 RHCE 认证考试，也就100%的选择和使用 Redhat 系列的 Linux 发行版了。</p>
-<p>无独有偶，2011年的时候，我开始接触开源的虚拟化解决方案，使用了一个叫做 Proxmox 的虚拟机管理系统，是基于 Debian 的，于是又把之前扔掉的 Ubuntu 的一些命令和知识点捡了捡，学了一整子 Debian。</p>
-<p>总结起来，我的Linux学习历程如下：</p>
-<ul>
-<li>2004 ~ 2006 <strong>Redhat, 红旗 Linux</strong>：系统安装，图形界面的简单操作，LPI认证等</li>
-<li>2007 ~ 2008 <strong>Fedora Core, Ubuntu, Debian, Slackware</strong>：各种桌面管理器（Gnome, KDE, XFce, FVWM, LXDE）的配置，中文支持，程序编译，Windows 替代软件的使用等</li>
-<li>2008 ~ 2010 <strong>Archlinux</strong>：完全代替 Winodows，日常使用的 OS</li>
-<li>2011 ~ 2014 <strong>CentOS, RHEL</strong>：软件开发，环境配置，RHCE 认证考试</li>
-<li>2012 ~ 2014 <strong>Debian</strong>：虚拟机的配置，管理</li>
-<li>2013 ~ 现在 <strong>MacOS（FreeBSD）</strong>：日常使用的 OS（Macbook pro 13’）</li>
-</ul>
-<hr>
-<p>（以下是原文）</p>
-<p>因为研究工作的需要，我选择了 Linux 作为工作环境，以前只是兴趣索然而去玩 Linux，而这次是来真的，我用了大约一个礼拜对时间才把基本的环境配置好，真是太折磨人了！但是，现在用起来还真顺手，心里有一种成就感。也许这就是 Linux 的魅力所在吧: 必先苦其心志，才能得到最后的果实。</p>
-<p>为了纪念这段难忘的经历，我把它都写下来。如果哪位朋友不幸看到了，如果对你有帮助对话那就更好了。</p>
-<p>我选择的系统是 Fedora Core 6， 还是一个比较新的系统版本。因为以前用过 RedHat。 想必这俩个本是一家的 OS 也应该有几分相似。幸亏有师兄帮忙，要不然就更费事了。</p>
-<h3 id="系统安装—-进不了图形界面">系统安装—-进不了图形界面</h3><p>从安装开始我就感觉前途迷茫了。因为师兄是从 iso 镜像直接安装的。具体的安装方法网上到处都是，就不再说明了。</p>
-<p>问题就出在安装之后 X 怎么也启动不起来，一直报错说什么没有找到显卡缓存，或者没有正确配置显示器之类的。我上网查了一下，有人说什么把 BIOS 里对显卡设置从 1M 改到 8M。我看了一下，我的本来就是8M。</p>
-<p>最后没有办法，我放弃了，选择重装。但是当我第二次引导的时候我看到里有 “update the system” 选择(具体记不住了，反正就是类似于更新，升级之类的话)。死马当活马医，我选择了升级系统。不料，升级完毕之后就能进入图形界面了。</p>
-<p>这个问题到现在我还不知道是为什么。我的显卡是 Intel845 集成显卡。同样的问题发生在我同学的机器上，解决方法也一样，见鬼了!</p>
-<pre><code><span class="label">NOTE: </span>当你 FC6 进入不了图形界面时，不要着急重新安装，做一次系统升级试一试。
-</code></pre><h3 id="字体配置—-中文乱码">字体配置—-中文乱码</h3><p>中国人使用 Linux 最郁闷的就是汉字的显示问题。在这个万码奔腾的年代，虽然有UTF-8的包容。但是面对各种本地化的汉字编码，该乱的时候还是乱了。</p>
-<p>FC6 默认的汉字编码是 zh_CN.UTF-8， 在访问 Windows 分区的时候会有乱码，曾经有人建议说改一些配置文件:</p>
-<ul>
-<li>/etc/sysconfig/i18n</li>
-<li>~/.bashrc</li>
-<li>~/.bash_profile</li>
-<li>甚至还有 /etc/environment. </li>
-</ul>
-<p>这些文件我都改过，无非是加入以下几行内容:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LANGUAGE=<span class="string">"zh_CN.GB18030:zh_CN.GB2312:zh_CN"</span></span><br><span class="line">SUPPORTED=<span class="string">"zh_CN.GB18030:zh_CN:en_US.UTF-8:en_US:en"</span></span><br><span class="line">SYSFONT=<span class="string">"lat0-sun16"</span></span><br><span class="line"><span class="built_in">export</span> LC_ALL=<span class="string">"zh_CN.GB18030"</span></span><br></pre></td></tr></table></figure></p>
-<p>这样的改法很恐怖，因为改完了之后终端里面是没有什么乱码了。但是，Windows 分区里面的乱码怎么也消除不了，有的汉字能显示，有的不能。不管我怎么改，用 locale 查看的时候 LANG 始终都是 zh_CN.UTF-8。</p>
-<p>最后我干脆不改了，想要恢复到初始时候的样子，于是又一顿叨逼叨。</p>
-<pre><code>NOTE： 当你想要改变系统的设置时，不要轻易改动 <span class="regexp">/etc 下的文件，推荐的做法是在你的 ~/</span> 下进行修改。
-</code></pre><p>我先将系统的编码恢复到zh_CN.UTF-8。然后 </p>
-<pre><code><span class="title">vim</span> ~/.i18n
-</code></pre><p>在这个文件里也加入了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG=<span class="string">"zh_CN.UTF-8"</span></span><br></pre></td></tr></table></figure></p>
-<p>其实这句不加都行，如果你想改成其他的编码，就改这个文件吧。<br>在 ~/.bashrc 里面加入:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LC_TYPE=<span class="string">"zh_CN"</span></span><br><span class="line"><span class="built_in">export</span> LANG=<span class="string">"zh_CN.UTF-8"</span></span><br></pre></td></tr></table></figure></p>
-<p>这样一来，Windows 分区的乱码解决了。对了，要在开机时自动挂载 Windows 分区，还需要在 /etc/fstab 中加入下面几行:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/dev/hda1 /mnt/c vfat user,rw,<span class="built_in">exec</span>,<span class="built_in">umask</span>=<span class="number">000</span>,codepage=<span class="number">936</span>,iocharset=cp936,shortname=mixed  <span class="number">0</span>  <span class="number">0</span></span><br><span class="line">/dev/hda5 /mnt/d vfat user,rw,<span class="built_in">exec</span>,<span class="built_in">umask</span>=<span class="number">000</span>,codepage=<span class="number">936</span>,iocharset=cp936,shortname=mixed  <span class="number">0</span>  <span class="number">0</span></span><br><span class="line">/dev/hda6 /mnt/e vfat user,rw,<span class="built_in">exec</span>,<span class="built_in">umask</span>=<span class="number">000</span>,codepage=<span class="number">936</span>,iocharset=cp936,shortname=mixed  <span class="number">0</span>  <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
-<p>现在的问题是用 vim 时，中文显示还是乱码，我在 ~/.vimrc 中加入了下面几行:<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &amp;termencoding=&amp;encoding</span><br><span class="line"><span class="keyword">set</span> fileencodings=utf-<span class="number">8</span>,gbk,ucs-bom,cp936</span><br></pre></td></tr></table></figure></p>
-<p>这样，vim 中的乱码就全部解决了。</p>
-<p>至此，系统的乱码问题基本上算是解决了，但是还遗留了不少问题，如:</p>
-<ul>
-<li>使用者 gftp 访问 Windows 下的 ftp 时中文目录会有乱码(网上说要打补丁，我嫌麻烦，用 lftp 了);</li>
-<li>在终端下用 less 或者 more 查看中文文档时还会出现乱码;</li>
-</ul>
-<p>这些问题如果哪位牛人能解决不妨告诉大家。</p>
-<h3 id="桌面环境—-XFce_4">桌面环境—-XFce 4</h3><p>装完 FC6 之后，Gnome 的桌面很让人震撼，窗口特效非常棒，巨炫，但是，这些都是以更多的 cpu 和内存消耗为代价的。如果你追求完美，喜欢漂亮华丽的桌面，推荐使用 Gnome，感觉比 Vista 要好很多。其实，在这个版本里，还有两个主题: <strong>KDE</strong> 和 <strong>XFce</strong>。 </p>
-<p>KDE 大家都不陌生，庞大而笨重，但是提供了更多的功能，我系统里的中文字体就是在 KDE 下用图形界面装的，很省事(不要见笑，毕竟是初学者)。但是 KDE 很不稳定，里面有很多的程序用一会儿就崩溃了，而且巨耗资源。</p>
-<p>XFce 我个人看来是很完美的选择。FC6 里面带有 XFce4 的安装包，它占用系统资源少，速度快。是务实、简约的代表。当然，它也有毛病。在 XFce 里提供了很多的设置选项，比如说 Settings Manager，你可以高度自定义桌面的风格，但是不要太贪心，里面的一些功能如: Splash Screen， Window Manager 等最好不要改动，因为把系统主题或者图标更改之后，桌面就会死掉，任凭你重启多少次也进不去 XFce 桌面。</p>
-<p>这个问题的解决办法是，换个主题曲（如 Gnome）或直接进入字符终端，把在 ~/.config/ 里面以 .Xfce* 打头的文件全部删除，接着来个 Ctr + Alt + Backspace ，重新启动 X， 在会话里选择 XFce，重新设置。</p>
-<h3 id="输入法_—-_小企鹅输入法">输入法 —- 小企鹅输入法</h3><p>虽然在 FC6 里面自带了 SCIM 输入法，但是它的智能拼音经常出现一些不智能的毛病，比如说诺大的工具栏每次都要手动隐藏，输入汉字时输入框老是会定位在一个很 SB 的地方，但是，值得称赞的是智能拼音提供了用音调选字，很不错的。</p>
-<p>但是，我还是选择了 Fcitx (小企鹅输入法)。</p>
-<p>要想使用 Fcitx，必须屏蔽掉 SCIM，可以在 ~/ 下建立 .xinput.d/zh_CN，在里面输入:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">XIM=fcitx</span><br><span class="line">XIM_PROGRAM=fcitx</span><br><span class="line">GTK_IM_MODULE=fcitx</span><br><span class="line">XMODIFIERS=<span class="string">"@im=fcitx"</span></span><br><span class="line">gnome-im-settings-daemon &gt;/dev/null</span><br></pre></td></tr></table></figure></p>
-<p>然后在 /etc/X11/xinit/ 中把 xinputrc 的原来的内容全部注释掉(用#)，加入下面的内容:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    XIM=fcitx</span><br><span class="line">    XIM_PROGRAM=fcitx</span><br><span class="line">    GTK_IM_MODULE=fcitx</span><br><span class="line">    XMODIFIERS=<span class="string">"@im=fcitx"</span></span><br><span class="line">    gnome-im-settings-daemon &gt;/dev/null</span><br><span class="line">```language</span><br></pre></td></tr></table></figure></p>
-<p>重新启动 X 界面，就能看到小企鹅已经出来了。</p>
-<p>至此，系统基本上配置好了，至于像多媒体播放等方面的东西就太多了。如果听歌的话，建议使用 xmms，简单易用，还好安装；如果装了 wma 的解码器仍然放不了 wma 的话，不妨找到libwma.so，拷贝到 ~/.xmms/Plugins/ 里面。</p>
-<p>这只是我初次使用 FC6 时的遇到一些问题和解决方法，乱糟糟的，没有多少条理；如果有什么更好的方法，大家交流一下。</p>
-<hr>
-<p>(END)</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>本文写于2007年，原题是《我的 FC 学习经历》。那时我研究生一年级，在折腾了半年 Linux 之后，把各种感慨总结了一下。原题目中的 FC 就是现在 Redhat 的官方社区版 Fedora Core 的缩写。</p>
-<p>记得当时我只有一个四手的 Thinkpad ]]>
-    </summary>
-    
-      <category term="archlinux" scheme="http://xintq.net/tags/archlinux/"/>
-    
-      <category term="debian" scheme="http://xintq.net/tags/debian/"/>
-    
-      <category term="fc" scheme="http://xintq.net/tags/fc/"/>
-    
-      <category term="fcitx" scheme="http://xintq.net/tags/fcitx/"/>
-    
-      <category term="linux" scheme="http://xintq.net/tags/linux/"/>
-    
-      <category term="ubuntu" scheme="http://xintq.net/tags/ubuntu/"/>
-    
-      <category term="vi" scheme="http://xintq.net/tags/vi/"/>
-    
-      <category term="经验" scheme="http://xintq.net/tags/%E7%BB%8F%E9%AA%8C/"/>
-    
-      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
   </entry>
   
