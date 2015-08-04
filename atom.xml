@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xintq.net/"/>
-  <updated>2015-08-04T07:53:14.854Z</updated>
+  <updated>2015-08-04T08:08:49.329Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -13,6 +13,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成]]></title>
+    <link href="http://xintq.net/2015/08/04/sgd-oem-integration/"/>
+    <id>http://xintq.net/2015/08/04/sgd-oem-integration/</id>
+    <published>2015-08-04T08:02:24.000Z</published>
+    <updated>2015-08-04T08:08:49.329Z</updated>
+    <content type="html"><![CDATA[<h2 id="前提条件">前提条件</h2><ul>
+<li><p>Oracle Enterprise Manager Cloud Control 12c Release 4 (12.1.0.4)  已经安装好，并可以从 <a href="https://oem.example.com:7802/em" target="_blank" rel="external">https://oem.example.com:7802/em</a> 访问到</p>
+<p>  EM12c的安装过程看<a href="http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/" target="_blank" rel="external">这里</a>。</p>
+</li>
+<li><p>Oracle Secure Global Desktop version 5.2 已经安装好，并可以从 <a href="https://demo.example.com" target="_blank" rel="external">https://demo.example.com</a> 访问到</p>
+<p>  SGD5.2的安装过程看<a href="http://xintq.net/2015/07/03/sgd-demo-stepbystep/" target="_blank" rel="external">这里</a>。</p>
+</li>
+</ul>
+<h2 id="SGD服务器侧的设置">SGD服务器侧的设置</h2><p>登陆到SGD服务器中，并创建<code>oracle</code>用户，并将<code>oracle</code>用户组中加入<code>ttaserv</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@demo ~]<span class="comment"># groupadd oinstall</span></span><br><span class="line">[root@demo ~]<span class="comment"># useradd -G ttaserv,oinstall oracle</span></span><br><span class="line">[root@demo ~]<span class="comment"># passwd oracle</span></span><br><span class="line">[root@demo ~]<span class="comment"># id oracle</span></span><br><span class="line">uid=<span class="number">504</span>(oracle) gid=<span class="number">504</span>(oracle) groups=<span class="number">504</span>(oracle),<span class="number">500</span>(ttaserv),<span class="number">505</span>(oinstall)</span><br></pre></td></tr></table></figure></p>
+<p>以root用户修改sudoers文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@demo ~]<span class="comment"># visudo</span></span><br><span class="line"><span class="comment">#Defaults    requiretty</span></span><br><span class="line">Defaults    !requiretty</span><br><span class="line"></span><br><span class="line"><span class="comment">#Defaults   !visiblepw</span></span><br><span class="line">Defaults   visiblepw</span><br><span class="line">...</span><br><span class="line"><span class="comment">## Allows people in group wheel to run all commands</span></span><br><span class="line"><span class="comment"># %wheel        ALL=(ALL)       ALL</span></span><br><span class="line">oracle  ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure></p>
+<h2 id="Oracle_Enterprise_Manager_12c中的操作步骤">Oracle Enterprise Manager 12c中的操作步骤</h2><p>以下所有操作都是在登录到EM之后进行的。</p>
+<h3 id="在线更新EM的Plugins软件仓库">在线更新EM的Plugins软件仓库</h3><p>首先确保EM主机能连接外网。以sysman用户名登录到EM之后，选择<code>Setup</code> — <code>My Oracle Support</code> — <code>Set Credentials</code>，然后输入在Oracle注册的账号和密码，最后点击<code>Apply</code>。</p>
+<p><img src="/img/post/oem-sgd-01.png" alt="Set Credentials"></p>
+<p>再次选择<code>Setup</code> — <code>Extensibility</code> — <code>Self Update</code>。</p>
+<p><img src="/img/post/oem-sgd-02.png" alt="Self Update"></p>
+<p>在Self Update页面的Status部分，选择<code>Check Updates</code>，同时确保Connection Mode是<code>Online</code>状态。</p>
+<p><img src="/img/post/oem-sgd-03.png" alt="Self Update-Check Updates"></p>
+<h3 id="将SGD插件下载到OMR中">将SGD插件下载到OMR中</h3><p>等待几分钟，待所有数据更新完毕之后，在列表中找到Plug-in部分，点击进去。</p>
+<p><img src="/img/post/oem-sgd-04.png" alt="Self Update-Check Updates-Plugin"></p>
+<p>在Plug-in页面中，向下滚动找到Oracle Secure Global Desktop和Oracle Secure Global Desktop Gateway两个插件所在的行，选择其中一个插件，先点击列表上方的<code>Download</code>，等待几秒中，直到下载完成。</p>
+<h3 id="将SGD插件部署到到OMS中">将SGD插件部署到到OMS中</h3><p>提示下载完成后，点击<code>Apply</code>，完成在OMS中插件的部署。</p>
+<p><img src="/img/post/oem-sgd-05.png" alt="Plugin"></p>
+<p>在点击上图的<code>Apply</code>之后，会弹出提示画面，这时点击<code>OK</code>。</p>
+<p><img src="/img/post/oem-sgd-06.png" alt="Plugin-Apply"></p>
+<h3 id="添加SGD主机并设置自动安装agent">添加SGD主机并设置自动安装agent</h3><p><img src="/img/post/oem-sgd-09.png" alt="Add Targets manually"></p>
+<p>输入SGD主机名<code>demo.example.com</code>，选择Platform为<code>Linux x86-64</code>，并点击<code>Next</code>。<br><img src="/img/post/oem-sgd-10.png" alt="Add Host Targets: Host and Platform"></p>
+<p>这时有一些必填选项需要输入：</p>
+<ul>
+<li>Installation Base Directory：这是agent的安装目录，这里填写<code>/home/oracle/agentHome</code></li>
+<li>Instance Directory：这是配置文件的保存位置，上面的选项填写完成后，这里会自动补全为<code>/home/oracle/agentHome/agent_inst</code></li>
+<li>Named Credential：是安装agent时所用的用户名和密码，这里在弹出的窗口中填写之前在SGD服务器上已经创建好的<code>oracle</code>用户及其密码。</li>
+</ul>
+<p><img src="/img/post/oem-sgd-11.png" alt="Add Host Targets: Installation Details-Mandatory Inputs"></p>
+<p>全部内容填写完毕之后，点击<code>Next</code>。<br><img src="/img/post/oem-sgd-12.png" alt="Add Host Targets: Installation Details-OK"></p>
+<p>最后检查一些配置信息，确认无误的话，点击<code>Deploy Agent</code>开始自动安装过程。<br><img src="/img/post/oem-sgd-13.png" alt="Add Host Targets: Review"></p>
+<p>等待几分钟后，直到所有的步骤完成，点击<code>Done</code>。<br><img src="/img/post/oem-sgd-14.png" alt="Add Host Targets: Review"></p>
+<h3 id="将带有Agent的SGD主机设置为SGD插件的监视目标">将带有Agent的SGD主机设置为SGD插件的监视目标</h3><p>登录到EM之后，选择右上角的<code>Setup</code> — <code>Add Target</code> — <code>Add Targets Manually</code>。在Add Targets manually页面中选择<code>Add Targets Declaratively by Specifying Target Monitoring Properties</code>，<code>Target Type</code>中选择<code>Oracle Secure Global Desktop</code>。</p>
+<p><img src="/img/post/oem-sgd-15.png" alt="Add Targets manually"></p>
+<p>在<code>Monitoring Agent</code>右侧，点击图标，在弹出窗口中选择<code>demo.example.com:3872</code>，点击<code>Select</code>。</p>
+<p><img src="/img/post/oem-sgd-16.png" alt="Add Targets manually - Monitoring Agent"></p>
+<p>回到主画面后，<code>Monitoring Agent</code>中会出现<code>demo.example.com:3872</code>，点击<code>Add Manually...</code>。</p>
+<p>在<code>Target Name</code>中输入监视目标的名字，这里暂时命名为<code>SGD_SERVER_2</code>。<code>Secure Global Desktop Monitoring Credentials</code>中输入SGD管理员的用户名和密码，这里输入root用户名和密码。<code>Secure Global Desktop Installation Directory</code>中输入安装路径，这里使用SGD的默认安装路径<code>/opt/tarantella</code>。<code>Secure Global Desktop Web Services Port</code>中输入<code>80</code>，该端口是SGD Web服务器在本地接口上用于非安全的Web服务连接时用到的，默认安装情况下，总是使用80端口。最后点击<code>OK</code>以完成添加过程。</p>
+<p><img src="/img/post/oem-sgd-17.png" alt="Add: Oracle Secure Global Desktop"></p>
+<p>之后就可以在<code>Targets</code> — <code>All Targets</code> — <code>Target Type</code> — <code>Server, Storage and Network</code>中看到<code>Oracle Secure Global Desktop</code>，点击刚才添加的<code>SGD_SERVER_2</code>，就可以看到如下EM中的监视画面了。</p>
+<p><img src="/img/post/oem-sgd-18.png" alt="Monitor SGD Host in EM"></p>
+<h2 id="那么SGD_Gateway如何监视">那么SGD Gateway如何监视</h2><p>EM也可以监视SGD Gateway主机，基本操作步骤和监视SGD主机类似。这里就不再赘述。</p>
+<p>(END)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="前提条件">前提条件</h2><ul>
+<li><p>Oracle Enterprise Manager Cloud Control 12c Release 4 (12.1.0.4)  已经安装好，并可以从 <a href="https://oem.example]]>
+    </summary>
+    
+      <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
+    
+      <category term="oem" scheme="http://xintq.net/tags/oem/"/>
+    
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
+    
+      <category term="sgd5.2" scheme="http://xintq.net/tags/sgd5-2/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Oracle Enterprise Manager 12c 安装过程]]></title>
@@ -2014,31 +2085,6 @@ thirtyfour <span class="comment">--&gt; thirty4</span>
       <category term="替换" scheme="http://xintq.net/tags/%E6%9B%BF%E6%8D%A2/"/>
     
       <category term="正则表达式" scheme="http://xintq.net/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Linux下合并PDF文件]]></title>
-    <link href="http://xintq.net/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/"/>
-    <id>http://xintq.net/2014/07/31/Linux下合并PDF文件/</id>
-    <published>2014-07-31T02:19:56.000Z</published>
-    <updated>2015-06-02T01:43:53.894Z</updated>
-    <content type="html"><![CDATA[<p>Mark一下，Linux下合并PDF文件可以使用Gost Script和PDFtk。</p>
-<h2 id="运行如下命令：">运行如下命令：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gs -q <span class="operator">-d</span>NOPAUSE <span class="operator">-s</span>DEVICE=pdfwrite <span class="operator">-s</span>OUTPUTFILE=test.pdf <span class="operator">-d</span>BATCH *.pdf</span><br></pre></td></tr></table></figure>
-<h2 id="结果：">结果：</h2><pre><code>把当前目录下所有的 pdf 文件全部合并到 test<span class="class">.pdf</span> 中。
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<p>Mark一下，Linux下合并PDF文件可以使用Gost Script和PDFtk。</p>
-<h2 id="运行如下命令：">运行如下命令：</h2><figure class="highlight bash"><table><tr><td class="gutter">]]>
-    </summary>
-    
-      <category term="gs" scheme="http://xintq.net/tags/gs/"/>
-    
-      <category term="pdf" scheme="http://xintq.net/tags/pdf/"/>
-    
-      <category term="合并" scheme="http://xintq.net/tags/%E5%90%88%E5%B9%B6/"/>
     
       <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
