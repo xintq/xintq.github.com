@@ -135,8 +135,9 @@ Oracle Secure Global Desktop version 5.2 已经安装好，并可以从 https://
 <p>  SGD5.2的安装过程看<a href="http://xintq.net/2015/07/03/sgd-demo-stepbystep/" target="_blank" rel="external">这里</a>。</p>
 </li>
 </ul>
-<h2 id="SGD服务器侧的设置">SGD服务器侧的设置</h2><p>登陆到SGD服务器中，并创建<code>oracle</code>用户，并将<code>oracle</code>用户组中加入<code>ttaserv</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@demo ~]<span class="comment"># groupadd oinstall</span></span><br><span class="line">[root@demo ~]<span class="comment"># useradd -G ttaserv,oinstall oracle</span></span><br><span class="line">[root@demo ~]<span class="comment"># passwd oracle</span></span><br><span class="line">[root@demo ~]<span class="comment"># id oracle</span></span><br><span class="line">uid=<span class="number">504</span>(oracle) gid=<span class="number">504</span>(oracle) groups=<span class="number">504</span>(oracle),<span class="number">500</span>(ttaserv),<span class="number">505</span>(oinstall)</span><br></pre></td></tr></table></figure></p>
-<p>以root用户修改sudoers文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@demo ~]<span class="comment"># visudo</span></span><br><span class="line"><span class="comment">#Defaults    requiretty</span></span><br><span class="line">Defaults    !requiretty</span><br><span class="line"></span><br><span class="line"><span class="comment">#Defaults   !visiblepw</span></span><br><span class="line">Defaults   visiblepw</span><br><span class="line">...</span><br><span class="line"><span class="comment">## Allows people in group wheel to run all commands</span></span><br><span class="line"><span class="comment"># %wheel        ALL=(ALL)       ALL</span></span><br><span class="line">oracle  ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure></p>
+<h2 id="SGD服务器侧的设置">SGD服务器侧的设置</h2><p>登陆到SGD服务器中，创建<code>oinstall</code>组，创建<code>oracle</code>用户，并将<code>oracle</code>用户组中加入<code>ttaserv</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@demo ~]<span class="comment"># groupadd oinstall</span></span><br><span class="line">[root@demo ~]<span class="comment"># useradd -G ttaserv,oinstall oracle</span></span><br><span class="line">[root@demo ~]<span class="comment"># passwd oracle</span></span><br><span class="line">[root@demo ~]<span class="comment"># id oracle</span></span><br><span class="line">uid=<span class="number">504</span>(oracle) gid=<span class="number">504</span>(oracle) groups=<span class="number">504</span>(oracle),<span class="number">500</span>(ttaserv),<span class="number">505</span>(oinstall)</span><br></pre></td></tr></table></figure></p>
+<p>以root用户修改sudoers文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@demo ~]<span class="comment"># visudo</span></span><br><span class="line"><span class="comment">#Defaults    requiretty</span></span><br><span class="line">Defaults    !requiretty</span><br><span class="line"></span><br><span class="line"><span class="comment">#Defaults   !visiblepw</span></span><br><span class="line">Defaults   visiblepw</span><br><span class="line">...</span><br><span class="line"><span class="comment">## Allows people in group wheel to run all commands</span></span><br><span class="line"><span class="comment"># %wheel        ALL=(ALL)       ALL</span></span><br><span class="line">oracle  ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
 <h2 id="Oracle_Enterprise_Manager_12c中的操作步骤">Oracle Enterprise Manager 12c中的操作步骤</h2><p>以下所有操作都是在登录到EM之后进行的。</p>
 <h3 id="在线更新EM的Plugins软件仓库">在线更新EM的Plugins软件仓库</h3><p>首先确保EM主机能连接外网。以sysman用户名登录到EM之后，选择<code>Setup</code> — <code>My Oracle Support</code> — <code>Set Credentials</code>，然后输入在Oracle注册的账号和密码，最后点击<code>Apply</code>。</p>
 <p><img src="/img/post/oem-sgd-01.png" alt="Set Credentials"></p>
@@ -152,17 +153,21 @@ Oracle Secure Global Desktop version 5.2 已经安装好，并可以从 https://
 <p>在点击上图的<code>Apply</code>之后，会弹出提示画面，这时点击<code>OK</code>。</p>
 <p><img src="/img/post/oem-sgd-06.png" alt="Plugin-Apply"></p>
 <h3 id="添加SGD主机并设置自动安装agent">添加SGD主机并设置自动安装agent</h3><p><img src="/img/post/oem-sgd-09.png" alt="Add Targets manually"></p>
-<p>输入SGD主机名<code>demo.example.com</code>，选择Platform为<code>Linux x86-64</code>，并点击<code>Next</code>。<br><img src="/img/post/oem-sgd-10.png" alt="Add Host Targets: Host and Platform"></p>
+<p>输入SGD主机名<code>demo.example.com</code>，选择Platform为<code>Linux x86-64</code>，并点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-sgd-10.png" alt="Add Host Targets: Host and Platform"></p>
 <p>这时有一些必填选项需要输入：</p>
 <ul>
 <li>Installation Base Directory：这是agent的安装目录，这里填写<code>/home/oracle/agentHome</code></li>
 <li>Instance Directory：这是配置文件的保存位置，上面的选项填写完成后，这里会自动补全为<code>/home/oracle/agentHome/agent_inst</code></li>
-<li>Named Credential：是安装agent时所用的用户名和密码，这里在弹出的窗口中填写之前在SGD服务器上已经创建好的<code>oracle</code>用户及其密码。</li>
+<li>Named Credential：是安装agent时的用户名和密码，这里在弹出的窗口中填写之前在SGD服务器上已经创建好的<code>oracle</code>用户和密码</li>
 </ul>
 <p><img src="/img/post/oem-sgd-11.png" alt="Add Host Targets: Installation Details-Mandatory Inputs"></p>
-<p>全部内容填写完毕之后，点击<code>Next</code>。<br><img src="/img/post/oem-sgd-12.png" alt="Add Host Targets: Installation Details-OK"></p>
-<p>最后检查一些配置信息，确认无误的话，点击<code>Deploy Agent</code>开始自动安装过程。<br><img src="/img/post/oem-sgd-13.png" alt="Add Host Targets: Review"></p>
-<p>等待几分钟后，直到所有的步骤完成，点击<code>Done</code>。<br><img src="/img/post/oem-sgd-14.png" alt="Add Host Targets: Review"></p>
+<p>全部内容填写完毕之后，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-sgd-12.png" alt="Add Host Targets: Installation Details-OK"></p>
+<p>最后检查配置信息，确认无误的话，点击<code>Deploy Agent</code>开始自动安装过程。</p>
+<p><img src="/img/post/oem-sgd-13.png" alt="Add Host Targets: Review"></p>
+<p>等待几分钟后，直到所有的步骤完成，点击<code>Done</code>。</p>
+<p><img src="/img/post/oem-sgd-14.png" alt="Add Host Targets: Review"></p>
 <h3 id="将带有Agent的SGD主机设置为SGD插件的监视目标">将带有Agent的SGD主机设置为SGD插件的监视目标</h3><p>登录到EM之后，选择右上角的<code>Setup</code> — <code>Add Target</code> — <code>Add Targets Manually</code>。在Add Targets manually页面中选择<code>Add Targets Declaratively by Specifying Target Monitoring Properties</code>，<code>Target Type</code>中选择<code>Oracle Secure Global Desktop</code>。</p>
 <p><img src="/img/post/oem-sgd-15.png" alt="Add Targets manually"></p>
 <p>在<code>Monitoring Agent</code>右侧，点击图标，在弹出窗口中选择<code>demo.example.com:3872</code>，点击<code>Select</code>。</p>
