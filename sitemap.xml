@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</loc>
+    <lastmod>2015-09-29T09:11:57.374Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/08/18/oracle-vdi-installation/</loc>
     <lastmod>2015-08-18T05:24:24.809Z</lastmod>
   </url>
