@@ -3,3 +3,6 @@ Disallow:
 
 User-agent: *
 Disallow: /
+
+User-agent: *
+Sitemap: http://xintq.net/sitemap.xml
