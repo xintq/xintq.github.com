@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xintq.net/"/>
-  <updated>2015-11-26T14:02:30.000Z</updated>
+  <updated>2016-01-01T07:37:06.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -13,6 +13,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Mac OS X下的一些常用命令汇总]]></title>
+    <link href="http://xintq.net/2016/01/01/mac-tricks/"/>
+    <id>http://xintq.net/2016/01/01/mac-tricks/</id>
+    <published>2016-01-01T06:51:13.000Z</published>
+    <updated>2016-01-01T07:37:06.000Z</updated>
+    <content type="html"><![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
+<h2 id="通过终端修改Finder">通过终端修改Finder</h2><h3 id="Finder标题中显示文件路径">Finder标题中显示文件路径</h3><p>有时，当你查看某个文件时，你并不知道这个文件所在的路径，尤其是当你打开很多窗口时。下面这条命令可以让文件的路径显示在Finder的标题栏中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES</span><br></pre></td></tr></table></figure>
+<h3 id="Finder中显示隐藏文件">Finder中显示隐藏文件</h3><p>Finder中有很多配置文件默认时隐藏的。如果熟悉命令行，使用<code>ls -a</code>是可以看到并操作这些隐藏文件的。如果怕麻烦，可以做的更绝一点，索性让Finder显示这些隐藏的文件，可以使用下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.finder AppleShowAllFiles TRUE</span><br><span class="line">killall Finder</span><br></pre></td></tr></table></figure>
+<p>如果想恢复默认设置，只需要把上面的<code>True</code>改成<code>FALSE</code>即可。</p>
+<h2 id="修改Dashboard">修改Dashboard</h2><h3 id="在桌面上显示Dashboard组件">在桌面上显示Dashboard组件</h3><p>Dashboard组件这些东西，说实话很鸡肋，我不怎么用。但是如果想在桌面上使用这些组件，可以使用下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dashboard devmode YES</span><br></pre></td></tr></table></figure>
+<h3 id="禁用Dashboard">禁用Dashboard</h3><p>我很不喜欢Dashboard，占内存多，功能鸡肋，所以直接禁用了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dashboard mcx-disabled -boolean YES</span><br><span class="line">killall Dock</span><br></pre></td></tr></table></figure>
+<p>当然，也可以在系统设置（System Preferences）中，选择Mission Control，然后把Dashboard改成<code>Off</code>来关闭。</p>
+<h2 id="其他">其他</h2><h3 id="清除Mac文件“打开方式”中的重复项">清除Mac文件“打开方式”中的重复项</h3><p>在Mac OS X中，当我们选中一个文件想要以某种方式打开该文件的时候，可以选择 右键-打开方式，这里会提示可能适用于打开该文件的软件。不过有的时候，这个“打开方式”列表中会异常的出现很多重复项，而且这个问题目前很常见，想要解决这个问题也很简单，只需要一段终端命令，重建该列表即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain <span class="built_in">local</span> -domain user;killall Finder;<span class="built_in">echo</span> <span class="string">"Open With has been rebuilt, Finder will relaunch"</span></span><br><span class="line">killall Dock</span><br></pre></td></tr></table></figure>
+<p>这个命令可以经常使用，可以简化一下。在主目录下使用下面的命令建立命令别名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.profile</span><br><span class="line"><span class="built_in">alias</span> macxfix=<span class="string">'/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user;killall Finder;echo "Open With has been rebuilt, Finder will relaunch"'</span></span><br></pre></td></tr></table></figure>
+<p>快捷命令设定之后，重启终端应用。这样以后当“打开方式”菜单再出现重复的应用名称时，你只需在终端使用macxfix命令即可搞定！</p>
+<h3 id="调整Launchpad图标大小">调整Launchpad图标大小</h3><p>调整每一列显示的图标数量，6表示显示6个：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dock springboard-rows -int <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>调整每一行显示的图标数量，8表示显示8个：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dock springboard-columns -int <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p>重启Dock和Launchpad</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dock ResetLaunchPad -bool TRUE</span><br><span class="line">killall Dock</span><br></pre></td></tr></table></figure>
+<p>使用下面的命令恢复到默认设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dock springboard-rows Default</span><br><span class="line">defaults write com.apple.dock springboard-columns Default</span><br><span class="line">killall Dock</span><br></pre></td></tr></table></figure>
+<h3 id="释放磁盘空间：禁用SafeSleep休眠模式">释放磁盘空间：禁用SafeSleep休眠模式</h3><p>下面的命令可以关闭OS X原生的休眠功能，也就是SafeSleep。这种休眠模式当Mac休眠或者没电池时会将内存中的内容储存在硬盘上的sleepimage文件上。sleepimage文件与Mac电脑的内存一样大，这意味着如果你的内存是4GB，该文件就有4GB，如果是16GB，该文件就有16GB。关闭SafeSleep可以不让系统自动创建该文件，缺点就是当Mac电脑没电池时，你不能恢复到之前的状态。不过我们可以使用OS X的自动保存功能在电池将要耗尽的时候保存自己的工作。</p>
+<p>有人说在使用固态硬盘（SSD）的时候最好关掉SafeSleep，以减少每次大量读写硬盘（比如16GB的内存，每次休眠和恢复时，都会读写差不多16GB的磁盘内容，好可怕）。</p>
+<p>如果想要禁用SafeSleep功能，需要在终端中输入下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pmset <span class="operator">-a</span> hibernatemode <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>然后定位到/private/var/vm/删除已经存在的sleepimage文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /private/var/vm/</span><br><span class="line">sudo rm sleepimage</span><br></pre></td></tr></table></figure>
+<p>最后要防止OS X继续创建该文件，所以需要下面的命令生成一个无法被替换的空文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch sleepimage</span><br><span class="line">chmod <span class="number">000</span> /private/var/vm/sleepimage</span><br></pre></td></tr></table></figure>
+<p>当然，如果想要重新开启SafeSleep功能，只需下面的命令即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pmset <span class="operator">-a</span> hibernatemode <span class="number">3</span></span><br><span class="line">sudo rm /private/var/vm/sleepimage</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
+<h2 id=]]>
+    </summary>
+    
+      <category term="mac" scheme="http://xintq.net/tags/mac/"/>
+    
+      <category term="osx" scheme="http://xintq.net/tags/osx/"/>
+    
+      <category term="Mac" scheme="http://xintq.net/categories/mac/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[从Oracle Public Yum为Oracle Linux建立本地的Yum源]]></title>
@@ -2104,41 +2157,6 @@ A soulless neckar, <span class="keyword">with</span> winking seas <span class="k
       <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
       <category term="随笔" scheme="http://xintq.net/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Try Octopress on Github: Fast-Forward Error]]></title>
-    <link href="http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/"/>
-    <id>http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/</id>
-    <published>2014-08-06T20:46:39.000Z</published>
-    <updated>2015-11-26T14:02:28.000Z</updated>
-    <content type="html"><![CDATA[<p>今天尝试往 github 上导 octopress，发现了下面的问题：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ! [rejected]        master -&gt; master (non-fast-forward)</span><br><span class="line"><span class="symbol">error:</span> failed to push some refs to <span class="string">'https://github.com/xxx/xxx.github.io'</span></span><br><span class="line"><span class="symbol">hint:</span> <span class="constant">Updates</span> were rejected because the tip of your current branch is behind</span><br><span class="line"><span class="symbol">hint:</span> its remote counterpart. <span class="constant">Integrate</span> the remote changes (e.g.</span><br><span class="line"><span class="symbol">hint:</span> <span class="string">'git pull ...'</span>) before pushing again.</span><br><span class="line"><span class="symbol">hint:</span> <span class="constant">See</span> the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</span><br></pre></td></tr></table></figure></p>
-<p>看了很多地方，发现下面两种解决方法：</p>
-<h2 id="方法一">方法一</h2><p>在执行 <code>rake deploy</code> 之后，octpress 会执行 <code>cd _deploy</code> 命令，进入 _deploy 目录，并且尝试向Github提交更新。也就是说，需要在 _deploy 目录下进行一些设置。</p>
-<p>我的做法是，进入 _deploy 目录，执行：</p>
-<pre><code>git config branch<span class="class">.master</span><span class="class">.remote</span> origin
-git config branch<span class="class">.master</span><span class="class">.merge</span> refs/heads/master
-
-git pull
-</code></pre><p>这样就解决了 no-fast forward 这个错误了，然后就可以把更新提交到 Github，或者重新执行 <code>rake deploy</code>。</p>
-<h2 id="方法二">方法二</h2><p>修改 octopress 下的 Rakefile，那下面的内容：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system <span class="string">"git push origin <span class="subst">#&#123;deploy_branch&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
-<p>改成<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system <span class="string">"git push origin +<span class="subst">#&#123;deploy_branch&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
-<p>就OK了。</p>
-<hr>
-<p>个人认为，方法二比较靠谱，一劳永逸。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天尝试往 github 上导 octopress，发现了下面的问题：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><]]>
-    </summary>
-    
-      <category term="github" scheme="http://xintq.net/tags/github/"/>
-    
-      <category term="markdown" scheme="http://xintq.net/tags/markdown/"/>
-    
-      <category term="octpress" scheme="http://xintq.net/tags/octpress/"/>
-    
-      <category term="文本处理" scheme="http://xintq.net/categories/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
