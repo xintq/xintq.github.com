@@ -115,42 +115,42 @@ cd /    #回到根目录
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#中文乱码"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何卸载呢？"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E2D_u6587_u4E71_u7801"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
 		
 		</div>
 		
 		<p>MacOS下，MySQL的安装方法和Linux下几乎一样，我这里安装后的目录是：</p>
-<pre><code>/usr/<span class="keyword">local</span>/mysql
+<pre><code>/usr/local/mysql
 </code></pre><p>安装之后，发现下面两个问题。</p>
-<h2 id="中文乱码">中文乱码</h2><p>这是由于默认安装的时候，数据库服务器用的是latin的编码所造成的。<br>修改方法如下：</p>
+<h2 id="u4E2D_u6587_u4E71_u7801"><a href="#u4E2D_u6587_u4E71_u7801" class="headerlink" title="中文乱码"></a>中文乱码</h2><p>这是由于默认安装的时候，数据库服务器用的是latin的编码所造成的。<br>修改方法如下：</p>
 <p>打开终端,输入</p>
-<pre><code><span class="built_in">cd</span> /    <span class="comment">#回到根目录</span>
+<pre><code>cd /    #回到根目录
 </code></pre><p>拷贝/usr/local/mysql/support-files下的任意一个*.cnf文件到/etc/my.cnf</p>
 <p>至于拷贝的语句自己百度一下，再就是下面要使用vi来修改文件，所以必须要有一定的vi操作基础</p>
 <p>在my.cnf文件的</p>
 <ul>
 <li><p>［client］后面添加</p>
-<pre><code><span class="keyword">default</span>-character-<span class="keyword">set</span> = utf8
+<pre><code>default-character-set = utf8
 </code></pre></li>
 <li><p>［mysqld］后面添加如下三句：</p>
 <pre><code>default-storage-engine = INNODB
-character-<span class="operator"><span class="keyword">set</span>-<span class="keyword">server</span> = utf8
-<span class="keyword">collation</span>-<span class="keyword">server</span> = utf8_general_ci</span>
+character-set-server = utf8
+collation-server = utf8_general_ci
 </code></pre></li>
 </ul>
 <p>修改完之后，需要重启数据库服务，MacOSX Lion之中，MySQL数据库服务的操作方法如下：</p>
 <ul>
 <li><p>启动Mysql服务</p>
-<pre><code>sudo <span class="regexp">/Library/</span>StartupItems<span class="regexp">/MySQLCOM/</span>MySQLCOM start
+<pre><code>sudo /Library/StartupItems/MySQLCOM/MySQLCOM start
 </code></pre></li>
 <li><p>停止Mysql服务</p>
-<pre><code>sudo <span class="regexp">/Library/</span>StartupItems<span class="regexp">/MySQLCOM/</span>MySQLCOM stop
+<pre><code>sudo /Library/StartupItems/MySQLCOM/MySQLCOM stop
 </code></pre></li>
 <li><p>重启Mysql服务</p>
-<pre><code>sudo <span class="regexp">/Library/</span>StartupItems<span class="regexp">/MySQLCOM/</span>MySQLCOM restart
+<pre><code>sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart
 </code></pre></li>
 </ul>
-<h2 id="如何卸载呢？">如何卸载呢？</h2><p>mac下mysql的DMG格式安装内有安装文件，却没有卸载文件……很郁闷的事。<br>网上搜了一下，发现给的方法原来得手动去删。</p>
+<h2 id="u5982_u4F55_u5378_u8F7D_u5462_uFF1F"><a href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F" class="headerlink" title="如何卸载呢？"></a>如何卸载呢？</h2><p>mac下mysql的DMG格式安装内有安装文件，却没有卸载文件……很郁闷的事。<br>网上搜了一下，发现给的方法原来得手动去删。</p>
 <p>很多文章记述要删的文件不完整，后来在stackoverflow 这里发现了一个遗漏的地方，所以将完整版记述在这里，以供查阅。</p>
 <p>先停止所有mysql有关进程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">sudo rm -rf /usr/<span class="built_in">local</span>/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-</span><br><span class="line">rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br></pre></td></tr></table></figure>
@@ -222,7 +222,7 @@ character-<span class="operator"><span class="keyword">set</span>-<span class="k
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#中文乱码"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何卸载呢？"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E2D_u6587_u4E71_u7801"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
  
   </div>
 

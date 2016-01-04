@@ -124,7 +124,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前提"><span class="toc-number">2.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成证书"><span class="toc-number">3.</span> <span class="toc-text">生成证书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成私钥"><span class="toc-number">3.1.</span> <span class="toc-text">生成私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从私钥中删除pass_phrase"><span class="toc-number">3.2.</span> <span class="toc-text">从私钥中删除pass phrase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成证书-1"><span class="toc-number">3.3.</span> <span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建自签署证书"><span class="toc-number">3.4.</span> <span class="toc-text">创建自签署证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改证书和密钥的权限"><span class="toc-number">3.5.</span> <span class="toc-text">修改证书和密钥的权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL设置"><span class="toc-number">4.</span> <span class="toc-text">SSL设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#确认Server_Name是否和刚次生成证书是输入的Common_Name一致"><span class="toc-number">4.1.</span> <span class="toc-text">确认Server Name是否和刚次生成证书是输入的Common Name一致</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置刚才生成的证书和公钥到apache中"><span class="toc-number">5.</span> <span class="toc-text">配置刚才生成的证书和公钥到apache中</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重启apache"><span class="toc-number">6.</span> <span class="toc-text">重启apache</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试（IE这货就不测了，Proxmox不支持IE，赞）"><span class="toc-number">7.</span> <span class="toc-text">测试（IE这货就不测了，Proxmox不支持IE，赞）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Firefox"><span class="toc-number">7.1.</span> <span class="toc-text">Firefox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chrome的结果"><span class="toc-number">7.2.</span> <span class="toc-text">Chrome的结果</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6982_u5FF5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u63D0"><span class="toc-number">2.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u751F_u6210_u8BC1_u4E66"><span class="toc-number">3.</span> <span class="toc-text">生成证书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u751F_u6210_u79C1_u94A5"><span class="toc-number">3.1.</span> <span class="toc-text">生成私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4ECE_u79C1_u94A5_u4E2D_u5220_u9664pass_phrase"><span class="toc-number">3.2.</span> <span class="toc-text">从私钥中删除pass phrase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u751F_u6210_u8BC1_u4E66-1"><span class="toc-number">3.3.</span> <span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u521B_u5EFA_u81EA_u7B7E_u7F72_u8BC1_u4E66"><span class="toc-number">3.4.</span> <span class="toc-text">创建自签署证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4FEE_u6539_u8BC1_u4E66_u548C_u5BC6_u94A5_u7684_u6743_u9650"><span class="toc-number">3.5.</span> <span class="toc-text">修改证书和密钥的权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL_u8BBE_u7F6E"><span class="toc-number">4.</span> <span class="toc-text">SSL设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u786E_u8BA4Server_Name_u662F_u5426_u548C_u521A_u6B21_u751F_u6210_u8BC1_u4E66_u662F_u8F93_u5165_u7684Common_Name_u4E00_u81F4"><span class="toc-number">4.1.</span> <span class="toc-text">确认Server Name是否和刚次生成证书是输入的Common Name一致</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u914D_u7F6E_u521A_u624D_u751F_u6210_u7684_u8BC1_u4E66_u548C_u516C_u94A5_u5230apache_u4E2D"><span class="toc-number">5.</span> <span class="toc-text">配置刚才生成的证书和公钥到apache中</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u91CD_u542Fapache"><span class="toc-number">6.</span> <span class="toc-text">重启apache</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6D4B_u8BD5_uFF08IE_u8FD9_u8D27_u5C31_u4E0D_u6D4B_u4E86_uFF0CProxmox_u4E0D_u652F_u6301IE_uFF0C_u8D5E_uFF09"><span class="toc-number">7.</span> <span class="toc-text">测试（IE这货就不测了，Proxmox不支持IE，赞）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Firefox"><span class="toc-number">7.1.</span> <span class="toc-text">Firefox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chrome_u7684_u7ED3_u679C"><span class="toc-number">7.2.</span> <span class="toc-text">Chrome的结果</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -134,75 +134,75 @@
 <p><img src="/img/post/000116_AaqD_157257.png" alt="https"></p>
 <p>即使点了“仍然继续”，https前面还是会出现下面的小红叉叉，难看的很：</p>
 <p><img src="/img/post/000249_5B0c_157257.png" alt="https-ugly"></p>
-<h1 id="概念">概念</h1><p>关于自签名的证书，啰嗦几句。</p>
+<h1 id="u6982_u5FF5"><a href="#u6982_u5FF5" class="headerlink" title="概念"></a>概念</h1><p>关于自签名的证书，啰嗦几句。</p>
 <p>常规的证书（那些NB的CA机构颁发的证书），允许使用该证书的服务器向用户说:</p>
-<pre><code><span class="blockquote">&gt; 你应该信任我，因为你信任的机构（NB的CA机构）是这么说的</span>
+<pre><code>&gt; 你应该信任我，因为你信任的机构（NB的CA机构）是这么说的
 </code></pre><p>而自签名的证书就比较无耻了，它允许使用该证书的服务器对用户说：</p>
-<pre><code><span class="blockquote">&gt; 你应该信任我，因为这是我说的</span>
+<pre><code>&gt; 你应该信任我，因为这是我说的
 </code></pre><p>我们访问各种网银是，必须都是HTTPS（如果你不是，那你悲剧了），而他们的证书都是常规的证书。而我天朝的12306，好像是使用自签名的证书（个中原因，you know…）。</p>
-<h1 id="前提">前提</h1><p>首先已经安装好了Proxmox，而且网络，IP都已经配置好了。</p>
+<h1 id="u524D_u63D0"><a href="#u524D_u63D0" class="headerlink" title="前提"></a>前提</h1><p>首先已经安装好了Proxmox，而且网络，IP都已经配置好了。</p>
 <p>假设，Proxmox服务器的IP是： 10.194.153.6</p>
 <p>为了简单起见，Proxmox服务器没有绑定域名，总是以IP访问。</p>
-<h1 id="生成证书">生成证书</h1><p>本例中的证书是自我签署的证书。在默认的状态下，自我签署的证书在浏览器里会弹出警告，而不是讨人厌的错误提示。如果吧自我签署的证书事前安装好的话，就可以正常的使用了。</p>
+<h1 id="u751F_u6210_u8BC1_u4E66"><a href="#u751F_u6210_u8BC1_u4E66" class="headerlink" title="生成证书"></a>生成证书</h1><p>本例中的证书是自我签署的证书。在默认的状态下，自我签署的证书在浏览器里会弹出警告，而不是讨人厌的错误提示。如果吧自我签署的证书事前安装好的话，就可以正常的使用了。</p>
 <p>因此，如果只是（公司，实验室，局域网）内部使用的话，使用自我签署的证书是没有问题的。如果需要开放给外部访问，最好还是到CA认证机构去购买和申请正规的证书吧（不过据说很贵）。</p>
 <p>闲话少叙，开始干活</p>
-<h2 id="生成私钥">生成私钥</h2><pre><code>～<span class="preprocessor"># cd /etc/ssl/certs </span>
-/etc/ssl/certs<span class="preprocessor"># openssl genrsa -des3 -out server.key 1024 </span>
-Generating RSA <span class="keyword">private</span> <span class="keyword">key</span>, <span class="number">1024</span> bit <span class="built_in">long</span> modulus
+<h2 id="u751F_u6210_u79C1_u94A5"><a href="#u751F_u6210_u79C1_u94A5" class="headerlink" title="生成私钥"></a>生成私钥</h2><pre><code>～# cd /etc/ssl/certs 
+/etc/ssl/certs# openssl genrsa -des3 -out server.key 1024 
+Generating RSA private key, 1024 bit long modulus
 .....................................................................++++++
 .......++++++
-e <span class="keyword">is</span> <span class="number">65537</span> (<span class="number">0x10001</span>)
-Enter pass phrase <span class="keyword">for</span> server.<span class="keyword">key</span>:                 <span class="preprocessor"># 输入pass phrase</span>
-Verifying - Enter pass phrase <span class="keyword">for</span> server.<span class="keyword">key</span>:   <span class="preprocessor"># 再次输入</span>
-</code></pre><h2 id="从私钥中删除pass_phrase">从私钥中删除pass phrase</h2><pre><code>/etc/ssl/certs# openssl rsa -in server.<span class="variable">key</span> -out server.<span class="variable">key</span> 
-Enter pass phrase <span class="keyword">for</span> server.<span class="variable">key</span>:# 输入刚才输入的pass phrase
-writing RSA <span class="variable">key</span>
-</code></pre><h2 id="生成证书-1">生成证书</h2><pre><code>/etc/ssl/certs<span class="comment"># openssl req -new -days 3650 -key server.key -out server.csr </span>
-You are <span class="keyword">about</span> <span class="keyword">to</span> be asked <span class="keyword">to</span> enter information <span class="keyword">that</span> will be incorporated
-<span class="keyword">into</span> your certificate request.
-What you are <span class="keyword">about</span> <span class="keyword">to</span> enter <span class="keyword">is</span> what <span class="keyword">is</span> called a Distinguished Name <span class="keyword">or</span> a DN.
-There are quite a few fields <span class="keyword">but</span> you can leave <span class="keyword">some</span> blank
-For <span class="keyword">some</span> fields there will be a default value,
-If you enter '.', <span class="keyword">the</span> field will be left blank.
-<span class="comment">-----</span>
-Country Name (<span class="number">2</span> letter code) [AU]:CN     <span class="comment">#国家代码</span>
-State <span class="keyword">or</span> Province Name (full <span class="property">name</span>) [Some-State]:LN   <span class="comment">#区域代码，也就是我们所谓的省</span>
-Locality Name (eg, city) []:DL   <span class="comment">#城市</span>
-Organization Name (eg, company) [Internet Widgits Pty Ltd]: TESTWork   <span class="comment">#公司名称，随便填</span>
-Organizational Unit Name (eg, section) []:VM Manager   <span class="comment">#部门名称，随便写</span>
-Common Name (eg, YOUR <span class="property">name</span>) []:<span class="number">10.193</span>.153.6   
-       <span class="comment">#服务器全名（FQDN），本例中因为都使用的是IP，所以直接把IP写上了。</span>
-       <span class="comment">#这是证书生成过程中最重要的一步，这里填写的Common Name必须要保证与apache中配置的Server name一致，</span>
-       <span class="comment">#否则生成后的证书还是不好用。</span>
-       <span class="comment">#如果你使用的Proxmox已经在DNS服务器里面绑定了域名，比如：proxmox.abc.com</span>
-       <span class="comment">#而且在apache配置中，虚拟主机的Server Name也是：proxmox.abc.com</span>
-       <span class="comment">#那末，这一步，就必须填写：proxmox.abc.com，这样生成的证书才好使。</span>
+e is 65537 (0x10001)
+Enter pass phrase for server.key:                 # 输入pass phrase
+Verifying - Enter pass phrase for server.key:   # 再次输入
+</code></pre><h2 id="u4ECE_u79C1_u94A5_u4E2D_u5220_u9664pass_phrase"><a href="#u4ECE_u79C1_u94A5_u4E2D_u5220_u9664pass_phrase" class="headerlink" title="从私钥中删除pass phrase"></a>从私钥中删除pass phrase</h2><pre><code>/etc/ssl/certs# openssl rsa -in server.key -out server.key 
+Enter pass phrase for server.key:# 输入刚才输入的pass phrase
+writing RSA key
+</code></pre><h2 id="u751F_u6210_u8BC1_u4E66-1"><a href="#u751F_u6210_u8BC1_u4E66-1" class="headerlink" title="生成证书"></a>生成证书</h2><pre><code>/etc/ssl/certs# openssl req -new -days 3650 -key server.key -out server.csr 
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter &apos;.&apos;, the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CN     #国家代码
+State or Province Name (full name) [Some-State]:LN   #区域代码，也就是我们所谓的省
+Locality Name (eg, city) []:DL   #城市
+Organization Name (eg, company) [Internet Widgits Pty Ltd]: TESTWork   #公司名称，随便填
+Organizational Unit Name (eg, section) []:VM Manager   #部门名称，随便写
+Common Name (eg, YOUR name) []:10.193.153.6   
+       #服务器全名（FQDN），本例中因为都使用的是IP，所以直接把IP写上了。
+       #这是证书生成过程中最重要的一步，这里填写的Common Name必须要保证与apache中配置的Server name一致，
+       #否则生成后的证书还是不好用。
+       #如果你使用的Proxmox已经在DNS服务器里面绑定了域名，比如：proxmox.abc.com
+       #而且在apache配置中，虚拟主机的Server Name也是：proxmox.abc.com
+       #那末，这一步，就必须填写：proxmox.abc.com，这样生成的证书才好使。
 
-Email Address []:admin@<span class="number">10.194</span>.153.6  <span class="comment">#管理员邮件地址，随便填。</span>
-Please enter <span class="keyword">the</span> following 'extra' attributes
-<span class="keyword">to</span> be sent <span class="keyword">with</span> your certificate request
-A challenge password []:  <span class="comment">#这里不输入也可以，直接回车</span>
-An optional company <span class="property">name</span> []: <span class="comment">#这里不输入也可以，直接回车</span>
-</code></pre><h2 id="创建自签署证书">创建自签署证书</h2><pre><code>/etc/ssl/certs<span class="comment"># openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 3650</span>
+Email Address []:admin@10.194.153.6  #管理员邮件地址，随便填。
+Please enter the following &apos;extra&apos; attributes
+to be sent with your certificate request
+A challenge password []:  #这里不输入也可以，直接回车
+An optional company name []: #这里不输入也可以，直接回车
+</code></pre><h2 id="u521B_u5EFA_u81EA_u7B7E_u7F72_u8BC1_u4E66"><a href="#u521B_u5EFA_u81EA_u7B7E_u7F72_u8BC1_u4E66" class="headerlink" title="创建自签署证书"></a>创建自签署证书</h2><pre><code>/etc/ssl/certs# openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 3650
 Signature ok
-<span class="variable">subject=</span>/<span class="variable">C=</span>CN/<span class="variable">ST=</span>LN/<span class="variable">L=</span>DL/<span class="variable">O=</span>PSDCD/<span class="variable">OU=</span><span class="number">10.194</span>.<span class="number">153.6</span>/<span class="variable">CN=</span><span class="number">10.194</span>.<span class="number">153.6</span>
+subject=/C=CN/ST=LN/L=DL/O=PSDCD/OU=10.194.153.6/CN=10.194.153.6
 Getting Private key
-</code></pre><h2 id="修改证书和密钥的权限">修改证书和密钥的权限</h2><pre><code>/etc/ssl/certs<span class="preprocessor"># chmod 400 server.*</span>
-</code></pre><h1 id="SSL设置">SSL设置</h1><p>Promox的apache配置在下面的位置：</p>
-<pre><code><span class="regexp">/etc/</span>apache2<span class="regexp">/sites-enabled/</span>pve.conf
-<span class="regexp">/etc/</span>apache2<span class="regexp">/sites-enabled/</span>pve-redirect.conf
+</code></pre><h2 id="u4FEE_u6539_u8BC1_u4E66_u548C_u5BC6_u94A5_u7684_u6743_u9650"><a href="#u4FEE_u6539_u8BC1_u4E66_u548C_u5BC6_u94A5_u7684_u6743_u9650" class="headerlink" title="修改证书和密钥的权限"></a>修改证书和密钥的权限</h2><pre><code>/etc/ssl/certs# chmod 400 server.*
+</code></pre><h1 id="SSL_u8BBE_u7F6E"><a href="#SSL_u8BBE_u7F6E" class="headerlink" title="SSL设置"></a>SSL设置</h1><p>Promox的apache配置在下面的位置：</p>
+<pre><code>/etc/apache2/sites-enabled/pve.conf
+/etc/apache2/sites-enabled/pve-redirect.conf
 </code></pre><p>修改这两个个文件。</p>
-<h2 id="确认Server_Name是否和刚次生成证书是输入的Common_Name一致">确认Server Name是否和刚次生成证书是输入的Common Name一致</h2><p>不一致的情况下，有两条道：重新生成证书并签署，或者修改此处</p>
+<h2 id="u786E_u8BA4Server_Name_u662F_u5426_u548C_u521A_u6B21_u751F_u6210_u8BC1_u4E66_u662F_u8F93_u5165_u7684Common_Name_u4E00_u81F4"><a href="#u786E_u8BA4Server_Name_u662F_u5426_u548C_u521A_u6B21_u751F_u6210_u8BC1_u4E66_u662F_u8F93_u5165_u7684Common_Name_u4E00_u81F4" class="headerlink" title="确认Server Name是否和刚次生成证书是输入的Common Name一致"></a>确认Server Name是否和刚次生成证书是输入的Common Name一致</h2><p>不一致的情况下，有两条道：重新生成证书并签署，或者修改此处</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServerName <span class="number">10.194</span>.<span class="number">153.6</span></span><br></pre></td></tr></table></figure>
-<h1 id="配置刚才生成的证书和公钥到apache中">配置刚才生成的证书和公钥到apache中</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    &lt;VirtualHost *:<span class="number">8006</span>&gt;</span><br><span class="line">        SSLEngine on</span><br><span class="line">        SSLProtocol all -SSLv2</span><br><span class="line">        <span class="comment"># 为了保险起见，先注释掉默认的SSL配置</span></span><br><span class="line">        <span class="comment">#SSLCertificateFile /etc/pve/local/pve-ssl.pem  #这是默认的配置</span></span><br><span class="line">        <span class="comment">#SSLCertificateKeyFile /etc/pve/local/pve-ssl.key  #这是默认的配置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加入新的配置</span></span><br><span class="line">        SSLCertificateFile /etc/ssl/certs/server.crt <span class="comment">#这是新的配置</span></span><br><span class="line">        SSLCertificateKeyFile /etc/ssl/certs/server.key <span class="comment">#这是新的配置</span></span><br><span class="line">        … 此处省略N个字…</span><br><span class="line">```language</span><br></pre></td></tr></table></figure>
-<h1 id="重启apache">重启apache</h1><pre><code>/etc/apache2/sites-<span class="literal">enabled</span><span class="comment"># apache2ctl restart</span>
-</code></pre><h1 id="测试（IE这货就不测了，Proxmox不支持IE，赞）">测试（IE这货就不测了，Proxmox不支持IE，赞）</h1><h2 id="Firefox">Firefox</h2><pre><code>打开promox的WEB管理平台，给出了警告。点击“添加例外”。
+<h1 id="u914D_u7F6E_u521A_u624D_u751F_u6210_u7684_u8BC1_u4E66_u548C_u516C_u94A5_u5230apache_u4E2D"><a href="#u914D_u7F6E_u521A_u624D_u751F_u6210_u7684_u8BC1_u4E66_u548C_u516C_u94A5_u5230apache_u4E2D" class="headerlink" title="配置刚才生成的证书和公钥到apache中"></a>配置刚才生成的证书和公钥到apache中</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    &lt;VirtualHost *:<span class="number">8006</span>&gt;</span><br><span class="line">        SSLEngine on</span><br><span class="line">        SSLProtocol all -SSLv2</span><br><span class="line">        <span class="comment"># 为了保险起见，先注释掉默认的SSL配置</span></span><br><span class="line">        <span class="comment">#SSLCertificateFile /etc/pve/local/pve-ssl.pem  #这是默认的配置</span></span><br><span class="line">        <span class="comment">#SSLCertificateKeyFile /etc/pve/local/pve-ssl.key  #这是默认的配置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加入新的配置</span></span><br><span class="line">        SSLCertificateFile /etc/ssl/certs/server.crt <span class="comment">#这是新的配置</span></span><br><span class="line">        SSLCertificateKeyFile /etc/ssl/certs/server.key <span class="comment">#这是新的配置</span></span><br><span class="line">        … 此处省略N个字…</span><br><span class="line">```language</span><br></pre></td></tr></table></figure>
+<h1 id="u91CD_u542Fapache"><a href="#u91CD_u542Fapache" class="headerlink" title="重启apache"></a>重启apache</h1><pre><code>/etc/apache2/sites-enabled# apache2ctl restart
+</code></pre><h1 id="u6D4B_u8BD5_uFF08IE_u8FD9_u8D27_u5C31_u4E0D_u6D4B_u4E86_uFF0CProxmox_u4E0D_u652F_u6301IE_uFF0C_u8D5E_uFF09"><a href="#u6D4B_u8BD5_uFF08IE_u8FD9_u8D27_u5C31_u4E0D_u6D4B_u4E86_uFF0CProxmox_u4E0D_u652F_u6301IE_uFF0C_u8D5E_uFF09" class="headerlink" title="测试（IE这货就不测了，Proxmox不支持IE，赞）"></a>测试（IE这货就不测了，Proxmox不支持IE，赞）</h1><h2 id="Firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h2><pre><code>打开promox的WEB管理平台，给出了警告。点击“添加例外”。
 </code></pre><p><img src="/img/post/000450_71uY_157257.png" alt="ff"></p>
 <p>点击确认“安全例外”：</p>
 <p><img src="/img/post/000611_a5Zv_157257.png" alt="expt"></p>
 <p>终于看到了久违的登陆画面，注意，地址栏里面的https前不再会显示大红叉，而是正常的一个锁的样子了，说明自签名证书成功了。</p>
 <p><img src="/img/post/000729_cLE1_157257.png" alt="ff-ok"></p>
-<h2 id="Chrome的结果">Chrome的结果</h2><p><img src="/img/post/000813_MeX1_157257.png" alt="chrome-ok"></p>
+<h2 id="Chrome_u7684_u7ED3_u679C"><a href="#Chrome_u7684_u7ED3_u679C" class="headerlink" title="Chrome的结果"></a>Chrome的结果</h2><p><img src="/img/post/000813_MeX1_157257.png" alt="chrome-ok"></p>
 <p>(END)</p>
   
 	</div>
@@ -270,7 +270,7 @@ Getting Private key
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前提"><span class="toc-number">2.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成证书"><span class="toc-number">3.</span> <span class="toc-text">生成证书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成私钥"><span class="toc-number">3.1.</span> <span class="toc-text">生成私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从私钥中删除pass_phrase"><span class="toc-number">3.2.</span> <span class="toc-text">从私钥中删除pass phrase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成证书-1"><span class="toc-number">3.3.</span> <span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建自签署证书"><span class="toc-number">3.4.</span> <span class="toc-text">创建自签署证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改证书和密钥的权限"><span class="toc-number">3.5.</span> <span class="toc-text">修改证书和密钥的权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL设置"><span class="toc-number">4.</span> <span class="toc-text">SSL设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#确认Server_Name是否和刚次生成证书是输入的Common_Name一致"><span class="toc-number">4.1.</span> <span class="toc-text">确认Server Name是否和刚次生成证书是输入的Common Name一致</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置刚才生成的证书和公钥到apache中"><span class="toc-number">5.</span> <span class="toc-text">配置刚才生成的证书和公钥到apache中</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重启apache"><span class="toc-number">6.</span> <span class="toc-text">重启apache</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试（IE这货就不测了，Proxmox不支持IE，赞）"><span class="toc-number">7.</span> <span class="toc-text">测试（IE这货就不测了，Proxmox不支持IE，赞）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Firefox"><span class="toc-number">7.1.</span> <span class="toc-text">Firefox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chrome的结果"><span class="toc-number">7.2.</span> <span class="toc-text">Chrome的结果</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6982_u5FF5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u63D0"><span class="toc-number">2.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u751F_u6210_u8BC1_u4E66"><span class="toc-number">3.</span> <span class="toc-text">生成证书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u751F_u6210_u79C1_u94A5"><span class="toc-number">3.1.</span> <span class="toc-text">生成私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4ECE_u79C1_u94A5_u4E2D_u5220_u9664pass_phrase"><span class="toc-number">3.2.</span> <span class="toc-text">从私钥中删除pass phrase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u751F_u6210_u8BC1_u4E66-1"><span class="toc-number">3.3.</span> <span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u521B_u5EFA_u81EA_u7B7E_u7F72_u8BC1_u4E66"><span class="toc-number">3.4.</span> <span class="toc-text">创建自签署证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4FEE_u6539_u8BC1_u4E66_u548C_u5BC6_u94A5_u7684_u6743_u9650"><span class="toc-number">3.5.</span> <span class="toc-text">修改证书和密钥的权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL_u8BBE_u7F6E"><span class="toc-number">4.</span> <span class="toc-text">SSL设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u786E_u8BA4Server_Name_u662F_u5426_u548C_u521A_u6B21_u751F_u6210_u8BC1_u4E66_u662F_u8F93_u5165_u7684Common_Name_u4E00_u81F4"><span class="toc-number">4.1.</span> <span class="toc-text">确认Server Name是否和刚次生成证书是输入的Common Name一致</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u914D_u7F6E_u521A_u624D_u751F_u6210_u7684_u8BC1_u4E66_u548C_u516C_u94A5_u5230apache_u4E2D"><span class="toc-number">5.</span> <span class="toc-text">配置刚才生成的证书和公钥到apache中</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u91CD_u542Fapache"><span class="toc-number">6.</span> <span class="toc-text">重启apache</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6D4B_u8BD5_uFF08IE_u8FD9_u8D27_u5C31_u4E0D_u6D4B_u4E86_uFF0CProxmox_u4E0D_u652F_u6301IE_uFF0C_u8D5E_uFF09"><span class="toc-number">7.</span> <span class="toc-text">测试（IE这货就不测了，Proxmox不支持IE，赞）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Firefox"><span class="toc-number">7.1.</span> <span class="toc-text">Firefox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chrome_u7684_u7ED3_u679C"><span class="toc-number">7.2.</span> <span class="toc-text">Chrome的结果</span></a></li></ol></li></ol>
  
   </div>
 

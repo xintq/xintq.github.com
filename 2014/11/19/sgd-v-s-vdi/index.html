@@ -100,18 +100,18 @@ Server Based Computing (SBC)">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server_Based_Computing_(SBC)"><span class="toc-number">1.</span> <span class="toc-text">Server Based Computing (SBC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Virtual_Desktop_Infrastructure_(VDI)"><span class="toc-number">2.</span> <span class="toc-text">Virtual Desktop Infrastructure (VDI)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD_and_VDI"><span class="toc-number">3.</span> <span class="toc-text">SGD and VDI</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server_Based_Computing__28SBC_29"><span class="toc-number">1.</span> <span class="toc-text">Server Based Computing (SBC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Virtual_Desktop_Infrastructure__28VDI_29"><span class="toc-number">2.</span> <span class="toc-text">Virtual Desktop Infrastructure (VDI)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD_and_VDI"><span class="toc-number">3.</span> <span class="toc-text">SGD and VDI</span></a></li></ol>
 		
 		</div>
 		
 		<p>最近在研究Oracle的两个产品，一个是Oracle Secure Global Desktop(SGD)，另外一个是Oracle VDI。过去SGD和VDI经常搭配在一起使用。但是遗憾的是，现在VDI已经停止了开发，只剩下了SGD。<br>那么，这两个产品到底有什么区别，为何能搭配使用，我想花几分钟的时间来解释一下SGD及其在VDI市场中的地位。</p>
-<h2 id="Server_Based_Computing_(SBC)">Server Based Computing (SBC)</h2><p>SGD最初设计的目的是为了让人们在一种混合桌面模型中同时运行本地和远程应用。那些远程应用看起来像本地应用（使用无缝窗口），使用起来（打印，文件系统访问，音频等）也像本地应用一样，不过它们实际上是运行在后端的服务器平台上的。大多数SGD用户会同时使用本地和远程应用，例如，他们会同时打开一些窗口，在这些窗口中同时运行Windows，Solairs，Linux等不同的应用。</p>
+<h2 id="Server_Based_Computing__28SBC_29"><a href="#Server_Based_Computing__28SBC_29" class="headerlink" title="Server Based Computing (SBC)"></a>Server Based Computing (SBC)</h2><p>SGD最初设计的目的是为了让人们在一种混合桌面模型中同时运行本地和远程应用。那些远程应用看起来像本地应用（使用无缝窗口），使用起来（打印，文件系统访问，音频等）也像本地应用一样，不过它们实际上是运行在后端的服务器平台上的。大多数SGD用户会同时使用本地和远程应用，例如，他们会同时打开一些窗口，在这些窗口中同时运行Windows，Solairs，Linux等不同的应用。</p>
 <p>这种方式解决了一些问题，诸如安全性（比如笔记本电脑的丢失），可管理性（应用运行于数据中心之内的服务器上），以及移动性（在任何网络位置使用任何设备）。因此，管理员可以决定哪些应用应该集中在数据中心上，哪些应用应该放在用户的本地PC上。</p>
 <p>但是，假如你不仅仅想供应应用，而是整个桌面环境的话，又当如何？好吧，某些SGD用户现在确实是这么做的，比如，当他们发布整个Windows桌面或者Gnome会话时。但是，传统意义上，这些桌面应该是从Windows Terminal 服务器或者Solaris/Linux服务器上发布出来的。而且，使用Windows Terminal 服务器时有个问题就是，一些应用是不能在Windows 服务器环境下使用的（例如，某些应用只能在唯一的IP环境下运行，或者需要注册表或者文件系统的全部内容进行访问，因为它们是被设计于运行在PC上的）。</p>
-<h2 id="Virtual_Desktop_Infrastructure_(VDI)">Virtual Desktop Infrastructure (VDI)</h2><p>那么，所谓VDI的意思，就是说桌面环境（通常是Windows桌面环境）不再运行于服务器上，而是运行于Windows客户端操作系统中，而这些系统本身又是运行在服务器的单独虚拟机上，例如，在VMware ESX服务器的Windows XP或者Windows Vista实例上。</p>
+<h2 id="Virtual_Desktop_Infrastructure__28VDI_29"><a href="#Virtual_Desktop_Infrastructure__28VDI_29" class="headerlink" title="Virtual Desktop Infrastructure (VDI)"></a>Virtual Desktop Infrastructure (VDI)</h2><p>那么，所谓VDI的意思，就是说桌面环境（通常是Windows桌面环境）不再运行于服务器上，而是运行于Windows客户端操作系统中，而这些系统本身又是运行在服务器的单独虚拟机上，例如，在VMware ESX服务器的Windows XP或者Windows Vista实例上。</p>
 <p>这种方式很有意思，因为那些原本不能运行的应用现在可以有更好的机会来运行，它们现在可以运行在它们原本应使用的平台下，Windows PC环境。</p>
 <p>现在，我们需要做的就是提供对这些桌面环境的安全访问，这也是SGD多年以来一直在做的事情…</p>
-<h2 id="SGD_and_VDI">SGD and VDI</h2><p>因此，希望你能意识到SGD同时适用于SBC（基于服务器的计算）和VDI（虚拟桌面基础构架）。</p>
+<h2 id="SGD_and_VDI"><a href="#SGD_and_VDI" class="headerlink" title="SGD and VDI"></a>SGD and VDI</h2><p>因此，希望你能意识到SGD同时适用于SBC（基于服务器的计算）和VDI（虚拟桌面基础构架）。</p>
 <blockquote>
 <p>By Fat Bloke on Oct 11, 2007</p>
 <p>From <a href="https://blogs.oracle.com/fatbloke/entry/customizing_your_webtop" target="_blank" rel="external">https://blogs.oracle.com/fatbloke/entry/customizing_your_webtop</a></p>
@@ -182,7 +182,7 @@ Server Based Computing (SBC)">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server_Based_Computing_(SBC)"><span class="toc-number">1.</span> <span class="toc-text">Server Based Computing (SBC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Virtual_Desktop_Infrastructure_(VDI)"><span class="toc-number">2.</span> <span class="toc-text">Virtual Desktop Infrastructure (VDI)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD_and_VDI"><span class="toc-number">3.</span> <span class="toc-text">SGD and VDI</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server_Based_Computing__28SBC_29"><span class="toc-number">1.</span> <span class="toc-text">Server Based Computing (SBC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Virtual_Desktop_Infrastructure__28VDI_29"><span class="toc-number">2.</span> <span class="toc-text">Virtual Desktop Infrastructure (VDI)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD_and_VDI"><span class="toc-number">3.</span> <span class="toc-text">SGD and VDI</span></a></li></ol>
  
   </div>
 

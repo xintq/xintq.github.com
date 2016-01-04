@@ -97,20 +97,20 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法一"><span class="toc-number">1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法二"><span class="toc-number">2.</span> <span class="toc-text">方法二</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u65B9_u6CD5_u4E00"><span class="toc-number">1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u65B9_u6CD5_u4E8C"><span class="toc-number">2.</span> <span class="toc-text">方法二</span></a></li></ol>
 		
 		</div>
 		
 		<p>今天尝试往 github 上导 octopress，发现了下面的问题：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ! [rejected]        master -&gt; master (non-fast-forward)</span><br><span class="line"><span class="symbol">error:</span> failed to push some refs to <span class="string">'https://github.com/xxx/xxx.github.io'</span></span><br><span class="line"><span class="symbol">hint:</span> <span class="constant">Updates</span> were rejected because the tip of your current branch is behind</span><br><span class="line"><span class="symbol">hint:</span> its remote counterpart. <span class="constant">Integrate</span> the remote changes (e.g.</span><br><span class="line"><span class="symbol">hint:</span> <span class="string">'git pull ...'</span>) before pushing again.</span><br><span class="line"><span class="symbol">hint:</span> <span class="constant">See</span> the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</span><br></pre></td></tr></table></figure></p>
 <p>看了很多地方，发现下面两种解决方法：</p>
-<h2 id="方法一">方法一</h2><p>在执行 <code>rake deploy</code> 之后，octpress 会执行 <code>cd _deploy</code> 命令，进入 _deploy 目录，并且尝试向Github提交更新。也就是说，需要在 _deploy 目录下进行一些设置。</p>
+<h2 id="u65B9_u6CD5_u4E00"><a href="#u65B9_u6CD5_u4E00" class="headerlink" title="方法一"></a>方法一</h2><p>在执行 <code>rake deploy</code> 之后，octpress 会执行 <code>cd _deploy</code> 命令，进入 _deploy 目录，并且尝试向Github提交更新。也就是说，需要在 _deploy 目录下进行一些设置。</p>
 <p>我的做法是，进入 _deploy 目录，执行：</p>
-<pre><code>git config branch<span class="class">.master</span><span class="class">.remote</span> origin
-git config branch<span class="class">.master</span><span class="class">.merge</span> refs/heads/master
+<pre><code>git config branch.master.remote origin
+git config branch.master.merge refs/heads/master
 
 git pull
 </code></pre><p>这样就解决了 no-fast forward 这个错误了，然后就可以把更新提交到 Github，或者重新执行 <code>rake deploy</code>。</p>
-<h2 id="方法二">方法二</h2><p>修改 octopress 下的 Rakefile，那下面的内容：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system <span class="string">"git push origin <span class="subst">#&#123;deploy_branch&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u65B9_u6CD5_u4E8C"><a href="#u65B9_u6CD5_u4E8C" class="headerlink" title="方法二"></a>方法二</h2><p>修改 octopress 下的 Rakefile，那下面的内容：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system <span class="string">"git push origin <span class="subst">#&#123;deploy_branch&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
 <p>改成<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system <span class="string">"git push origin +<span class="subst">#&#123;deploy_branch&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
 <p>就OK了。</p>
 <hr>
@@ -181,7 +181,7 @@ git pull
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法一"><span class="toc-number">1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法二"><span class="toc-number">2.</span> <span class="toc-text">方法二</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u65B9_u6CD5_u4E00"><span class="toc-number">1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u65B9_u6CD5_u4E8C"><span class="toc-number">2.</span> <span class="toc-text">方法二</span></a></li></ol>
  
   </div>
 

@@ -118,17 +118,17 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#堆排序_(Heap_Sort)"><span class="toc-number">1.</span> <span class="toc-text">堆排序 (Heap Sort)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#最大堆的向下调整算法分析"><span class="toc-number">1.1.</span> <span class="toc-text">最大堆的向下调整算法分析</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5806_u6392_u5E8F__28Heap_Sort_29"><span class="toc-number">1.</span> <span class="toc-text">堆排序 (Heap Sort)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6700_u5927_u5806_u7684_u5411_u4E0B_u8C03_u6574_u7B97_u6CD5_u5206_u6790"><span class="toc-number">1.1.</span> <span class="toc-text">最大堆的向下调整算法分析</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<p>（这篇文章是2006年我发布在博客园上面的，想想已经八年有余。今天好不容易找到了，挪到这里，收藏一下吧。）</p>
-<h1 id="堆排序_(Heap_Sort)">堆排序 (Heap Sort)</h1><p>堆排序分为两个步骤：</p>
+<h1 id="u5806_u6392_u5E8F__28Heap_Sort_29"><a href="#u5806_u6392_u5E8F__28Heap_Sort_29" class="headerlink" title="堆排序 (Heap Sort)"></a>堆排序 (Heap Sort)</h1><p>堆排序分为两个步骤：</p>
 <ul>
 <li>第一步，根据初始输入数据，利用堆的调整算法形成初始堆。</li>
 <li>第二步，通过一系列的记录交换和重新调整堆进行排序。</li>
 </ul>
-<h2 id="最大堆的向下调整算法分析">最大堆的向下调整算法分析</h2><p>调用了O(n)次Adjust()算法，堆排序的时间复杂性为O(nlog2n)。</p>
+<h2 id="u6700_u5927_u5806_u7684_u5411_u4E0B_u8C03_u6574_u7B97_u6CD5_u5206_u6790"><a href="#u6700_u5927_u5806_u7684_u5411_u4E0B_u8C03_u6574_u7B97_u6CD5_u5206_u6790" class="headerlink" title="最大堆的向下调整算法分析"></a>最大堆的向下调整算法分析</h2><p>调用了O(n)次Adjust()算法，堆排序的时间复杂性为O(nlog2n)。</p>
 <p>该算法的附加存储主要是执行记录交换时所用的一个临时记录。<br>因此，该算法的空间复杂性为O(1)。</p>
 <p>堆排序是一个不稳定的排序方法。</p>
 <p>基于C的实现代码如下：</p>
@@ -200,7 +200,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#堆排序_(Heap_Sort)"><span class="toc-number">1.</span> <span class="toc-text">堆排序 (Heap Sort)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#最大堆的向下调整算法分析"><span class="toc-number">1.1.</span> <span class="toc-text">最大堆的向下调整算法分析</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5806_u6392_u5E8F__28Heap_Sort_29"><span class="toc-number">1.</span> <span class="toc-text">堆排序 (Heap Sort)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6700_u5927_u5806_u7684_u5411_u4E0B_u8C03_u6574_u7B97_u6CD5_u5206_u6790"><span class="toc-number">1.1.</span> <span class="toc-text">最大堆的向下调整算法分析</span></a></li></ol></li></ol>
  
   </div>
 

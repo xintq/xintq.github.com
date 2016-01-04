@@ -100,7 +100,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#定位"><span class="toc-number">1.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质"><span class="toc-number">2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问对象"><span class="toc-number">4.</span> <span class="toc-text">访问对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境要求"><span class="toc-number">5.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端要求"><span class="toc-number">6.</span> <span class="toc-text">客户端要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#管理性"><span class="toc-number">7.</span> <span class="toc-text">管理性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安全性"><span class="toc-number">8.</span> <span class="toc-text">安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B9A_u4F4D"><span class="toc-number">1.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6027_u8D28"><span class="toc-number">2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u539F_u7406"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8BBF_u95EE_u5BF9_u8C61"><span class="toc-number">4.</span> <span class="toc-text">访问对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u73AF_u5883_u8981_u6C42"><span class="toc-number">5.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5BA2_u6237_u7AEF_u8981_u6C42"><span class="toc-number">6.</span> <span class="toc-text">客户端要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7BA1_u7406_u6027"><span class="toc-number">7.</span> <span class="toc-text">管理性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B89_u5168_u6027"><span class="toc-number">8.</span> <span class="toc-text">安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
 		
 		</div>
 		
@@ -109,55 +109,55 @@
 <p>VPN技术的一个关键点是，VPN隧道为远程计算机提供了网络的“存在感”。也就是说，远程计算机上的应用在访问虚拟专用网络上的其他计算机和服务时，就好像与那些内网主机在同一个网络上一样，事实上，它们确实是属于同一网络。这些应用程序可能包括访问内部Web服务器的Web浏览器，访问内部邮件服务器的电子邮件客户端。通过在专用计算机上安装相应的模拟软件，客户机还可以访问其他类型的应用，如在专用网络的计算机上运行的Windows（使用RDP协议）和X-Windows（使用X11）。</p>
 <p>SGD与VPN的区别是，SGD不会为远程计算机提供以某种形式存在的网络；客户端连接到SGD服务器时使用的就是本地的专用网络。之后，SGD服务器作为代理，将代替客户端连接到相应的应用服务器。客户端计算机永远不需要直接访问内部网络。在使用VPN的情况下，用户可以浏览内部网络，并且可以与他们想要连接的任何计算机直接通信。这种做法会导致引入恶意软件的风险，如感染客户端计算机的木马或蠕虫。这样的恶意程序，一旦安装在用户的计算机上，就可以直接连接到这些内部系统，还有可能感染他们或窃取数据。这就是为什么有些VPN解决方案具有诸如“端点验证”的技术，以确保连接的客户端有相应的杀毒软件，防火墙和/或安装了补丁。由于SGD不提供客户机网络访问，所以不需要使用这样的技术来保护内部系统。</p>
 <p>等等，还是不能理解么？好吧，看看下面的分析如何。</p>
-<h4 id="定位">定位</h4><ul>
+<h4 id="u5B9A_u4F4D"><a href="#u5B9A_u4F4D" class="headerlink" title="定位"></a>定位</h4><ul>
 <li><p><strong>SGD</strong> - 位于应用程序之上，访问层的产品</p>
 </li>
 <li><p><strong>VPN</strong> - 位于网络层之上，底层的网络安全技术</p>
 </li>
 </ul>
-<h4 id="性质">性质</h4><ul>
+<h4 id="u6027_u8D28"><a href="#u6027_u8D28" class="headerlink" title="性质"></a>性质</h4><ul>
 <li><p><strong>SGD</strong> - 一个远程访问产品</p>
 </li>
 <li><p><strong>VPN</strong> - 一类网络安全技术的统称</p>
 </li>
 </ul>
-<h4 id="原理">原理</h4><ul>
+<h4 id="u539F_u7406"><a href="#u539F_u7406" class="headerlink" title="原理"></a>原理</h4><ul>
 <li><p><strong>SGD</strong> - 将应用程序与访问环境分离，同时加密到应用程序的访问过程，以达到安全地连接远程应用程序和桌面的目的</p>
 </li>
 <li><p><strong>VPN</strong> - 将客户端的网络连接全部重新定位到一个安全的网络连接上，通过VPN服务器实现对企业内部网络的安全访问</p>
 </li>
 </ul>
-<h4 id="访问对象">访问对象</h4><ul>
+<h4 id="u8BBF_u95EE_u5BF9_u8C61"><a href="#u8BBF_u95EE_u5BF9_u8C61" class="headerlink" title="访问对象"></a>访问对象</h4><ul>
 <li><p><strong>SGD</strong> - 运行在数据中心内部的应用程序和桌面</p>
 </li>
 <li><p><strong>VPN</strong> - 企业内部网络</p>
 </li>
 </ul>
-<h4 id="环境要求">环境要求</h4><ul>
+<h4 id="u73AF_u5883_u8981_u6C42"><a href="#u73AF_u5883_u8981_u6C42" class="headerlink" title="环境要求"></a>环境要求</h4><ul>
 <li><p><strong>SGD</strong> - 需要部署SGD访问服务器</p>
 </li>
 <li><p><strong>VPN</strong> - 需要部署VPN服务器</p>
 </li>
 </ul>
-<h4 id="客户端要求">客户端要求</h4><ul>
+<h4 id="u5BA2_u6237_u7AEF_u8981_u6C42"><a href="#u5BA2_u6237_u7AEF_u8981_u6C42" class="headerlink" title="客户端要求"></a>客户端要求</h4><ul>
 <li><p><strong>SGD</strong> - 客户端无需任何软件，只需要一个浏览器，几乎是任意客户端</p>
 </li>
 <li><p><strong>VPN</strong> - 需要在客户端安装VPN接入软件，可使用的客户端取决于VPN软件的支持范围。</p>
 </li>
 </ul>
-<h4 id="管理性">管理性</h4><ul>
+<h4 id="u7BA1_u7406_u6027"><a href="#u7BA1_u7406_u6027" class="headerlink" title="管理性"></a>管理性</h4><ul>
 <li><p><strong>SGD</strong> - 细粒度的管理。管理员可以控制用户，应用程序，用户操作</p>
 </li>
 <li><p><strong>VPN</strong> - 粗粒度管理。管理员只能知道接入VPN的用户，对于用户的操作以及使用的应用程序无法控制</p>
 </li>
 </ul>
-<h4 id="安全性">安全性</h4><ul>
+<h4 id="u5B89_u5168_u6027"><a href="#u5B89_u5168_u6027" class="headerlink" title="安全性"></a>安全性</h4><ul>
 <li><p><strong>SGD</strong> - <em>高。</em>只把需要的数据通信过程进行安全加密。在客户端不存储任何数据，保证到内部网络的通信和数据是安全的。即使客户端感染病毒，对内部网络造成威胁的可能也很低。</p>
 </li>
 <li><p><strong>VPN</strong> - <em>中。</em>将所有客户端的数据连接一股脑的接入到内网中，如果客户端环境中有病毒，也可能感染到内网。</p>
 </li>
 </ul>
-<h3 id="总结">总结</h3><ul>
+<h3 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h3><ul>
 <li><p>要明确这两种产品的定位不同，一个属于访问层（SGD），一个属于网络层（VPN），之间没有竞争关系，而且在使用VPN的情况下，也可以使用SGD。</p>
 </li>
 <li><p>SGD是通过一个安全入口远程访问不同平台应用程序和桌面的解决方案，而VPN是访问内部网络的解决访问。二者要回答的问题不一样。</p>
@@ -243,7 +243,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#定位"><span class="toc-number">1.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质"><span class="toc-number">2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问对象"><span class="toc-number">4.</span> <span class="toc-text">访问对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境要求"><span class="toc-number">5.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端要求"><span class="toc-number">6.</span> <span class="toc-text">客户端要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#管理性"><span class="toc-number">7.</span> <span class="toc-text">管理性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安全性"><span class="toc-number">8.</span> <span class="toc-text">安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B9A_u4F4D"><span class="toc-number">1.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6027_u8D28"><span class="toc-number">2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u539F_u7406"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8BBF_u95EE_u5BF9_u8C61"><span class="toc-number">4.</span> <span class="toc-text">访问对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u73AF_u5883_u8981_u6C42"><span class="toc-number">5.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5BA2_u6237_u7AEF_u8981_u6C42"><span class="toc-number">6.</span> <span class="toc-text">客户端要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7BA1_u7406_u6027"><span class="toc-number">7.</span> <span class="toc-text">管理性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B89_u5168_u6027"><span class="toc-number">8.</span> <span class="toc-text">安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
  
   </div>
 

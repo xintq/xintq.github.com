@@ -109,7 +109,7 @@
 <p>原因是Python默认的编码不是UTF8的缘故。</p>
 <p>解决方法如下：</p>
 <p>在下面的目录（我机器上Python的安装目录）中新建一个PY文件：sitecustomize.py</p>
-<pre><code><span class="regexp">/usr/</span>lib<span class="regexp">/python2.6/</span>site-packages<span class="regexp">/</span>
+<pre><code>/usr/lib/python2.6/site-packages/
 </code></pre><p>sitecustomize.py的内容如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure>
 <p>（完）</p>

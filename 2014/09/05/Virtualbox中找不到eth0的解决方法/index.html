@@ -109,17 +109,17 @@
 		
 		<p>在Virtualbox中安装完虚拟机之后，可能会有添加网卡，然后删除网卡之类的操作。这种操作一多了的话，虚拟机中的linux系统中，网卡的编号可能会乱套。</p>
 <p>默认情况下，Linux会把第一个网卡识别为eth0，第二个为eth2。<br>但是经过频繁的变更网卡设置后，在网络服务启动时，有可能出现下面的错误（还有人说，在复制虚拟机的时候，也会出现这个问题）：</p>
-<pre><code>“Device eth0 <span class="keyword">does</span> <span class="keyword">not</span> seem <span class="keyword">to</span> be present, delaying initialization.”
+<pre><code>“Device eth0 does not seem to be present, delaying initialization.”
 </code></pre><p>如何解决这个问题呢？</p>
 <p>这时可以删除下面的文件，然后重启系统：</p>
-<pre><code><span class="preprocessor"># rm /etc/udev/rules.d/70-persistent-net.rules</span>
-<span class="preprocessor"># reboot</span>
+<pre><code># rm /etc/udev/rules.d/70-persistent-net.rules
+# reboot
 </code></pre><p>其实该文件在系统启动时可以自动生成的，而且里面的内容确定了网卡编号与MAC地址的绑定关系。在网卡变动或者虚拟机克隆之后，网卡的MAC地址会发生变化，所以系统会错误的认为网络设备不存在。<br>重启之后，再次查看一下下面的文件, 如果eth0还是不存在的话，可以修改一下文件的内容，把里面的eth1或者ethN之类的，改成eth0，我的文件如下;</p>
-<pre><code><span class="comment">#cat /etc/udev/rules.d/70-persistent-net.rules</span>
-<span class="variable">SUBSYSTEM=</span>=<span class="string">"net"</span>, <span class="variable">ACTION=</span>=<span class="string">"add"</span>, <span class="variable">DRIVERS=</span>=<span class="string">"?*"</span>, ATTR{address}==<span class="string">"08:00:27:86:d8:01"</span>, ATTR{type}==<span class="string">"1"</span>, <span class="variable">KERNEL=</span>=<span class="string">"eth*"</span>, <span class="variable">NAME=</span><span class="string">"eth0"</span>
+<pre><code>#cat /etc/udev/rules.d/70-persistent-net.rules
+SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR{address}==&quot;08:00:27:86:d8:01&quot;, ATTR{type}==&quot;1&quot;, KERNEL==&quot;eth*&quot;, NAME=&quot;eth0&quot;
 </code></pre><p>记下里面的MAC地址，修改下面的文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-eth0 </span></span><br><span class="line">DEVICE=eth0 <span class="comment">#注意网卡编号</span></span><br><span class="line">TYPE=Ethernet</span><br><span class="line">ONBOOT=yes</span><br><span class="line">NM_CONTROLLED=no</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">IPADDR=<span class="number">192.168</span>.<span class="number">1.2</span></span><br><span class="line">PREFIX=<span class="number">24</span></span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=yes</span><br><span class="line">IPV6INIT=no</span><br><span class="line">NAME=<span class="string">"System eth0"</span></span><br><span class="line">NETWORK=<span class="number">192.168</span>.<span class="number">1.0</span></span><br><span class="line">BROADCAST=<span class="number">192.168</span>.<span class="number">1.255</span></span><br><span class="line">HWADDR=<span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">86</span>:d8:<span class="number">01</span> <span class="comment">#这里的MAC地址一定要和70-persistent-net.rules的一致</span></span><br><span class="line">MTU=<span class="number">1500</span></span><br></pre></td></tr></table></figure></p>
 <p>最后，重启一下网络服务，看看eth0有没有起来：</p>
-<pre><code><span class="preprocessor"># service network restart</span>
+<pre><code># service network restart
 </code></pre><p>(END)</p>
   
 	</div>
