@@ -838,8 +838,13 @@
     <link href="http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/"/>
     <id>http://xintq.net/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/</id>
     <published>2015-05-13T06:47:42.000Z</published>
-    <updated>2015-11-26T14:02:30.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u6982_u8981"><a href="#u6982_u8981" class="headerlink" title="概要"></a>概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
+    <updated>2016-01-05T06:34:11.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u66F4_u65B0_u5C65_u5386"><a href="#u66F4_u65B0_u5C65_u5386" class="headerlink" title="更新履历"></a>更新履历</h2><ul>
+<li>2016年1月： 基于SGD 5.2版本更新</li>
+<li>2015年5月： 中文版初版</li>
+<li>2013年5月： 初版，仅英文</li>
+</ul>
+<h2 id="u6982_u8981"><a href="#u6982_u8981" class="headerlink" title="概要"></a>概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
 <p>如果你还不知道Oracle Secure Global Desktop是什么的话，请参考<a href="/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/">这篇文章</a>。</p>
 <p>目前IT组织的最大挑战就是为分散在各个地域的用户提供对其特定工作区（应用程序和桌面）的即时，可靠，无性能退化的访问。此外，管理者也需要对这些分散到各个地域的工作区进行集中的访问管理。这并不容易。很多客户通过使用Oracle Secure Global Desktop部署工作区来为其数以千计的员工解决这一问题。Oracle Secure Global Desktop能够成为该问题的理想解决方案的优势如下：</p>
 <ul>
@@ -850,9 +855,9 @@
 <li><strong>性能：</strong> Oracle Secure Global Desktop使用的自适应网络协议（AIP），智能阵列路由算法(IAR)，以及其他各种性能上的优势，使得SGD即使在高延迟的WLAN环境下，也会有很好的性能表现。这非常关键，因为IT部门往往会有分散在世界各地的用户，这些用户会在日常工作中访问多个应用。</li>
 <li><strong>监视：</strong> 通过在Oracle Enterprise Manager Grid Control中创建一个自定义的Oracle Secure Global Desktop基准表，IT部门能够持续的监视多个部署指标，诸如：1）每天的资源利用峰值，2）用户数量，3）性能等，并把这些指标用一张简明的仪表盘来显示出来，便于与管理层和运维部门进行共享。</li>
 </ul>
-<p><img src="/img/post/1.png" alt="Figure1\. Oracle Secure Global Desktop界面和应用程序支持" title="Oracle Secure Global Desktop界面和应用程序支持"></p>
-<h2 id="u7CFB_u7EDF_u8981_u6C42_u548C_u652F_u6301"><a href="#u7CFB_u7EDF_u8981_u6C42_u548C_u652F_u6301" class="headerlink" title="系统要求和支持"></a>系统要求和支持</h2><p>注意，下面的硬件要求仅作为参考，请不要看成精确的度量标准。</p>
-<p>运行Oracle Secure Global Desktop的服务器环境可以计算如下（注意：对客户端的要求是不一样的，本文后续会涉及）：</p>
+<p><img src="/img/post/1.png" alt="Figure 1. Oracle Secure Global Desktop界面和应用程序支持" title="Oracle Secure Global Desktop界面和应用程序支持"></p>
+<h2 id="u7CFB_u7EDF_u8981_u6C42_u548C_u652F_u6301"><a href="#u7CFB_u7EDF_u8981_u6C42_u548C_u652F_u6301" class="headerlink" title="系统要求和支持"></a>系统要求和支持</h2><pre><code>注意，下面的硬件要求仅作为参考，请不要看成精确的度量标准。
+</code></pre><p>运行Oracle Secure Global Desktop的服务器环境可以计算如下（注意：对客户端的要求是不一样的，本文后续会涉及）：</p>
 <ul>
 <li>为了安装和运行Oracle Secure Global Desktop需要什么</li>
 <li>每个用户登录和运行应用程序又需要什么</li>
@@ -864,41 +869,43 @@
 <li>1GHz处理器</li>
 <li>网卡</li>
 </ul>
-<p>这是<em>除操作系统本身所需的资源之外</em>的要求，且假设此服务器只用于运行<br>Oracle Secure Global Desktop。为支持用户登录并且运行应用程序，还有以下的要求：</p>
+<p>这是<em>除操作系统本身所需的资源之外</em>的要求，且假设此服务器只用于运行Oracle Secure Global Desktop。为支持用户登录并且运行应用程序，还有以下的要求：</p>
 <ul>
 <li>每个用户约80MB的内存</li>
 <li>每个用户约50MHz的CPU</li>
 </ul>
-<p>作为一个典型的用户，在工作区中有10个应用程序，并且运行两个应用程序的话，需要大约80MB的内存。对于500个用户的部署，其中每个普通用户运行两个应用程序的话，总计可能需要40GB的内存，5-15GHz的CPU。一个典型的应用程序使用大概10-30MHz的CPU，但是实际上CPU的使用率取决于应用程序自身。某些繁忙的应用程序可能会用到50-100MHz的CPU。</p>
+<p>作为一个典型的用户，在工作区中有10个应用程序，并且运行两个应用程序（这里假设为Windows应用程序）的话，需要大约80MB的内存。对于500个用户的部署，其中每个普通用户运行两个应用程序的话，总计可能需要40GB的内存，5-15GHz的CPU。一个典型的应用程序使用大概10-30MHz的CPU，但是实际上CPU的使用率取决于应用程序自身。某些繁忙的应用程序可能会用到50-100MHz的CPU。</p>
 <p>TABLE 1. 支持的安装平台</p>
-<ul>
-<li><p>Oracle Solaris OS on SPARC platforms</p>
-<ul>
-<li>Solaris 10 update 10, Solaris 10 update 11, Solaris 11, 11.1 </li>
-<li>Trusted Extensions versions of the above</li>
-</ul>
-</li>
-<li><p>Oracle Solaris OS on x86 platforms</p>
-<ul>
-<li>Solaris 10 update 10, Solaris 10 update 11, Solaris 11, 11.1</li>
-<li>Trusted Extensions versions of the above</li>
-</ul>
-</li>
-<li><p>Oracle Linux (32-bit and 64-bit)</p>
-<ul>
-<li>5.8, 5.9</li>
-<li>6.2, 6.3, 6.4</li>
-</ul>
-</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>支持的版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oracle Solaris on SPARC platforms</td>
+<td>• Solaris 10 [至少为版本8/11 (update 10)]<br> • Solaris 11<br>• Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Solaris on x86 platforms</td>
+<td>• Solaris 10 [至少为版本8/11 (update 10)] <br>• Solaris 11<br>• Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Linux (仅64位)</td>
+<td>• 5 (至少为版本5.8)<br>• 6 (至少为版本6.2)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="u865A_u62DF_u5316_u652F_u6301"><a href="#u865A_u62DF_u5316_u652F_u6301" class="headerlink" title="虚拟化支持"></a>虚拟化支持</h2><p>受支持的安装平台也会在Type 1 (bare metal) hypervisor 或者Type 2 hypervisor上受到支持。比如，Oracle VM VirtualBox，Oracle VM Server for x86，或者Oracle VM for SPARC (以前称作 Sun Logical Domains or LDoms)。在其他第三方hypervisor上报告的问题会在Oracle的hypervisor进行相应的测试，如果问题不会再现，用户需要联系相应的虚拟化厂商以取得帮助。</p>
-<p>对于Oracle Solaris 10来说，支持在区域（zone）中安装SGD。Oracle Secure Global Desktop可以安装在全局区域（global zone）中，也可以安装在一个或者多个非全局区域（non-global zone）中。但是，<strong>不支持在全局区域和非全局区域中同时安装SGD</strong>。</p>
-<p>在Oracle Solaris 10 OS Trusted Extensions平台中，SGD必须被安装在标记的区域（labeled zone）中。不要在全局区域中安装SGD。</p>
+<p>对于Oracle Solaris 平台来说，支持在区域（zone）中安装SGD。Oracle Secure Global Desktop可以安装在全局区域（global zone）中，也可以安装在一个或者多个非全局区域（non-global zone）中。但是，<strong>不支持在全局区域和非全局区域中同时安装SGD</strong>。</p>
+<p>在Oracle Solaris Trusted Extensions平台中，SGD必须被安装在标记的区域（labeled zone）中。不要在全局区域中安装SGD。</p>
 <h2 id="u652F_u6301_u7684_u5E94_u7528_u7A0B_u5E8F_u548C_u534F_u8BAE"><a href="#u652F_u6301_u7684_u5E94_u7528_u7A0B_u5E8F_u548C_u534F_u8BAE" class="headerlink" title="支持的应用程序和协议"></a>支持的应用程序和协议</h2><p>可以使用Oracle Secure Global Desktop来访问如下类型的应用程序：</p>
 <ul>
 <li>Microsoft Windows</li>
-<li>Oracle Solaris OS，Linux，HP-UX，以及AIX 应用程序服务器的X应用程序</li>
-<li>Oracle Solaris OS，Linux，HP-UX，以及AIX 应用程序服务器的字符应用程序</li>
+<li>Oracle Solaris，Linux，HP-UX，以及AIX 应用程序服务器的X应用程序</li>
+<li>Oracle Solaris，Linux，HP-UX，以及AIX 应用程序服务器的字符应用程序</li>
 <li>IBM大型主机以及AS/400系统的应用程序</li>
 <li>使用HTML和Java技术的Web应用程序</li>
 </ul>
@@ -908,7 +915,7 @@
 <li>X11</li>
 <li>HTTP</li>
 <li>HTTPS</li>
-<li>SSH</li>
+<li>SSH 至少版本2</li>
 <li>Telnet VT, American National Standards Institute (ANSI)</li>
 <li>TN3270E</li>
 <li>TN5250</li>
@@ -920,12 +927,12 @@
 <li>所有的客户机必须使用DNS</li>
 <li>在安装Oracle Secure Global Desktop时，需要输入Oracle Secure Global Desktop服务器的DNS名称，该DNS名称有如下要求：<ul>
 <li>在包含防火墙的网络中，使用<strong>防火墙内部</strong>可识别的DNS名称作为Oracle Secure Global Desktop主机名</li>
-<li>总是使用完整域名。比如：对于example域，请使用us.example.com。</li>
+<li>总是使用完整域名。比如：对于<code>example</code>域，请使用<code>us.example.com</code>。</li>
 </ul>
 </li>
 </ul>
 <p>默认情况下，Oracle Secure Global Desktop在DNS请求时使用ANY类型作为查找类型。某些防火墙的配置会拦截此类型的DNS请求。这会导致问题，特别是在使用管理控制台来配置Active Directory认证时。</p>
-<p>从命令行配置时，如果不使用完整域名的话，在一些需要指定Oracle Secure Global Desktop的DNS名称的命令（如‘tarantella array join‘）后，会输出一条警告信息。</p>
+<p>从命令行配置时，如果不使用完整域名的话，在一些需要指定Oracle Secure Global Desktop的DNS名称的命令（如<code>tarantella array join</code>）后，会输出一条警告信息。</p>
 <p><a href="http://www.oracle.com/technetwork/documentation/sgd-193668.html" target="_blank" rel="external">《Oracle Secure Global Desktop 管理指南》</a>描述了Oracle Secure Global Desktop使用的所有端口的详细信息，以及如何配置防火墙。</p>
 <p>下面列出了通常使用的端口。客户端设备必须能够在这些TCP端口上进行TCP/IP连接。</p>
 <ul>
@@ -943,18 +950,18 @@
 <li><strong>3389</strong> – 使用Windows Terminal Services的Windows应用程序</li>
 <li><strong>6010</strong> 以上 – X 应用程序</li>
 </ul>
-<p>在使用Oracle Secure Global Desktop时，客户端设备永远不会直接连接到应用程序服务器。取而代之，客户端设备先会使用HTTP或者HTTPs以及Oracle的自适应网络协议（AIP）来连接到Oracle Secure Global Desktop。之后，Oracle Secure Global Desktop才会代替用户连接到应用程序服务器。</p>
+<p>在使用Oracle Secure Global Desktop时，客户端设备永远不会直接连接到应用程序服务器。取而代之，客户端设备先会使用HTTP或者HTTPS以及Oracle的自适应网络协议（AIP）来连接到Oracle Secure Global Desktop。之后，Oracle Secure Global Desktop才会代替用户连接到应用程序服务器。</p>
 <p>客户端设备通过如下的方式连接到Oracle Secure Global Desktop服务器：</p>
 <ul>
 <li><strong>HTTP连接</strong>： 这是到Oracle Secure Global Desktop的Web服务器的连接。在Oracle Secure Global Desktop的Web服务，Oracle Secure Global Desktop的认证中使用，用以显示工作区。</li>
-<li><strong>AIP连接</strong>: 这是在Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的连接。用于显示应用程序。</li>
+<li><strong>AIP连接</strong>： 这是在Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的连接。用于显示应用程序。</li>
 </ul>
-<p>为保证这些连接的安全性，请将Oracle Secure Global Desktop的Web服务器配置为安全Web服务器(HTTPs)，并且开启Oracle Secure Global Desktop安全Web服务。</p>
+<p>为保证这些连接的安全性，请将Oracle Secure Global Desktop的Web服务器配置为安全Web服务器(HTTPS)，并且开启Oracle Secure Global Desktop安全Web服务。</p>
 <pre><code>注意：SGD Gateway可以在客户端与Oracle Secure Global Desktop服务器间提供更高级别的安全性。在使用SGD Gateway时，客户端设备不会直接连接到Oracle Secure Global Desktop服务器上。
 </code></pre><p>通过Oracle Secure Global Desktop服务器与应用程序服务器间的连接，可以用来启动应用程序服务器上的应用程序，从应用程序中收发数据，如键盘按下，显示更新等。</p>
 <p>Oracle Secure Global Desktop与应用程序服务器间的安全级别取决于应用程序服务器的类型及其所使用的协议。</p>
 <p>当使用Telnet协议时，所有的通信和密码传输都是以明文方式进行的。为保证到UNIX或者Linux应用程序服务器连接的安全性，请使用SSH。SSH会加密所有Oracle Secure Global Desktop主机间的连接，而且密码在传输前也会被加密。默认情况下，Oracle Secure Global Desktop会通过使用X认证来阻止未认证用户对X显示的访问，从而保证X显示的安全性。</p>
-<p>Windows应用程序使用微软远程桌面协议（Microsoft Remote Desktop，RDP）。即，所有的通信过程都是加密过的，所以到Windows应用程序服务器的连接也是安全的。</p>
+<p>Windows应用程序使用微软远程桌面协议（Microsoft Remote Desktop Protocol，RDP）。即，所有的通信过程都是加密过的，所以到Windows应用程序服务器的连接也是安全的。</p>
 <p>安全水平还取决于运行Web应用程序的Web服务器，如下：</p>
 <ul>
 <li>HTTP Web服务器 - 所有的通信都没有加密</li>
@@ -965,15 +972,13 @@
 <h2 id="Microsoft_Windows__u8FDC_u7A0B_u684C_u9762_u670D_u52A1"><a href="#Microsoft_Windows__u8FDC_u7A0B_u684C_u9762_u670D_u52A1" class="headerlink" title="Microsoft Windows 远程桌面服务"></a>Microsoft Windows 远程桌面服务</h2><p>Oracle Secure Global Desktop并不包含Microsoft Windows远程桌面服务的许可证。如果需要访问由Microsoft操作系统产品提供的远程桌面服务器功能，还需要从Microsoft购买额外的许可证。请先咨询你所使用的Microsoft操作系统产品相关的许可证协议，从而决定需要购买哪种类型的许可证。</p>
 <p>Oracle Secure Global Desktop支持如下版本Microsoft Windows的RDP连接：</p>
 <ul>
-<li>Windows Server 2008 R2</li>
-<li>Windows Server 2008</li>
-<li>Windows Server 2003 R2</li>
-<li>Windows Server 2003</li>
+<li>Windows Server 2012, 2012 R2</li>
+<li>Windows Server 2008, 2008 R2</li>
+<li>Windows Server 2003, 2003 R2</li>
 <li>Windows 7 SP1</li>
-<li>Windows XP Professional SP3</li>
+<li>Windows 8, 8.1</li>
 </ul>
-<p>在Windows 7和Windows XP平台中，只支持Windows桌面会话功能。单独运行应用程序是不被支持的。显然，在这两个平台下，也不支持无缝窗口的应用程序。</p>
-<p>Oracle Secure Global Desktop 支持如下Windows远程桌面服务功能：</p>
+<p>在Windows 7和Windows 8平台中，只支持Windows桌面会话功能。单独运行应用程序是不被支持的。显然，在这两个平台下，也不支持无缝窗口的应用程序。<br>Oracle Secure Global Desktop 支持如下Windows远程桌面服务功能：</p>
 <ul>
 <li>音频录制</li>
 <li>音频重定向</li>
@@ -988,7 +993,7 @@
 <li>时区重定向</li>
 <li>Windows打印机映射</li>
 </ul>
-<p>Windows Server 2008 R2 和 Windows 7 支持最高为 44.1 kHz 的音频位速率。默认情况下，SGD 支持最高为 22.05kHz 的位速率。要支持最高为 44.1 kHz 的位速率，请在管理控制台中依次转至 “Global Settings”（全局设置）和 “ClientDevice”（客户端设备）选项卡，并选择 “Windows Audio: High Quality”（Windows 音频：高质量）选项。</p>
+<p>Windows Server 2008 R2 和 Windows 7 支持最高为 44.1 kHz 的音频位速率。默认情况下，SGD 支持最高为 22.05kHz 的位速率。要支持最高为 44.1 kHz 的位速率，请在管理控制台中依次转至<code>Global Settings</code>（全局设置）和 <code>ClientDevice</code>（客户端设备）选项卡，并选择 <code>Windows Audio: High Quality</code>（Windows 音频：高质量）选项。</p>
 <p>Oracle Secure Global Desktop在Windows远程桌面服务器会话中支持8位，16位，24位和32位的色深。</p>
 <p>在Windows Server 2008，Windows Server 2008 R2和Windows 7平台中，也可以使用32位色深。为了显示32位色，客户端设备也必须能够显示32位色。</p>
 <p>15位色深是不支持的。如果远程桌面服务器中指定了这样的色深，Oracle Secure Global Desktop会自动将色深调整为8位。</p>
@@ -997,39 +1002,30 @@
 <h2 id="X_u548C_u5B57_u7B26_u5E94_u7528_u7A0B_u5E8F"><a href="#X_u548C_u5B57_u7B26_u5E94_u7528_u7A0B_u5E8F" class="headerlink" title="X和字符应用程序"></a>X和字符应用程序</h2><p>为了运行X应用程序和字符应用程序，Oracle Secure Global Desktop必须能够连接到应用程序服务器。Oracle Secure Global Desktop支持SSH和Telnet连接方式。SSH是安全连接的最佳选择。</p>
 <p>Oracle Secure Global Desktop支持SSH v2或以上版本。由于SSH版本兼容性的问题，请在Oracle Secure Global Desktop服务器和应用程序服务器之间使用同一主要版本的SSH，v2或者v3。</p>
 <p>如果使用SSH连接到X应用程序，还必须开启X转发。X转发功能的开启，可以通过配置SSH来实现，也可以在Oracle Secure Global Desktop中进行配置来实现。</p>
-<p>Oracle Secure Global Desktop支持X安全性扩展。X安全性扩展只能工作在支持 <code>-Y</code> 选项的SSH版本中。对于OpenSSH来说，可能是版本3.8或以上版本。</p>
+<p>Oracle Secure Global Desktop支持X安全性扩展。X安全性扩展只能工作在支持 <code>-Y</code> 选项的SSH版本中。对于OpenSSH来说，可以是版本3.8或以上版本。</p>
 <p>Oracle Secure Global Desktop中包含了一个基于X11R7.6的X服务器。SGD支持如下X扩展的X应用程序：</p>
 <ul>
 <li>BIG-REQUESTS</li>
-<li>BLINK</li>
+<li>Composite</li>
 <li>DAMAGE</li>
-<li>DEC-XTRAP</li>
 <li>DOUBLE-BUFFER</li>
-<li>Extended-Visual-Information</li>
 <li>GLX</li>
+<li>Generic Event Extension</li>
 <li>MIT-SCREEN-SAVER</li>
 <li>MIT-SHM</li>
-<li>MIT-SUNDRY-NONSTANDARD</li>
-<li>NATIVE-WND</li>
-<li>RDP</li>
+<li>RANDR</li>
 <li>RECORD</li>
 <li>RENDER</li>
-<li>SCO-MISC</li>
-<li>SECURITY</li>
 <li>SGI-GLX</li>
 <li>SHAPE</li>
 <li>SYNC</li>
-<li>TOG-CUP</li>
 <li>X-Resource</li>
-<li>XC-APPGROUP</li>
 <li>XC-MISC</li>
 <li>XFIXES</li>
-<li>XFree86-Bigfont</li>
-<li>XTEST</li>
-<li>XTTDEV</li>
-<li>KEYBOARD</li>
-<li>RANDR</li>
 <li>XINERAMA</li>
+<li>XInputExtension</li>
+<li>XKEYBOARD</li>
+<li>XTEST</li>
 </ul>
 <p>不支持下面的X扩展：</p>
 <ul>
@@ -1045,48 +1041,39 @@
 </ul>
 <p>下表列出了SGD增强模块支持的安装平台：</p>
 <p>TABLE 2. SGD增强模块支持的安装平台</p>
-<ul>
-<li><p>Microsoft Windows (64位)</p>
-<ul>
-<li>Windows Server 2008 R2</li>
-</ul>
-</li>
-<li><p>Microsoft Windows (32位和64位)</p>
-<ul>
-<li>Windows Server 2008</li>
-<li>Windows Server 2003 R2</li>
-<li>Windows Server 2003</li>
-</ul>
-</li>
-<li><p>Oracle Solaris OS on SPARC platforms</p>
-<ul>
-<li>Solaris 8, 9, 10, 11, 11.1</li>
-<li>Trusted Extensions versions of the above</li>
-</ul>
-</li>
-<li><p>Oracle Solaris OS on x86 platforms </p>
-<ul>
-<li>Solaris 10, 11, 11.1</li>
-<li>Trusted Extensions versions of the above</li>
-</ul>
-</li>
-<li><p>Oracle Linux (32位和64位)</p>
-<ul>
-<li>5, 6</li>
-</ul>
-</li>
-<li><p>SUSE Linux Enterprise Server (32位和64位)</p>
-<ul>
-<li>10, 11</li>
-</ul>
-</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>支持的版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft Windows (64位)</td>
+<td>Windows Server 2008 R2, 2012 R2</td>
+</tr>
+<tr>
+<td>Oracle Solaris on SPARC platforms</td>
+<td>Solaris 10 8/11 (update 10) or later<br>Solaris 11<br>Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Solaris on x86 platforms</td>
+<td>Solaris 10 8/11 (update 10) or later<br>Solaris 11<br>Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Linux (32位和64位)</td>
+<td>5<br>6</td>
+</tr>
+</tbody>
+</table>
 <h2 id="SGD_Web_u670D_u52A1_u5668"><a href="#SGD_Web_u670D_u52A1_u5668" class="headerlink" title="SGD Web服务器"></a>SGD Web服务器</h2><p>SGD Web服务器由Apache Web服务器和一个Tomcat JavaServer Pages(JSP)容器组成，为使用Oracle Secure Global Desktop而预先进行了配置。</p>
 <p>TABLE 3. SGD Web服务器组件</p>
 <table>
 <thead>
 <tr>
 <th>组件名称</th>
+<th>SGD5.2中的组件版本</th>
 <th>SGD5.0中的组件版本</th>
 <th>SGD4.7中的组件版本</th>
 </tr>
@@ -1094,21 +1081,25 @@
 <tbody>
 <tr>
 <td>Apache HTTP Server</td>
+<td>2.2.29</td>
 <td>2.2.24</td>
 <td>2.2.22</td>
 </tr>
 <tr>
 <td>OpenSSL</td>
+<td>1.0.1l</td>
 <td>1.0.0.k</td>
 <td>1.0.0.j</td>
 </tr>
 <tr>
 <td>mod_jk</td>
+<td>1.2.40</td>
 <td>1.2.37</td>
 <td>1.2.37</td>
 </tr>
 <tr>
 <td>Apache Jakarta Tomcat</td>
+<td>7.0.57</td>
 <td>7.0.37</td>
 <td>7.0.29</td>
 </tr>
@@ -1116,12 +1107,13 @@
 <td>Apache Axis</td>
 <td>1.4</td>
 <td>1.4</td>
+<td>1.4</td>
 </tr>
 </tbody>
 </table>
 <p>Apache Web服务器中包含了所有标准Apache模块作为共享对象。</p>
 <p>Tomcat JSP容器中Java虚拟机（JVM）的最小堆内存配置是256MB。</p>
-<h3 id="u652F_u6301_u7684_u8EAB_u4EFD_u8BA4_u8BC1_u673A_u5236"><a href="#u652F_u6301_u7684_u8EAB_u4EFD_u8BA4_u8BC1_u673A_u5236" class="headerlink" title="支持的身份认证机制"></a>支持的身份认证机制</h3><p>对Oracle Secure Global Desktop用户作身份认证时支持如下的身份认证机制：</p>
+<h2 id="u652F_u6301_u7684_u8EAB_u4EFD_u8BA4_u8BC1_u673A_u5236"><a href="#u652F_u6301_u7684_u8EAB_u4EFD_u8BA4_u8BC1_u673A_u5236" class="headerlink" title="支持的身份认证机制"></a>支持的身份认证机制</h2><p>对Oracle Secure Global Desktop用户作身份认证时支持如下的身份认证机制：</p>
 <ul>
 <li>轻量级目录访问协议(LDAP) v3</li>
 <li>Microsoft Active Directory</li>
@@ -1130,39 +1122,39 @@
 <li>RSA SecurID</li>
 <li>Web服务器认证(HTTP/HTTPS 基本认证), 包含客户端证书的PKI</li>
 </ul>
-<h3 id="SGD_Gateway"><a href="#SGD_Gateway" class="headerlink" title="SGD Gateway"></a>SGD Gateway</h3><p>SGD Gateway是部署在隔离区（DMZ）中，Oracle Secure Global Desktop阵列之前的一个代理服务器。它使得Oracle Secure Global Desktop阵列能够部署在组织的内部网络之中。此外，在所有的连接到达阵列中Oracle Secure Global Desktop服务器之前，这些连接能够在DMZ中被认证。</p>
+<h2 id="SGD_Gateway"><a href="#SGD_Gateway" class="headerlink" title="SGD Gateway"></a>SGD Gateway</h2><p>SGD Gateway是部署在隔离区（DMZ）中，Oracle Secure Global Desktop阵列之前的一个代理服务器。它使得Oracle Secure Global Desktop阵列能够部署在组织的内部网络之中。此外，在所有的连接到达阵列中Oracle Secure Global Desktop服务器之前，这些连接能够在DMZ中被认证。</p>
 <p>SGD Gateway负责管理HTTP连接的负载均衡，因此不再需要使用Oracle Secure Global Desktop中内置的JSP负载均衡页面。</p>
 <p>SGD Gateway由如下组件组成：</p>
 <ul>
-<li>路由代理器：是一个基于Java技术的应用程序，负责到Oracle Secure Global Desktop服务器的自适应网络协议(AIP)数据连接和Web Socket连接的路由功能。路由代理器的秘钥库中包含了SGD Gateway安全连接的证书和私钥。路由代理器使用路由令牌来管理AIP连接。路由令牌是一条经过签名和加密的信息，该令牌能够识别到Oracle Secure Global Desktop服务器路由的原地址和目的地址。</li>
-<li>反向代理器：是一个Apache Web服务器，配置成反向代理模式。反向代理器也负责执行HTTP连接的负载均衡功能。</li>
+<li><em>路由代理器 (Routing Proxy)</em>：是一个基于Java技术的应用程序，负责到Oracle Secure Global Desktop服务器的自适应网络协议(AIP)数据连接和Web Socket连接的路由功能。路由代理器的秘钥库中包含了SGD Gateway安全连接的证书和私钥。路由代理器使用路由令牌来管理AIP连接。路由令牌是一条经过签名和加密的信息，该令牌能够识别到Oracle Secure Global Desktop服务器路由的原地址和目的地址。</li>
+<li><em>反向代理器 (Reverse Proxy)</em>：是一个Apache Web服务器，配置成反向代理模式。反向代理器也负责执行HTTP连接的负载均衡功能。</li>
 </ul>
-<p><img src="/img/post/SGD-Architecture.png" alt="Figure2\. 使用SGD Gateway的Oracle Secure Global Desktop部署实例" title="使用SGD Gateway的Oracle Secure Global Desktop部署实例"></p>
+<p><img src="/img/post/SGD-Architecture.png" alt="Figure 2. 使用SGD Gateway的Oracle Secure Global Desktop部署实例" title="使用SGD Gateway的Oracle Secure Global Desktop部署实例"></p>
 <p>下表列出了受支持的SGD Gateway的安装平台：</p>
 <p>TABLE 4. 受支持的SGD Gateway的安装平台</p>
-<ul>
-<li><p>Oracle Solaris OS on SPARC platforms</p>
-<ul>
-<li>Solaris 10 update 10, Solaris 10 update 11</li>
-<li>Solaris 11, 11.1</li>
-<li>Trusted Extensions versions of the above</li>
-</ul>
-</li>
-<li><p>Oracle Solaris OS on x86 platforms</p>
-<ul>
-<li>Solaris 10 update 10, Solaris 10 update 11</li>
-<li>Solaris 11, 11.1</li>
-<li>Trusted Extensions versions of the above</li>
-</ul>
-</li>
-<li><p>Oracle Linux (32位和64位)</p>
-<ul>
-<li>5.8, 5.9</li>
-<li>6.2, 6.3, 6.4</li>
-</ul>
-</li>
-</ul>
-<p>默认情况下，SGD Gateway被配置成最大支持同时100个HTTP连接，同时512个自适应网络协议(AIP)连接和同时512个Web Socket连接。《Oracle Secure Global Desktop Gateway管理指南》的Appendix C中详细描述了如何对SGD Gateway进行调整以支持相应数量的用户。</p>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>支持的版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oracle Solaris on SPARC platforms</td>
+<td>• Solaris 10 [至少版本 8/11 (update 10)]<br>• Solaris 11</td>
+</tr>
+<tr>
+<td>Oracle Solaris on x86 platforms</td>
+<td>• Solaris 10 [至少版本 8/11 (update 10)]<br>• Solaris 11</td>
+</tr>
+<tr>
+<td>Oracle Linux (仅64位)</td>
+<td>• 5 (至少版本5.8)<br>• 6 (至少版本 6.2)</td>
+</tr>
+</tbody>
+</table>
+<p>默认情况下，SGD Gateway被配置成最大支持同时100个HTTP连接，同时512个自适应网络协议(AIP)连接和同时512个Web Socket连接。<a href="http://www.oracle.com/technetwork/documentation/sgd-193668.html" target="_blank" rel="external">《Oracle Secure Global Desktop 管理指南》</a>的<code>Appendix C</code>中详细描述了如何对SGD Gateway进行调整以支持相应数量的用户。</p>
 <p>Oracle Secure Global Desktop 服务器与SGD Gateway整合部署时，有如下需求：</p>
 <ul>
 <li>安全模式：默认情况下，SGD Gateway使用安全连接连接到Oracle Secure Global Desktop服务器。因此必须在Oracle Secure Global Desktop服务器上开启安全连接。不能开启防火墙转发功能。</li>
@@ -1170,7 +1162,7 @@
 <li>Oracle Secure Global Desktop版本：最好使用与SGD Gateway相同版本（或高版本）的Oracle Secure Global Desktop服务器。</li>
 <li>时钟同步：Oracle Secure Global Desktop服务器与SGD Gateway的系统时钟同步非常重要。请使用Network Time Protocol (NTP) 或者 <code>rdate</code> 命令来保证时钟同步。</li>
 </ul>
-<p>随SGD Gateway提供的Apache Web服务器版本是Apache 2.2.24。它包含了反向代理和负载均衡的标准Apache模块。这些模块作为动态共享对象（DSO）模块被安装进来。</p>
+<p>随SGD Gateway提供的Apache Web服务器版本是Apache 2.2.29。它包含了反向代理和负载均衡的标准Apache模块。这些模块作为动态共享对象（DSO）模块被安装进来。</p>
 <p>SGD Gateway支持如下SSL连接的加密方式：</p>
 <ul>
 <li>SSL_RSA_WITH_RC4_128_MD5</li>
@@ -1184,10 +1176,10 @@
 <li>SSL_RSA_WITH_3DES_EDE_CBC_SHA</li>
 <li>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</li>
 <li>SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA</li>
-<li>SSL_RSA_WITH_DES_CBC_SHA</li>
 </ul>
-<p>也支持如下的加密方式，但是这些方式必须由用户来配置，请参考《Oracle Secure Global Desktop Gateway管理指南》。</p>
+<p>也支持如下的加密方式，但是这些方式必须由用户来配置，请参考<a href="http://www.oracle.com/technetwork/documentation/sgd-193668.html" target="_blank" rel="external">《Oracle Secure Global Desktop 管理指南》</a>。</p>
 <ul>
+<li>SSL_RSA_WITH_DES_CBC_SHA</li>
 <li>SSL_DHE_RSA_WITH_DES_CBC_SHA</li>
 <li>SSL_DHE_DSS_WITH_DES_CBC_SHA</li>
 <li>SSL_RSA_EXPORT_WITH_RC4_40_MD5</li>
@@ -1209,25 +1201,45 @@
 <li>Windows Server 2003 R2</li>
 <li>Windows Server 2008</li>
 <li>Windows Server 2008 R2</li>
+<li>Windows Server 2012</li>
+<li>Windows Server 2012 R2</li>
 <li>受支持的 LDAP 目录</li>
 </ul>
 <p>Oracle Secure Global Desktop支持标准LDAP协议 v3。可以使用与LDAP v3兼容的任何目录服务器来作LDAP身份认证。但是，Oracle Secure Global Desktop仅支持如下版本的目录服务器：</p>
 <ul>
-<li>Oracle Directory Server Enterprise Edition version 11gR1</li>
-<li>Microsoft Active Directory on Windows Server 2003, 2003 R2, 2008, and 2008 R2</li>
-<li>Oracle Internet Directory 11gR1 (all 11.1.1.x.0 releases)</li>
+<li>Oracle Unified Directory 11gR1 (11.1.1.x), 11gR2 (11.1.2.x)</li>
+<li>Oracle Internet Directory 11gR1 (11.1.1.x), 11gR2 (11.1.2.x)</li>
+<li>Oracle Directory Server Enterprise Edition 11gR1 (11.1.1.x)</li>
+<li>以下Windows服务器版本中的Microsoft Active Directory：<ul>
+<li>2003</li>
+<li>2003 R2</li>
+<li>2008</li>
+<li>2008 R2</li>
+<li>2012</li>
+<li>2012 R2</li>
+</ul>
+</li>
 </ul>
 <p>其他目录服务器可能会正常工作，但是不被官方支持。</p>
-<h2 id="u652F_u6301_u7684SecurID_u7248_u672C"><a href="#u652F_u6301_u7684SecurID_u7248_u672C" class="headerlink" title="支持的SecurID版本"></a>支持的SecurID版本</h2><p>Oracle Secure Global Desktop可以与RSA Authentication Manager (也就是之前的ACE/Server)的版本4，5，6，以及7一起工作。Oracle Secure Global Desktop支持系统生成的PIN和用户创建的PIN。</p>
-<h2 id="SSL_u652F_u6301"><a href="#SSL_u652F_u6301" class="headerlink" title="SSL支持"></a>SSL支持</h2><p>Oracle Secure Global Desktop支持TLS v1.0 和 SSL v3.0。</p>
+<h2 id="u652F_u6301_u7684SecurID_u7248_u672C"><a href="#u652F_u6301_u7684SecurID_u7248_u672C" class="headerlink" title="支持的SecurID版本"></a>支持的SecurID版本</h2><p>Oracle Secure Global Desktop可以与如下版本的RSA Authentication Manager (也就是之前的ACE/Server)一起工作。</p>
+<ul>
+<li>7.1 SP2, 7.1 SP3, 7.1 SP4</li>
+<li>8.0, 8.1</li>
+</ul>
+<p>Oracle Secure Global Desktop支持系统生成的PIN和用户创建的PIN。</p>
+<h2 id="u652F_u6301_u7684Oracle_Identity_Management"><a href="#u652F_u6301_u7684Oracle_Identity_Management" class="headerlink" title="支持的Oracle Identity Management"></a>支持的Oracle Identity Management</h2><p>Oracle Secure Global Desktop可以与如下版本的Oracle Identity Management一起工作:</p>
+<ul>
+<li>Oracle Identity Management 11gR2 (11.1.2.x)</li>
+</ul>
+<h2 id="SSL_u652F_u6301"><a href="#SSL_u652F_u6301" class="headerlink" title="SSL支持"></a>SSL支持</h2><p>Oracle Secure Global Desktop支持TLS版本1.0，1.1以及1.2。</p>
 <p>Oracle Secure Global Desktop支持Privacy Enhanced Mail (PEM) Base 64-encoded X.509证书。这种证书的结构如下：</p>
 <pre><code>-----BEGIN CERTIFICATE-----
 ...certificate...
 -----END CERTIFICATE-----
-</code></pre><p>Oracle Secure Global Desktop支持SSL证书的Subject Alternative Name(subjectAltName)扩展。</p>
+</code></pre><p>Oracle Secure Global Desktop支持SSL证书的Subject Alternative Name(<code>subjectAltName</code>)扩展。</p>
 <p>Oracle Secure Global Desktop也支持使用 <code>*</code>通配符来匹配域名的开始部分，例如，<code>*.example.com</code>。</p>
 <p>Oracle Secure Global Desktop包含了对很多认证机构（CA）的支持。</p>
-<p>在<code>/opt/tarantella/etc/data/cacerts.txtfile</code>文件中包含了SGD支持的所有CA证书的X.500 Distinguished Names (DNs) 和 MD5签名。对于未支持的CA签发的SSL证书，需要做额外的配置才能被支持。中级CA机构也是受支持的，但是如果认证链中的存在任何由未支持CA签发的证书，就需要做额外的配置。</p>
+<p>在<code>/opt/tarantella/etc/data/cacerts.txt</code>文件中包含了SGD支持的所有CA证书的X.500 Distinguished Names (DNs) 和 MD5签名。对于未支持的CA签发的SSL证书，需要做额外的配置才能被支持。中级CA机构也是受支持的，但是如果认证链中的存在任何由未支持CA签发的证书，就需要做额外的配置。</p>
 <p>Oracle Secure Global Desktop支持使用外部硬件SSL加速器，但是需要额外的配置。</p>
 <p>Oracle Secure Global Desktop支持如下加密方式：</p>
 <ul>
@@ -1240,70 +1252,56 @@
 </ul>
 <h2 id="SGD__u5BA2_u6237_u7AEF"><a href="#SGD__u5BA2_u6237_u7AEF" class="headerlink" title="SGD 客户端"></a>SGD 客户端</h2><p>下表列出了SGD客户端支持的客户端平台。同时也包含了在整合模式下使用SGD客户端时，受支持的浏览器和操作系统平台。</p>
 <p>TABLE 6. 受支持的客户端平台</p>
-<ul>
-<li><p>iOS 6.x on Apple iPad 2, 3, 4, mini</p>
-<ul>
-<li>Safari</li>
-</ul>
-</li>
-<li><p>Microsoft Windows 8 (32-bit and 64-bit) Desktop mode only</p>
-<ul>
-<li>Internet Explorer 10</li>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Microsoft Windows 7 (32-bit and 64-bit)</p>
-<ul>
-<li>Internet Explorer 9</li>
-<li>Internet Explorer 8</li>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Microsoft Windows XP Professional SP3 (32-bit)</p>
-<ul>
-<li>Internet Explorer 7, 8</li>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Sun Ray Software on Oracle Solaris (X86 and SPARC platforms)</p>
-</li>
-<li><p>Solaris 10 update 10, 10 update 11, Solaris 11, 11.1</p>
-<ul>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Sun Ray software on Oracle Linux (32-bit and 64-bit)</p>
-</li>
-<li><p>Oracle Linux 5.8, 5.9, 6.2, 6.3, 6.4</p>
-<ul>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Mac OS X 10.7 and 10.8</p>
-<ul>
-<li>Safari 5</li>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Oracle Linux 5.8, 5.9, 6.2, 6.3, 6.4 (32-bit and 64-bit)</p>
-<ul>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-<li><p>Ubuntu 10.04 and 12.04 (32-bit and 64-bit)</p>
-<ul>
-<li>Mozilla Firefox 17.0.2:ESR, 18</li>
-<li>Chrome 24</li>
-</ul>
-</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>受支持的客户端平台</th>
+<th>受支持的浏览器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft Windows 8, 8.1 (32位和64位)仅限桌面模式</td>
+<td>Internet Explorer 10, 11<br>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Microsoft Windows 7 (32位和64位)</td>
+<td>Internet Explorer 10, 11<br>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Solaris (x86 and SPARC platforms):<br>Solaris 10 8/11 (update 10) or later<br>Solaris 11</td>
+<td>Mozilla Firefox</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Linux (32位和64位):<br>Oracle Linux 5<br>Oracle Linux 6</td>
+<td>Mozilla Firefox<br>Chrome</td>
+</tr>
+<tr>
+<td>Oracle Linux (32位和64位):<br>Oracle Linux 5<br>Oracle Linux 6</td>
+<td>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Ubuntu Linux 12.04, 14.04 (32位和64位)</td>
+<td>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Mac OS X 10.9, 10.10</td>
+<td>Safari 7, 8<br>Mozilla Firefox<br>Chrome</td>
+</tr>
+<tr>
+<td>Apple iPad on: <br>iOS 7<br>iOS 8</td>
+<td>Safari</td>
+</tr>
+<tr>
+<td>Google Nexus 7 and Google Nexus 10 on:<br>Android 4.0.3 and later<br>Android 5</td>
+<td>Chrome</td>
+</tr>
+<tr>
+<td>Acer Chromebook and HP Chromebook on:<br>Chrome OS 38.0</td>
+<td>Chrome</td>
+</tr>
+</tbody>
+</table>
 <p>无论是在Mac OS X上还是iPad客户端设备上，Oracle Secure Global Desktop的管理员控制台都不支持Safari浏览器。</p>
 <p>不支持测试版或者预览版的浏览器。</p>
 <p>浏览器中必须启用JavaScript支持，必须能接受cookie。</p>
@@ -1313,10 +1311,10 @@
 <li>从用户默认的浏览器中获取代理服务器设置</li>
 </ul>
 <p>如果Java技术不可用的话，可以手动下载和安装SGD客户端。手动安装包在所有支持的客户端平台下都可以使用。</p>
-<p>作为Java技术的插件，支持的版本是1.6和1.7。</p>
-<p>在使用如iPad的平板设备时，Oracle Secure Global Desktop使用了基于HTML5的客户端来显示应用程序和桌面，这时会在一个新的标签页中显示（比如，在Safari浏览器中）。Oracle Secure Global Desktop的工作区（webtop）也可以通过Safari浏览器来访问。</p>
+<p>作为Java技术的插件，支持的版本是1.7和1.8。</p>
+<p>在使用如iPad的平板设备时，Oracle Secure Global Desktop使用了基于HTML5的客户端来显示应用程序和桌面，这时会在一个新的标签页中显示（比如，在Safari浏览器中）。Oracle Secure Global Desktop的工作区也可以通过Safari浏览器来访问。</p>
 <p>当用户在同一设备和浏览器上开启多个用户会话时，用户会话会进行合并，而不是用新会话顶替现有会话。对于这种用户会话的参与方式，浏览器必须配置为接受永久cookie。如果不允许永久cookie的话，用户会话总会被关闭，这会导致应用程序窗口消失。</p>
-<p>为了最佳的效果，客户端设备必须配置成至少256色。</p>
+<p>为了最佳的效果，客户端设备必须配置成至少上千种色。</p>
 <p>SGD客户端和工作区支持如下多国语言：</p>
 <ul>
 <li>English</li>
@@ -1336,44 +1334,45 @@
 <li>对于PDF打印来说，Oracle Secure Global Desktop使用Ghostscript来把打印任务转换为PDF格式的文件。Ghostscript的发行版中必须包含ps2pdf程序。为保证最佳效果，请安装最新版本的Ghostscript。</li>
 <li>Oracle Secure Global Desktop支持客户端设备上的如PostScript，Printer Command Language (PCL)以及纯文本打印机的直接打印。Oracle Secure Global Desktop的<code>tta_print_converter</code> 脚本会为客户端打印机正确地格式化打印任务。<code>tta_print_converter</code> 脚本使用Ghostscript把Postscript转化成PCL。为支持这种转换过程，Oracle Secure Global Desktop服务器上必须先安装Ghostscript。为了保证最佳效果，请下载和安装其他需要的字体。</li>
 </ul>
-<p>为了使用PDF打印，在客户端设备上必须安装PDF查看器。Oracle Secure<br>Global Desktop默认支持如下PDF查看器:</p>
+<p>为了使用PDF打印，在客户端设备上必须安装PDF查看器。Oracle Secure Global Desktop默认支持如下PDF查看器:</p>
 <p>TABLE 7. 受支持的PDF查看器</p>
-<ul>
-<li><p>Microsoft Windows platforms</p>
-<ul>
-<li>Adobe Reader, at least version 4.0</li>
-</ul>
-</li>
-<li><p>Oracle Solaris OS on SPARC platforms</p>
-<ul>
-<li>Adobe Reader (acroread)</li>
-<li>GNOME PDF Viewer (gpdf)</li>
-</ul>
-</li>
-<li><p>Oracle Solaris OS on x86 platforms</p>
-<ul>
-<li>GNOME PDF Viewer (gpdf)</li>
-</ul>
-</li>
-<li><p>Linux</p>
-<ul>
-<li>GNOME PDF Viewer (gpdf)</li>
-<li>Evince Document Viewer (evince)</li>
-<li>X PDF Reader (xpdf)</li>
-</ul>
-</li>
-<li><p>Mac OS X</p>
-<ul>
-<li>Preview App (/Applications/Preview.app)</li>
-</ul>
-</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>客户端平台</th>
+<th>默认的PDF查看器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft Windows platforms</td>
+<td>Adobe Reader, 至少版本4.0</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Solaris (SPARC platforms)</td>
+<td>GNOME PDF Viewer (<strong>gpdf</strong>)<br>Adobe Reader (<strong>acroread</strong>)</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Solaris (x86 platforms)</td>
+<td>GNOME PDF Viewer (<strong>gpdf</strong>)</td>
+</tr>
+<tr>
+<td>Oracle Linux</td>
+<td>GNOME PDF Viewer (<strong>gpdf</strong>)<br>Evince Document Viewer (<strong>evince</strong>)<br>X PDF Reader (<strong>xpdf</strong>)</td>
+</tr>
+<tr>
+<td>Mac OS X</td>
+<td>Preview App (<strong>/Applications/Preview.app</strong>)</td>
+</tr>
+</tbody>
+</table>
 <p>在Windows应用程序服务器上默认的PDF打印驱动是<em>HP Color LaserJet 2800 Series PS</em>。在平板设备上，会使用浏览器插件来显示PDF文件。</p>
 <h2 id="u652F_u6301_u7684_u667A_u80FD_u5361"><a href="#u652F_u6301_u7684_u667A_u80FD_u5361" class="headerlink" title="支持的智能卡"></a>支持的智能卡</h2><p>Oracle Secure Global Desktop中可以使用与任何Microsoft远程桌面服务支持的，与PC智能卡(PC/SC)兼容的智能卡和读卡器。</p>
-<h2 id="u9644_u5F55_uFF1AOracle_Secure_Global_Desktop_u6574_u4F53_u6784_u67B6_u56FE"><a href="#u9644_u5F55_uFF1AOracle_Secure_Global_Desktop_u6574_u4F53_u6784_u67B6_u56FE" class="headerlink" title="附录：Oracle Secure Global Desktop整体构架图"></a>附录：Oracle Secure Global Desktop整体构架图</h2><p><img src="/img/post/SGD-Architecture-details.png" alt="Oracle Secure Global Desktop整体构架图" title="Oracle Secure Global Desktop整体构架图"></p>
+<h2 id="u9644_u5F551_uFF1AOracle_Secure_Global_Desktop_u6574_u4F53_u6784_u67B6_u56FE"><a href="#u9644_u5F551_uFF1AOracle_Secure_Global_Desktop_u6574_u4F53_u6784_u67B6_u56FE" class="headerlink" title="附录1：Oracle Secure Global Desktop整体构架图"></a>附录1：Oracle Secure Global Desktop整体构架图</h2><p><img src="/img/post/SGD-Architecture-details.png" alt="Oracle Secure Global Desktop整体构架图" title="Oracle Secure Global Desktop整体构架图"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="u6982_u8981"><a href="#u6982_u8981" class="headerlink" title="概要"></a>概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是]]>
+    <![CDATA[<h2 id="u66F4_u65B0_u5C65_u5386"><a href="#u66F4_u65B0_u5C65_u5386" class="headerlink" title="更新履历"></a>更新履历</h2><ul>
+<li>2016年1月： 基于SGD 5.2]]>
     </summary>
     
       <category term="aip" scheme="http://xintq.net/tags/aip/"/>
