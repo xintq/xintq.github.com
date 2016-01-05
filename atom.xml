@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xintq.net/"/>
-  <updated>2016-01-01T07:37:06.000Z</updated>
+  <updated>2016-01-05T08:15:17.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -13,6 +13,84 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Oracle Secure Global Desktop服务器配置估算建议]]></title>
+    <link href="http://xintq.net/2016/01/05/sgd-server-sizing-tricks/"/>
+    <id>http://xintq.net/2016/01/05/sgd-server-sizing-tricks/</id>
+    <published>2016-01-05T07:06:25.000Z</published>
+    <updated>2016-01-05T08:15:17.000Z</updated>
+    <content type="html"><![CDATA[<p>作为统一的应用程序访问层入口，Oracle Secure Global Desktop的服务器配置应该如何估算呢？如何决定服务器的CPU，内存配置呢？这些问题是在Oracle Secure Global Desktop应用到生产环境中必须要考虑的。</p>
+<p>在估算Oracle Secure Global Desktop服务器配置之前，首先需要明白在实际应用中有一些因素我们是照顾不到的，或者，换句话说是存在不可控的变量，比如：</p>
+<ul>
+<li>用户实际通过SGD运行的应用程序类型：写字板，Word，Firefox或者是xterm</li>
+<li>用户是如何使用这些应用程序的：仅仅是阅读文档，还是输入文本，听听音乐还是需要处理视频</li>
+</ul>
+<p>这些不可控的变量会直接影响到Oracle Secure Global Desktop的服务器上的资源消耗。再举个例子：</p>
+<ul>
+<li>拿内存使用量来说：一个横跨4个显示器的应用程序肯定比只使用1024x768单个窗口的应用程序消耗的内存多</li>
+<li>拿CPU的使用量来说：相比显示文本数据的应用程序，进行视频播放，或者高频度鼠标操作，或者运行动画的这些应用程序，显然需要消耗更多的CPU。</li>
+</ul>
+<p>在理解了这些不可控的变量对估算的影响之后，我们可以进一步进行估算。</p>
+<p>首先从宏观着手，下面是服务器配置估算的一些建议：</p>
+<ul>
+<li>单个SGD服务器配置:<ul>
+<li><code>最多支持500用户</code></li>
+<li>每个用户同时运行两个窗口大小为 1920x1200 的应用程序</li>
+<li>需要192GB内存，1*3GHz的CPU（8～15核）</li>
+</ul>
+</li>
+<li>SGD阵列：<ul>
+<li><code>最多10个节点</code>（也就是最多10台SGD服务器组成一个阵列）</li>
+<li><code>最多支持5000用户</code></li>
+</ul>
+</li>
+<li>应用程序服务器：<ul>
+<li><code>最多运行100个应用</code></li>
+<li>需要192GB内存，1*3GHz的CPU（8～15核）</li>
+<li>管理员可以选择高配置或者低配置的服务器</li>
+</ul>
+</li>
+</ul>
+<p>接着从微观落脚，上面的结论是怎么算出来的呢？继续往下看：</p>
+<ul>
+<li><p>SGD服务器：</p>
+<ul>
+<li>内存的估算：<strong>每个用户约80MB内存</strong>（同时运行两个Windows应用程序）</li>
+<li>CPU的估算：<strong>每个用户约50MHz的CPU</strong>（一个典型的应用程序使用大概10-30MHz的CPU，但是实际上CPU的使用率取决于应用程序自身。某些繁忙的应用程序可能会用到50-100MHz的CPU。）</li>
+</ul>
+</li>
+<li><p>SGD Gateway服务器：</p>
+<ul>
+<li>内存的估算：<strong>每个用户约2MB内存</strong>（详细公式为：<code>JVM内存＝((应用程序数 + 3) x SGD 用户数 + websocket连接数 + HTTP连接数) x 300 KB</code>, 而且默认情况下，SGD Gateway被配置成最大支持同时100个HTTP连接，同时512个自适应网络协议(AIP)连接和同时512个Web Socket连接）</li>
+<li>CPU的估算：<strong>每个用户约10MHz的CPU</strong> <strong> </strong></li>
+</ul>
+</li>
+</ul>
+<p>最后，需要说明一下，以上这些只是一个粗略的估算方法，适用于那些“<em>普通用户</em>” － 通常使用SGD做为办公环境的用户，一次打开一两个Office应用程序，进行简单的文本操作。这个估算方法只是一个理论数据，在实际应用的过程中，特别是生产环境中，还需要结合实际情况，具体问题具体分析和测试，切不可把本文的建议当成精确的度量。。。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>作为统一的应用程序访问层入口，Oracle Secure Global Desktop的服务器配置应该如何估算呢？如何决定服务器的CPU，内存配置呢？这些问题是在Oracle Secure Global Desktop应用到生产环境中必须要考虑的。</p>
+<p>在估算Or]]>
+    </summary>
+    
+      <category term="array" scheme="http://xintq.net/tags/array/"/>
+    
+      <category term="gateway" scheme="http://xintq.net/tags/gateway/"/>
+    
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
+    
+      <category term="sizing" scheme="http://xintq.net/tags/sizing/"/>
+    
+      <category term="估算" scheme="http://xintq.net/tags/%E4%BC%B0%E7%AE%97/"/>
+    
+      <category term="配置" scheme="http://xintq.net/tags/%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="阵列" scheme="http://xintq.net/tags/%E9%98%B5%E5%88%97/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Mac OS X下的一些常用命令汇总]]></title>
@@ -2090,57 +2168,6 @@ SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, AT
       <category term="网络配置" scheme="http://xintq.net/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
     
       <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Tarantella, Virtualization Tools, Also a Poem]]></title>
-    <link href="http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/"/>
-    <id>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</id>
-    <published>2014-08-26T07:25:42.000Z</published>
-    <updated>2015-11-26T14:02:28.000Z</updated>
-    <content type="html"><![CDATA[<p>最近在折腾Oracle虚拟化的产品，叫做Oracle Secure Global Desktop。在搭建环境的时候，碰到的第一个命令叫做：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tarantella object edit --name <span class="string">"o=Tarantella System Objects/cn=Administrator"</span> \</span><br><span class="line">	--user user-name --surname family-name</span><br></pre></td></tr></table></figure></p>
-<p>那么，这个 <strong><em>tarantella</em></strong> 到底是个啥？<br>查了一下，好像是个病毒，还是个舞蹈，另外还是一首诗的名字。</p>
-<p>病毒我不太感兴趣，脏脏的，百度一大片。<br>但是那首诗不错，你可以在<a href="http://www.bookyesok.com/Books/2844.html" target="_blank" rel="external">这里</a>找到原文，如下：</p>
-<pre><code>Tarantella
-From New Poems (1916).
-
-Sad as he sits on the white sea-stone
-And the suave sea chuckles, and turns to the moon,
-And the moon significant smiles at the cliffs and the boulders.
-He sits like a shade by the flood alone
-While I dance a tarantella on the rocks, and the croon
-Of my mockery mocks at him over the waves&apos; bright shoulders.
-
-What can I do but dance alone,
-Dance to the sliding sea and the moon,
-For the moon on my breast and the air on my limbs and the foam on my feet?
-For surely this earnest man has none
-Of the night in his soul, and none of the tune
-Of the waters within him; only the world&apos;s old wisdom to bleat.
-
-I wish a wild sea-fellow would come down the glittering shingle,
-A soulless neckar, with winking seas in his eyes
-And falling waves in his arms, and the lost soul&apos;s kiss
-On his lips: I long to be soulless, I tingle
-To touch the sea in the last surprise
-Of fiery coldness, to be gone in a lost soul&apos;s bliss.
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<p>最近在折腾Oracle虚拟化的产品，叫做Oracle Secure Global Desktop。在搭建环境的时候，碰到的第一个命令叫做：<br><figure class="highlight bash"><table><tr><td class="gutter"><pr]]>
-    </summary>
-    
-      <category term="poem" scheme="http://xintq.net/tags/poem/"/>
-    
-      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
-    
-      <category term="tarantella" scheme="http://xintq.net/tags/tarantella/"/>
-    
-      <category term="virtualization" scheme="http://xintq.net/tags/virtualization/"/>
-    
-      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
-      <category term="随笔" scheme="http://xintq.net/categories/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
