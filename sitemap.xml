@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/</loc>
+    <lastmod>2016-01-05T07:00:02.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/</loc>
     <lastmod>2016-01-05T06:34:11.000Z</lastmod>
   </url>
@@ -22,12 +27,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
+    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
   </url>
   
@@ -42,6 +42,11 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
   </url>
@@ -52,7 +57,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
+    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
   </url>
   
@@ -64,11 +69,6 @@
   <url>
     <loc>http://xintq.net/2015/08/18/oracle-vdi-installation/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/</loc>
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
   <url>
@@ -127,7 +127,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/</loc>
+    <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
+    <loc>http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
@@ -237,12 +237,12 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/</loc>
+    <loc>http://xintq.net/2015/03/10/aip/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/03/10/aip/</loc>
+    <loc>http://xintq.net/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
