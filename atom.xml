@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xintq.net/"/>
-  <updated>2016-01-05T08:15:17.000Z</updated>
+  <updated>2016-04-20T01:39:30.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://xintq.net/2016/01/05/sgd-server-sizing-tricks/"/>
     <id>http://xintq.net/2016/01/05/sgd-server-sizing-tricks/</id>
     <published>2016-01-05T07:06:25.000Z</published>
-    <updated>2016-01-05T08:15:17.000Z</updated>
+    <updated>2016-04-20T01:39:30.000Z</updated>
     <content type="html"><![CDATA[<p>作为统一的应用程序访问层入口，Oracle Secure Global Desktop的服务器配置应该如何估算呢？如何决定服务器的CPU，内存配置呢？这些问题是在Oracle Secure Global Desktop应用到生产环境中必须要考虑的。</p>
 <p>在估算Oracle Secure Global Desktop服务器配置之前，首先需要明白在实际应用中有一些因素我们是照顾不到的，或者，换句话说是存在不可控的变量，比如：</p>
 <ul>
@@ -97,7 +97,7 @@
     <link href="http://xintq.net/2016/01/01/mac-tricks/"/>
     <id>http://xintq.net/2016/01/01/mac-tricks/</id>
     <published>2016-01-01T06:51:13.000Z</published>
-    <updated>2016-01-01T07:37:06.000Z</updated>
+    <updated>2016-04-20T03:06:28.000Z</updated>
     <content type="html"><![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
 <h2 id="u901A_u8FC7_u7EC8_u7AEF_u4FEE_u6539Finder"><a href="#u901A_u8FC7_u7EC8_u7AEF_u4FEE_u6539Finder" class="headerlink" title="通过终端修改Finder"></a>通过终端修改Finder</h2><h3 id="Finder_u6807_u9898_u4E2D_u663E_u793A_u6587_u4EF6_u8DEF_u5F84"><a href="#Finder_u6807_u9898_u4E2D_u663E_u793A_u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="Finder标题中显示文件路径"></a>Finder标题中显示文件路径</h3><p>有时，当你查看某个文件时，你并不知道这个文件所在的路径，尤其是当你打开很多窗口时。下面这条命令可以让文件的路径显示在Finder的标题栏中。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES</span><br></pre></td></tr></table></figure>
@@ -131,7 +131,15 @@
 <p>最后要防止OS X继续创建该文件，所以需要下面的命令生成一个无法被替换的空文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch sleepimage</span><br><span class="line">chmod <span class="number">000</span> /private/var/vm/sleepimage</span><br></pre></td></tr></table></figure>
 <p>当然，如果想要重新开启SafeSleep功能，只需下面的命令即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pmset <span class="operator">-a</span> hibernatemode <span class="number">3</span></span><br><span class="line">sudo rm /private/var/vm/sleepimage</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pmset <span class="operator">-a</span> hibernatemode <span class="number">3</span></span><br><span class="line">sudo rm /private/var/vm/sleepimage</span><br></pre></td></tr></table></figure>
+<h3 id="u5173_u95ED_u5D29_u6E83_u62A5_u544A_u663E_u793A"><a href="#u5173_u95ED_u5D29_u6E83_u62A5_u544A_u663E_u793A" class="headerlink" title="关闭崩溃报告显示"></a>关闭崩溃报告显示</h3><p>如果希望关闭崩溃报告窗口在桌面的显示，只需在「终端」中输入如下命令，回车确认即可。下次如果有应用程序崩溃或意外退出，崩溃报告将不再会在桌面中显示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.CrashReporter DialogType none</span><br></pre></td></tr></table></figure>
+<p>恢复成默认的对话框形式的话，只需执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.CrashReporter DialogType crashreport</span><br></pre></td></tr></table></figure>
+<h3 id="u8BA9_u5D29_u6E83_u62A5_u544A_u5728_u300C_u901A_u77E5_u4E2D_u5FC3_u300D_u663E_u793A"><a href="#u8BA9_u5D29_u6E83_u62A5_u544A_u5728_u300C_u901A_u77E5_u4E2D_u5FC3_u300D_u663E_u793A" class="headerlink" title="让崩溃报告在「通知中心」显示"></a>让崩溃报告在「通知中心」显示</h3><p>如果你希望让崩溃报告在「通知中心」显示，只需在「终端」中输入如下命令，回车确认即可。下次如果有应用程序崩溃或意外退出，崩溃报告将以通知的形式显示在屏幕右上角：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.CrashReporter UseUNC <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>恢复成默认的对话框形式的话，只需执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.CrashReporter UseUNC <span class="number">0</span></span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
 <h2 id=]]>

@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2016/01/01/mac-tricks/</loc>
+    <lastmod>2016-04-20T03:06:28.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2016/01/05/sgd-server-sizing-tricks/</loc>
-    <lastmod>2016-01-05T08:15:17.000Z</lastmod>
+    <lastmod>2016-04-20T01:39:30.000Z</lastmod>
   </url>
   
   <url>
@@ -27,17 +32,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2016/01/01/mac-tricks/</loc>
-    <lastmod>2016-01-01T07:37:06.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
+    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
   </url>
   
@@ -52,6 +47,11 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
   </url>
@@ -62,7 +62,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
+    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
   </url>
   
