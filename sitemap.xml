@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2016/06/07/change-default-port-of-sdg-admin-console/</loc>
+    <lastmod>2016-06-07T01:46:12.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2016/06/07/config-ubuntu-xrdp-server-for-windows-clients/</loc>
+    <lastmod>2016-06-07T01:44:25.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2016/06/07/manage-virtualbox-sgd-in-cli/</loc>
+    <lastmod>2016-06-07T01:40:10.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2016/01/01/mac-tricks/</loc>
     <lastmod>2016-04-20T03:06:28.000Z</lastmod>
   </url>
@@ -122,12 +137,12 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/31/about-tds/</loc>
+    <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
+    <loc>http://xintq.net/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
@@ -247,7 +262,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/</loc>
+    <loc>http://xintq.net/2014/07/31/about-tds/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
