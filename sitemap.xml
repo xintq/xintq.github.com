@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2016/06/29/virtualbox-networking/</loc>
+    <lastmod>2016-06-29T01:22:00.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2016/06/07/change-default-port-of-sdg-admin-console/</loc>
     <lastmod>2016-06-07T01:46:12.000Z</lastmod>
   </url>
@@ -132,12 +137,12 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/31/vim-tricks/</loc>
+    <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
+    <loc>http://xintq.net/2014/07/31/about-tds/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
@@ -262,7 +267,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/31/about-tds/</loc>
+    <loc>http://xintq.net/2014/07/31/vim-tricks/</loc>
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
   </url>
   
