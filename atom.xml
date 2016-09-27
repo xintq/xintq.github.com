@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[夕阳下的奔跑]]></title>
-  <subtitle><![CDATA[不积跬步 无以至千里]]></subtitle>
+  <title>夕阳下的奔跑</title>
+  <subtitle>不积跬步 无以至千里</subtitle>
   <link href="/atom.xml" rel="self"/>
+  
   <link href="http://xintq.net/"/>
   <updated>2016-09-27T07:31:03.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
-    <name><![CDATA[K.X]]></name>
+    <name>K.X</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[在SGD中发布Oracle Linux 7 的Xfce桌面环境]]></title>
+    <title>在SGD中发布Oracle Linux 7 的Xfce桌面环境</title>
     <link href="http://xintq.net/2016/09/27/publish-xfce-of-linux7-via-sgd/"/>
     <id>http://xintq.net/2016/09/27/publish-xfce-of-linux7-via-sgd/</id>
     <published>2016-09-27T07:16:09.000Z</published>
     <updated>2016-09-27T07:31:03.000Z</updated>
+    
     <content type="html"><![CDATA[<p>从Oracle Linux 7和Red Hat Linux 7开始，默认的桌面环境变成了Gnome3。与之前的Gnome相比，Gnome3带来了很多新的东西，但是也带来很多新的问题。比如UI的不稳定，一些应用程序不支持。</p>
 <p>还好，Linux的世界从来不会因为一个软件的更新而困住用户，对于Linux的桌面环境来说，我们还可以选择KDE或者更轻量级的XFCE。</p>
 <h3 id="u73AF_u5883_u8BF4_u660E"><a href="#u73AF_u5883_u8BF4_u660E" class="headerlink" title="环境说明"></a>环境说明</h3><p>本文使用了Oracle Linux 7.2和SGD 5.2。</p>
@@ -37,10 +39,16 @@
 <p><img src="/img/post/xfce2.png" alt="img"></p>
 <h3 id="u5728SGD_u4E2D_u8BBF_u95EEXFCE_u684C_u9762_u73AF_u5883"><a href="#u5728SGD_u4E2D_u8BBF_u95EEXFCE_u684C_u9762_u73AF_u5883" class="headerlink" title="在SGD中访问XFCE桌面环境"></a>在SGD中访问XFCE桌面环境</h3><p><img src="/img/post/xfce3.png" alt="img"></p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>从Oracle Linux 7和Red Hat Linux 7开始，默认的桌面环境变成了Gnome3。与之前的Gnome相比，Gnome3带来了很多新的东西，但是也带来很多新的问题。比如UI的不稳定，一些应用程序不支持。</p>
-<p>还好，Linux的世界从来不会因为一个]]>
+    
+      &lt;p&gt;从Oracle Linux 7和Red Hat Linux 7开始，默认的桌面环境变成了Gnome3。与之前的Gnome相比，Gnome3带来了很多新的东西，但是也带来很多新的问题。比如UI的不稳定，一些应用程序不支持。&lt;/p&gt;
+&lt;p&gt;还好，Linux的世界从来不会因为一个
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -50,16 +58,15 @@
     
       <category term="linux 7" scheme="http://xintq.net/tags/linux-7/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[VirtualBox连网方式回顾]]></title>
+    <title>VirtualBox连网方式回顾</title>
     <link href="http://xintq.net/2016/06/29/virtualbox-networking/"/>
     <id>http://xintq.net/2016/06/29/virtualbox-networking/</id>
     <published>2016-06-29T01:17:49.000Z</published>
     <updated>2016-06-29T01:22:00.000Z</updated>
+    
     <content type="html"><![CDATA[<p>对于VirtualBox的网络类型，网上可以查到一大堆的资料，但是总是感觉理解不太顺畅。我尝试着把看到过的资料揉碎了掰开了，以自己能理解的方式把这几种网络类型的特点描述一下，希望能对你有所帮助：</p>
 <h3 id="u5B9A_u4E49_uFF1A"><a href="#u5B9A_u4E49_uFF1A" class="headerlink" title="定义："></a>定义：</h3><ul>
 <li><strong>Host</strong>： 安装VirtualBox的主机</li>
@@ -123,10 +130,16 @@
 </ul>
 <p><img src="/img/post/vbnet-bridged.png" alt="桥接方式"></p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>对于VirtualBox的网络类型，网上可以查到一大堆的资料，但是总是感觉理解不太顺畅。我尝试着把看到过的资料揉碎了掰开了，以自己能理解的方式把这几种网络类型的特点描述一下，希望能对你有所帮助：</p>
-<h3 id="u5B9A_u4E49_uFF1A"><a href=]]>
+    
+      &lt;p&gt;对于VirtualBox的网络类型，网上可以查到一大堆的资料，但是总是感觉理解不太顺畅。我尝试着把看到过的资料揉碎了掰开了，以自己能理解的方式把这几种网络类型的特点描述一下，希望能对你有所帮助：&lt;/p&gt;
+&lt;h3 id=&quot;u5B9A_u4E49_uFF1A&quot;&gt;&lt;a href=
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="VirtualBox" scheme="http://xintq.net/tags/virtualbox/"/>
     
@@ -136,16 +149,15 @@
     
       <category term="port-forwarding" scheme="http://xintq.net/tags/port-forwarding/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[修改SGD Admin Console（管理控制台）的端口]]></title>
+    <title>修改SGD Admin Console（管理控制台）的端口</title>
     <link href="http://xintq.net/2016/06/07/change-default-port-of-sdg-admin-console/"/>
     <id>http://xintq.net/2016/06/07/change-default-port-of-sdg-admin-console/</id>
     <published>2016-06-07T01:45:04.000Z</published>
     <updated>2016-06-07T01:46:12.000Z</updated>
+    
     <content type="html"><![CDATA[<h3 id="u6DFB_u52A0_u76D1_u542C_u7AEF_u53E3_u548C_u865A_u62DF_u4E3B_u673A"><a href="#u6DFB_u52A0_u76D1_u542C_u7AEF_u53E3_u548C_u865A_u62DF_u4E3B_u673A" class="headerlink" title="添加监听端口和虚拟主机"></a>添加监听端口和虚拟主机</h3><p>修改Apache的配置文件（<code>/opt/tarantella/webserver/apache/&lt;version&gt;/conf/httpd.conf</code>），在文件加入下面的内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">Listen 9443</div><div class="line">&lt;VirtualHost *:9443&gt;</div><div class="line">    DocumentRoot &quot;/opt/tarantella/var/docroot&quot;</div><div class="line">    ServerName demo.example.com</div><div class="line">    ErrorLog &quot;/opt/tarantella/webserver/apache/2.2.29_openssl-1.0.1l_jk1.2.40_64/logs/error__sgdadmin_log&quot;</div><div class="line">    TransferLog &quot;/opt/tarantella/webserver/apache/2.2.29_openssl-1.0.1l_jk1.2.40_64/logs/access_sgdadmin_log&quot;</div><div class="line">    SSLEngine on</div><div class="line"></div><div class="line">    SSLProtocol ALL -SSLv2 -SSLv3</div><div class="line">    SSLHonorCipherOrder On</div><div class="line">    SSLCipherSuite EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:EDH+aRSA:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS:!EXPORT:!DES:!RC2:!RC4:!SEED</div><div class="line">    SSLCertificateFile /opt/tarantella/var/tsp/cert.pem</div><div class="line">    SSLCertificateKeyFile /opt/tarantella/var/tsp/key.pem</div><div class="line"></div><div class="line">    &lt;FilesMatch &quot;\.(cgi|shtml|phtml|php)$&quot;&gt;</div><div class="line">        SSLOptions +StdEnvVars</div><div class="line">    &lt;/FilesMatch&gt;</div><div class="line">    BrowserMatch &quot;MSIE [2-5]&quot; \</div><div class="line">             nokeepalive ssl-unclean-shutdown \</div><div class="line">             downgrade-1.0 force-response-1.0</div><div class="line">    CustomLog &quot;/opt/tarantella/webserver/apache/2.2.29_openssl-1.0.1l_jk1.2.40_64/logs/ssl_request_sgdadmin_log&quot; \</div><div class="line">              &quot;%t %h %&#123;SSL_PROTOCOL&#125;x %&#123;SSL_CIPHER&#125;x \&quot;%r\&quot; %b&quot;</div><div class="line"></div><div class="line">    JkMount /sgdadmin sgdadmin</div><div class="line">    JkMount /sgdadmin/* sgdadmin</div><div class="line"></div><div class="line">&lt;/VirtualHost&gt;</div><div class="line">…</div><div class="line">JkMount /axis axis</div><div class="line">JkMount /axis/*  axis</div><div class="line">JkMount /sgd tta</div><div class="line">JkMount /sgd/* tta</div><div class="line">#JkMount /sgdadmin sgdadmin      &lt;=要把这里注释掉</div><div class="line">#JkMount /sgdadmin/* sgdadmin   &lt;=要把这里注释掉</div></pre></td></tr></table></figure>
 <h3 id="u91CD_u542FSGD_u7684Web_Server_uFF08Restart_the_webserver_of_SGD_uFF09"><a href="#u91CD_u542FSGD_u7684Web_Server_uFF08Restart_the_webserver_of_SGD_uFF09" class="headerlink" title="重启SGD的Web Server（Restart the webserver of SGD）"></a>重启SGD的Web Server（Restart the webserver of SGD）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tarantella restart webserver</div></pre></td></tr></table></figure>
@@ -159,9 +171,15 @@
 <li>在登录到SGD 管理控制台后，会导致SGD Webtop会话自动登出</li>
 </ul>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h3 id="u6DFB_u52A0_u76D1_u542C_u7AEF_u53E3_u548C_u865A_u62DF_u4E3B_u673A"><a href="#u6DFB_u52A0_u76D1_u542C_u7AEF_u53E3_u548C_u865A_u62DF_u]]>
+    
+      &lt;h3 id=&quot;u6DFB_u52A0_u76D1_u542C_u7AEF_u53E3_u548C_u865A_u62DF_u4E3B_u673A&quot;&gt;&lt;a href=&quot;#u6DFB_u52A0_u76D1_u542C_u7AEF_u53E3_u548C_u865A_u62DF_u
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -175,16 +193,15 @@
     
       <category term="tomcat" scheme="http://xintq.net/tags/tomcat/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[为Windows客户端设置 Ubuntu Remote Desktop XRDP服务器]]></title>
+    <title>为Windows客户端设置 Ubuntu Remote Desktop XRDP服务器</title>
     <link href="http://xintq.net/2016/06/07/config-ubuntu-xrdp-server-for-windows-clients/"/>
     <id>http://xintq.net/2016/06/07/config-ubuntu-xrdp-server-for-windows-clients/</id>
     <published>2016-06-07T01:41:52.000Z</published>
     <updated>2016-06-07T01:44:25.000Z</updated>
+    
     <content type="html"><![CDATA[<p>提到远程桌面，自然会想到Windows提供的远程桌面服务。其实，在Linux下也可以实现相同的功能。</p>
 <p>本文会详细描述如何实现这一功能。</p>
 <h2 id="u590D_u6742_u7684_u65B9_u6CD5"><a href="#u590D_u6742_u7684_u65B9_u6CD5" class="headerlink" title="复杂的方法"></a>复杂的方法</h2><h3 id="u5B9E_u9A8C_u73AF_u5883"><a href="#u5B9E_u9A8C_u73AF_u5883" class="headerlink" title="实验环境"></a>实验环境</h3><ul>
@@ -215,11 +232,17 @@
 <li>远程连接时无需在意虚拟机的网络类型，只需要知道运行VirtualBox的主机地址，无论虚拟机的网络类型是桥接，还是NAT，甚至没有网络的情况下，外部主机都可以访问到虚拟机</li>
 </ul>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>提到远程桌面，自然会想到Windows提供的远程桌面服务。其实，在Linux下也可以实现相同的功能。</p>
-<p>本文会详细描述如何实现这一功能。</p>
-<h2 id="u590D_u6742_u7684_u65B9_u6CD5"><a href="#u590D_u67]]>
+    
+      &lt;p&gt;提到远程桌面，自然会想到Windows提供的远程桌面服务。其实，在Linux下也可以实现相同的功能。&lt;/p&gt;
+&lt;p&gt;本文会详细描述如何实现这一功能。&lt;/p&gt;
+&lt;h2 id=&quot;u590D_u6742_u7684_u65B9_u6CD5&quot;&gt;&lt;a href=&quot;#u590D_u67
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="xrdp" scheme="http://xintq.net/tags/xrdp/"/>
     
@@ -233,16 +256,15 @@
     
       <category term="VirtualBox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[用命令行操作 VirtualBox 和 SGD]]></title>
+    <title>用命令行操作 VirtualBox 和 SGD</title>
     <link href="http://xintq.net/2016/06/07/manage-virtualbox-sgd-in-cli/"/>
     <id>http://xintq.net/2016/06/07/manage-virtualbox-sgd-in-cli/</id>
     <published>2016-06-07T01:36:45.000Z</published>
     <updated>2016-06-07T01:40:10.000Z</updated>
+    
     <content type="html"><![CDATA[<p>作为Oracle桌面虚拟化仅存的两个解决方案，VirtualBox和SGD都提供了直观，友好的用户界面。在使用时，通过图形界面就可以完成大部分操作。</p>
 <p>但是，在大规模部署时，不可能都在图形界面上进行。还需要通过命令行以脚本的形式进行批量处理。事实上，VirtualBox和SGD所有图形界面的操作都有对应的命令：</p>
 <ul>
@@ -263,11 +285,18 @@
 <h3 id="u521B_u5EFAWindows_u5E94_u7528_u7A0B_u5E8F_u5BF9_u8C61"><a href="#u521B_u5EFAWindows_u5E94_u7528_u7A0B_u5E8F_u5BF9_u8C61" class="headerlink" title="创建Windows应用程序对象"></a>创建Windows应用程序对象</h3><p>创建的应用程序对象名称为My-Windows-App，运行在名称为My-Windows-App的应用程序服务器上，最多限制3个用户会话，并绑定远程桌面端口为56001。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tarantella object new_windowsapp \</div><div class="line">--name <span class="string">"o=applications/cn=My-Windows-App"</span> \</div><div class="line">--height 600 --width 800 \</div><div class="line">--icon osr5_desktop.gif \</div><div class="line">--appserv <span class="string">"o=appservers/cn=My-Windows-App-S"</span> \</div><div class="line">--maxinstances 3 \</div><div class="line">--winproto wts \</div><div class="line">--protoargs <span class="string">"-port 56001"</span> \</div><div class="line">--allowkioskescape 1</div></pre></td></tr></table></figure>
 <h3 id="u5173_u8054_u7528_u6237_u548C_u5E94_u7528_u7A0B_u5E8F_u5BF9_u8C61"><a href="#u5173_u8054_u7528_u6237_u548C_u5E94_u7528_u7A0B_u5E8F_u5BF9_u8C61" class="headerlink" title="关联用户和应用程序对象"></a>关联用户和应用程序对象</h3><p>本例中为SGD的管理员关联一个Windows应用程序。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tarantella object add_link \</div><div class="line">--name <span class="string">"o=Tarantella System Objects/cn=Administrator"</span> \</div><div class="line">--link <span class="string">"o=applications/cn=My-Windows-App"</span></div></pre></td></tr></table></figure></p>
-<h3 id="u5220_u9664_u5BF9_u8C61"><a href="#u5220_u9664_u5BF9_u8C61" class="headerlink" title="删除对象"></a>删除对象</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 删除应用程序</span></div><div class="line">tarantella object delete \</div><div class="line">--name <span class="string">"o=applications/cn=My-Windows-App"</span></div><div class="line"></div><div class="line"><span class="comment"># 删除应用程序服务器</span></div><div class="line">tarantella object delete \</div><div class="line">--name <span class="string">"o=appservers/cn=My-Windows-App-S"</span></div></pre></td></tr></table></figure>]]></content>
+<h3 id="u5220_u9664_u5BF9_u8C61"><a href="#u5220_u9664_u5BF9_u8C61" class="headerlink" title="删除对象"></a>删除对象</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 删除应用程序</span></div><div class="line">tarantella object delete \</div><div class="line">--name <span class="string">"o=applications/cn=My-Windows-App"</span></div><div class="line"></div><div class="line"><span class="comment"># 删除应用程序服务器</span></div><div class="line">tarantella object delete \</div><div class="line">--name <span class="string">"o=appservers/cn=My-Windows-App-S"</span></div></pre></td></tr></table></figure>
+]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>作为Oracle桌面虚拟化仅存的两个解决方案，VirtualBox和SGD都提供了直观，友好的用户界面。在使用时，通过图形界面就可以完成大部分操作。</p>
-<p>但是，在大规模部署时，不可能都在图形界面上进行。还需要通过命令行以脚本的形式进行批量处理。事实上，Virtua]]>
+    
+      &lt;p&gt;作为Oracle桌面虚拟化仅存的两个解决方案，VirtualBox和SGD都提供了直观，友好的用户界面。在使用时，通过图形界面就可以完成大部分操作。&lt;/p&gt;
+&lt;p&gt;但是，在大规模部署时，不可能都在图形界面上进行。还需要通过命令行以脚本的形式进行批量处理。事实上，Virtua
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="tarantella" scheme="http://xintq.net/tags/tarantella/"/>
     
@@ -277,16 +306,15 @@
     
       <category term="VBoxManage" scheme="http://xintq.net/tags/vboxmanage/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Secure Global Desktop服务器配置估算建议]]></title>
+    <title>Oracle Secure Global Desktop服务器配置估算建议</title>
     <link href="http://xintq.net/2016/01/05/sgd-server-sizing-tricks/"/>
     <id>http://xintq.net/2016/01/05/sgd-server-sizing-tricks/</id>
     <published>2016-01-05T07:06:25.000Z</published>
     <updated>2016-04-20T01:39:30.000Z</updated>
+    
     <content type="html"><![CDATA[<p>作为统一的应用程序访问层入口，Oracle Secure Global Desktop的服务器配置应该如何估算呢？如何决定服务器的CPU，内存配置呢？这些问题是在Oracle Secure Global Desktop应用到生产环境中必须要考虑的。</p>
 <p>在估算Oracle Secure Global Desktop服务器配置之前，首先需要明白在实际应用中有一些因素我们是照顾不到的，或者，换句话说是存在不可控的变量，比如：</p>
 <ul>
@@ -336,10 +364,16 @@
 </ul>
 <p>最后，需要说明一下，以上这些只是一个粗略的估算方法，适用于那些“<em>普通用户</em>” － 通常使用SGD做为办公环境的用户，一次打开一两个Office应用程序，进行简单的文本操作。这个估算方法只是一个理论数据，在实际应用的过程中，特别是生产环境中，还需要结合实际情况，具体问题具体分析和测试，切不可把本文的建议当成精确的度量。。。</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>作为统一的应用程序访问层入口，Oracle Secure Global Desktop的服务器配置应该如何估算呢？如何决定服务器的CPU，内存配置呢？这些问题是在Oracle Secure Global Desktop应用到生产环境中必须要考虑的。</p>
-<p>在估算Or]]>
+    
+      &lt;p&gt;作为统一的应用程序访问层入口，Oracle Secure Global Desktop的服务器配置应该如何估算呢？如何决定服务器的CPU，内存配置呢？这些问题是在Oracle Secure Global Desktop应用到生产环境中必须要考虑的。&lt;/p&gt;
+&lt;p&gt;在估算Or
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -355,16 +389,15 @@
     
       <category term="阵列" scheme="http://xintq.net/tags/%E9%98%B5%E5%88%97/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Mac OS X下的一些常用命令汇总]]></title>
+    <title>Mac OS X下的一些常用命令汇总</title>
     <link href="http://xintq.net/2016/01/01/mac-tricks/"/>
     <id>http://xintq.net/2016/01/01/mac-tricks/</id>
     <published>2016-01-01T06:51:13.000Z</published>
     <updated>2016-04-20T03:06:28.000Z</updated>
+    
     <content type="html"><![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
 <h2 id="u901A_u8FC7_u7EC8_u7AEF_u4FEE_u6539Finder"><a href="#u901A_u8FC7_u7EC8_u7AEF_u4FEE_u6539Finder" class="headerlink" title="通过终端修改Finder"></a>通过终端修改Finder</h2><h3 id="Finder_u6807_u9898_u4E2D_u663E_u793A_u6587_u4EF6_u8DEF_u5F84"><a href="#Finder_u6807_u9898_u4E2D_u663E_u793A_u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="Finder标题中显示文件路径"></a>Finder标题中显示文件路径</h3><p>有时，当你查看某个文件时，你并不知道这个文件所在的路径，尤其是当你打开很多窗口时。下面这条命令可以让文件的路径显示在Finder的标题栏中。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES</div></pre></td></tr></table></figure>
@@ -406,26 +439,32 @@
 <h3 id="u8BA9_u5D29_u6E83_u62A5_u544A_u5728_u300C_u901A_u77E5_u4E2D_u5FC3_u300D_u663E_u793A"><a href="#u8BA9_u5D29_u6E83_u62A5_u544A_u5728_u300C_u901A_u77E5_u4E2D_u5FC3_u300D_u663E_u793A" class="headerlink" title="让崩溃报告在「通知中心」显示"></a>让崩溃报告在「通知中心」显示</h3><p>如果你希望让崩溃报告在「通知中心」显示，只需在「终端」中输入如下命令，回车确认即可。下次如果有应用程序崩溃或意外退出，崩溃报告将以通知的形式显示在屏幕右上角：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults write com.apple.CrashReporter UseUNC 1</div></pre></td></tr></table></figure>
 <p>恢复成默认的对话框形式的话，只需执行如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults write com.apple.CrashReporter UseUNC 0</div></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults write com.apple.CrashReporter UseUNC 0</div></pre></td></tr></table></figure>
+]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
-<h2 id=]]>
+    
+      &lt;p&gt;使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。&lt;/p&gt;
+&lt;h2 id=
+    
     </summary>
+    
+      <category term="Mac" scheme="http://xintq.net/categories/mac/"/>
+    
     
       <category term="mac" scheme="http://xintq.net/tags/mac/"/>
     
       <category term="osx" scheme="http://xintq.net/tags/osx/"/>
     
-      <category term="Mac" scheme="http://xintq.net/categories/mac/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[从Oracle Public Yum为Oracle Linux建立本地的Yum源]]></title>
+    <title>从Oracle Public Yum为Oracle Linux建立本地的Yum源</title>
     <link href="http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/"/>
     <id>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</id>
     <published>2015-09-29T09:09:10.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<p>本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。</p>
 <h2 id="u4E3A_u4EC0_u4E48_u9700_u8981_u672C_u5730Yum_u6E90"><a href="#u4E3A_u4EC0_u4E48_u9700_u8981_u672C_u5730Yum_u6E90" class="headerlink" title="为什么需要本地Yum源"></a>为什么需要本地Yum源</h2><p>在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要连接外网从Oracle Public Yum中下载最新的安装包和依赖包。不得不说，这是最有效也是最安全的方法。但是，事实上并不是所有的测试和部署环境都能连接外网的，而且即使能连外网，由于带宽的限制，下载速度可能非常慢。这时，就需要建立本地的Yum安装仓库。</p>
 <h2 id="u4E3A_u4EC0_u4E48_u9700_u8981_u4ECE_u5B98_u65B9_u590D_u5236Yum_u6E90"><a href="#u4E3A_u4EC0_u4E48_u9700_u8981_u4ECE_u5B98_u65B9_u590D_u5236Yum_u6E90" class="headerlink" title="为什么需要从官方复制Yum源"></a>为什么需要从官方复制Yum源</h2><p>虽然通过ISO镜像文件可以建立一个基本的本地Yum源，但是比起Oracle Public Yum源来说，ISO镜像中包含的软件包并不是最全的，也不是最新的（比如，Oracle VDI安装时需要的gdm_multiseat仓库在ISO镜像中就没有，还比如Oracle数据库安装时的依赖包在ISO镜像中也没有）。</p>
@@ -474,10 +513,16 @@
 <h2 id="u7B2C_u4E09_u6B65_uFF1A_u5C06_u5EFA_u7ACB_u597D_u7684_u672C_u5730Yum_u6E90_u79FB_u52A8_u5230_u771F_u6B63_u7684_u90E8_u7F72_u73AF_u5883_u4E2D_uFF0C_u5F00_u59CB_u5728_u65E0_u5916_u7F51_u7684_u60C5_u51B5_u4E0B_u4F7F_u7528"><a href="#u7B2C_u4E09_u6B65_uFF1A_u5C06_u5EFA_u7ACB_u597D_u7684_u672C_u5730Yum_u6E90_u79FB_u52A8_u5230_u771F_u6B63_u7684_u90E8_u7F72_u73AF_u5883_u4E2D_uFF0C_u5F00_u59CB_u5728_u65E0_u5916_u7F51_u7684_u60C5_u51B5_u4E0B_u4F7F_u7528" class="headerlink" title="第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用"></a>第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用</h2><p>这一步很简单，你懂的…略过。</p>
 <p>（完）</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。</p>
-]]>
+    
+      &lt;p&gt;本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。&lt;/p&gt;
+
+    
     </summary>
+    
+      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
+    
     
       <category term="linux" scheme="http://xintq.net/tags/linux/"/>
     
@@ -491,16 +536,15 @@
     
       <category term="createrepo" scheme="http://xintq.net/tags/createrepo/"/>
     
-      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle VDI 安装]]></title>
+    <title>Oracle VDI 安装</title>
     <link href="http://xintq.net/2015/08/18/oracle-vdi-installation/"/>
     <id>http://xintq.net/2015/08/18/oracle-vdi-installation/</id>
     <published>2015-08-18T05:20:08.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<p>虽然说Oracle已经停止了VDI的开发，之后支持服务业很快停止了。但是，作为经典的桌面虚拟化产品，还是值得研究一番。虽然Oracle VDI的文档已经写的很详细了，但是在实际操作过程中，还是会遇到很多问题。最近，终于鼓起勇气，在VDI即将消失之前，把安装过程记录一下。</p>
 <h2 id="u5B89_u88C5_u73AF_u5883_u548C_u524D_u671F_u6761_u4EF6"><a href="#u5B89_u88C5_u73AF_u5883_u548C_u524D_u671F_u6761_u4EF6" class="headerlink" title="安装环境和前期条件"></a>安装环境和前期条件</h2><ul>
 <li>OS： Oralce Linux 6 update5 x86-64</li>
@@ -540,9 +584,15 @@
 </code></pre><p>由于接下来的配置工作都是基于图形界面完成的，这里就不再赘述，可以参考<a href="http://docs.oracle.com/cd/E36500_01/E36513/E36513.pdf" target="_blank" rel="external">这篇文档</a>来进行。</p>
 <p>(END)</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>虽然说Oracle已经停止了VDI的开发，之后支持服务业很快停止了。但是，作为经典的桌面虚拟化产品，还是值得研究一番。虽然Oracle VDI的文档已经写的很详细了，但是在实际操作过程中，还是会遇到很多问题。最近，终于鼓起勇气，在VDI即将消失之前，把安装过程记录一下。</]]>
+    
+      &lt;p&gt;虽然说Oracle已经停止了VDI的开发，之后支持服务业很快停止了。但是，作为经典的桌面虚拟化产品，还是值得研究一番。虽然Oracle VDI的文档已经写的很详细了，但是在实际操作过程中，还是会遇到很多问题。最近，终于鼓起勇气，在VDI即将消失之前，把安装过程记录一下。&lt;/
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="vdi" scheme="http://xintq.net/tags/vdi/"/>
     
@@ -554,16 +604,15 @@
     
       <category term="virtual desktop" scheme="http://xintq.net/tags/virtual-desktop/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成]]></title>
+    <title>Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成</title>
     <link href="http://xintq.net/2015/08/04/sgd-oem-integration/"/>
     <id>http://xintq.net/2015/08/04/sgd-oem-integration/</id>
     <published>2015-08-04T08:02:24.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<h2 id="u524D_u63D0_u6761_u4EF6"><a href="#u524D_u63D0_u6761_u4EF6" class="headerlink" title="前提条件"></a>前提条件</h2><ul>
 <li><p>Oracle Enterprise Manager Cloud Control 12c Release 4 (12.1.0.4)  已经安装好，并可以从 <a href="https://oem.example.com:7802/em" target="_blank" rel="external">https://oem.example.com:7802/em</a> 访问到</p>
 <p>  EM12c的安装过程看<a href="http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/">这里</a>。</p>
@@ -617,10 +666,16 @@
 <h2 id="u90A3_u4E48SGD_Gateway_u5982_u4F55_u76D1_u89C6"><a href="#u90A3_u4E48SGD_Gateway_u5982_u4F55_u76D1_u89C6" class="headerlink" title="那么SGD Gateway如何监视"></a>那么SGD Gateway如何监视</h2><p>EM也可以监视SGD Gateway主机，基本操作步骤和监视SGD主机类似。这里就不再赘述。</p>
 <p>(END)</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h2 id="u524D_u63D0_u6761_u4EF6"><a href="#u524D_u63D0_u6761_u4EF6" class="headerlink" title="前提条件"></a>前提条件</h2><ul>
-<li><p>Oracle Enterpri]]>
+    
+      &lt;h2 id=&quot;u524D_u63D0_u6761_u4EF6&quot;&gt;&lt;a href=&quot;#u524D_u63D0_u6761_u4EF6&quot; class=&quot;headerlink&quot; title=&quot;前提条件&quot;&gt;&lt;/a&gt;前提条件&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Oracle Enterpri
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -630,16 +685,15 @@
     
       <category term="sgd5.2" scheme="http://xintq.net/tags/sgd5-2/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Enterprise Manager 12c 安装过程]]></title>
+    <title>Oracle Enterprise Manager 12c 安装过程</title>
     <link href="http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/"/>
     <id>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</id>
     <published>2015-08-04T07:48:20.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<h2 id="u524D_u63D0"><a href="#u524D_u63D0" class="headerlink" title="前提"></a>前提</h2><p>安装Oracle Enterprise Manager 12c的基本测试环境。该环境中，组成完整OEM的下列组件将全部安装在一个主机（Oracle Linux）中。</p>
 <ul>
 <li>Oracle Management Repository（OMR，也就是Oracle数据库）</li>
@@ -893,9 +947,15 @@
 </code></pre><p>至此，EM的全部安装过程结束。</p>
 <p>（END）</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h2 id="u524D_u63D0"><a href="#u524D_u63D0" class="headerlink" title="前提"></a>前提</h2><p>安装Oracle Enterprise Manager 12c的基本测试环境。该环境中，组成完整OEM的]]>
+    
+      &lt;h2 id=&quot;u524D_u63D0&quot;&gt;&lt;a href=&quot;#u524D_u63D0&quot; class=&quot;headerlink&quot; title=&quot;前提&quot;&gt;&lt;/a&gt;前提&lt;/h2&gt;&lt;p&gt;安装Oracle Enterprise Manager 12c的基本测试环境。该环境中，组成完整OEM的
+    
     </summary>
+    
+      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
     
       <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
@@ -913,16 +973,15 @@
     
       <category term="企业管理器" scheme="http://xintq.net/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/"/>
     
-      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Database 12c 安装问题ORA-00838，ORA-00845的解决]]></title>
+    <title>Oracle Database 12c 安装问题ORA-00838，ORA-00845的解决</title>
     <link href="http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/"/>
     <id>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</id>
     <published>2015-07-29T02:28:04.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<p>在安装Oracle Database 12c后，启动数据库时，可能会遇到下面的错误：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SQL&gt; startup;</div><div class="line">ORA-00838: Specified value of MEMORY_TARGET is too small, needs to be at least 3072M</div></pre></td></tr></table></figure>
 <p>导致这一问题的原因可能是修改了pfile，导致内存指定值过低，数据库启动会失败。</p>
@@ -942,10 +1001,16 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SQL&gt; CREATE SPFILE FROM PFILE;</div><div class="line"></div><div class="line">File created.</div></pre></td></tr></table></figure>
 <p>(END)</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>在安装Oracle Database 12c后，启动数据库时，可能会遇到下面的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div]]>
+    
+      &lt;p&gt;在安装Oracle Database 12c后，启动数据库时，可能会遇到下面的错误：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div
+    
     </summary>
+    
+      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
     
       <category term="database" scheme="http://xintq.net/tags/database/"/>
     
@@ -957,16 +1022,15 @@
     
       <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
     
-      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[手把手教你搭建Oracle Secure Global Desktop演示环境]]></title>
+    <title>手把手教你搭建Oracle Secure Global Desktop演示环境</title>
     <link href="http://xintq.net/2015/07/03/sgd-demo-stepbystep/"/>
     <id>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</id>
     <published>2015-07-03T05:20:19.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<h2 id="u524D_u63D0_u6761_u4EF6"><a href="#u524D_u63D0_u6761_u4EF6" class="headerlink" title="前提条件"></a>前提条件</h2><p>已经安装和配置好下列OS环境：</p>
 <ul>
 <li>Oracle Linux 6.5 64bit</li>
@@ -1066,10 +1130,16 @@
 <p>这就是SGD所谓的动态客户端驱动器检测功能。</p>
 <p>（完）</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h2 id="u524D_u63D0_u6761_u4EF6"><a href="#u524D_u63D0_u6761_u4EF6" class="headerlink" title="前提条件"></a>前提条件</h2><p>已经安装和配置好下列OS环境：</p>
-<ul>]]>
+    
+      &lt;h2 id=&quot;u524D_u63D0_u6761_u4EF6&quot;&gt;&lt;a href=&quot;#u524D_u63D0_u6761_u4EF6&quot; class=&quot;headerlink&quot; title=&quot;前提条件&quot;&gt;&lt;/a&gt;前提条件&lt;/h2&gt;&lt;p&gt;已经安装和配置好下列OS环境：&lt;/p&gt;
+&lt;ul&gt;
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1085,16 +1155,15 @@
     
       <category term="cdm" scheme="http://xintq.net/tags/cdm/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[SGD 5.2 中单点登陆(Single Sign-On)功能详解]]></title>
+    <title>SGD 5.2 中单点登陆(Single Sign-On)功能详解</title>
     <link href="http://xintq.net/2015/05/29/SGD-and-SSO/"/>
     <id>http://xintq.net/2015/05/29/SGD-and-SSO/</id>
     <published>2015-05-29T05:54:15.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<p>2015年5月1日，Oracle发布了新版本的Oracle Secure Global Desktop 5.2。这是一个主要修复的版本，产品的体系结构和功能没有大的变化。其中，最为亮眼的新功能就是与Oracle Access Manager（OAM）的整合插件。通过使用该插件，SGD可以使用OAM的单点登录（Single Sign-On，SSO）功能，实现了对SGD服务器，以及从SGD上打开的远程Oracle应用程序的单点登录。</p>
 <p>其实在SGD5.2发布之前，已经有很多用户把SGD与OAM或者OpenSSO进行了整合，实现了单点登录功能。只不过当时SGD没有提供任何插件或者接口，需要客户自己去修改SGD的内部配置文件，过程非常复杂。在5.2中，通过引入SSO插件，使得这个配置过程和整合更容易。</p>
 <a id="more"></a>
@@ -1130,11 +1199,16 @@
 <p>这种情况是不能实现SSO功能的。</p>
 <p>(END)</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>2015年5月1日，Oracle发布了新版本的Oracle Secure Global Desktop 5.2。这是一个主要修复的版本，产品的体系结构和功能没有大的变化。其中，最为亮眼的新功能就是与Oracle Access Manager（OAM）的整合插件。通过使用该插件，SGD可以使用OAM的单点登录（Single Sign-On，SSO）功能，实现了对SGD服务器，以及从SGD上打开的远程Oracle应用程序的单点登录。</p>
-<p>其实在SGD5.2发布之前，已经有很多用户把SGD与OAM或者OpenSSO进行了整合，实现了单点登录功能。只不过当时SGD没有提供任何插件或者接口，需要客户自己去修改SGD的内部配置文件，过程非常复杂。在5.2中，通过引入SSO插件，使得这个配置过程和整合更容易。</p>]]>
+    
+      &lt;p&gt;2015年5月1日，Oracle发布了新版本的Oracle Secure Global Desktop 5.2。这是一个主要修复的版本，产品的体系结构和功能没有大的变化。其中，最为亮眼的新功能就是与Oracle Access Manager（OAM）的整合插件。通过使用该插件，SGD可以使用OAM的单点登录（Single Sign-On，SSO）功能，实现了对SGD服务器，以及从SGD上打开的远程Oracle应用程序的单点登录。&lt;/p&gt;
+&lt;p&gt;其实在SGD5.2发布之前，已经有很多用户把SGD与OAM或者OpenSSO进行了整合，实现了单点登录功能。只不过当时SGD没有提供任何插件或者接口，需要客户自己去修改SGD的内部配置文件，过程非常复杂。在5.2中，通过引入SSO插件，使得这个配置过程和整合更容易。&lt;/p&gt;
     
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1146,16 +1220,15 @@
     
       <category term="webgate" scheme="http://xintq.net/tags/webgate/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[永久关闭Adobe Acrobat Reader DC右侧的侧边栏]]></title>
+    <title>永久关闭Adobe Acrobat Reader DC右侧的侧边栏</title>
     <link href="http://xintq.net/2015/05/19/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADAdobe%20Acrobat%20Reader%20DC%E5%8F%B3%E4%BE%A7%E7%9A%84%E4%BE%A7%E8%BE%B9%E6%A0%8F/"/>
     <id>http://xintq.net/2015/05/19/永久关闭Adobe Acrobat Reader DC右侧的侧边栏/</id>
     <published>2015-05-19T05:16:42.000Z</published>
     <updated>2015-11-26T14:02:30.000Z</updated>
+    
     <content type="html"><![CDATA[<p>最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。<br>不知道是谁的脑残设计，于是乎，各种找，发现了下面的方法。</p>
 <p>首先关闭Adobe Acrobat Reader DC</p>
 <p>再找到Adobe Acrobat Reader DC的安装目录，<code>C:\Program Files (x86)\Adobe\Acrobat Reader 2015\Reader\AcroApp\CHS</code>。<br>然后进入这个目录，新建一个子目录，随便起一个名字，比如<code>Disabled</code>，把下面三个文件移动到该目录中：</p>
@@ -1169,10 +1242,17 @@
 <hr>
 <p>2016-7-3 补充</p>
 <p>有高手指出，只需要将Viewer.aapp文件里面下列内容删掉就可以了。我没有验证过。胆大好奇的请试试。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Layout</span> <span class="attr">name</span>=<span class="string">"Default"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">RHP</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Component</span> <span class="attr">name</span>=<span class="string">"AppShortcutListView"</span> <span class="attr">type</span>=<span class="string">"Custom"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">RHP</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Layout</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Layout</span> <span class="attr">name</span>=<span class="string">"Default"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">RHP</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Component</span> <span class="attr">name</span>=<span class="string">"AppShortcutListView"</span> <span class="attr">type</span>=<span class="string">"Custom"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">RHP</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Layout</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。<br>不知道是谁的脑残设计，于是乎，各种找，发现了下面的]]>
+    
+      &lt;p&gt;最近更新了Adobe Acrobat Reader DC，说实话新版本的其他效果不错，但是有一个让人很蛋疼的毛病，就是每次打开一个PDF的时候，右侧的侧边栏（注释栏）总是会默认打开，而且找遍了各种设定也没有办法取消。&lt;br&gt;不知道是谁的脑残设计，于是乎，各种找，发现了下面的
+    
     </summary>
+    
+      <category term="随笔" scheme="http://xintq.net/categories/%E9%9A%8F%E7%AC%94/"/>
+    
     
       <category term="pdf" scheme="http://xintq.net/tags/pdf/"/>
     
@@ -1182,16 +1262,15 @@
     
       <category term="acrobat" scheme="http://xintq.net/tags/acrobat/"/>
     
-      <category term="随笔" scheme="http://xintq.net/categories/%E9%9A%8F%E7%AC%94/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Secure Global Desktop 部署考虑事项]]></title>
+    <title>Oracle Secure Global Desktop 部署考虑事项</title>
     <link href="http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/"/>
     <id>http://xintq.net/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/</id>
     <published>2015-05-13T06:47:42.000Z</published>
     <updated>2016-01-05T06:34:11.000Z</updated>
+    
     <content type="html"><![CDATA[<h2 id="u66F4_u65B0_u5C65_u5386"><a href="#u66F4_u65B0_u5C65_u5386" class="headerlink" title="更新履历"></a>更新履历</h2><ul>
 <li>2016年1月： 基于SGD 5.2版本更新</li>
 <li>2015年5月： 中文版初版</li>
@@ -1723,10 +1802,16 @@
 <h2 id="u652F_u6301_u7684_u667A_u80FD_u5361"><a href="#u652F_u6301_u7684_u667A_u80FD_u5361" class="headerlink" title="支持的智能卡"></a>支持的智能卡</h2><p>Oracle Secure Global Desktop中可以使用与任何Microsoft远程桌面服务支持的，与PC智能卡(PC/SC)兼容的智能卡和读卡器。</p>
 <h2 id="u9644_u5F551_uFF1AOracle_Secure_Global_Desktop_u6574_u4F53_u6784_u67B6_u56FE"><a href="#u9644_u5F551_uFF1AOracle_Secure_Global_Desktop_u6574_u4F53_u6784_u67B6_u56FE" class="headerlink" title="附录1：Oracle Secure Global Desktop整体构架图"></a>附录1：Oracle Secure Global Desktop整体构架图</h2><p><img src="/img/post/SGD-Architecture-details.png" alt="Oracle Secure Global Desktop整体构架图" title="Oracle Secure Global Desktop整体构架图"></p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h2 id="u66F4_u65B0_u5C65_u5386"><a href="#u66F4_u65B0_u5C65_u5386" class="headerlink" title="更新履历"></a>更新履历</h2><ul>
-<li>2016年1月： 基于SGD 5.2]]>
+    
+      &lt;h2 id=&quot;u66F4_u65B0_u5C65_u5386&quot;&gt;&lt;a href=&quot;#u66F4_u65B0_u5C65_u5386&quot; class=&quot;headerlink&quot; title=&quot;更新履历&quot;&gt;&lt;/a&gt;更新履历&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;2016年1月： 基于SGD 5.2
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1746,16 +1831,15 @@
     
       <category term="配置" scheme="http://xintq.net/tags/%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Secure Global Desktop (SGD) 介绍]]></title>
+    <title>Oracle Secure Global Desktop (SGD) 介绍</title>
     <link href="http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/"/>
     <id>http://xintq.net/2015/05/08/Oracle Secure Global Desktop介绍/</id>
     <published>2015-05-08T09:04:37.000Z</published>
     <updated>2015-11-26T14:02:28.000Z</updated>
+    
     <content type="html"><![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Global Desktop可以工作在各种流行的客户端设备上，包括Windows PC，Mac，Linux PC，以及Apple iPad等平板设备和基于Android的设备。通过该软件，用户可以使用几乎任何设备，在任何地方安全地开始工作。同时，也给管理员提供了一个管理工具，用来控制到数据中心内部运行的应用程序和桌面环境的访问过程。</em></p>
 <h2 id="u5173_u952E_u7279_u6027"><a href="#u5173_u952E_u7279_u6027" class="headerlink" title="关键特性"></a>关键特性</h2><ul>
 <li>安全远程访问解决方案</li>
@@ -1847,9 +1931,15 @@
 </ul>
 <p>如果你考虑部署或者测试SGD的话，请参考<a href="/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/">这篇文章</a>。</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p><em>Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Glo]]>
+    
+      &lt;p&gt;&lt;em&gt;Oracle Secure Global Desktop (SGD)是一个安全的远程访问解决方案，通过它可以访问运行在Microsoft Windows，Linux，Solaris和大型主机上，托管在云端的企业级应用程序和桌面环境。Oracle Secure Glo
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1867,16 +1957,15 @@
     
       <category term="oam" scheme="http://xintq.net/tags/oam/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[[译] Oracle 发布了 Secure Global Desktop Release 5.2]]></title>
+    <title>[译] Oracle 发布了 Secure Global Desktop Release 5.2</title>
     <link href="http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/"/>
     <id>http://xintq.net/2015/05/08/Oracle 发布了 Secure Global Desktop Release 5.2/</id>
     <published>2015-05-08T03:22:09.000Z</published>
     <updated>2015-11-26T14:02:28.000Z</updated>
+    
     <content type="html"><![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" rel="external">http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx</a></p>
 <p>Oracle已经发布了Oracle Secure Global Desktop (SGD) Release 5.2，作为该公司的远程访问解决方案，为Windows，Linux，Solaris以及大型主机等服务器端托管的企业级应用程序和桌面提供安全的远程访问。</p>
 <p>SGD让用户能够使用任何设备，在任何地方都可以安全地工作，同时为运行在数据中心的应用程序和桌面环境提供管理员可控的访问，在BYOD的世界中为企业提供了非常关键的优势。</p>
@@ -1895,9 +1984,15 @@
 <p>除了新特性和更广泛的服务器，客户端，以及浏览器支持之外，本次发行版也提供了<strong>增强的安全性和性能</strong>，在各种网络环境下提供更丰富的用户体验。</p>
 <p>Oracle Secure Global Desktop 5.2秉持其一贯的简洁性同时更紧密地与Oracle产品，技术以及解决方案进行了集成，如Oracle Managed Cloud Services，Oracle Enterprise Manager，和Oracle Access Manager。</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>来源: <a href="http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx" target="_blank" re]]>
+    
+      &lt;p&gt;来源: &lt;a href=&quot;http://www.dbta.com/Editorial/News-Flashes/Oracle-Rolls-Out-Secure-Global-Desktop-Release-52-103730.aspx&quot; target=&quot;_blank&quot; re
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1913,16 +2008,15 @@
     
       <category term="application virtulization" scheme="http://xintq.net/tags/application-virtulization/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[AIP是什么? AIP需要多少网络带宽?]]></title>
+    <title>AIP是什么? AIP需要多少网络带宽?</title>
     <link href="http://xintq.net/2015/03/10/aip/"/>
     <id>http://xintq.net/2015/03/10/aip/</id>
     <published>2015-03-10T07:48:58.000Z</published>
     <updated>2015-11-26T14:02:28.000Z</updated>
+    
     <content type="html"><![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="http://www.google.com/patents?id=a1MJAAAAEBAJ&amp;dq=adaptive+internet+protocol" target="_blank" rel="external">这里</a>可以找到。</p>
 <p>说白了，AIP是一个协议，用于SGD服务器与SGD客户端间传递应用程序的网络连接中，它被设计用来为那些由SGD发布的应用程序提供优化的网络性能和快速相应。AIP是自适应的协议，（也就是说它可以使用于变化的网络环境），它可以度量网络带宽，发现网络延迟，探测客户端性能以及应用程序表现，以确定最佳的优化策略，为客户端设备提供最优化的性能体验。</p>
 <p>那么，问题来了：在使用AIP的情况下，需要多大的带宽呢？</p>
@@ -1931,9 +2025,15 @@
 <p>另外要注意，AIP（有一些例外），在会话开始时会发送大量的数据包来分析的可用带宽和网络延迟，所以在做任何测试时一定要运行足够长的时间来“训练”AIP去适应所检测到的带宽。</p>
 <p>说了那么多，<strong>56Kbps的非共享的网络连接</strong>通常被认为是访问“典型”的图形界面应用程序的最低带宽，<strong>推荐的客户端连接带宽是128Kbps</strong>。</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在<a href="]]>
+    
+      &lt;p&gt;最近在研究Oracle Secure Global Desktop这个产品时，看到一个叫AIP的东西。那么什么是AIP呢？AIP的全称是Adaptive Internet Protocol（自适应网络协议）, 专利号为 6362836, 该专利的详细描述在&lt;a href=&quot;
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
@@ -1947,16 +2047,15 @@
     
       <category term="带宽" scheme="http://xintq.net/tags/%E5%B8%A6%E5%AE%BD/"/>
     
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
   </entry>
   
   <entry>
-    <title><![CDATA[Oracle Secure Global Desktop(SGD)与VPN有何不同]]></title>
+    <title>Oracle Secure Global Desktop(SGD)与VPN有何不同</title>
     <link href="http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/"/>
     <id>http://xintq.net/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/</id>
     <published>2015-03-10T07:36:53.000Z</published>
     <updated>2016-01-05T07:00:02.000Z</updated>
+    
     <content type="html"><![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。</p>
 <p>使用VPN时，通常需要在客户端计算机上安装某种形式的VPN客户端软件，并且在专用网的边界上安装<em>VPN集中器</em>。典型的方法是使用某种形式的身份认证和数据加密（通常是IPSec），当在公共链路上传输信息时使窃听者无法拦截或改变数据。</p>
 <pre><code>VPN集中器: 可以支持局域网的连接，支持客户端的连接，支持智能手机系统的拨入。包括iPhone、Andriod等系统，简言之就是把网络集中起来的东西
@@ -2024,9 +2123,15 @@
 <p>SGD可以和既存的企业身份认证系统整合，用户不再需要多余的账号，而且如果使用Oracle应用的话，还可以很方便的实现一键登录（SSO），而VPN需要独立的账号，无一键登录功能。</p>
 <p>SGD可以实现浏览器，插件等配置环境的独立部署，客户不需要再担心自己的环境是否满足企业应用的需求；而VPN太过于底层，不可能实现这种高级功能，需要客户自己操心。</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。V]]>
+    
+      &lt;p&gt;概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。V
+    
     </summary>
+    
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
     
       <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
@@ -2037,8 +2142,6 @@
       <category term="专用网" scheme="http://xintq.net/tags/%E4%B8%93%E7%94%A8%E7%BD%91/"/>
     
       <category term="比较" scheme="http://xintq.net/tags/%E6%AF%94%E8%BE%83/"/>
-    
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
