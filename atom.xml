@@ -959,11 +959,11 @@
     
       <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
-      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
       <category term="oem" scheme="http://xintq.net/tags/oem/"/>
     
-      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
     
       <category term="ome" scheme="http://xintq.net/tags/ome/"/>
     
@@ -1012,9 +1012,9 @@
       <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
-    
       <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
       <category term="ORA-00838" scheme="http://xintq.net/tags/ora-00838/"/>
     
