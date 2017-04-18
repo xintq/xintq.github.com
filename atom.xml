@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2016-09-27T07:31:03.000Z</updated>
+  <updated>2017-04-18T07:58:50.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -14,6 +14,186 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Oracle Linux 7.3 下安装 Oracle Database 12c R2</title>
+    <link href="http://xintq.net/2017/04/18/install-db12c-ol73/"/>
+    <id>http://xintq.net/2017/04/18/install-db12c-ol73/</id>
+    <published>2017-04-18T07:42:04.000Z</published>
+    <updated>2017-04-18T07:58:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文在VirtualBox下，在Oracle Linux 7.3中安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。</p>
+<h1 id="u73AF_u5883_u8BF4_u660E"><a href="#u73AF_u5883_u8BF4_u660E" class="headerlink" title="环境说明"></a>环境说明</h1><ul>
+<li><strong>主机</strong>： macOS Sierra (10.12.4)</li>
+<li><strong>虚拟环境</strong>：VirtualBox 5.1.16</li>
+<li><strong>数据库安装操作系统</strong>： Oracle Linux 7.3 x64位版本。</li>
+<li><strong>数据库安装文件</strong>：Oracle Database 12c Release 2(12.2.0.1.0),可以在Oracle主页中下载到。需要下载的文件名称为 <code>linuxx64_12201_database.zip</code>。</li>
+</ul>
+<p><img src="/img/post/ora12c-000-0.png" alt=""></p>
+<h1 id="VirtualBox_u8BBE_u7F6E"><a href="#VirtualBox_u8BBE_u7F6E" class="headerlink" title="VirtualBox设置"></a>VirtualBox设置</h1><p>主要设置Host-Only网络</p>
+<p><img src="/img/post/ora12c-000.png" alt=""></p>
+<p>默认使用192.168.56.1网段，这里改成<code>192.168.78.1</code>网段</p>
+<p><img src="/img/post/ora12c-000-1.png" alt=""></p>
+<p>并且不启用DHCP。</p>
+<p><img src="/img/post/ora12c-000-2.png" alt=""></p>
+<h1 id="u521B_u5EFA_u865A_u62DF_u673A"><a href="#u521B_u5EFA_u865A_u62DF_u673A" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><p><img src="/img/post/ora12c-001.png" alt="create vm"></p>
+<p>设置虚拟硬盘大小<br><img src="/img/post/ora12c-002.png" alt=""></p>
+<h2 id="u865A_u62DF_u673A_u8BBE_u7F6E"><a href="#u865A_u62DF_u673A_u8BBE_u7F6E" class="headerlink" title="虚拟机设置"></a>虚拟机设置</h2><p>挂载系统安装镜像</p>
+<p><img src="/img/post/ora12c-003.png" alt=""></p>
+<h3 id="u8BBE_u7F6E_u7F51_u7EDC"><a href="#u8BBE_u7F6E_u7F51_u7EDC" class="headerlink" title="设置网络"></a>设置网络</h3><p>第一块网卡设置为Host-Only</p>
+<p><img src="/img/post/ora12c-004.png" alt=""></p>
+<p>第二块网卡设置为NAT</p>
+<p><img src="/img/post/ora12c-005.png" alt=""></p>
+<h3 id="u8BBE_u7F6E_u5171_u4EAB_u76EE_u5F55"><a href="#u8BBE_u7F6E_u5171_u4EAB_u76EE_u5F55" class="headerlink" title="设置共享目录"></a>设置共享目录</h3><p><img src="/img/post/ora12c-006.png" alt=""></p>
+<h1 id="u5B89_u88C5_u64CD_u4F5C_u7CFB_u7EDF"><a href="#u5B89_u88C5_u64CD_u4F5C_u7CFB_u7EDF" class="headerlink" title="安装操作系统"></a>安装操作系统</h1><p>为虚拟机设定Host Name为<code>ora12c.example.com</code>。并自动启用系统中的第一块网卡（host only模式）</p>
+<p><img src="/img/post/ora12c-007.png" alt=""></p>
+<p>IP地址为手动设置，使用自己作为DNS服务器</p>
+<p><img src="/img/post/ora12c-008.png" alt=""></p>
+<p>自动启用第二块网卡（NAT）</p>
+<p><img src="/img/post/ora12c-009.png" alt=""></p>
+<p>自动获取IP地址<br><img src="/img/post/ora12c-010.png" alt=""></p>
+<p>设置系统时间，使用默认的最小化安装。不启用KDUMP。选择好虚拟磁盘。开始安装过程。<br><img src="/img/post/ora12c-011.png" alt=""></p>
+<p>在安装的过程中设置root用户密码为oracle1234。<br><img src="/img/post/ora12c-012.png" alt=""></p>
+<h2 id="u64CD_u4F5C_u7CFB_u7EDF_u8BBE_u7F6E"><a href="#u64CD_u4F5C_u7CFB_u7EDF_u8BBE_u7F6E" class="headerlink" title="操作系统设置"></a>操作系统设置</h2><p>系统重启后，以root用户登录到系统中，通过下面的命令查看网卡配置是否生效：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]<span class="comment"># ip l</span></div><div class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT</div><div class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</div><div class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000</div><div class="line">    link/ether 08:00:27:a6:47:ea brd ff:ff:ff:ff:ff:ff</div><div class="line">3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000</div><div class="line">    link/ether 08:00:27:f3:03:4e brd ff:ff:ff:ff:ff:ff</div></pre></td></tr></table></figure></p>
+<p>主要看<code>enp0s3</code>和<code>enp0s8</code>是否有<code>UP</code>状态。一般来说都没有问题，这时可以使用 putty 或者 其他终端通过ssh远程登录到虚拟机中了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh root@192.168.78.122</div></pre></td></tr></table></figure></p>
+<h3 id="u5173_u95ED_u9632_u706B_u5899"><a href="#u5173_u95ED_u9632_u706B_u5899" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><p>先查看一下防火墙的状态，发现是<code>Active: active (running)</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# systemctl status firewalld</div><div class="line">● firewalld.service - firewalld - dynamic firewall daemon</div><div class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</div><div class="line">   Active: active (running) since Tue 2017-04-11 14:15:38 CST; 6min ago</div><div class="line">     Docs: man:firewalld(1)</div><div class="line"> Main PID: 644 (firewalld)</div><div class="line">   CGroup: /system.slice/firewalld.service</div><div class="line">           └─644 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</div><div class="line"></div><div class="line">Apr 11 14:15:37 ora12c.example.com systemd[1]: Starting firewalld - dynamic ....</div><div class="line">Apr 11 14:15:38 ora12c.example.com systemd[1]: Started firewalld - dynamic f....</div><div class="line">Hint: Some lines were ellipsized, use -l to show in full.</div><div class="line">[root@ora12c ~]#</div></pre></td></tr></table></figure></p>
+<p>停止防火墙：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# systemctl stop firewalld</div></pre></td></tr></table></figure></p>
+<p>再查看一下状态，发现是<code>Active: inactive (dead)</code>，说明防火墙已经停止运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# systemctl status firewalld</div><div class="line">● firewalld.service - firewalld - dynamic firewall daemon</div><div class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</div><div class="line">   Active: inactive (dead) since Tue 2017-04-11 14:24:11 CST; 8s ago</div><div class="line">     Docs: man:firewalld(1)</div><div class="line">  Process: 644 ExecStart=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS (code=exited, status=0/SUCCESS)</div><div class="line"> Main PID: 644 (code=exited, status=0/SUCCESS)</div><div class="line"></div><div class="line">Apr 11 14:15:37 ora12c.example.com systemd[1]: Starting firewalld - dynamic ....</div><div class="line">Apr 11 14:15:38 ora12c.example.com systemd[1]: Started firewalld - dynamic f....</div><div class="line">Apr 11 14:24:10 ora12c.example.com systemd[1]: Stopping firewalld - dynamic ....</div><div class="line">Apr 11 14:24:11 ora12c.example.com systemd[1]: Stopped firewalld - dynamic f....</div><div class="line">Hint: Some lines were ellipsized, use -l to show in full.</div><div class="line">[root@ora12c ~]#</div></pre></td></tr></table></figure></p>
+<p>禁止开机自动启动防火墙：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# systemctl disable firewalld</div><div class="line">Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</div><div class="line">Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.</div></pre></td></tr></table></figure></p>
+<p>确认开机启动已经无效：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# systemctl is-enabled firewalld</div><div class="line">disabled</div><div class="line">[root@ora12c ~]#</div></pre></td></tr></table></figure></p>
+<h3 id="u505C_u7528SELinux"><a href="#u505C_u7528SELinux" class="headerlink" title="停用SELinux"></a>停用SELinux</h3><p>修改<code>/etc/selinux/config</code>，将<code>SELINUX</code>从<code>enforcing</code>改为<code>disabled</code>。<br><img src="/img/post/ora12c-013.png" alt=""></p>
+<h3 id="u914D_u7F6EYUM_u6E90"><a href="#u914D_u7F6EYUM_u6E90" class="headerlink" title="配置YUM源"></a>配置YUM源</h3><p>打开虚拟机实例的窗口，在菜单中选择<code>Devices</code>-&gt; <code>Optical Drives</code> -&gt; <code>Choose Disk Image...</code> 打开刚才的系统安装光盘镜像。</p>
+<p>登录到虚拟机实例中，挂载光盘到 <code>/media/cdrom</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# mkdir /media/cdrom</div><div class="line">[root@ora12c ~]# mount -r /dev/cdrom /media/cdrom</div></pre></td></tr></table></figure></p>
+<p>备份原来的Yum源，配置新的本地Yum源：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# mkdir /etc/yum.repos.d/orig.repo.d</div><div class="line">[root@ora12c ~]# mv /etc/yum.repos.d/public-yum-ol7.repo /etc/yum.repos.d/orig.repo.d/</div><div class="line">[root@ora12c ~]# cat &lt;&lt;EOF&gt;/etc/yum.repos.d/local.repo</div><div class="line">&gt; [Local]</div><div class="line">&gt; name=Oracle Linux 7.3 x86_64</div><div class="line">&gt; baseurl=file:///media/cdrom</div><div class="line">&gt; gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY</div><div class="line">&gt; enabled=1</div><div class="line">&gt; EOF</div><div class="line">[root@ora12c ~]#</div></pre></td></tr></table></figure></p>
+<p>测试新Yum源：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# yum repolist</div><div class="line">Loaded plugins: ulninfo</div><div class="line">Local                                                    | 3.6 kB     00:00     </div><div class="line">(1/2): Local/group_gz                                      | 134 kB   00:00     </div><div class="line">(2/2): Local/primary_db                                    | 4.5 MB   00:00     </div><div class="line">repo id                      repo name                                    status</div><div class="line">Local                        Oracle Linux 7.3 x86_64                      4,737</div><div class="line">repolist: 4,737</div><div class="line">[root@ora12c ~]#</div></pre></td></tr></table></figure></p>
+<h3 id="u5B89_u88C5_u5FC5_u987B_u7684_u8F6F_u4EF6_u5305"><a href="#u5B89_u88C5_u5FC5_u987B_u7684_u8F6F_u4EF6_u5305" class="headerlink" title="安装必须的软件包"></a>安装必须的软件包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# yum install -y oracle-database-server-12cR2-preinstall</div><div class="line">[root@ora12c ~]# yum install tigervnc-server.x86_64 xclock xterm lsof bind bzip2 gcc kernel-uek-devel</div><div class="line">[root@ora12c ~]# yum install metacity liberation-mono-fonts</div></pre></td></tr></table></figure>
+<h3 id="u5B89_u88C5VirtualBox_Guest_Additions"><a href="#u5B89_u88C5VirtualBox_Guest_Additions" class="headerlink" title="安装VirtualBox Guest Additions"></a>安装VirtualBox Guest Additions</h3><p>先卸载安装镜像文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# umount /media/cdrom/</div></pre></td></tr></table></figure></p>
+<p>然后打开虚拟机实例的窗口，在菜单中选择<code>Devices</code>-&gt; <code>Optical Drives</code> -&gt; <code>Remove disk from virtual drive</code> 彻底弹出安装系统关平镜像。</p>
+<p>接着，继续在菜单中选择<code>Devices</code>-&gt; <code>Insert Guest Additions CD Image...</code></p>
+<p>登录到虚拟机实例中，挂载Guest Additions光盘镜像:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# mount -r /dev/cdrom /media/cdrom</div></pre></td></tr></table></figure></p>
+<p>开始安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]<span class="comment"># sh /media/cdrom/VBoxLinuxAdditions.run</span></div><div class="line">Verifying archive integrity... All good.</div><div class="line">Uncompressing VirtualBox 5.1.16 Guest Additions <span class="keyword">for</span> Linux...........</div><div class="line">VirtualBox Guest Additions installer</div><div class="line">Copying additional installer modules ...</div><div class="line">Installing additional modules ...</div><div class="line">vboxadd.sh: Building Guest Additions kernel modules.</div><div class="line">vboxadd.sh: Starting the VirtualBox Guest Additions.</div><div class="line"></div><div class="line">Could not find the X.Org or XFree86 Window System, skipping.</div><div class="line">[root@ora12c ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<h3 id="u4FEE_u6539hosts_u6587_u4EF6"><a href="#u4FEE_u6539hosts_u6587_u4EF6" class="headerlink" title="修改hosts文件"></a>修改hosts文件</h3><p>这里不再配置DNS服务器（bind），而简单的配置一个静态的hosts文件，确保主机名永远都能被解析到。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]<span class="comment"># vi /etc/hosts</span></div><div class="line">[root@ora12c ~]<span class="comment"># cat /etc/hosts</span></div><div class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</div><div class="line">192.168.78.122	ora12c.example.com</div><div class="line">[root@ora12c ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<h2 id="u6570_u636E_u5E93_u5B89_u88C5_u9009_u9879_u8BBE_u7F6E"><a href="#u6570_u636E_u5E93_u5B89_u88C5_u9009_u9879_u8BBE_u7F6E" class="headerlink" title="数据库安装选项设置"></a>数据库安装选项设置</h2><p>执行下面的命令，修改<code>/etc/pam.d/login</code>，启用 limits:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sed -i -e &apos;/session    required     pam_selinux.so open/i\</div><div class="line">session    required     \/lib64\/security\/pam_limits.so\</div><div class="line">session    required     pam_limits.so&apos; /etc/pam.d/login</div></pre></td></tr></table></figure></p>
+<p>修改后的文件如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]<span class="comment"># cat /etc/pam.d/login</span></div><div class="line"><span class="comment">#%PAM-1.0</span></div><div class="line">auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so</div><div class="line">auth       substack     system-auth</div><div class="line">auth       include      postlogin</div><div class="line">account    required     pam_nologin.so</div><div class="line">account    include      system-auth</div><div class="line">password   include      system-auth</div><div class="line"><span class="comment"># pam_selinux.so close should be the first session rule</span></div><div class="line">session    required     pam_selinux.so close</div><div class="line">session    required     pam_loginuid.so</div><div class="line">session    optional     pam_console.so</div><div class="line"><span class="comment"># pam_selinux.so open should only be followed by sessions to be executed in the user context</span></div><div class="line">session    required     /lib64/security/pam_limits.so</div><div class="line">session    required     pam_limits.so</div><div class="line">session    required     pam_selinux.so open</div><div class="line">session    required     pam_namespace.so</div><div class="line">session    optional     pam_keyinit.so force revoke</div><div class="line">session    include      system-auth</div><div class="line">session    include      postlogin</div><div class="line">-session   optional     pam_ck_connector.so</div><div class="line">[root@ora12c ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>修改<code>oracle</code>用户的密码为<code>oracle1234</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]<span class="comment"># passwd oracle</span></div><div class="line">Changing password <span class="keyword">for</span> user oracle.</div><div class="line">New password: oracle1234</div><div class="line">BAD PASSWORD: The password contains the user name <span class="keyword">in</span> some form</div><div class="line">Retype new password: oracle1234</div><div class="line">passwd: all authentication tokens updated successfully.</div><div class="line">[root@ora12c ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>创建安装目录，并设置权限：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# mkdir -p /u01/app</div><div class="line">[root@ora12c ~]# chown oracle:oinstall /u01/app</div><div class="line">[root@ora12c ~]# usermod -G oinstall,dba,vboxsf oracle</div><div class="line">[root@ora12c ~]# id oracle</div><div class="line">uid=54321(oracle) gid=54321(oinstall) groups=54321(oinstall),54322(dba),995(vboxsf)</div><div class="line">[root@ora12c ~]#</div></pre></td></tr></table></figure></p>
+<p>重启系统。</p>
+<h2 id="u914D_u7F6EVNC_u670D_u52A1_u5668"><a href="#u914D_u7F6EVNC_u670D_u52A1_u5668" class="headerlink" title="配置VNC服务器"></a>配置VNC服务器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# su - oracle</div><div class="line">[oracle@ora12c ~]$ vncserver :1</div><div class="line"></div><div class="line">You will require a password to access your desktops.</div><div class="line"></div><div class="line">Password: oracle1234</div><div class="line">Verify: oracle1234</div><div class="line">xauth:  file /home/oracle/.Xauthority does not exist</div><div class="line"></div><div class="line">New &apos;ora12c.example.com:1 (oracle)&apos; desktop is ora12c.example.com:1</div><div class="line"></div><div class="line">Creating default startup script /home/oracle/.vnc/xstartup</div><div class="line">Starting applications specified in /home/oracle/.vnc/xstartup</div><div class="line">Log file is /home/oracle/.vnc/ora12c.example.com:1.log</div></pre></td></tr></table></figure>
+<p>编辑自动生成的VNC配置文件，<code>/home/oracle/.vnc/xstartup</code>，在里面加入一行<code>metacity &amp;</code>，确保VNC服务启动时先启动窗口管理器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ vncserver -kill :1</div><div class="line">[oracle@ora12c ~]$ cat ~/.vnc/xstartup</div><div class="line">#!/bin/sh</div><div class="line"></div><div class="line">unset SESSION_MANAGER</div><div class="line">unset DBUS_SESSION_BUS_ADDRESS</div><div class="line">metacity &amp;</div><div class="line">exec /etc/X11/xinit/xinitrc</div><div class="line">[oracle@ora12c ~]$ vncserver :1</div></pre></td></tr></table></figure>
+<p>使用VNC客户端来，登录到图像界面。本文使用的客户端为VNC Viewer：</p>
+<p><img src="/img/post/ora12c-014.png" alt=""></p>
+<p>打开VNC客户端，输入<code>192.168.78.122:1</code>：</p>
+<p><img src="/img/post/ora12c-015.png" alt=""></p>
+<p><img src="/img/post/ora12c-016.png" alt=""></p>
+<p><img src="/img/post/ora12c-017.png" alt=""></p>
+<p><img src="/img/post/ora12c-018.png" alt=""></p>
+<h1 id="u5B89_u88C5_u6570_u636E_u5E93"><a href="#u5B89_u88C5_u6570_u636E_u5E93" class="headerlink" title="安装数据库"></a>安装数据库</h1><p>先从共享目录中把数据库的安装文件拷贝到<code>oracle</code>用户的主目录中，并解压缩。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ mkdir install</div><div class="line">[oracle@ora12c ~]$ cp /media/sf_install/linuxx64_12201_database.zip install/</div><div class="line">[oracle@ora12c ~]$ cd install/</div><div class="line">[oracle@ora12c install]$ unzip linuxx64_12201_database.zip</div></pre></td></tr></table></figure>
+<p><img src="/img/post/ora12c-019.png" alt=""></p>
+<p><img src="/img/post/ora12c-020.png" alt=""></p>
+<p><img src="/img/post/ora12c-021.png" alt=""></p>
+<p><img src="/img/post/ora12c-022.png" alt=""></p>
+<p><img src="/img/post/ora12c-023.png" alt=""></p>
+<p><img src="/img/post/ora12c-024.png" alt=""></p>
+<p><img src="/img/post/ora12c-025.png" alt=""></p>
+<p><img src="/img/post/ora12c-026.png" alt=""></p>
+<p><img src="/img/post/ora12c-027.png" alt=""></p>
+<p><img src="/img/post/ora12c-028.png" alt=""></p>
+<p><img src="/img/post/ora12c-029.png" alt=""></p>
+<p>以root执行脚本：</p>
+<p><img src="/img/post/ora12c-030.png" alt=""></p>
+<p><img src="/img/post/ora12c-031.png" alt=""></p>
+<p>安装完成</p>
+<p><img src="/img/post/ora12c-032.png" alt=""></p>
+<h1 id="u521B_u5EFA_u6570_u636E_u5E93"><a href="#u521B_u5EFA_u6570_u636E_u5E93" class="headerlink" title="创建数据库"></a>创建数据库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ /u01/app/oracle/product/12.2.0/dbhome_1/bin/dbca</div></pre></td></tr></table></figure>
+<p><img src="/img/post/ora12c-033.png" alt=""></p>
+<p><img src="/img/post/ora12c-034.png" alt=""></p>
+<p><img src="/img/post/ora12c-035.png" alt=""></p>
+<p><img src="/img/post/ora12c-036.png" alt=""></p>
+<p><img src="/img/post/ora12c-037.png" alt=""></p>
+<p><img src="/img/post/ora12c-038.png" alt=""></p>
+<p><img src="/img/post/ora12c-039.png" alt=""></p>
+<p>先不创建创建监听器：</p>
+<p><img src="/img/post/ora12c-040.png" alt=""></p>
+<p><img src="/img/post/ora12c-041.png" alt=""></p>
+<p><img src="/img/post/ora12c-042.png" alt=""></p>
+<p><img src="/img/post/ora12c-043.png" alt=""></p>
+<p>先不注册到EM中</p>
+<p><img src="/img/post/ora12c-044.png" alt=""></p>
+<p>为了方便记忆，全部使用一个密码：<code>oracle1234</code></p>
+<p><img src="/img/post/ora12c-045.png" alt=""></p>
+<p><img src="/img/post/ora12c-046.png" alt=""></p>
+<p>保存响应文件后，开始创建数据库</p>
+<p><img src="/img/post/ora12c-047.png" alt=""></p>
+<p><img src="/img/post/ora12c-048.png" alt=""></p>
+<p><img src="/img/post/ora12c-049.png" alt=""></p>
+<p>创建监听器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@ora12c ~]# /u01/app/oracle/product/12.2.0/dbhome_1/bin/netca</div></pre></td></tr></table></figure>
+<p><img src="/img/post/ora12c-050.png" alt=""></p>
+<p><img src="/img/post/ora12c-051.png" alt=""></p>
+<p><img src="/img/post/ora12c-052.png" alt=""></p>
+<p><img src="/img/post/ora12c-053.png" alt=""></p>
+<p><img src="/img/post/ora12c-054.png" alt=""></p>
+<p><img src="/img/post/ora12c-055.png" alt=""></p>
+<p><img src="/img/post/ora12c-056.png" alt=""></p>
+<p><img src="/img/post/ora12c-057.png" alt=""></p>
+<p><img src="/img/post/ora12c-058.png" alt=""></p>
+<p>输入全局数据库（Global database name）名称<code>orcl.example.com</code>：</p>
+<p><img src="/img/post/ora12c-059.png" alt=""></p>
+<p><img src="/img/post/ora12c-060.png" alt=""></p>
+<p><img src="/img/post/ora12c-061.png" alt=""></p>
+<p><img src="/img/post/ora12c-062.png" alt=""></p>
+<p>输入用户名<code>system</code>，密码<code>oracle1234</code>进行测试：</p>
+<p><img src="/img/post/ora12c-063.png" alt=""></p>
+<p><img src="/img/post/ora12c-064.png" alt=""></p>
+<p><img src="/img/post/ora12c-065.png" alt=""></p>
+<p><img src="/img/post/ora12c-066.png" alt=""></p>
+<p><img src="/img/post/ora12c-067.png" alt=""></p>
+<p>至此，数据库安装完成。</p>
+<h2 id="u8BBE_u7F6E_u7528_u6237_u914D_u7F6E_u6587_u4EF6"><a href="#u8BBE_u7F6E_u7528_u6237_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="设置用户配置文件"></a>设置用户配置文件</h2><p>以<code>oracle</code>用户登录，在<code>/home/oracle/.bash_profile</code>中加入如下配置内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Settings for Oracle Database</span></div><div class="line"><span class="built_in">export</span> TMP=/tmp</div><div class="line"><span class="built_in">export</span> TMPDIR=<span class="variable">$TMP</span></div><div class="line"><span class="built_in">export</span> ORACLE_HOSTNAME=ora12c.example.com</div><div class="line"><span class="built_in">export</span> ORACLE_UNQNAME=orcl</div><div class="line"><span class="built_in">export</span> ORACLE_BASE=/u01/app/oracle</div><div class="line"><span class="built_in">export</span> ORACLE_HOME=<span class="variable">$ORACLE_BASE</span>/product/12.2.0/dbhome_1</div><div class="line"><span class="built_in">export</span> ORACLE_SID=orcl</div><div class="line"></div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$ORACLE_HOME</span>/bin:<span class="variable">$PATH</span></div><div class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$ORACLE_HOME</span>/lib:/lib:/usr/lib</div><div class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$ORACLE_HOME</span>/jlib:<span class="variable">$ORACLE_HOME</span>/rdbms/jlib</div></pre></td></tr></table></figure>
+<h2 id="u91CD_u542F_u65F6_u81EA_u52A8_u542F_u52A8_u6570_u636E_u5E93"><a href="#u91CD_u542F_u65F6_u81EA_u52A8_u542F_u52A8_u6570_u636E_u5E93" class="headerlink" title="重启时自动启动数据库"></a>重启时自动启动数据库</h2><p>以root用户，修改<code>/etc/oratab</code>的最后一行，将<code>N</code>改成<code>Y</code>，保证数据库在系统重启之后自动启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">orcl:/u01/app/oracle/product/12.2.0/dbhome_1:Y</div><div class="line">&quot;/etc/oratab&quot; 23L, 788C</div></pre></td></tr></table></figure>
+<p>参考<a href="http://docs.oracle.com/database/122/UNXAR/stopping-and-starting-oracle-software.htm#UNXAR417" target="_blank" rel="external">官方安装文档</a>，创建自启动脚本<code>/etc/init.d/dbora</code>，输入如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /bin/sh -x</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># chkconfig: 2345 80 05</span></div><div class="line"><span class="comment"># description: Oracle auto start-stop script.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Set ORACLE_HOME to be equivalent to the $ORACLE_HOME</span></div><div class="line"><span class="comment"># from which you wish to execute dbstart and dbshut;</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Set ORA_OWNER to the user id of the owner of the</span></div><div class="line"><span class="comment"># Oracle database in ORACLE_HOME.</span></div><div class="line"></div><div class="line">ORA_HOME=/u01/app/oracle/product/12.2.0/dbhome_1</div><div class="line">ORA_OWNER=oracle</div><div class="line"></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></div><div class="line"><span class="string">'start'</span>)</div><div class="line">    <span class="comment"># Start the Oracle databases:</span></div><div class="line">    <span class="comment"># The following command assumes that the oracle login</span></div><div class="line">    <span class="comment"># will not prompt the user for any values</span></div><div class="line">    <span class="comment"># Remove "&amp;" if you don't want startup as a background process.</span></div><div class="line">    su - <span class="variable">$ORA_OWNER</span> -c <span class="string">"<span class="variable">$ORA_HOME</span>/bin/dbstart <span class="variable">$ORA_HOME</span>"</span> &amp;</div><div class="line">    touch /var/lock/subsys/dbora</div><div class="line">    ;;</div><div class="line"></div><div class="line"><span class="string">'stop'</span>)</div><div class="line">    <span class="comment"># Stop the Oracle databases:</span></div><div class="line">    <span class="comment"># The following command assumes that the oracle login</span></div><div class="line">    <span class="comment"># will not prompt the user for any values</span></div><div class="line">    su - <span class="variable">$ORA_OWNER</span> -c <span class="string">"<span class="variable">$ORA_HOME</span>/bin/dbshut <span class="variable">$ORA_HOME</span>"</span> &amp;</div><div class="line">    rm <span class="_">-f</span> /var/lock/subsys/dbora</div><div class="line">    ;;</div><div class="line"><span class="keyword">esac</span></div></pre></td></tr></table></figure>
+<p>修改启动脚本的权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># chgrp dba dbora</div><div class="line"># chmod 750 dbora</div></pre></td></tr></table></figure>
+<p>将启动脚本注册为自启动服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># chkconfig --add dbora</div><div class="line"># chkconfig dbora on</div></pre></td></tr></table></figure>
+<p>PDB Pluggable Database是12c中扛鼎的一个新特性， 但是对于CDB中的PDB，默认启动CDB时不会将所有的PDB带起来，这样我们就需要手动alter pluggable database ALL OPEN。解决方法就是使用SYS用户创建如下触发器：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ sqlplus / as sysdba</div><div class="line"></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> open_all_pdbs</div><div class="line">   <span class="keyword">AFTER</span> <span class="keyword">STARTUP</span></div><div class="line">   <span class="keyword">ON</span> <span class="keyword">DATABASE</span></div><div class="line"><span class="keyword">BEGIN</span></div><div class="line">   <span class="keyword">EXECUTE</span> <span class="keyword">IMMEDIATE</span> <span class="string">'alter pluggable database all open'</span>;</div><div class="line"><span class="keyword">END</span> open_all_pdbs;</div><div class="line">/</div></pre></td></tr></table></figure>
+<h2 id="u6CE8_u518C_u5230EM_Express_u4E2D"><a href="#u6CE8_u518C_u5230EM_Express_u4E2D" class="headerlink" title="注册到EM Express中"></a>注册到EM Express中</h2><p>登录到数据库中，保证XDB已经安装好，通过<code>exec DBMS_XDB_CONFIG.setHTTPPort(8080);</code>开启EM Express，并使用端口8080.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ sqlplus system@orcl</div><div class="line"></div><div class="line">SQL*Plus: Release 12.2.0.1.0 Production on Wed Apr 12 15:37:15 2017</div><div class="line"></div><div class="line">Copyright (c) 1982, 2016, Oracle.  All rights reserved.</div><div class="line"></div><div class="line">Enter password:</div><div class="line">Last Successful login time: Wed Apr 12 2017 15:08:54 +08:00</div><div class="line"></div><div class="line">Connected to:</div><div class="line">Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production</div><div class="line"></div><div class="line">SQL&gt; show parameter dispatchers</div><div class="line"></div><div class="line">NAME				     TYPE	 VALUE</div><div class="line">------------------------------------ ----------- ------------------------------</div><div class="line">dispatchers			     string	 (PROTOCOL=TCP) (SERVICE=orclXD</div><div class="line">						 B)</div><div class="line">max_dispatchers 		     <span class="built_in">integer</span></div><div class="line">SQL&gt; <span class="built_in">exec</span> DBMS_XDB_CONFIG.setHTTPPort(5500);        </div><div class="line"></div><div class="line">PL/SQL procedure successfully completed.</div></pre></td></tr></table></figure>
+<p>查看监听器状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ lsnrctl status</div><div class="line"></div><div class="line">LSNRCTL for Linux: Version 12.2.0.1.0 - Production on 12-APR-2017 15:39:53</div><div class="line"></div><div class="line">Copyright (c) 1991, 2016, Oracle.  All rights reserved.</div><div class="line"></div><div class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=ora12c.example.com)(PORT=1521)))</div><div class="line">STATUS of the LISTENER</div><div class="line">------------------------</div><div class="line">Alias                     LISTENER</div><div class="line">Version                   TNSLSNR for Linux: Version 12.2.0.1.0 - Production</div><div class="line">Start Date                12-APR-2017 14:58:34</div><div class="line">Uptime                    0 days 0 hr. 41 min. 19 sec</div><div class="line">Trace Level               off</div><div class="line">Security                  ON: Local OS Authentication</div><div class="line">SNMP                      OFF</div><div class="line">Listener Parameter File   /u01/app/oracle/product/12.2.0/dbhome_1/network/admin/listener.ora</div><div class="line">Listener Log File         /u01/app/oracle/diag/tnslsnr/ora12c/listener/alert/log.xml</div><div class="line">Listening Endpoints Summary...</div><div class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=ora12c.example.com)(PORT=1521)))</div><div class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=ora12c.example.com)(PORT=5500))(Presentation=HTTP)(Session=RAW))</div><div class="line">Services Summary...</div><div class="line">Service &quot;4ce29b4f34122507e0537a4ea8c0bfe9.example.com&quot; has 1 instance(s).</div><div class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</div><div class="line">Service &quot;orcl.example.com&quot; has 1 instance(s).</div><div class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</div><div class="line">Service &quot;orclXDB.example.com&quot; has 1 instance(s).</div><div class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</div><div class="line">Service &quot;orclpdb.example.com&quot; has 1 instance(s).</div><div class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</div><div class="line">The command completed successfully</div><div class="line">[oracle@ora12c ~]$</div></pre></td></tr></table></figure>
+<p>所有服务已经启动完成，可以使用<code>http://192.178.78.122:5500/em</code>来管理数据库了。注意，登录的时候使用用户名<code>sys</code>，密码<code>oracle1234</code>，不指定容器名，并选择<code>以sysdba</code>身份登录。</p>
+<p><img src="/img/post/ora12c-068.png" alt=""></p>
+<p><img src="/img/post/ora12c-069.png" alt=""></p>
+<h1 id="u53C2_u8003_u6587_u6863"><a href="#u53C2_u8003_u6587_u6863" class="headerlink" title="参考文档"></a>参考文档</h1><ol>
+<li>How I Enable Autostarting of Oracle Database for Demonstrations and Development - <a href="https://blogs.oracle.com/opal/entry/how_i_enable_autostarting_of1" target="_blank" rel="external">https://blogs.oracle.com/opal/entry/how_i_enable_autostarting_of1</a></li>
+<li>Oracle Database 12c Release 2 Administration - <a href="http://docs.oracle.com/database/122/nav/administration.htm" target="_blank" rel="external">http://docs.oracle.com/database/122/nav/administration.htm</a></li>
+<li>Oracle Database 12c Release 2 (12.2) Installation On Oracle Linux 6 (OL6) and 7 (OL7) - <a href="https://oracle-base.com/articles/12c/oracle-db-12cr2-installation-on-oracle-linux-6-and-7" target="_blank" rel="external">https://oracle-base.com/articles/12c/oracle-db-12cr2-installation-on-oracle-linux-6-and-7</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文在VirtualBox下，在Oracle Linux 7.3中安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。&lt;/p&gt;
+&lt;h1 id=&quot;u73AF_u588
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+    
+      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
+    
+  </entry>
   
   <entry>
     <title>在SGD中发布Oracle Linux 7 的Xfce桌面环境</title>
@@ -961,9 +1141,9 @@
     
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
-      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
-    
       <category term="oem" scheme="http://xintq.net/tags/oem/"/>
+    
+      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
     
       <category term="ome" scheme="http://xintq.net/tags/ome/"/>
     
@@ -2046,102 +2226,6 @@
       <category term="网络性能" scheme="http://xintq.net/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/"/>
     
       <category term="带宽" scheme="http://xintq.net/tags/%E5%B8%A6%E5%AE%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Oracle Secure Global Desktop(SGD)与VPN有何不同</title>
-    <link href="http://xintq.net/2015/03/10/Oracle%20Secure%20Global%20Desktop%E4%B8%8EVPN%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/"/>
-    <id>http://xintq.net/2015/03/10/Oracle Secure Global Desktop与VPN有何不同/</id>
-    <published>2015-03-10T07:36:53.000Z</published>
-    <updated>2016-01-05T07:00:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。VPN让使用者能够在专用网络内访问计算机和服务，而不是以其他方式暴露在外部公开网络下。</p>
-<p>使用VPN时，通常需要在客户端计算机上安装某种形式的VPN客户端软件，并且在专用网的边界上安装<em>VPN集中器</em>。典型的方法是使用某种形式的身份认证和数据加密（通常是IPSec），当在公共链路上传输信息时使窃听者无法拦截或改变数据。</p>
-<pre><code>VPN集中器: 可以支持局域网的连接，支持客户端的连接，支持智能手机系统的拨入。包括iPhone、Andriod等系统，简言之就是把网络集中起来的东西
-</code></pre><p>VPN技术的一个关键点是，VPN隧道为远程计算机提供了网络的“存在感”。也就是说，远程计算机上的应用在访问虚拟专用网络上的其他计算机和服务时，就好像与那些内网主机在同一个网络上一样，事实上，它们确实是属于同一网络。这些应用程序可能包括访问内部Web服务器的Web浏览器，访问内部邮件服务器的电子邮件客户端。通过在专用计算机上安装相应的模拟软件，客户机还可以访问其他类型的应用，如在专用网络的计算机上运行的Windows（使用RDP协议）和X-Windows（使用X11）。</p>
-<h3 id="SGD_u4E0EVPN_u7684_u533A_u522B"><a href="#SGD_u4E0EVPN_u7684_u533A_u522B" class="headerlink" title="SGD与VPN的区别"></a>SGD与VPN的区别</h3><p>SGD与VPN的区别是，SGD不会为远程计算机提供以某种形式存在的网络；客户端连接到SGD服务器时使用的就是本地的专用网络。之后，SGD服务器作为代理，将代替客户端连接到相应的应用服务器。客户端计算机永远不需要直接访问内部网络。在使用VPN的情况下，用户可以浏览内部网络，并且可以与他们想要连接的任何计算机直接通信。这种做法会导致引入恶意软件的风险，如感染客户端计算机的木马或蠕虫。这样的恶意程序，一旦安装在用户的计算机上，就可以直接连接到这些内部系统，还有可能感染他们或窃取数据。这就是为什么有些VPN解决方案具有诸如“端点验证”的技术，以确保连接的客户端有相应的杀毒软件，防火墙和/或安装了补丁。由于SGD不提供客户机网络访问，所以不需要使用这样的技术来保护内部系统。</p>
-<h3 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h3><p>等等，还是不能理解么？好吧，看看下面的分析如何。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>SGD</th>
-<th>VPN</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>定位</strong></td>
-<td>位于应用程序之上，访问层的产品</td>
-<td>位于网络层之上，底层的网络安全技术</td>
-</tr>
-<tr>
-<td><strong>性质</strong></td>
-<td>一个远程访问产品</td>
-<td>一类网络安全技术的统称</td>
-</tr>
-<tr>
-<td><strong>原理</strong></td>
-<td>将应用程序与访问环境分离，同时加密到应用程序的访问过程，以达到安全地连接远程应用程序和桌面的目的</td>
-<td>将客户端的网络连接全部重新定位到一个安全的网络连接上，通过VPN服务器实现对企业内部网络的安全访问</td>
-</tr>
-<tr>
-<td><strong>访问对象</strong></td>
-<td>运行在数据中心内部的应用程序和桌面</td>
-<td>企业内部网络</td>
-</tr>
-<tr>
-<td><strong>环境要求</strong></td>
-<td>需要部署SGD访问服务器</td>
-<td>需要部署VPN服务器</td>
-</tr>
-<tr>
-<td><strong>客户端要求</strong></td>
-<td>客户端无需任何软件，只需要一个浏览器，几乎是任意客户端</td>
-<td>需要在客户端安装VPN接入软件，可使用的客户端取决于VPN软件的支持范围。</td>
-</tr>
-<tr>
-<td><strong>管理性</strong></td>
-<td>细粒度的管理。管理员可以控制用户，应用程序，用户操作</td>
-<td>粗粒度管理。管理员只能知道接入VPN的用户，对于用户的操作以及使用的应用程序无法控制</td>
-</tr>
-<tr>
-<td><strong>安全性</strong></td>
-<td><em>高。</em>只把需要的数据通信过程进行安全加密。在客户端不存储任何数据，保证到内部网络的通信和数据是安全的。即使客户端感染病毒，对内部网络造成威胁的可能也很低。</td>
-<td><em>中。</em>将所有客户端的数据连接一股脑的接入到内网中，如果客户端环境中有病毒，也可能感染到内网。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h3><p>要明确这两种产品的定位不同，一个属于访问层（SGD），一个属于网络层（VPN），之间没有竞争关系，而且在使用VPN的情况下，也可以使用SGD。SGD是通过一个安全入口远程访问不同平台应用程序和桌面的解决方案，而VPN是访问内部网络的解决访问。二者要回答的问题不一样。</p>
-<ul>
-<li><strong>SGD回答了：</strong> <em>我不关心内网还是外网，我只想知道如何才能安全的访问企业内部的应用程序和桌面</em></li>
-<li><strong>VPN回答了：</strong> <em>我不关心有哪些应用程序和桌面，我只想知道如何才能安全的访问企业的内部网络</em></li>
-</ul>
-<p>SGD有便捷性，无需任何客户端软件，可以在任何设备上使用，而VPN使用时必须安装客户端软件或者某种类型的VPN卡，可使用的设备有限，而且很容易造成丢失</p>
-<p>SGD这种高可控的远程访问方式是现在、将来的趋势，已经有很多用户（比如美国的一些大学，研究室，已经政府机构）只使用SGD做远程访问。</p>
-<p>SGD可以和既存的企业身份认证系统整合，用户不再需要多余的账号，而且如果使用Oracle应用的话，还可以很方便的实现一键登录（SSO），而VPN需要独立的账号，无一键登录功能。</p>
-<p>SGD可以实现浏览器，插件等配置环境的独立部署，客户不需要再担心自己的环境是否满足企业应用的需求；而VPN太过于底层，不可能实现这种高级功能，需要客户自己操心。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;概括的来说，VPN（也称作虚拟专用网络），会在一个较大的网络中创建一个“虚拟”的通信线路。通常使用VPN在客户端计算机之间创建一个隧道作为专用网络，并使用因特网作为该隧道的载体。允许计算机（用户）从远程位置访问其所属公司的专用网络设施，使用因特网作为该隧道的物理传输介质。V
-    
-    </summary>
-    
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
-    
-      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
-      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
-    
-      <category term="vpn" scheme="http://xintq.net/tags/vpn/"/>
-    
-      <category term="专用网" scheme="http://xintq.net/tags/%E4%B8%93%E7%94%A8%E7%BD%91/"/>
-    
-      <category term="比较" scheme="http://xintq.net/tags/%E6%AF%94%E8%BE%83/"/>
     
   </entry>
   
