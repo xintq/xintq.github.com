@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2017-04-18T07:58:50.000Z</updated>
+  <updated>2017-04-18T09:29:13.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://xintq.net/2017/04/18/install-db12c-ol73/"/>
     <id>http://xintq.net/2017/04/18/install-db12c-ol73/</id>
     <published>2017-04-18T07:42:04.000Z</published>
-    <updated>2017-04-18T07:58:50.000Z</updated>
+    <updated>2017-04-18T09:29:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文在VirtualBox下，在Oracle Linux 7.3中安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。</p>
 <h1 id="u73AF_u5883_u8BF4_u660E"><a href="#u73AF_u5883_u8BF4_u660E" class="headerlink" title="环境说明"></a>环境说明</h1><ul>
@@ -109,7 +109,6 @@
 <h1 id="u521B_u5EFA_u6570_u636E_u5E93"><a href="#u521B_u5EFA_u6570_u636E_u5E93" class="headerlink" title="创建数据库"></a>创建数据库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[oracle@ora12c ~]$ /u01/app/oracle/product/12.2.0/dbhome_1/bin/dbca</div></pre></td></tr></table></figure>
 <p><img src="/img/post/ora12c-033.png" alt=""></p>
 <p><img src="/img/post/ora12c-034.png" alt=""></p>
-<p><img src="/img/post/ora12c-035.png" alt=""></p>
 <p><img src="/img/post/ora12c-036.png" alt=""></p>
 <p><img src="/img/post/ora12c-037.png" alt=""></p>
 <p><img src="/img/post/ora12c-038.png" alt=""></p>
