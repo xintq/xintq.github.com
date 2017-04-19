@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2017-04-18T09:29:13.000Z</updated>
+  <updated>2017-04-19T07:36:47.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -20,24 +20,25 @@
     <link href="http://xintq.net/2017/04/18/install-db12c-ol73/"/>
     <id>http://xintq.net/2017/04/18/install-db12c-ol73/</id>
     <published>2017-04-18T07:42:04.000Z</published>
-    <updated>2017-04-18T09:29:13.000Z</updated>
+    <updated>2017-04-19T07:36:47.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本文在VirtualBox下，在Oracle Linux 7.3中安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。</p>
+    <content type="html"><![CDATA[<p>本文使用VirtualBox，在最小化安装的Oracle Linux 7.3中，安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。</p>
 <h1 id="u73AF_u5883_u8BF4_u660E"><a href="#u73AF_u5883_u8BF4_u660E" class="headerlink" title="环境说明"></a>环境说明</h1><ul>
 <li><strong>主机</strong>： macOS Sierra (10.12.4)</li>
 <li><strong>虚拟环境</strong>：VirtualBox 5.1.16</li>
-<li><strong>数据库安装操作系统</strong>： Oracle Linux 7.3 x64位版本。</li>
-<li><strong>数据库安装文件</strong>：Oracle Database 12c Release 2(12.2.0.1.0),可以在Oracle主页中下载到。需要下载的文件名称为 <code>linuxx64_12201_database.zip</code>。</li>
+<li><strong>数据库安装操作系统</strong>： Oracle Linux 7.3 x64位</li>
+<li><strong>数据库安装文件</strong>：Oracle Database 12c Release 2(12.2.0.1.0)，可以在Oracle主页中下载到。需要下载的文件名称为 <code>linuxx64_12201_database.zip</code>。</li>
 </ul>
-<p><img src="/img/post/ora12c-000-0.png" alt=""></p>
-<h1 id="VirtualBox_u8BBE_u7F6E"><a href="#VirtualBox_u8BBE_u7F6E" class="headerlink" title="VirtualBox设置"></a>VirtualBox设置</h1><p>主要设置Host-Only网络</p>
-<p><img src="/img/post/ora12c-000.png" alt=""></p>
+<p><img src="/img/post/ora12c-000-0.png" alt="数据库安装文件下载"></p>
+<h1 id="VirtualBox_u8BBE_u7F6E"><a href="#VirtualBox_u8BBE_u7F6E" class="headerlink" title="VirtualBox设置"></a>VirtualBox设置</h1><p>由于是使用虚拟环境，所以对于虚拟网络来说，只需要保证主机可以访问VM实例即可。这里主要设置Host-Only网络：</p>
+<p><img src="/img/post/ora12c-000.png" alt="Host-Only网络设置"></p>
 <p>默认使用192.168.56.1网段，这里改成<code>192.168.78.1</code>网段</p>
-<p><img src="/img/post/ora12c-000-1.png" alt=""></p>
+<p><img src="/img/post/ora12c-000-1.png" alt="修改主机虚拟网络地址"></p>
 <p>并且不启用DHCP。</p>
-<p><img src="/img/post/ora12c-000-2.png" alt=""></p>
-<h1 id="u521B_u5EFA_u865A_u62DF_u673A"><a href="#u521B_u5EFA_u865A_u62DF_u673A" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><p><img src="/img/post/ora12c-001.png" alt="create vm"></p>
-<p>设置虚拟硬盘大小<br><img src="/img/post/ora12c-002.png" alt=""></p>
+<p><img src="/img/post/ora12c-000-2.png" alt="不启用DHCP"></p>
+<h1 id="u521B_u5EFA_u865A_u62DF_u673A"><a href="#u521B_u5EFA_u865A_u62DF_u673A" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><p>选择Oracle Linux，为保证数据库的性能，设置内存为4GB(主机一共16GB的物理内存)。</p>
+<p><img src="/img/post/ora12c-001.png" alt="创建虚拟机"></p>
+<p>设置虚拟硬盘大小，设置<br><img src="/img/post/ora12c-002.png" alt="虚拟硬盘"></p>
 <h2 id="u865A_u62DF_u673A_u8BBE_u7F6E"><a href="#u865A_u62DF_u673A_u8BBE_u7F6E" class="headerlink" title="虚拟机设置"></a>虚拟机设置</h2><p>挂载系统安装镜像</p>
 <p><img src="/img/post/ora12c-003.png" alt=""></p>
 <h3 id="u8BBE_u7F6E_u7F51_u7EDC"><a href="#u8BBE_u7F6E_u7F51_u7EDC" class="headerlink" title="设置网络"></a>设置网络</h3><p>第一块网卡设置为Host-Only</p>
@@ -178,19 +179,33 @@
     
     <summary type="html">
     
-      &lt;p&gt;本文在VirtualBox下，在Oracle Linux 7.3中安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。&lt;/p&gt;
-&lt;h1 id=&quot;u73AF_u588
+      &lt;p&gt;本文使用VirtualBox，在最小化安装的Oracle Linux 7.3中，安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。&lt;/p&gt;
+&lt;h1 id=&quot;u73
     
     </summary>
     
       <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
+      <category term="虚拟化" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+    
+      <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
       <category term="database" scheme="http://xintq.net/tags/database/"/>
     
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
       <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
+    
+      <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
+    
+      <category term="yum" scheme="http://xintq.net/tags/yum/"/>
+    
+      <category term="EM12c" scheme="http://xintq.net/tags/em12c/"/>
+    
+      <category term="ora12c" scheme="http://xintq.net/tags/ora12c/"/>
+    
+      <category term="systemctl" scheme="http://xintq.net/tags/systemctl/"/>
     
   </entry>
   
