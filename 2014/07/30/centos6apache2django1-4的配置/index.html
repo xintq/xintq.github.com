@@ -127,20 +127,20 @@ vi /var/www/cgi-bin/be">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u73AF_u5883"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u573A_u666F"><span class="toc-number">2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u9700_u6C42"><span class="toc-number">3.</span> <span class="toc-text">需求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u6B65_uFF1A_u5EFA_u7ACBbeaver-wsgi"><span class="toc-number">3.1.</span> <span class="toc-text">第一步：建立beaver.wsgi</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#场景"><span class="toc-number">2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#需求"><span class="toc-number">3.</span> <span class="toc-text">需求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：建立beaver-wsgi"><span class="toc-number">3.1.</span> <span class="toc-text">第一步：建立beaver.wsgi</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="u73AF_u5883"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h1><ul>
+		<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul>
 <li>OS：CentOS 6.2 x64</li>
 <li>Apache：2</li>
 <li>Python：2.6</li>
 <li>Django：1.4.2</li>
 </ul>
-<h1 id="u573A_u666F"><a href="#u573A_u666F" class="headerlink" title="场景"></a>场景</h1><p>我的应用名称是beaver，放在下面的位置：</p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>我的应用名称是beaver，放在下面的位置：</p>
 <pre><code>/var/www/cgi-bin/beaver
-</code></pre><h1 id="u9700_u6C42"><a href="#u9700_u6C42" class="headerlink" title="需求"></a>需求</h1><p>使用wsgi，把Django项目，发布到apache下。</p>
-<h2 id="u7B2C_u4E00_u6B65_uFF1A_u5EFA_u7ACBbeaver-wsgi"><a href="#u7B2C_u4E00_u6B65_uFF1A_u5EFA_u7ACBbeaver-wsgi" class="headerlink" title="第一步：建立beaver.wsgi"></a>第一步：建立beaver.wsgi</h2><p>在上面的目录中新建一个文件：beaver.wsgi</p>
+</code></pre><h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用wsgi，把Django项目，发布到apache下。</p>
+<h2 id="第一步：建立beaver-wsgi"><a href="#第一步：建立beaver-wsgi" class="headerlink" title="第一步：建立beaver.wsgi"></a>第一步：建立beaver.wsgi</h2><p>在上面的目录中新建一个文件：beaver.wsgi</p>
 <pre><code>vi /var/www/cgi-bin/beaver/django.wsgi
 </code></pre><p>输入如下内容:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">sys.path.append(<span class="string">'/var/www/cgi-bin/beaver'</span>) <span class="comment">#这里是应用的主目录</span></div><div class="line">os.environ[<span class="string">'DJANGO_SETTINGS_MODULE'</span>] = <span class="string">'beaver.settings'</span> <span class="comment">#配置文件</span></div><div class="line"></div><div class="line">os.environ[<span class="string">'PYTHON_EGG_CACHE'</span>] = <span class="string">'/var/www/cgi-bin/beaver/.python-egg'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> django.core.handlers.wsgi</div><div class="line">application = django.core.handlers.wsgi.WSGIHandler()</div></pre></td></tr></table></figure>
@@ -219,7 +219,7 @@ vi /var/www/cgi-bin/be">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u73AF_u5883"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u573A_u666F"><span class="toc-number">2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u9700_u6C42"><span class="toc-number">3.</span> <span class="toc-text">需求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u6B65_uFF1A_u5EFA_u7ACBbeaver-wsgi"><span class="toc-number">3.1.</span> <span class="toc-text">第一步：建立beaver.wsgi</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#场景"><span class="toc-number">2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#需求"><span class="toc-number">3.</span> <span class="toc-text">需求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：建立beaver-wsgi"><span class="toc-number">3.1.</span> <span class="toc-text">第一步：建立beaver.wsgi</span></a></li></ol></li></ol>
  
   </div>
 
@@ -261,7 +261,7 @@ vi /var/www/cgi-bin/be">
 		  
 		
 		  
-			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>20</sup></a></li>
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
 		  
 		
 		  
