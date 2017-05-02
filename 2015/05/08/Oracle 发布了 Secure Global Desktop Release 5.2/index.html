@@ -58,11 +58,11 @@ Oracle已经发布了Oracle Secure Global Desktop (SGD) Release 5.2，作为该�
 				<ul>
 					<ul>
 					 
-						<li><a href="/">主页</a></li>
+						<li><a href="/">Home</a></li>
 					
-						<li><a href="/archives">归档</a></li>
+						<li><a href="/archives">Archives</a></li>
 					
-						<li><a href="/about">关于</a></li>
+						<li><a href="/about">About</a></li>
 					
 					<li>
  					
@@ -178,23 +178,10 @@ Oracle已经发布了Oracle Secure Global Desktop (SGD) Release 5.2，作为该�
 	
 
 
-<section id="comment" class="comment">
+<section id="comments" class="comment">
 	<div class="container" id="container">
 	</div>
 </section>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  owner: 'xintq',
-  repo: 'xintq.net.comment.repo',
-  oauth: {
-    client_id: '7fd3e0a06d0021768bdd',
-    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
-  },
-})
-gitment.render('container')
-</script>
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
@@ -347,8 +334,11 @@ gitment.render('container')
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment-browser.js"></script>
+
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
   });
@@ -371,7 +361,7 @@ $(document).ready(function(){
   });
   o.click(function(){
     o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
     m.removeClass('moveMain');
   });
   $(window).scroll(function(){
@@ -379,7 +369,7 @@ $(document).ready(function(){
   });
   
   $(window).resize(function(){
-    getSize(); 
+    getSize();
     if (myWidth >= 1024) {
       $('header nav').removeClass('shownav');
     }else{
@@ -388,14 +378,14 @@ $(document).ready(function(){
       o.css('display', 'none');
       
       $('#toc.toc-aside').css('display', 'none');
-        
+      
     }
   });
 });
 </script>
 
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
   var ai = $('.article-content>iframe'),
       ae = $('.article-content>embed'),
       t  = $('#toc'),
@@ -422,7 +412,7 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -447,7 +437,7 @@ $(document).ready(function(){
         $('.qrcode strong').text(' ');
     });
   });
-});     
+});
 </script>
 
 
@@ -461,7 +451,7 @@ $(document).ready(function(){
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
 <script src="/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
   $('.article-content').each(function(i){
     $(this).find('img').each(function(){
       if ($(this).parent().hasClass('fancybox')) return;
@@ -476,7 +466,7 @@ $(document).ready(function(){
   if($.fancybox){
     $('.fancybox').fancybox();
   }
-}); 
+});
 </script>
 
 
@@ -507,6 +497,20 @@ $(document).ready(function(){
 <!-- Tiny_search Begin -->
 
 <!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+<script>
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+})
+gitment.render('container')
+</script>
+<!-- Gitment End -->
 
   </body>
 </html>
