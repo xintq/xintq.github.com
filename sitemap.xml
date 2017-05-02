@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/about/index.html</loc>
+    
+    <lastmod>2017-05-02T01:03:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2017/04/25/some-video-tutorials/</loc>
     
     <lastmod>2017-04-25T02:15:58.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://xintq.net/2017/04/18/install-db12c-ol73/</loc>
     
     <lastmod>2017-04-19T09:31:55.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/about/index.html</loc>
-    
-    <lastmod>2017-02-08T06:33:42.000Z</lastmod>
     
   </url>
   
