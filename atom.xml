@@ -110,7 +110,7 @@
     <link href="http://xintq.net/2017/04/18/install-db12c-ol73/"/>
     <id>http://xintq.net/2017/04/18/install-db12c-ol73/</id>
     <published>2017-04-18T07:42:04.000Z</published>
-    <updated>2017-04-19T09:31:55.000Z</updated>
+    <updated>2017-05-02T07:38:45.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文使用VirtualBox，在最小化安装的Oracle Linux 7.3中，安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。</p>
 <h1 id="u73AF_u5883_u8BF4_u660E"><a href="#u73AF_u5883_u8BF4_u660E" class="headerlink" title="环境说明"></a>环境说明</h1><ul>
@@ -281,8 +281,6 @@
     </summary>
     
       <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-      <category term="虚拟化" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
     
       <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
