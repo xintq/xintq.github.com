@@ -576,7 +576,7 @@ var gitment = new Gitment({
     client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
   },
 });
-gitment.render('commentContainer');
+if($('#commentContainer')) gitment.render('commentContainer');
 });
 </script>
 <!-- Gitment End -->
