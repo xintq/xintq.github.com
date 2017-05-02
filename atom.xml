@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2017-05-02T07:26:17.000Z</updated>
+  <updated>2017-05-02T07:37:41.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>用Gitment替换duoshuo来为基于hexo的静态网站提供评论功能。</title>
+    <title>用Gitment替换多说来为基于hexo的静态网站提供评论功能</title>
     <link href="http://xintq.net/2017/05/02/use-gitment-for-comment/"/>
     <id>http://xintq.net/2017/05/02/use-gitment-for-comment/</id>
     <published>2017-05-02T06:40:15.000Z</published>
-    <updated>2017-05-02T07:26:17.000Z</updated>
+    <updated>2017-05-02T07:37:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>本站一直使用多说(duoshuo)来作为外挂的评论服务，但不幸的是，<a href="http://dev.duoshuo.com/threads/58d1169ae293b89a20c57241" target="_blank" rel="external">多说将于2017年6月1日正式关停服务</a>。技术到底还是需要Money支撑，无论多么美好的技术。。。</p>
 <p>一个多说倒下去，万能的Github站出来，感谢<a href="https://imsun.net/" target="_blank" rel="external">imsun同学</a>，及时的搞出来<a href="https://github.com/imsun/gitment" target="_blank" rel="external">Gitment</a>这个插件，将Github的Issue讨论和发布功能玩儿活了，变成的博客的评论功能。愚以为此乃想象力配合生产力的完美碰撞！</p>
