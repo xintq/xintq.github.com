@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2014/07/30/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2017-05-09T03:00:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2017/05/08/solaris-v-s-linux/</loc>
     
     <lastmod>2017-05-09T02:44:00.000Z</lastmod>
@@ -121,13 +128,6 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
@@ -149,13 +149,6 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/2015/05/19/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADAdobe%20Acrobat%20Reader%20DC%E5%8F%B3%E4%BE%A7%E7%9A%84%E4%BE%A7%E8%BE%B9%E6%A0%8F/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
@@ -163,7 +156,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/baidu_verify_n8h3EdGuyJ.html</loc>
+    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
@@ -177,14 +170,21 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://xintq.net/baidu_verify_n8h3EdGuyJ.html</loc>
     
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</loc>
+    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -226,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/21/fistpost/</loc>
+    <loc>http://xintq.net/2014/07/22/%E7%A6%BB%E8%81%8C%E4%BF%A1%E4%B8%AD%E7%9A%84%E6%89%93%E6%B2%B9%E8%AF%97/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -248,13 +248,6 @@
   
   <url>
     <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/07/22/%E7%A6%BB%E8%81%8C%E4%BF%A1%E4%B8%AD%E7%9A%84%E6%89%93%E6%B2%B9%E8%AF%97/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -303,7 +296,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/30/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://xintq.net/2014/07/21/fistpost/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -416,6 +409,13 @@
   
   <url>
     <loc>http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     

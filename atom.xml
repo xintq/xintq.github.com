@@ -4584,11 +4584,12 @@ successfully added node &apos;p2&apos; to cluster.
     <link href="http://xintq.net/2014/07/30/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
     <id>http://xintq.net/2014/07/30/Linux防火墙的基本概念和使用方法/</id>
     <published>2014-07-30T14:14:02.000Z</published>
-    <updated>2015-11-26T14:02:28.000Z</updated>
+    <updated>2017-05-09T03:00:06.000Z</updated>
     
     <content type="html"><![CDATA[<p>要理解Linux防火墙，先记住下面两张图（未完待续）：</p>
 <h1 id="图1-netfilter-packet-flow"><a href="#u56FE1_Netfilter_packet_flow" class="headerlink" title="图1 Netfilter packet flow"></a>图1 Netfilter packet flow</h1><p><img src="/img/post/02231053_VU5M.png" alt="图1 Netfilter packet flow"></p>
 <h1 id="图2-详细处理"><a href="#u56FE2__u8BE6_u7EC6_u5904_u7406" class="headerlink" title="图2 详细处理"></a>图2 详细处理</h1><p><img src="/img/post/02231052_uEGk.png" alt="图2 详细处理"></p>
+<p>详细的内容可以参考<a href="http://www.zsythink.net/archives/1199" target="_blank" rel="external">这篇文章</a>。</p>
 <p>(END)</p>
 ]]></content>
     
