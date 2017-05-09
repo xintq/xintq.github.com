@@ -100,7 +100,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u573A_u666F1_uFF1A_u767B_u5F55_u5230SGD_u670D_u52A1_u5668_u65F6_u9A8C_u8BC1_u5230SGD_u670D_u52A1_u5668_u7684_u767B_u5F55"><span class="toc-number">1.</span> <span class="toc-text">场景1：登录到SGD服务器时验证到SGD服务器的登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u573A_u666F2_uFF1A_u9A8C_u8BC1_u5230_u81EASGD_u5DE5_u4F5C_u533A_u6253_u5F00_u7684_u8FDC_u7A0BOracle_u5E94_u7528_u7A0B_u5E8F_u7684_u767B_u9646"><span class="toc-number">2.</span> <span class="toc-text">场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7279_u6B8A_u8BF4_u660E"><span class="toc-number">3.</span> <span class="toc-text">特殊说明</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#场景1登录到sgd服务器时验证到sgd服务器的登录"><span class="toc-number">1.</span> <span class="toc-text">场景1：登录到SGD服务器时验证到SGD服务器的登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景2验证到自sgd工作区打开的远程oracle应用程序的登陆"><span class="toc-number">2.</span> <span class="toc-text">场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊说明"><span class="toc-number">3.</span> <span class="toc-text">特殊说明</span></a></li></ol>
 		
 		</div>
 		
@@ -110,7 +110,7 @@
 <p>话说回来，无论是那种方式的整合，原理上都是一样的，都是通过在SGD服务器上配置一个代理（WebGate）来完成整合，系统构成如下图所示：</p>
 <p><img src="/img/post/sgd-sso.png" alt="SGD与SSO整合体系图"></p>
 <p>在SGD中，下面两个场景可以实现单点登录（SSO）。</p>
-<h4 id="u573A_u666F1_uFF1A_u767B_u5F55_u5230SGD_u670D_u52A1_u5668_u65F6_u9A8C_u8BC1_u5230SGD_u670D_u52A1_u5668_u7684_u767B_u5F55"><a href="#u573A_u666F1_uFF1A_u767B_u5F55_u5230SGD_u670D_u52A1_u5668_u65F6_u9A8C_u8BC1_u5230SGD_u670D_u52A1_u5668_u7684_u767B_u5F55" class="headerlink" title="场景1：登录到SGD服务器时验证到SGD服务器的登录"></a>场景1：登录到SGD服务器时验证到SGD服务器的登录</h4><p><strong>假设用户在登陆到SGD服务器之前，已经使用SSO登录过</strong>，这时，使用过程如下：</p>
+<h4 id="场景1登录到sgd服务器时验证到sgd服务器的登录"><a href="#u573A_u666F1_uFF1A_u767B_u5F55_u5230SGD_u670D_u52A1_u5668_u65F6_u9A8C_u8BC1_u5230SGD_u670D_u52A1_u5668_u7684_u767B_u5F55" class="headerlink" title="场景1：登录到SGD服务器时验证到SGD服务器的登录"></a>场景1：登录到SGD服务器时验证到SGD服务器的登录</h4><p><strong>假设用户在登陆到SGD服务器之前，已经使用SSO登录过</strong>，这时，使用过程如下：</p>
 <ol>
 <li>打开浏览器，登陆到某个使用SSO的应用程序</li>
 <li>这时会被系统重定向到SSO的登陆页面</li>
@@ -120,7 +120,7 @@
 <li>这时<em>无需再输入任何用户名和密码，直接登录到SGD工作区中</em></li>
 <li>至此，完成到SGD服务器的登陆验证过程</li>
 </ol>
-<h4 id="u573A_u666F2_uFF1A_u9A8C_u8BC1_u5230_u81EASGD_u5DE5_u4F5C_u533A_u6253_u5F00_u7684_u8FDC_u7A0BOracle_u5E94_u7528_u7A0B_u5E8F_u7684_u767B_u9646"><a href="#u573A_u666F2_uFF1A_u9A8C_u8BC1_u5230_u81EASGD_u5DE5_u4F5C_u533A_u6253_u5F00_u7684_u8FDC_u7A0BOracle_u5E94_u7528_u7A0B_u5E8F_u7684_u767B_u9646" class="headerlink" title="场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆"></a>场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</h4><p>具体的说，用户要进入SGD的工作区，在SGD工作区中打开一个远程浏览器，然后再从远程浏览器中打开一个Oracle应用程序。</p>
+<h4 id="场景2验证到自sgd工作区打开的远程oracle应用程序的登陆"><a href="#u573A_u666F2_uFF1A_u9A8C_u8BC1_u5230_u81EASGD_u5DE5_u4F5C_u533A_u6253_u5F00_u7684_u8FDC_u7A0BOracle_u5E94_u7528_u7A0B_u5E8F_u7684_u767B_u9646" class="headerlink" title="场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆"></a>场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</h4><p>具体的说，用户要进入SGD的工作区，在SGD工作区中打开一个远程浏览器，然后再从远程浏览器中打开一个Oracle应用程序。</p>
 <p><strong>假设用户在登陆到SGD服务器之前，没有使用SSO登陆过</strong>，这时，使用过程如下：</p>
 <ol>
 <li>打开浏览器，输入SGD服务器的地址并访问</li>
@@ -130,7 +130,7 @@
 <li>在远程浏览器中打开一个使用SSO的Oracle应用程序</li>
 <li><em>直接登录到该Oracle应用程序，无需输入任何用户名和密码</em></li>
 </ol>
-<h4 id="u7279_u6B8A_u8BF4_u660E"><a href="#u7279_u6B8A_u8BF4_u660E" class="headerlink" title="特殊说明"></a>特殊说明</h4><p>在场景1中，如果在第7步之后，进行如下操作的话，可能还会需要输入用户名和密码：</p>
+<h4 id="特殊说明"><a href="#u7279_u6B8A_u8BF4_u660E" class="headerlink" title="特殊说明"></a>特殊说明</h4><p>在场景1中，如果在第7步之后，进行如下操作的话，可能还会需要输入用户名和密码：</p>
 <ol>
 <li>从SGD工作区中启动一个远程浏览器</li>
 <li>在远程浏览器中打开一个使用SSO的Oracle应用程序</li>
@@ -160,7 +160,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xintq.net/2015/05/29/SGD-and-SSO/" data-title="SGD 5.2 中单点登陆(Single Sign-On)功能详解 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xintq.net/2015/05/29/SGD-and-SSO/" data-title="SGD 5.2 中单点登陆(Single Sign-On)功能详解 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -206,7 +206,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u573A_u666F1_uFF1A_u767B_u5F55_u5230SGD_u670D_u52A1_u5668_u65F6_u9A8C_u8BC1_u5230SGD_u670D_u52A1_u5668_u7684_u767B_u5F55"><span class="toc-number">1.</span> <span class="toc-text">场景1：登录到SGD服务器时验证到SGD服务器的登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u573A_u666F2_uFF1A_u9A8C_u8BC1_u5230_u81EASGD_u5DE5_u4F5C_u533A_u6253_u5F00_u7684_u8FDC_u7A0BOracle_u5E94_u7528_u7A0B_u5E8F_u7684_u767B_u9646"><span class="toc-number">2.</span> <span class="toc-text">场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7279_u6B8A_u8BF4_u660E"><span class="toc-number">3.</span> <span class="toc-text">特殊说明</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#场景1登录到sgd服务器时验证到sgd服务器的登录"><span class="toc-number">1.</span> <span class="toc-text">场景1：登录到SGD服务器时验证到SGD服务器的登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景2验证到自sgd工作区打开的远程oracle应用程序的登陆"><span class="toc-number">2.</span> <span class="toc-text">场景2：验证到自SGD工作区打开的远程Oracle应用程序的登陆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊说明"><span class="toc-number">3.</span> <span class="toc-text">特殊说明</span></a></li></ol>
  
   </div>
 

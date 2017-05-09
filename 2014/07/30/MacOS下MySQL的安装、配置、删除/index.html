@@ -98,14 +98,14 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E2D_u6587_u4E71_u7801"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#中文乱码"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何卸载呢"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
 		
 		</div>
 		
 		<p>MacOS下，MySQL的安装方法和Linux下几乎一样，我这里安装后的目录是：</p>
 <pre><code>/usr/local/mysql
 </code></pre><p>安装之后，发现下面两个问题。</p>
-<h2 id="u4E2D_u6587_u4E71_u7801"><a href="#u4E2D_u6587_u4E71_u7801" class="headerlink" title="中文乱码"></a>中文乱码</h2><p>这是由于默认安装的时候，数据库服务器用的是latin的编码所造成的。<br>修改方法如下：</p>
+<h2 id="中文乱码"><a href="#u4E2D_u6587_u4E71_u7801" class="headerlink" title="中文乱码"></a>中文乱码</h2><p>这是由于默认安装的时候，数据库服务器用的是latin的编码所造成的。<br>修改方法如下：</p>
 <p>打开终端,输入</p>
 <pre><code>cd /    #回到根目录
 </code></pre><p>拷贝/usr/local/mysql/support-files下的任意一个*.cnf文件到/etc/my.cnf</p>
@@ -133,7 +133,7 @@ collation-server = utf8_general_ci
 <pre><code>sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart
 </code></pre></li>
 </ul>
-<h2 id="u5982_u4F55_u5378_u8F7D_u5462_uFF1F"><a href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F" class="headerlink" title="如何卸载呢？"></a>如何卸载呢？</h2><p>mac下mysql的DMG格式安装内有安装文件，却没有卸载文件……很郁闷的事。<br>网上搜了一下，发现给的方法原来得手动去删。</p>
+<h2 id="如何卸载呢"><a href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F" class="headerlink" title="如何卸载呢？"></a>如何卸载呢？</h2><p>mac下mysql的DMG格式安装内有安装文件，却没有卸载文件……很郁闷的事。<br>网上搜了一下，发现给的方法原来得手动去删。</p>
 <p>很多文章记述要删的文件不完整，后来在stackoverflow 这里发现了一个遗漏的地方，所以将完整版记述在这里，以供查阅。</p>
 <p>先停止所有mysql有关进程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sudo rm /usr/<span class="built_in">local</span>/mysql</div><div class="line">sudo rm -rf /usr/<span class="built_in">local</span>/mysql*</div><div class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</div><div class="line">sudo rm -rf /Library/PreferencePanes/My*</div><div class="line">vim /etc/hostconfig and removed the line MYSQLCOM=-YES-</div><div class="line">rm -rf ~/Library/PreferencePanes/My*</div><div class="line">sudo rm -rf /Library/Receipts/mysql*</div><div class="line">sudo rm -rf /Library/Receipts/MySQL*</div><div class="line">sudo rm -rf /var/db/receipts/com.mysql.*</div></pre></td></tr></table></figure>
@@ -161,7 +161,7 @@ collation-server = utf8_general_ci
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xintq.net/2014/07/30/MacOS下MySQL的安装、配置、删除/" data-title="MacOS下MySQL的安装、配置、删除 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xintq.net/2014/07/30/MacOS下MySQL的安装、配置、删除/" data-title="MacOS下MySQL的安装、配置、删除 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -207,7 +207,7 @@ collation-server = utf8_general_ci
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E2D_u6587_u4E71_u7801"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5982_u4F55_u5378_u8F7D_u5462_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#中文乱码"><span class="toc-number">1.</span> <span class="toc-text">中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何卸载呢"><span class="toc-number">2.</span> <span class="toc-text">如何卸载呢？</span></a></li></ol>
  
   </div>
 

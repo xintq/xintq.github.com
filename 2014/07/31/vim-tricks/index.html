@@ -98,13 +98,13 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5355_u8BCD_u66FF_u6362"><span class="toc-number">1.</span> <span class="toc-text">单词替换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6B63_u5219_u8868_u8FBE_u5F0F_uFF1A_u5C06_Last_2C_First__u6539_u6210_First_2C_Last_uFF0C__u5982_u4F55_u505A_u5462_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">正则表达式：将 Last, First 改成 First, Last， 如何做呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#from_u90E8_u5206"><span class="toc-number">2.1.</span> <span class="toc-text">from部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#to_u90E8_u5206"><span class="toc-number">2.2.</span> <span class="toc-text">to部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5E38_u7528_u66FF_u6362_u6280_u5DE7"><span class="toc-number">3.</span> <span class="toc-text">常用替换技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5220_u9664_u591A_u4F59_u7684_u7A7A_u683C"><span class="toc-number">3.1.</span> <span class="toc-text">删除多余的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4F7F_u7528_u5B8F_u5728_u591A_u4E2A_u6587_u4EF6_u4E2D_u66FF_u6362"><span class="toc-number">3.2.</span> <span class="toc-text">使用宏在多个文件中替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5355_u8BCD_u7EDF_u8BA1"><span class="toc-number">3.3.</span> <span class="toc-text">单词统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5220_u9664Windows_u6587_u672C_u6587_u4EF6_u4E2D_u7684__u201C_5EM_u201D__u6807_u8BB0"><span class="toc-number">3.4.</span> <span class="toc-text">删除Windows文本文件中的 “^M” 标记</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#单词替换"><span class="toc-number">1.</span> <span class="toc-text">单词替换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式将-last-first-改成-first-last-如何做呢"><span class="toc-number">2.</span> <span class="toc-text">正则表达式：将 Last, First 改成 First, Last， 如何做呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#from部分"><span class="toc-number">2.1.</span> <span class="toc-text">from部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#to部分"><span class="toc-number">2.2.</span> <span class="toc-text">to部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用替换技巧"><span class="toc-number">3.</span> <span class="toc-text">常用替换技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除多余的空格"><span class="toc-number">3.1.</span> <span class="toc-text">删除多余的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用宏在多个文件中替换"><span class="toc-number">3.2.</span> <span class="toc-text">使用宏在多个文件中替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单词统计"><span class="toc-number">3.3.</span> <span class="toc-text">单词统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除windows文本文件中的-m-标记"><span class="toc-number">3.4.</span> <span class="toc-text">删除Windows文本文件中的 “^M” 标记</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<p>VIM是在Linux下使用最广泛的的文本编辑器，尤其是文本查找和替换命令，结合了正则表达式，非常强大。</p>
 <p>本文列举了我经常使用的一些替换方法，仅供参考。</p>
-<h1 id="u5355_u8BCD_u66FF_u6362"><a href="#u5355_u8BCD_u66FF_u6362" class="headerlink" title="单词替换"></a>单词替换</h1><pre><code>%s/four/4/g
+<h1 id="单词替换"><a href="#u5355_u8BCD_u66FF_u6362" class="headerlink" title="单词替换"></a>单词替换</h1><pre><code>%s/four/4/g
 ↑         ↑
 |         +-- 替换行中所有的匹配项目
 在所有行中执行替换
@@ -119,7 +119,7 @@ thirtyfour --&gt; thirty4
                 在每次替换前提示确认
 </code></pre></li>
 </ul>
-<h1 id="u6B63_u5219_u8868_u8FBE_u5F0F_uFF1A_u5C06_Last_2C_First__u6539_u6210_First_2C_Last_uFF0C__u5982_u4F55_u505A_u5462_uFF1F"><a href="#u6B63_u5219_u8868_u8FBE_u5F0F_uFF1A_u5C06_Last_2C_First__u6539_u6210_First_2C_Last_uFF0C__u5982_u4F55_u505A_u5462_uFF1F" class="headerlink" title="正则表达式：将 Last, First 改成 First, Last， 如何做呢？"></a>正则表达式：将 <em>Last, First</em> 改成 <em>First, Last</em>， 如何做呢？</h1><ul>
+<h1 id="正则表达式将-last-first-改成-first-last-如何做呢"><a href="#u6B63_u5219_u8868_u8FBE_u5F0F_uFF1A_u5C06_Last_2C_First__u6539_u6210_First_2C_Last_uFF0C__u5982_u4F55_u505A_u5462_uFF1F" class="headerlink" title="正则表达式：将 Last, First 改成 First, Last， 如何做呢？"></a>正则表达式：将 <em>Last, First</em> 改成 <em>First, Last</em>， 如何做呢？</h1><ul>
 <li>原文： Doe, John Smith Peter</li>
 <li>改成： John Doe  Peter Smith</li>
 </ul>
@@ -127,7 +127,7 @@ thirtyfour --&gt; thirty4
 <pre><code>%s/\([^,]*\),\(.*\)/\2 \1/
 </code></pre><p>对命令的解释：</p>
 <pre><code>%s from/to   //正斜杠区分 from 和 to 部分
-</code></pre><h2 id="from_u90E8_u5206"><a href="#from_u90E8_u5206" class="headerlink" title="from部分"></a>from部分</h2><pre><code>`\([^,]*\),\(.*\)`
+</code></pre><h2 id="from部分"><a href="#from_u90E8_u5206" class="headerlink" title="from部分"></a>from部分</h2><pre><code>`\([^,]*\),\(.*\)`
 </code></pre><p>具体解释：</p>
 <ul>
 <li><code>\(     \)</code>   : 匹配”Last”部分</li>
@@ -138,7 +138,7 @@ thirtyfour --&gt; thirty4
 <li><code>.</code>           : 匹配任意字符</li>
 <li><code>,</code>           : 任意多次</li>
 </ul>
-<h2 id="to_u90E8_u5206"><a href="#to_u90E8_u5206" class="headerlink" title="to部分"></a>to部分</h2><pre><code>\2 \1   
+<h2 id="to部分"><a href="#to_u90E8_u5206" class="headerlink" title="to部分"></a>to部分</h2><pre><code>\2 \1   
 </code></pre><p>其中，“\2”与“\1”称为反向引用，反向引用就是指前面from部分中 <code>\(</code> 和 <code>\)</code> 之间的部分。</p>
 <p>具体解释：</p>
 <ul>
@@ -146,9 +146,9 @@ thirtyfour --&gt; thirty4
 <li><code>\1</code>    : 指代第一对 <code>\(</code> 和 <code>\)</code> 之间的部分，也就是 Last部分</li>
 </ul>
 <p>在替换时，最多可以使用9个反向引用。<code>\0</code> 表示整个匹配的部分。</p>
-<h1 id="u5E38_u7528_u66FF_u6362_u6280_u5DE7"><a href="#u5E38_u7528_u66FF_u6362_u6280_u5DE7" class="headerlink" title="常用替换技巧"></a>常用替换技巧</h1><h2 id="u5220_u9664_u591A_u4F59_u7684_u7A7A_u683C"><a href="#u5220_u9664_u591A_u4F59_u7684_u7A7A_u683C" class="headerlink" title="删除多余的空格"></a>删除多余的空格</h2><pre><code>%s/\s\+$//
+<h1 id="常用替换技巧"><a href="#u5E38_u7528_u66FF_u6362_u6280_u5DE7" class="headerlink" title="常用替换技巧"></a>常用替换技巧</h1><h2 id="删除多余的空格"><a href="#u5220_u9664_u591A_u4F59_u7684_u7A7A_u683C" class="headerlink" title="删除多余的空格"></a>删除多余的空格</h2><pre><code>%s/\s\+$//
 </code></pre><p>其中 <code>\s\+$</code> 表示匹配 <em>行末（<code>$</code>）</em> 前面的 <em>一个或者多个（<code>\+</code>）</em> <em>空格（<code>\s</code>）</em></p>
-<h2 id="u4F7F_u7528_u5B8F_u5728_u591A_u4E2A_u6587_u4EF6_u4E2D_u66FF_u6362"><a href="#u4F7F_u7528_u5B8F_u5728_u591A_u4E2A_u6587_u4EF6_u4E2D_u66FF_u6362" class="headerlink" title="使用宏在多个文件中替换"></a>使用宏在多个文件中替换</h2><p>例如，有一个包含C++代码的文件夹，所有文件都以 “*.cpp” 结尾，有一个名为 “GetResp” 的函数，现在要把它的名字改为 “GetAnswer”。</p>
+<h2 id="使用宏在多个文件中替换"><a href="#u4F7F_u7528_u5B8F_u5728_u591A_u4E2A_u6587_u4EF6_u4E2D_u66FF_u6362" class="headerlink" title="使用宏在多个文件中替换"></a>使用宏在多个文件中替换</h2><p>例如，有一个包含C++代码的文件夹，所有文件都以 “*.cpp” 结尾，有一个名为 “GetResp” 的函数，现在要把它的名字改为 “GetAnswer”。</p>
 <p>具体步骤如下：</p>
 <pre><code>vim *.cpp
 </code></pre><p>vim启动后会待在第一个文件上，此时执行下面的命令：</p>
@@ -168,10 +168,10 @@ thirtyfour --&gt; thirty4
 <p>此时会有一个问题，任何错误都会终止回放过程，如果有一个文件不包含 “GetResp”，VIM会报错，而且整个替换过程也会终止。为了避免此问题，改用下面的替换命令重新录制一下宏：</p>
 <pre><code>:%s/\&lt;GetResp\&gt;/GetAnswer/ge
 </code></pre><p>其中，<strong>e</strong> 是标记通知，表示命令找不到的话，不算是错误。</p>
-<h2 id="u5355_u8BCD_u7EDF_u8BA1"><a href="#u5355_u8BCD_u7EDF_u8BA1" class="headerlink" title="单词统计"></a>单词统计</h2><p>统计整个文件的单词可以使用下面的命令：</p>
+<h2 id="单词统计"><a href="#u5355_u8BCD_u7EDF_u8BA1" class="headerlink" title="单词统计"></a>单词统计</h2><p>统计整个文件的单词可以使用下面的命令：</p>
 <pre><code>gCtrl + g
 </code></pre><p>统计选项部分的单词，可以进入可视模式，选中区域，然后执行 <code>gCtrl+g</code>。</p>
-<h2 id="u5220_u9664Windows_u6587_u672C_u6587_u4EF6_u4E2D_u7684__u201C_5EM_u201D__u6807_u8BB0"><a href="#u5220_u9664Windows_u6587_u672C_u6587_u4EF6_u4E2D_u7684__u201C_5EM_u201D__u6807_u8BB0" class="headerlink" title="删除Windows文本文件中的 “^M” 标记"></a>删除Windows文本文件中的 “^M” 标记</h2><p>使用下面的命令即可：</p>
+<h2 id="删除windows文本文件中的-m-标记"><a href="#u5220_u9664Windows_u6587_u672C_u6587_u4EF6_u4E2D_u7684__u201C_5EM_u201D__u6807_u8BB0" class="headerlink" title="删除Windows文本文件中的 “^M” 标记"></a>删除Windows文本文件中的 “^M” 标记</h2><p>使用下面的命令即可：</p>
 <pre><code>:%s/\r//g
 </code></pre><p>或者</p>
 <pre><code>:%s/[Ctrl+v][Enter]//g
@@ -199,7 +199,7 @@ thirtyfour --&gt; thirty4
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xintq.net/2014/07/31/vim-tricks/" data-title="VIM替换 压箱底的技巧 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xintq.net/2014/07/31/vim-tricks/" data-title="VIM替换 压箱底的技巧 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -245,7 +245,7 @@ thirtyfour --&gt; thirty4
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5355_u8BCD_u66FF_u6362"><span class="toc-number">1.</span> <span class="toc-text">单词替换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6B63_u5219_u8868_u8FBE_u5F0F_uFF1A_u5C06_Last_2C_First__u6539_u6210_First_2C_Last_uFF0C__u5982_u4F55_u505A_u5462_uFF1F"><span class="toc-number">2.</span> <span class="toc-text">正则表达式：将 Last, First 改成 First, Last， 如何做呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#from_u90E8_u5206"><span class="toc-number">2.1.</span> <span class="toc-text">from部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#to_u90E8_u5206"><span class="toc-number">2.2.</span> <span class="toc-text">to部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5E38_u7528_u66FF_u6362_u6280_u5DE7"><span class="toc-number">3.</span> <span class="toc-text">常用替换技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5220_u9664_u591A_u4F59_u7684_u7A7A_u683C"><span class="toc-number">3.1.</span> <span class="toc-text">删除多余的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4F7F_u7528_u5B8F_u5728_u591A_u4E2A_u6587_u4EF6_u4E2D_u66FF_u6362"><span class="toc-number">3.2.</span> <span class="toc-text">使用宏在多个文件中替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5355_u8BCD_u7EDF_u8BA1"><span class="toc-number">3.3.</span> <span class="toc-text">单词统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5220_u9664Windows_u6587_u672C_u6587_u4EF6_u4E2D_u7684__u201C_5EM_u201D__u6807_u8BB0"><span class="toc-number">3.4.</span> <span class="toc-text">删除Windows文本文件中的 “^M” 标记</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#单词替换"><span class="toc-number">1.</span> <span class="toc-text">单词替换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式将-last-first-改成-first-last-如何做呢"><span class="toc-number">2.</span> <span class="toc-text">正则表达式：将 Last, First 改成 First, Last， 如何做呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#from部分"><span class="toc-number">2.1.</span> <span class="toc-text">from部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#to部分"><span class="toc-number">2.2.</span> <span class="toc-text">to部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用替换技巧"><span class="toc-number">3.</span> <span class="toc-text">常用替换技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除多余的空格"><span class="toc-number">3.1.</span> <span class="toc-text">删除多余的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用宏在多个文件中替换"><span class="toc-number">3.2.</span> <span class="toc-text">使用宏在多个文件中替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单词统计"><span class="toc-number">3.3.</span> <span class="toc-text">单词统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除windows文本文件中的-m-标记"><span class="toc-number">3.4.</span> <span class="toc-text">删除Windows文本文件中的 “^M” 标记</span></a></li></ol></li></ol>
  
   </div>
 

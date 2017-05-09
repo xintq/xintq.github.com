@@ -102,28 +102,28 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u73AF_u5883"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u4E3B_u670D_u52A1_u5668_uFF08P2_uFF09_u4E0A_u521B_u5EFA_u96C6_u7FA4"><span class="toc-number">2.</span> <span class="toc-text">在主服务器（P2）上创建集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u4ECE_u670D_u52A1_u5668_u4E0A_u52A0_u5165_u5230_u96C6_u7FA4"><span class="toc-number">3.</span> <span class="toc-text">在从服务器上加入到集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u4E3B_u670D_u52A1_u5668_u4E0A_u67E5_u770B_u96C6_u7FA4_u7684_u8282_u70B9_u72B6_u6001"><span class="toc-number">4.</span> <span class="toc-text">在主服务器上查看集群的节点状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5230_u4E3B_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5"><span class="toc-number">5.</span> <span class="toc-text">到主服务器的控制台下检查</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5230_u4ECE_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5"><span class="toc-number">6.</span> <span class="toc-text">到从服务器的控制台下检查</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在主服务器p2上创建集群"><span class="toc-number">2.</span> <span class="toc-text">在主服务器（P2）上创建集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在从服务器上加入到集群"><span class="toc-number">3.</span> <span class="toc-text">在从服务器上加入到集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在主服务器上查看集群的节点状态"><span class="toc-number">4.</span> <span class="toc-text">在主服务器上查看集群的节点状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#到主服务器的控制台下检查"><span class="toc-number">5.</span> <span class="toc-text">到主服务器的控制台下检查</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#到从服务器的控制台下检查"><span class="toc-number">6.</span> <span class="toc-text">到从服务器的控制台下检查</span></a></li></ol>
 		
 		</div>
 		
 		<p>参考： <a href="http://pve.proxmox.com/wiki/Proxmox_VE_2.0_Cluster" target="_blank" rel="external">http://pve.proxmox.com/wiki/Proxmox_VE_2.0_Cluster</a></p>
-<h1 id="u73AF_u5883"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h1><ul>
+<h1 id="环境"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h1><ul>
 <li>主服务器： P2（10.194.153.9）</li>
 <li>从服务器： P22（10.194.153.10）</li>
 </ul>
-<h1 id="u5728_u4E3B_u670D_u52A1_u5668_uFF08P2_uFF09_u4E0A_u521B_u5EFA_u96C6_u7FA4"><a href="#u5728_u4E3B_u670D_u52A1_u5668_uFF08P2_uFF09_u4E0A_u521B_u5EFA_u96C6_u7FA4" class="headerlink" title="在主服务器（P2）上创建集群"></a>在主服务器（P2）上创建集群</h1><pre><code>p2:~# pvecm create abc #创建群集名称
+<h1 id="在主服务器p2上创建集群"><a href="#u5728_u4E3B_u670D_u52A1_u5668_uFF08P2_uFF09_u4E0A_u521B_u5EFA_u96C6_u7FA4" class="headerlink" title="在主服务器（P2）上创建集群"></a>在主服务器（P2）上创建集群</h1><pre><code>p2:~# pvecm create abc #创建群集名称
 cluster master successfully created
-</code></pre><h1 id="u5728_u4ECE_u670D_u52A1_u5668_u4E0A_u52A0_u5165_u5230_u96C6_u7FA4"><a href="#u5728_u4ECE_u670D_u52A1_u5668_u4E0A_u52A0_u5165_u5230_u96C6_u7FA4" class="headerlink" title="在从服务器上加入到集群"></a>在从服务器上加入到集群</h1><pre><code>p22:~# pvecm add 10.194.153.9     #输入集群所在的主服务器的IP
+</code></pre><h1 id="在从服务器上加入到集群"><a href="#u5728_u4ECE_u670D_u52A1_u5668_u4E0A_u52A0_u5165_u5230_u96C6_u7FA4" class="headerlink" title="在从服务器上加入到集群"></a>在从服务器上加入到集群</h1><pre><code>p22:~# pvecm add 10.194.153.9     #输入集群所在的主服务器的IP
 
 Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added ‘10.194.153.9′ (RSA) to the list of known hosts. 
 root@10.194.153.9’s password:
 ....一大堆重启服务的信息....
 successfully added node &apos;p2&apos; to cluster.
-</code></pre><h1 id="u5728_u4E3B_u670D_u52A1_u5668_u4E0A_u67E5_u770B_u96C6_u7FA4_u7684_u8282_u70B9_u72B6_u6001"><a href="#u5728_u4E3B_u670D_u52A1_u5668_u4E0A_u67E5_u770B_u96C6_u7FA4_u7684_u8282_u70B9_u72B6_u6001" class="headerlink" title="在主服务器上查看集群的节点状态"></a>在主服务器上查看集群的节点状态</h1><p><img src="/img/post/221234_iApX_157257.png" alt="node-status"></p>
+</code></pre><h1 id="在主服务器上查看集群的节点状态"><a href="#u5728_u4E3B_u670D_u52A1_u5668_u4E0A_u67E5_u770B_u96C6_u7FA4_u7684_u8282_u70B9_u72B6_u6001" class="headerlink" title="在主服务器上查看集群的节点状态"></a>在主服务器上查看集群的节点状态</h1><p><img src="/img/post/221234_iApX_157257.png" alt="node-status"></p>
 <p>说明一切正常工作。</p>
-<h1 id="u5230_u4E3B_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5"><a href="#u5230_u4E3B_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5" class="headerlink" title="到主服务器的控制台下检查"></a>到主服务器的控制台下检查</h1><p><img src="/img/post/221854_j59r_157257.png" alt="master"></p>
-<h1 id="u5230_u4ECE_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5"><a href="#u5230_u4ECE_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5" class="headerlink" title="到从服务器的控制台下检查"></a>到从服务器的控制台下检查</h1><p><img src="/img/post/221946_bDJ7_157257.png" alt="slave"></p>
+<h1 id="到主服务器的控制台下检查"><a href="#u5230_u4E3B_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5" class="headerlink" title="到主服务器的控制台下检查"></a>到主服务器的控制台下检查</h1><p><img src="/img/post/221854_j59r_157257.png" alt="master"></p>
+<h1 id="到从服务器的控制台下检查"><a href="#u5230_u4ECE_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5" class="headerlink" title="到从服务器的控制台下检查"></a>到从服务器的控制台下检查</h1><p><img src="/img/post/221946_bDJ7_157257.png" alt="slave"></p>
 <p>接下来，就可以基于这个集群创建高可用（HA）的虚拟服务了。</p>
 <p>(END)</p>
   
@@ -148,7 +148,7 @@ successfully added node &apos;p2&apos; to cluster.
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xintq.net/2014/07/30/Proxmox2.x 双节点集群配置/" data-title="Proxmox2.x 双节点集群配置 | 夕阳下的奔跑" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xintq.net/2014/07/30/Proxmox2.x 双节点集群配置/" data-title="Proxmox2.x 双节点集群配置 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -194,7 +194,7 @@ successfully added node &apos;p2&apos; to cluster.
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u73AF_u5883"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u4E3B_u670D_u52A1_u5668_uFF08P2_uFF09_u4E0A_u521B_u5EFA_u96C6_u7FA4"><span class="toc-number">2.</span> <span class="toc-text">在主服务器（P2）上创建集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u4ECE_u670D_u52A1_u5668_u4E0A_u52A0_u5165_u5230_u96C6_u7FA4"><span class="toc-number">3.</span> <span class="toc-text">在从服务器上加入到集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u4E3B_u670D_u52A1_u5668_u4E0A_u67E5_u770B_u96C6_u7FA4_u7684_u8282_u70B9_u72B6_u6001"><span class="toc-number">4.</span> <span class="toc-text">在主服务器上查看集群的节点状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5230_u4E3B_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5"><span class="toc-number">5.</span> <span class="toc-text">到主服务器的控制台下检查</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5230_u4ECE_u670D_u52A1_u5668_u7684_u63A7_u5236_u53F0_u4E0B_u68C0_u67E5"><span class="toc-number">6.</span> <span class="toc-text">到从服务器的控制台下检查</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在主服务器p2上创建集群"><span class="toc-number">2.</span> <span class="toc-text">在主服务器（P2）上创建集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在从服务器上加入到集群"><span class="toc-number">3.</span> <span class="toc-text">在从服务器上加入到集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在主服务器上查看集群的节点状态"><span class="toc-number">4.</span> <span class="toc-text">在主服务器上查看集群的节点状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#到主服务器的控制台下检查"><span class="toc-number">5.</span> <span class="toc-text">到主服务器的控制台下检查</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#到从服务器的控制台下检查"><span class="toc-number">6.</span> <span class="toc-text">到从服务器的控制台下检查</span></a></li></ol>
  
   </div>
 
