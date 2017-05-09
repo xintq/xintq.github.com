@@ -12,22 +12,17 @@
     
 
     
-    <meta name="description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。
-程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.
-首先编写Hello.java12345678910111213141516171819public class Hel">
+    <meta name="description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。 程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”. 首先编写Hello.java12345678910111213141516171819public class Hel">
+<meta name="keywords" content="java,jni,本地接口,swig">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JNI入门之HelloWorld">
 <meta property="og:url" content="http://xintq.net/2014/07/31/JNI入门之HelloWorld/index.html">
 <meta property="og:site_name" content="夕阳下的奔跑">
-<meta property="og:description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。
-程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.
-首先编写Hello.java12345678910111213141516171819public class Hel">
+<meta property="og:description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。 程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”. 首先编写Hello.java12345678910111213141516171819public class Hel">
 <meta property="og:updated_time" content="2015-11-26T14:02:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JNI入门之HelloWorld">
-<meta name="twitter:description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。
-程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”.
-首先编写Hello.java12345678910111213141516171819public class Hel">
+<meta name="twitter:description" content="首先要声明的是，这个例子的代码是在网上到处都有，我在Fedora Core 6, JDK1.5.0_04下调试成功。写这篇文章的目的是记录一下JNI程序的编译和运行步骤。 程序的流程在JAVA程序中输入用户名“John”，然后在调用C程序中的方法，显示“Hello, John”. 首先编写Hello.java12345678910111213141516171819public class Hel">
 
     
     <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">

@@ -12,38 +12,18 @@
     
 
     
-    <meta name="description" content="在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。
-前提条件
-使用 VirtualBox 虚拟机，联网方式选择 内部网络，如果你不知道怎么配置网络，看 这里
-Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好
-不使用IPv6
-不使用DNSSEC
-域名是 example.com
-DNS服务器的内网IP地址是 192.">
+    <meta name="description" content="在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。 前提条件 使用 VirtualBox 虚拟机，联网方式选择 内部网络，如果你不知道怎么配置网络，看 这里 Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好 不使用IPv6 不使用DNSSEC 域名是 example.com DNS服务器的内网IP地址是 192.">
+<meta name="keywords" content="linux,dnds,nameserver,nslookup,selinux,bind">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle Linux下内网DNS服务器的配置">
 <meta property="og:url" content="http://xintq.net/2014/09/09/Oracle Linux下内网DNS服务器的配置/index.html">
 <meta property="og:site_name" content="夕阳下的奔跑">
-<meta property="og:description" content="在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。
-前提条件
-使用 VirtualBox 虚拟机，联网方式选择 内部网络，如果你不知道怎么配置网络，看 这里
-Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好
-不使用IPv6
-不使用DNSSEC
-域名是 example.com
-DNS服务器的内网IP地址是 192.">
+<meta property="og:description" content="在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。 前提条件 使用 VirtualBox 虚拟机，联网方式选择 内部网络，如果你不知道怎么配置网络，看 这里 Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好 不使用IPv6 不使用DNSSEC 域名是 example.com DNS服务器的内网IP地址是 192.">
 <meta property="og:image" content="http://xintq.net/img/post/dns.png">
 <meta property="og:updated_time" content="2015-11-26T14:02:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle Linux下内网DNS服务器的配置">
-<meta name="twitter:description" content="在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。
-前提条件
-使用 VirtualBox 虚拟机，联网方式选择 内部网络，如果你不知道怎么配置网络，看 这里
-Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好
-不使用IPv6
-不使用DNSSEC
-域名是 example.com
-DNS服务器的内网IP地址是 192.">
+<meta name="twitter:description" content="在做一些实验时，经常需要一个内网的DNS服务器。本文详细描述了构建整个DNS服务器的过程。 前提条件 使用 VirtualBox 虚拟机，联网方式选择 内部网络，如果你不知道怎么配置网络，看 这里 Oracle Linux 6.5 (可以认为=CentOS)下，Desktop软件组已经安装好 不使用IPv6 不使用DNSSEC 域名是 example.com DNS服务器的内网IP地址是 192.">
 <meta name="twitter:image" content="http://xintq.net/img/post/dns.png">
 
     

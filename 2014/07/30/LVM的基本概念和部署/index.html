@@ -12,16 +12,13 @@
     
 
     
-    <meta name="description" content="本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。
-写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。
-本部分是第一个重点内容：Linux Logical Volume Man">
+    <meta name="description" content="本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。 写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。 本部分是第一个重点内容：Linux Logical Volume Man">
+<meta name="keywords" content="lvm,逻辑卷,fdisk,lv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LVM的基本概念和部署">
 <meta property="og:url" content="http://xintq.net/2014/07/30/LVM的基本概念和部署/index.html">
 <meta property="og:site_name" content="夕阳下的奔跑">
-<meta property="og:description" content="本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。
-写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。
-本部分是第一个重点内容：Linux Logical Volume Man">
+<meta property="og:description" content="本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。 写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。 本部分是第一个重点内容：Linux Logical Volume Man">
 <meta property="og:image" content="http://xintq.net/img/post/11234826_AkJ0.png">
 <meta property="og:image" content="http://xintq.net/img/post/11234308_nXl1.png">
 <meta property="og:image" content="http://xintq.net/img/post/14215608_qUMZ.png">
@@ -32,9 +29,7 @@
 <meta property="og:updated_time" content="2015-11-26T14:02:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LVM的基本概念和部署">
-<meta name="twitter:description" content="本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。
-写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。
-本部分是第一个重点内容：Linux Logical Volume Man">
+<meta name="twitter:description" content="本文是之前RHCE培训时整理的一篇文档，当时发布在一个开源网站上了，现在回收一下，作为个人原创的一篇文章，个人认为还是有一定参考价值的。 写在前面最近开始Linux的培训，强度很大。虽然个人认为对Linux比较熟悉，但是对于系统的培训来说，对很多的知识点掌握的还是不够，希望借写BLOG的机会，能把自己学到的东西好好整理一下。 本部分是第一个重点内容：Linux Logical Volume Man">
 <meta name="twitter:image" content="http://xintq.net/img/post/11234826_AkJ0.png">
 
     

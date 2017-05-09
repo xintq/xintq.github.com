@@ -12,19 +12,17 @@
     
 
     
-    <meta name="description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。
-为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
+    <meta name="description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。 为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
+<meta name="keywords" content="linux,oracle linux,yum,repolist,reposync,createrepo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从Oracle Public Yum为Oracle Linux建立本地的Yum源">
 <meta property="og:url" content="http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/index.html">
 <meta property="og:site_name" content="夕阳下的奔跑">
-<meta property="og:description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。
-为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
+<meta property="og:description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。 为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
 <meta property="og:updated_time" content="2015-11-26T14:02:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从Oracle Public Yum为Oracle Linux建立本地的Yum源">
-<meta name="twitter:description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。
-为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
+<meta name="twitter:description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。 为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
 
     
     <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
