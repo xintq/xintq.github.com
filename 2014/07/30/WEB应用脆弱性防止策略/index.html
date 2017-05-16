@@ -104,22 +104,22 @@
 		
 		<p>事实上，WEB应用是很脆弱的。因为这种应用的灵活性很大，用户输入的自由度也很高，所以对于WEB应用的恶意攻击也比较容易。</p>
 <p>本文对常见的16种WEB攻击，给出了部分解决方案。</p>
-<h1 id="1-sql注入sql-injection"><a href="#1-_SQL_u6CE8_u5165_28SQL_Injection_29" class="headerlink" title="1. SQL注入(SQL Injection)"></a>1. SQL注入(SQL Injection)</h1><p>对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个包装类，把这些固定的SQL操作控制起来。</p>
+<h1 id="1-sql注入sql-injection"><a href="#1-SQL注入-SQL-Injection" class="headerlink" title="1. SQL注入(SQL Injection)"></a>1. SQL注入(SQL Injection)</h1><p>对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个包装类，把这些固定的SQL操作控制起来。</p>
 <p>而对于动态生成的SQL语句，就需要对用户的输入进行处理，一般的处理是把【’】转换成【“】 。如：</p>
 <pre><code>abc”def”ghi’jkl’mno → abc”def”ghi’’jkl’’mno
-</code></pre><h1 id="2-跨站点脚本攻击xsscross-site-scripting"><a href="#2-__u8DE8_u7AD9_u70B9_u811A_u672C_u653B_u51FB_uFF08XSS_uFF0CCross_Site_Scripting_uFF09" class="headerlink" title="2. 跨站点脚本攻击（XSS，Cross Site Scripting）"></a>2. 跨站点脚本攻击（XSS，Cross Site Scripting）</h1><p>如果用户输入，URL参数在页面上表示时，必须对特殊文字进行过滤处理。</p>
-<h2 id="2-1-如果用户输入和url参数中含有下列敏感文字则删除-之"><a href="#2-1__u5982_u679C_u7528_u6237_u8F93_u5165_u548CURL_u53C2_u6570_u4E2D_u542B_u6709_u4E0B_u5217_u654F_u611F_u6587_u5B57_uFF0C_u5219_u5220_u9664__u4E4B_uFF1A" class="headerlink" title="2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之："></a>2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之：</h2><ul>
+</code></pre><h1 id="2-跨站点脚本攻击xsscross-site-scripting"><a href="#2-跨站点脚本攻击（XSS，Cross-Site-Scripting）" class="headerlink" title="2. 跨站点脚本攻击（XSS，Cross Site Scripting）"></a>2. 跨站点脚本攻击（XSS，Cross Site Scripting）</h1><p>如果用户输入，URL参数在页面上表示时，必须对特殊文字进行过滤处理。</p>
+<h2 id="2-1-如果用户输入和url参数中含有下列敏感文字则删除-之"><a href="#2-1-如果用户输入和URL参数中含有下列敏感文字，则删除-之：" class="headerlink" title="2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之："></a>2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之：</h2><ul>
 <li>Script</li>
 <li>Object</li>
 <li>Embed</li>
 <li>Applet</li>
 </ul>
-<h2 id="2-2-如果用户输入和url参数中含有下列敏感文字则转换-之"><a href="#2-2__u5982_u679C_u7528_u6237_u8F93_u5165_u548CURL_u53C2_u6570_u4E2D_u542B_u6709_u4E0B_u5217_u654F_u611F_u6587_u5B57_uFF0C_u5219_u8F6C_u6362__u4E4B_uFF1A" class="headerlink" title="2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之："></a>2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之：</h2><pre><code>&amp;    →    &amp;amp;
+<h2 id="2-2-如果用户输入和url参数中含有下列敏感文字则转换-之"><a href="#2-2-如果用户输入和URL参数中含有下列敏感文字，则转换-之：" class="headerlink" title="2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之："></a>2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之：</h2><pre><code>&amp;    →    &amp;amp;
 &lt;    →    &amp;lt;
 &gt;    →    &amp;gt;
 “     →    &amp;quot;
 ‘      →    &amp;#39;
-</code></pre><h1 id="3-操作系统命令注入os-command-injection"><a href="#3-__u64CD_u4F5C_u7CFB_u7EDF_u547D_u4EE4_u6CE8_u5165_uFF08OS_Command_Injection_uFF09" class="headerlink" title="3. 操作系统命令注入（OS Command Injection）"></a>3. 操作系统命令注入（OS Command Injection）</h1><p>要尽量避免执行系统命令，如果非使用不可的话，要对以下的用户输入或者参数做处理：</p>
+</code></pre><h1 id="3-操作系统命令注入os-command-injection"><a href="#3-操作系统命令注入（OS-Command-Injection）" class="headerlink" title="3. 操作系统命令注入（OS Command Injection）"></a>3. 操作系统命令注入（OS Command Injection）</h1><p>要尽量避免执行系统命令，如果非使用不可的话，要对以下的用户输入或者参数做处理：</p>
 <pre><code>| ! &amp; `      命令执行总要使用的字符
 “ ‘            字符串的区分字符
 / -            命令参数指定时使用的字符
@@ -127,14 +127,14 @@
 &lt; &gt;          文件操作是使用的字符
 $             环境变量指定时使用的字符
 ( { [ ] } )   命令间的区分字符
-</code></pre><h1 id="4-换行字符注入line-feed-code-injection"><a href="#4-__u6362_u884C_u5B57_u7B26_u6CE8_u5165_uFF08Line_Feed_Code_Injection_uFF09" class="headerlink" title="4. 换行字符注入（Line Feed Code Injection）"></a>4. 换行字符注入（Line Feed Code Injection）</h1><p>在用户的输入信息中，检查是否不包含【0x0d】【0x0a】 这种换行的输入。</p>
-<h1 id="5-ldap注入ldap-injection"><a href="#5-_LDAP_u6CE8_u5165_uFF08LDAP_Injection_uFF09" class="headerlink" title="5. LDAP注入（LDAP Injection）"></a>5. LDAP注入（LDAP Injection）</h1><p>在LDAP使用的场合，要检查用户输入信息中，是否不包含下列LDAP的保留字：</p>
+</code></pre><h1 id="4-换行字符注入line-feed-code-injection"><a href="#4-换行字符注入（Line-Feed-Code-Injection）" class="headerlink" title="4. 换行字符注入（Line Feed Code Injection）"></a>4. 换行字符注入（Line Feed Code Injection）</h1><p>在用户的输入信息中，检查是否不包含【0x0d】【0x0a】 这种换行的输入。</p>
+<h1 id="5-ldap注入ldap-injection"><a href="#5-LDAP注入（LDAP-Injection）" class="headerlink" title="5. LDAP注入（LDAP Injection）"></a>5. LDAP注入（LDAP Injection）</h1><p>在LDAP使用的场合，要检查用户输入信息中，是否不包含下列LDAP的保留字：</p>
 <pre><code>(    )     *    ¥    NULL
-</code></pre><h1 id="6-xpath注入xpath-injection"><a href="#6-_Xpath_u6CE8_u5165_uFF08XPath_Injection_uFF09" class="headerlink" title="6. Xpath注入（XPath Injection）"></a>6. Xpath注入（XPath Injection）</h1><p>在XPath使用的场合，要检查用户输入信息中，是否不包含下列Xpath的保留字：</p>
+</code></pre><h1 id="6-xpath注入xpath-injection"><a href="#6-Xpath注入（XPath-Injection）" class="headerlink" title="6. Xpath注入（XPath Injection）"></a>6. Xpath注入（XPath Injection）</h1><p>在XPath使用的场合，要检查用户输入信息中，是否不包含下列Xpath的保留字：</p>
 <pre><code>&lt;    &gt;    “    ‘    &amp;
-</code></pre><h1 id="7-ssi注入ssi-injection"><a href="#7-_SSI_u6CE8_u5165_uFF08SSI_Injection_uFF09" class="headerlink" title="7. SSI注入（SSI Injection）"></a>7. SSI注入（SSI Injection）</h1><p>检查用户输入中，是否不包含SSI相关的危险关键字。</p>
-<h1 id="8-目录遍历directory-traversal"><a href="#8-__u76EE_u5F55_u904D_u5386_uFF08Directory_Traversal_uFF09" class="headerlink" title="8. 目录遍历（Directory Traversal）"></a>8. 目录遍历（Directory Traversal）</h1><p>检查用户输入中，是否不包含访问文件系统的特殊文字【/】 和【\】 。</p>
-<h1 id="9-强制浏览forced-browsing"><a href="#9-__u5F3A_u5236_u6D4F_u89C8_uFF08Forced_Browsing_uFF09" class="headerlink" title="9. 强制浏览（Forced Browsing）"></a>9. 强制浏览（Forced Browsing）</h1><p>这种攻击的防止比较复杂，一般的策略是：</p>
+</code></pre><h1 id="7-ssi注入ssi-injection"><a href="#7-SSI注入（SSI-Injection）" class="headerlink" title="7. SSI注入（SSI Injection）"></a>7. SSI注入（SSI Injection）</h1><p>检查用户输入中，是否不包含SSI相关的危险关键字。</p>
+<h1 id="8-目录遍历directory-traversal"><a href="#8-目录遍历（Directory-Traversal）" class="headerlink" title="8. 目录遍历（Directory Traversal）"></a>8. 目录遍历（Directory Traversal）</h1><p>检查用户输入中，是否不包含访问文件系统的特殊文字【/】 和【\】 。</p>
+<h1 id="9-强制浏览forced-browsing"><a href="#9-强制浏览（Forced-Browsing）" class="headerlink" title="9. 强制浏览（Forced Browsing）"></a>9. 强制浏览（Forced Browsing）</h1><p>这种攻击的防止比较复杂，一般的策略是：</p>
 <ul>
 <li>验证请求是否是从合法的页面发送而来的，一般是检查请求的Referer。</li>
 <li>用户授权控制，认证认可</li>
@@ -145,24 +145,24 @@ $             环境变量指定时使用的字符
 <li>在URL中指定目录的时候，必须提供index文件（如index.html等）</li>
 <li>对于下载文件的存放位置，要特别谨慎的设置</li>
 </ul>
-<h1 id="10-跨站点请求伪装cross-site-request-forgery"><a href="#10-__u8DE8_u7AD9_u70B9_u8BF7_u6C42_u4F2A_u88C5_uFF08Cross_Site_Request_Forgery_uFF09" class="headerlink" title="10. 跨站点请求伪装（Cross Site Request Forgery）"></a>10. 跨站点请求伪装（Cross Site Request Forgery）</h1><p>明确页面的操作流程，对于不符合操作流程而来的请求进行过滤。</p>
-<h1 id="11-不正确的文件和目录分配invalid-allocation-of-files-and-directories"><a href="#11-__u4E0D_u6B63_u786E_u7684_u6587_u4EF6_u548C_u76EE_u5F55_u5206_u914D_uFF08Invalid_Allocation_of_Files_and_Directories_uFF09" class="headerlink" title="11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）"></a>11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）</h1><p>不公开的配置文件，备份文件，数据文件等，不要在站点的公共目录(WebRoot或者www/htdocs)下存放WEB应用程序使用的库文件，不要再站点的公共目录下存放。</p>
+<h1 id="10-跨站点请求伪装cross-site-request-forgery"><a href="#10-跨站点请求伪装（Cross-Site-Request-Forgery）" class="headerlink" title="10. 跨站点请求伪装（Cross Site Request Forgery）"></a>10. 跨站点请求伪装（Cross Site Request Forgery）</h1><p>明确页面的操作流程，对于不符合操作流程而来的请求进行过滤。</p>
+<h1 id="11-不正确的文件和目录分配invalid-allocation-of-files-and-directories"><a href="#11-不正确的文件和目录分配（Invalid-Allocation-of-Files-and-Directories）" class="headerlink" title="11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）"></a>11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）</h1><p>不公开的配置文件，备份文件，数据文件等，不要在站点的公共目录(WebRoot或者www/htdocs)下存放WEB应用程序使用的库文件，不要再站点的公共目录下存放。</p>
 <p>适合在公共目录下存放的资源如下所示：</p>
 <pre><code>/var/www/htdocs/
                 Img/
                 css/
                 data/
                 index.html
-</code></pre><h1 id="12-不正确的错误处理invalid-error-handling"><a href="#12-__u4E0D_u6B63_u786E_u7684_u9519_u8BEF_u5904_u7406_uFF08Invalid_Error_Handling_uFF09" class="headerlink" title="12. 不正确的错误处理（Invalid Error Handling）"></a>12. 不正确的错误处理（Invalid Error Handling）</h1><p>一定要进行错误处理，错误处理的消息要显示为用户可理解的内容，不要把中间件（WEB服务器）的错误消息显示出来。</p>
-<h1 id="13-不必要的信息unnecessary-information"><a href="#13-__u4E0D_u5FC5_u8981_u7684_u4FE1_u606F_uFF08Unnecessary_Information_uFF09" class="headerlink" title="13. 不必要的信息（Unnecessary Information）"></a>13. 不必要的信息（Unnecessary Information）</h1><p>比如在用户登陆时，提示的这样的错误信息【用户密码不正确】，从侧面就说明了系统中存在一个叫做【userid】的用户。这就为恶意攻击者提供了情报。</p>
+</code></pre><h1 id="12-不正确的错误处理invalid-error-handling"><a href="#12-不正确的错误处理（Invalid-Error-Handling）" class="headerlink" title="12. 不正确的错误处理（Invalid Error Handling）"></a>12. 不正确的错误处理（Invalid Error Handling）</h1><p>一定要进行错误处理，错误处理的消息要显示为用户可理解的内容，不要把中间件（WEB服务器）的错误消息显示出来。</p>
+<h1 id="13-不必要的信息unnecessary-information"><a href="#13-不必要的信息（Unnecessary-Information）" class="headerlink" title="13. 不必要的信息（Unnecessary Information）"></a>13. 不必要的信息（Unnecessary Information）</h1><p>比如在用户登陆时，提示的这样的错误信息【用户密码不正确】，从侧面就说明了系统中存在一个叫做【userid】的用户。这就为恶意攻击者提供了情报。</p>
 <p>所以，在处理系统显示的消息是，点到为止，不能暴露多余的用户细节。</p>
-<h1 id="14-后门和调试选项backdoor-amp-debug-option"><a href="#14-__u540E_u95E8_u548C_u8C03_u8BD5_u9009_u9879_uFF08Backdoor__26amp_3B_Debug_Option_uFF09" class="headerlink" title="14. 后门和调试选项（Backdoor &amp; Debug Option）"></a>14. 后门和调试选项（Backdoor &amp; Debug Option）</h1><ul>
+<h1 id="14-后门和调试选项backdoor-amp-debug-option"><a href="#14-后门和调试选项（Backdoor-amp-Debug-Option）" class="headerlink" title="14. 后门和调试选项（Backdoor &amp; Debug Option）"></a>14. 后门和调试选项（Backdoor &amp; Debug Option）</h1><ul>
 <li>避免特殊的密码输入和认证策略</li>
 <li>指定调试选项是，调试选项和程序的参数都可以改变和查看</li>
 <li>要做出测试专用的页面</li>
 </ul>
 <p>对于程序后门，可以通过代码复查力度强化来进行防止。<br>而对于调试选择，要统一开发标准，使用统一的调试开关。</p>
-<h1 id="15-客户端注释client-side-comment"><a href="#15-__u5BA2_u6237_u7AEF_u6CE8_u91CA_uFF08Client_Side_Comment_uFF09" class="headerlink" title="15. 客户端注释（Client Side Comment）"></a>15. 客户端注释（Client Side Comment）</h1><p>对于WEB应用来说，客户端可以通过浏览器直接看到页面的代码。发送到浏览器的代码中，可以开发者的注释。对于恶意攻击者来说，这些注释信息会暴露出WEB应用的很多细节。</p>
+<h1 id="15-客户端注释client-side-comment"><a href="#15-客户端注释（Client-Side-Comment）" class="headerlink" title="15. 客户端注释（Client Side Comment）"></a>15. 客户端注释（Client Side Comment）</h1><p>对于WEB应用来说，客户端可以通过浏览器直接看到页面的代码。发送到浏览器的代码中，可以开发者的注释。对于恶意攻击者来说，这些注释信息会暴露出WEB应用的很多细节。</p>
 <p>比如说下面所说的注释就应该引起关注：</p>
 <ul>
 <li>对于请求参数的注释</li>
@@ -174,7 +174,7 @@ $             环境变量指定时使用的字符
 <li>对于代码的注释，事先要有统一的代码规范</li>
 <li>尽量使用服务器端得注释标签，如JSP的【&lt;%– –%&gt;】，这样的注释内容不会发送到客户端。</li>
 </ul>
-<h1 id="16-缓冲区溢出buffer-over-flow"><a href="#16-__u7F13_u51B2_u533A_u6EA2_u51FA_uFF08Buffer_Over_Flow_uFF09" class="headerlink" title="16. 缓冲区溢出（Buffer Over Flow）"></a>16. 缓冲区溢出（Buffer Over Flow）</h1><p>如果用户输入中包含了超过服务器缓冲区大小的输入，很可能会导致服务器存储不足，甚至导致服务器停机。</p>
+<h1 id="16-缓冲区溢出buffer-over-flow"><a href="#16-缓冲区溢出（Buffer-Over-Flow）" class="headerlink" title="16. 缓冲区溢出（Buffer Over Flow）"></a>16. 缓冲区溢出（Buffer Over Flow）</h1><p>如果用户输入中包含了超过服务器缓冲区大小的输入，很可能会导致服务器存储不足，甚至导致服务器停机。</p>
 <p>解决方法如下：</p>
 <ul>
 <li>一定要检查用户输入的大小</li>

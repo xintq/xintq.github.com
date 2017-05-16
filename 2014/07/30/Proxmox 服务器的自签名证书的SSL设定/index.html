@@ -115,19 +115,19 @@
 <p><img src="/img/post/000116_AaqD_157257.png" alt="https"></p>
 <p>即使点了“仍然继续”，https前面还是会出现下面的小红叉叉，难看的很：</p>
 <p><img src="/img/post/000249_5B0c_157257.png" alt="https-ugly"></p>
-<h1 id="概念"><a href="#u6982_u5FF5" class="headerlink" title="概念"></a>概念</h1><p>关于自签名的证书，啰嗦几句。</p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>关于自签名的证书，啰嗦几句。</p>
 <p>常规的证书（那些NB的CA机构颁发的证书），允许使用该证书的服务器向用户说:</p>
 <pre><code>&gt; 你应该信任我，因为你信任的机构（NB的CA机构）是这么说的
 </code></pre><p>而自签名的证书就比较无耻了，它允许使用该证书的服务器对用户说：</p>
 <pre><code>&gt; 你应该信任我，因为这是我说的
 </code></pre><p>我们访问各种网银是，必须都是HTTPS（如果你不是，那你悲剧了），而他们的证书都是常规的证书。而我天朝的12306，好像是使用自签名的证书（个中原因，you know…）。</p>
-<h1 id="前提"><a href="#u524D_u63D0" class="headerlink" title="前提"></a>前提</h1><p>首先已经安装好了Proxmox，而且网络，IP都已经配置好了。</p>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>首先已经安装好了Proxmox，而且网络，IP都已经配置好了。</p>
 <p>假设，Proxmox服务器的IP是： 10.194.153.6</p>
 <p>为了简单起见，Proxmox服务器没有绑定域名，总是以IP访问。</p>
-<h1 id="生成证书"><a href="#u751F_u6210_u8BC1_u4E66" class="headerlink" title="生成证书"></a>生成证书</h1><p>本例中的证书是自我签署的证书。在默认的状态下，自我签署的证书在浏览器里会弹出警告，而不是讨人厌的错误提示。如果吧自我签署的证书事前安装好的话，就可以正常的使用了。</p>
+<h1 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h1><p>本例中的证书是自我签署的证书。在默认的状态下，自我签署的证书在浏览器里会弹出警告，而不是讨人厌的错误提示。如果吧自我签署的证书事前安装好的话，就可以正常的使用了。</p>
 <p>因此，如果只是（公司，实验室，局域网）内部使用的话，使用自我签署的证书是没有问题的。如果需要开放给外部访问，最好还是到CA认证机构去购买和申请正规的证书吧（不过据说很贵）。</p>
 <p>闲话少叙，开始干活</p>
-<h2 id="生成私钥"><a href="#u751F_u6210_u79C1_u94A5" class="headerlink" title="生成私钥"></a>生成私钥</h2><pre><code>～# cd /etc/ssl/certs 
+<h2 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h2><pre><code>～# cd /etc/ssl/certs 
 /etc/ssl/certs# openssl genrsa -des3 -out server.key 1024 
 Generating RSA private key, 1024 bit long modulus
 .....................................................................++++++
@@ -135,10 +135,10 @@ Generating RSA private key, 1024 bit long modulus
 e is 65537 (0x10001)
 Enter pass phrase for server.key:                 # 输入pass phrase
 Verifying - Enter pass phrase for server.key:   # 再次输入
-</code></pre><h2 id="从私钥中删除pass-phrase"><a href="#u4ECE_u79C1_u94A5_u4E2D_u5220_u9664pass_phrase" class="headerlink" title="从私钥中删除pass phrase"></a>从私钥中删除pass phrase</h2><pre><code>/etc/ssl/certs# openssl rsa -in server.key -out server.key 
+</code></pre><h2 id="从私钥中删除pass-phrase"><a href="#从私钥中删除pass-phrase" class="headerlink" title="从私钥中删除pass phrase"></a>从私钥中删除pass phrase</h2><pre><code>/etc/ssl/certs# openssl rsa -in server.key -out server.key 
 Enter pass phrase for server.key:# 输入刚才输入的pass phrase
 writing RSA key
-</code></pre><h2 id="生成证书"><a href="#u751F_u6210_u8BC1_u4E66-1" class="headerlink" title="生成证书"></a>生成证书</h2><pre><code>/etc/ssl/certs# openssl req -new -days 3650 -key server.key -out server.csr 
+</code></pre><h2 id="生成证书"><a href="#生成证书-1" class="headerlink" title="生成证书"></a>生成证书</h2><pre><code>/etc/ssl/certs# openssl req -new -days 3650 -key server.key -out server.csr 
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
@@ -164,26 +164,26 @@ Please enter the following &apos;extra&apos; attributes
 to be sent with your certificate request
 A challenge password []:  #这里不输入也可以，直接回车
 An optional company name []: #这里不输入也可以，直接回车
-</code></pre><h2 id="创建自签署证书"><a href="#u521B_u5EFA_u81EA_u7B7E_u7F72_u8BC1_u4E66" class="headerlink" title="创建自签署证书"></a>创建自签署证书</h2><pre><code>/etc/ssl/certs# openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 3650
+</code></pre><h2 id="创建自签署证书"><a href="#创建自签署证书" class="headerlink" title="创建自签署证书"></a>创建自签署证书</h2><pre><code>/etc/ssl/certs# openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 3650
 Signature ok
 subject=/C=CN/ST=LN/L=DL/O=PSDCD/OU=10.194.153.6/CN=10.194.153.6
 Getting Private key
-</code></pre><h2 id="修改证书和密钥的权限"><a href="#u4FEE_u6539_u8BC1_u4E66_u548C_u5BC6_u94A5_u7684_u6743_u9650" class="headerlink" title="修改证书和密钥的权限"></a>修改证书和密钥的权限</h2><pre><code>/etc/ssl/certs# chmod 400 server.*
-</code></pre><h1 id="ssl设置"><a href="#SSL_u8BBE_u7F6E" class="headerlink" title="SSL设置"></a>SSL设置</h1><p>Promox的apache配置在下面的位置：</p>
+</code></pre><h2 id="修改证书和密钥的权限"><a href="#修改证书和密钥的权限" class="headerlink" title="修改证书和密钥的权限"></a>修改证书和密钥的权限</h2><pre><code>/etc/ssl/certs# chmod 400 server.*
+</code></pre><h1 id="ssl设置"><a href="#SSL设置" class="headerlink" title="SSL设置"></a>SSL设置</h1><p>Promox的apache配置在下面的位置：</p>
 <pre><code>/etc/apache2/sites-enabled/pve.conf
 /etc/apache2/sites-enabled/pve-redirect.conf
 </code></pre><p>修改这两个个文件。</p>
-<h2 id="确认server-name是否和刚次生成证书是输入的common-name一致"><a href="#u786E_u8BA4Server_Name_u662F_u5426_u548C_u521A_u6B21_u751F_u6210_u8BC1_u4E66_u662F_u8F93_u5165_u7684Common_Name_u4E00_u81F4" class="headerlink" title="确认Server Name是否和刚次生成证书是输入的Common Name一致"></a>确认Server Name是否和刚次生成证书是输入的Common Name一致</h2><p>不一致的情况下，有两条道：重新生成证书并签署，或者修改此处</p>
+<h2 id="确认server-name是否和刚次生成证书是输入的common-name一致"><a href="#确认Server-Name是否和刚次生成证书是输入的Common-Name一致" class="headerlink" title="确认Server Name是否和刚次生成证书是输入的Common Name一致"></a>确认Server Name是否和刚次生成证书是输入的Common Name一致</h2><p>不一致的情况下，有两条道：重新生成证书并签署，或者修改此处</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ServerName 10.194.153.6</div></pre></td></tr></table></figure>
-<h1 id="配置刚才生成的证书和公钥到apache中"><a href="#u914D_u7F6E_u521A_u624D_u751F_u6210_u7684_u8BC1_u4E66_u548C_u516C_u94A5_u5230apache_u4E2D" class="headerlink" title="配置刚才生成的证书和公钥到apache中"></a>配置刚才生成的证书和公钥到apache中</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    &lt;VirtualHost *:8006&gt;</div><div class="line">        SSLEngine on</div><div class="line">        SSLProtocol all -SSLv2</div><div class="line">        <span class="comment"># 为了保险起见，先注释掉默认的SSL配置</span></div><div class="line">        <span class="comment">#SSLCertificateFile /etc/pve/local/pve-ssl.pem  #这是默认的配置</span></div><div class="line">        <span class="comment">#SSLCertificateKeyFile /etc/pve/local/pve-ssl.key  #这是默认的配置</span></div><div class="line"></div><div class="line">        <span class="comment"># 加入新的配置</span></div><div class="line">        SSLCertificateFile /etc/ssl/certs/server.crt <span class="comment">#这是新的配置</span></div><div class="line">        SSLCertificateKeyFile /etc/ssl/certs/server.key <span class="comment">#这是新的配置</span></div><div class="line">        … 此处省略N个字…</div><div class="line">```language</div></pre></td></tr></table></figure>
-<h1 id="重启apache"><a href="#u91CD_u542Fapache" class="headerlink" title="重启apache"></a>重启apache</h1><pre><code>/etc/apache2/sites-enabled# apache2ctl restart
-</code></pre><h1 id="测试ie这货就不测了proxmox不支持ie赞"><a href="#u6D4B_u8BD5_uFF08IE_u8FD9_u8D27_u5C31_u4E0D_u6D4B_u4E86_uFF0CProxmox_u4E0D_u652F_u6301IE_uFF0C_u8D5E_uFF09" class="headerlink" title="测试（IE这货就不测了，Proxmox不支持IE，赞）"></a>测试（IE这货就不测了，Proxmox不支持IE，赞）</h1><h2 id="firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h2><pre><code>打开promox的WEB管理平台，给出了警告。点击“添加例外”。
+<h1 id="配置刚才生成的证书和公钥到apache中"><a href="#配置刚才生成的证书和公钥到apache中" class="headerlink" title="配置刚才生成的证书和公钥到apache中"></a>配置刚才生成的证书和公钥到apache中</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    &lt;VirtualHost *:8006&gt;</div><div class="line">        SSLEngine on</div><div class="line">        SSLProtocol all -SSLv2</div><div class="line">        <span class="comment"># 为了保险起见，先注释掉默认的SSL配置</span></div><div class="line">        <span class="comment">#SSLCertificateFile /etc/pve/local/pve-ssl.pem  #这是默认的配置</span></div><div class="line">        <span class="comment">#SSLCertificateKeyFile /etc/pve/local/pve-ssl.key  #这是默认的配置</span></div><div class="line"></div><div class="line">        <span class="comment"># 加入新的配置</span></div><div class="line">        SSLCertificateFile /etc/ssl/certs/server.crt <span class="comment">#这是新的配置</span></div><div class="line">        SSLCertificateKeyFile /etc/ssl/certs/server.key <span class="comment">#这是新的配置</span></div><div class="line">        … 此处省略N个字…</div><div class="line">```language</div></pre></td></tr></table></figure>
+<h1 id="重启apache"><a href="#重启apache" class="headerlink" title="重启apache"></a>重启apache</h1><pre><code>/etc/apache2/sites-enabled# apache2ctl restart
+</code></pre><h1 id="测试ie这货就不测了proxmox不支持ie赞"><a href="#测试（IE这货就不测了，Proxmox不支持IE，赞）" class="headerlink" title="测试（IE这货就不测了，Proxmox不支持IE，赞）"></a>测试（IE这货就不测了，Proxmox不支持IE，赞）</h1><h2 id="firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h2><pre><code>打开promox的WEB管理平台，给出了警告。点击“添加例外”。
 </code></pre><p><img src="/img/post/000450_71uY_157257.png" alt="ff"></p>
 <p>点击确认“安全例外”：</p>
 <p><img src="/img/post/000611_a5Zv_157257.png" alt="expt"></p>
 <p>终于看到了久违的登陆画面，注意，地址栏里面的https前不再会显示大红叉，而是正常的一个锁的样子了，说明自签名证书成功了。</p>
 <p><img src="/img/post/000729_cLE1_157257.png" alt="ff-ok"></p>
-<h2 id="chrome的结果"><a href="#Chrome_u7684_u7ED3_u679C" class="headerlink" title="Chrome的结果"></a>Chrome的结果</h2><p><img src="/img/post/000813_MeX1_157257.png" alt="chrome-ok"></p>
+<h2 id="chrome的结果"><a href="#Chrome的结果" class="headerlink" title="Chrome的结果"></a>Chrome的结果</h2><p><img src="/img/post/000813_MeX1_157257.png" alt="chrome-ok"></p>
 <p>(END)</p>
   
 	</div>

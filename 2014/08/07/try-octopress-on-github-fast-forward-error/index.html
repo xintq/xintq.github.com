@@ -104,14 +104,14 @@
 		
 		<p>今天尝试往 github 上导 octopress，发现了下面的问题：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> ! [rejected]        master -&gt; master (non-fast-forward)</div><div class="line"><span class="symbol">error:</span> failed to push some refs to <span class="string">'https://github.com/xxx/xxx.github.io'</span></div><div class="line"><span class="symbol">hint:</span> Updates were rejected because the tip of your current branch is behind</div><div class="line"><span class="symbol">hint:</span> its remote counterpart. Integrate the remote changes (e.g.</div><div class="line"><span class="symbol">hint:</span> <span class="string">'git pull ...'</span>) before pushing again.</div><div class="line"><span class="symbol">hint:</span> See the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</div></pre></td></tr></table></figure></p>
 <p>看了很多地方，发现下面两种解决方法：</p>
-<h2 id="方法一"><a href="#u65B9_u6CD5_u4E00" class="headerlink" title="方法一"></a>方法一</h2><p>在执行 <code>rake deploy</code> 之后，octpress 会执行 <code>cd _deploy</code> 命令，进入 _deploy 目录，并且尝试向Github提交更新。也就是说，需要在 _deploy 目录下进行一些设置。</p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>在执行 <code>rake deploy</code> 之后，octpress 会执行 <code>cd _deploy</code> 命令，进入 _deploy 目录，并且尝试向Github提交更新。也就是说，需要在 _deploy 目录下进行一些设置。</p>
 <p>我的做法是，进入 _deploy 目录，执行：</p>
 <pre><code>git config branch.master.remote origin
 git config branch.master.merge refs/heads/master
 
 git pull
 </code></pre><p>这样就解决了 no-fast forward 这个错误了，然后就可以把更新提交到 Github，或者重新执行 <code>rake deploy</code>。</p>
-<h2 id="方法二"><a href="#u65B9_u6CD5_u4E8C" class="headerlink" title="方法二"></a>方法二</h2><p>修改 octopress 下的 Rakefile，那下面的内容：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">system <span class="string">"git push origin <span class="subst">#&#123;deploy_branch&#125;</span>"</span></div></pre></td></tr></table></figure></p>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>修改 octopress 下的 Rakefile，那下面的内容：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">system <span class="string">"git push origin <span class="subst">#&#123;deploy_branch&#125;</span>"</span></div></pre></td></tr></table></figure></p>
 <p>改成<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">system <span class="string">"git push origin +<span class="subst">#&#123;deploy_branch&#125;</span>"</span></div></pre></td></tr></table></figure></p>
 <p>就OK了。</p>
 <hr>
