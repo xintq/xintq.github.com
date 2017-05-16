@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2017-05-09T02:44:00.000Z</updated>
+  <updated>2017-05-16T04:24:19.000Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -14,6 +14,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在macOS下用Dnsmasq搭建DNS服务器</title>
+    <link href="http://xintq.net/2017/05/16/mac-dnsmasq/"/>
+    <id>http://xintq.net/2017/05/16/mac-dnsmasq/</id>
+    <published>2017-05-16T02:40:03.000Z</published>
+    <updated>2017-05-16T04:24:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一提起搭建DNS服务器，你可能会想到Bind这些Linux下的DNS工具，就像<a href="http://xintq.net/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/">Oracle Linux下内网DNS服务器的配置</a>里的那样，配置Bind，编写正解文件，再编写反解文件。步骤比较繁琐，尤其是正解、反解文件的格式很反人类，容易出错。</p>
+<p>其实，除了Bind这种比较复杂的DNS服务器之外，Linux系统中还提供了一种更轻量级的DNS服务器，也就是本文的主角<code>dnsmasq</code>。它比较适合用户本地的小型网络，尤其是虚拟、测试环境中为各个虚拟机提供DNS和DHCP服务。</p>
+<p>在macOS中，通过homebrew安装，也可以使用dnsmasq。本文的目的就是将macOS作为一个虚拟局域网（<code>192.168.78</code>）的DNS服务器（本机的IP地址为<code>192.168.78.1</code>），为本机以及各个虚拟主机提供局域网的DNS服务。接下来就是简单的配置步骤：</p>
+<h2 id="安装dnsmasq"><a href="#u5B89_u88C5dnsmasq" class="headerlink" title="安装dnsmasq"></a>安装dnsmasq</h2><p>如果你的macOS中没有安装homebrew的话，用下面的命令<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure></p>
+<p>[1]: Homebrew macOS 缺失的软件包管理器: <a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="external">https://brew.sh/index_zh-cn.html</a></p>
+<p>之后就可以用homebrew进行安装了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$ brew install dnsmasq</div><div class="line">Updating Homebrew...</div><div class="line">==&gt; Auto-updated Homebrew!</div><div class="line">Updated 1 tap (homebrew/core).</div><div class="line">==&gt; Updated Formulae</div><div class="line">gnupg</div><div class="line"></div><div class="line">==&gt; Downloading https://mirrors.ustc.edu.cn/homebrew-bottles/bottles/dnsmasq-2.7</div><div class="line"><span class="comment">######################################################################## 100.0%</span></div><div class="line">==&gt; Pouring dnsmasq-2.76.sierra.bottle.tar.gz</div><div class="line">==&gt; Caveats</div><div class="line">To configure dnsmasq, copy the example configuration to /usr/<span class="built_in">local</span>/etc/dnsmasq.conf</div><div class="line">and edit to taste.</div><div class="line"></div><div class="line">  cp /usr/<span class="built_in">local</span>/opt/dnsmasq/dnsmasq.conf.example /usr/<span class="built_in">local</span>/etc/dnsmasq.conf</div><div class="line"></div><div class="line">To have launchd start dnsmasq now and restart at startup:</div><div class="line">  sudo brew services start dnsmasq</div><div class="line">==&gt; Summary</div><div class="line">🍺  /usr/<span class="built_in">local</span>/Cellar/dnsmasq/2.76: 7 files, 504.7KB</div></pre></td></tr></table></figure>
+<h2 id="配置dnsmasq"><a href="#u914D_u7F6Ednsmasq" class="headerlink" title="配置dnsmasq"></a>配置dnsmasq</h2><p>上面的安装提示信息中说的已经很明白了，需要把一个示例用的配置文件复制到<code>/usr/local/etc/dnsmasq.conf</code>来进行配置。什么？没注意看上面的信息，好吧，用下面的命令再看一次：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$ brew info dnsmasq</div><div class="line">dnsmasq: stable 2.76 (bottled)</div><div class="line">Lightweight DNS forwarder and DHCP server</div><div class="line">http://www.thekelleys.org.uk/dnsmasq/doc.html</div><div class="line">...</div><div class="line">To configure dnsmasq, copy the example configuration to /usr/<span class="built_in">local</span>/etc/dnsmasq.conf</div><div class="line">and edit to taste.</div><div class="line"></div><div class="line">  cp /usr/<span class="built_in">local</span>/opt/dnsmasq/dnsmasq.conf.example /usr/<span class="built_in">local</span>/etc/dnsmasq.conf</div><div class="line"></div><div class="line">To have launchd start dnsmasq now and restart at startup:</div><div class="line">  sudo brew services start dnsmasq</div></pre></td></tr></table></figure>
+<p>照做就行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp /usr/local/opt/dnsmasq/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf</div></pre></td></tr></table></figure>
+<p>修改配置文件<code>/usr/local/etc/dnsmasq.conf</code>。</p>
+<p>刚才拷贝过来的文件中，默认所有的选项都是被注释掉的，只需要修改下面两个选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># By  default,  dnsmasq  will  send queries to any of the upstream</span></div><div class="line"><span class="comment"># servers it knows about and tries to favour servers to are  known</span></div><div class="line"><span class="comment"># to  be  up.  Uncommenting this forces dnsmasq to try each query</span></div><div class="line"><span class="comment"># with  each  server  strictly  in  the  order  they   appear   in</span></div><div class="line"><span class="comment"># /etc/resolv.conf</span></div><div class="line">strict-order</div><div class="line">...</div><div class="line"><span class="comment"># Or which to listen on by address (remember to include 127.0.0.1 if</span></div><div class="line"><span class="comment"># you use this.)</span></div><div class="line">listen-address=192.168.78.1,127.0.0.1</div></pre></td></tr></table></figure>
+<p>解释一下：</p>
+<ul>
+<li><code>strict-order</code> 表示在解析一个域名时，dnsmasq会严格按照<code>/etc/resolv.conf</code>文件中的顺序从上到下进行 DNS 解析，直到第一个解析成功为止。<code>/etc/resolv.conf</code>是macOS默认的DNS配置文件，会自动生成。</li>
+<li><code>listen-address</code> 表示DNS服务会绑定到哪个地址上。如果只是本机使用，那么只需要指定<code>127.0.0.1</code>就可。如果还需要让局域网中的其他主机也能使用这个DNS服务器，还需要加上本机在局域网中的地址<code>192.168.78.1,127.0.0.1</code>。换句话说，在<code>192.168.78.</code>这个网段的所有主机都可以指定<code>192.168.78.1</code>为自己的DNS服务器地址。</li>
+</ul>
+<p>到此为止，dnsmasq的配置文件就编辑完了。那么问题来了，那么局域网中主机地址与域名的对应关系在哪里配置呢？</p>
+<p>答案是在<code>/etc/hosts</code>文件中进行配置。原来，在默认情况下，dnsmasq在解析一个域名时，会首先查找<code>/etc/hosts</code>文件中的定义，如果找不到的话，再去<code>/etc/resolv.conf</code>中去找。当然，这个动作也是可以配置的，在配置文件中说明如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># If you don't want dnsmasq to read /etc/hosts, uncomment the</span></div><div class="line"><span class="comment"># following line.</span></div><div class="line"><span class="comment">#no-hosts</span></div><div class="line"><span class="comment"># or if you want it to read another file, as well as /etc/hosts, use</span></div><div class="line"><span class="comment"># this.</span></div><div class="line"><span class="comment">#addn-hosts=/etc/banner_add_hosts</span></div></pre></td></tr></table></figure>
+<h2 id="配置本地局域网中的域名和主机映射"><a href="#u914D_u7F6E_u672C_u5730_u5C40_u57DF_u7F51_u4E2D_u7684_u57DF_u540D_u548C_u4E3B_u673A_u6620_u5C04" class="headerlink" title="配置本地局域网中的域名和主机映射"></a>配置本地局域网中的域名和主机映射</h2><p>按照实际的需要来定义，本文环境中的<code>/etc/hosts</code>文件内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ sudo vim /etc/hosts</div><div class="line"><span class="comment">##</span></div><div class="line"><span class="comment"># Host Database</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># localhost is used to configure the loopback interface</span></div><div class="line"><span class="comment"># when the system is booting.  Do not change this entry.</span></div><div class="line"><span class="comment">##</span></div><div class="line">127.0.0.1	localhost, KMAC.local</div><div class="line">255.255.255.255	broadcasthost</div><div class="line">::1             localhost</div><div class="line">192.168.78.122	ora12c, ora12c.example.com</div><div class="line">192.168.78.73   rhel7, rhel7.example.com</div><div class="line">192.168.78.113	sol11, sol11.example.com</div></pre></td></tr></table></figure>
+<h2 id="启动dnsmasq服务"><a href="#u542F_u52A8Dnsmasq_u670D_u52A1" class="headerlink" title="启动Dnsmasq服务"></a>启动Dnsmasq服务</h2><p>按照<code>brew info dnsmasq</code>的提示，输入下面命令就可以启动服务，并且会开机自动启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo brew services start dnsmasq</div><div class="line">Password:</div><div class="line">==&gt; Successfully started `dnsmasq` (label: homebrew.mxcl.dnsmasq)</div></pre></td></tr></table></figure>
+<p>上面的命令会将<code>/usr/local/opt/dnsmasq/homebrew.mxcl.dnsmasq.plist</code>自动复制为<code>/Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist</code>，这就是dnsmasq服务描述文件。这里多说几句，macOS用<code>launchd</code>(类似于Linux的systemd，或者init)来启动后台服务，LaunchDaemon会在开机时自动启动。启动时读入的就是这些”.plist”文件（Property List File），要关闭和重启服务的话，可以使用下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo launchctl stop homebrew.mxcl.dnsmasq</div><div class="line">$ sudo launchctl start homebrew.mxcl.dnsmasq</div></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#u6D4B_u8BD5" class="headerlink" title="测试"></a>测试</h2><p>测试一下，先看看外部域名能不能正常解析到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ dig baidu.com</div><div class="line"></div><div class="line">; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; baidu.com</div><div class="line">;; global options: +cmd</div><div class="line">;; Got answer:</div><div class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 64468</div><div class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 0</div><div class="line"></div><div class="line">;; QUESTION SECTION:</div><div class="line">;baidu.com.			IN	A</div><div class="line"></div><div class="line">;; ANSWER SECTION:</div><div class="line">baidu.com.		30	IN	A	123.125.114.144</div><div class="line">baidu.com.		30	IN	A	220.181.57.217</div><div class="line">baidu.com.		30	IN	A	180.149.132.47</div><div class="line">baidu.com.		30	IN	A	111.13.101.208</div><div class="line"></div><div class="line">;; Query time: 9 msec</div><div class="line">;; SERVER: 10.0.31.199#53(10.0.31.199)</div><div class="line">;; WHEN: Tue May 16 11:40:52 2017</div><div class="line">;; MSG SIZE  rcvd: 91</div></pre></td></tr></table></figure>
+<p>再看看本地局域网域名的解析情况如何(这一步最好到从其他主机上进行测试，本机测试意义不大，因为<code>/etc/hosts</code>总是会解析成功的)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ dig rhel7</div><div class="line"></div><div class="line">; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; rhel7</div><div class="line">;; global options: +cmd</div><div class="line">;; Got answer:</div><div class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 30445</div><div class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0</div><div class="line"></div><div class="line">;; QUESTION SECTION:</div><div class="line">;rhel7.				IN	A</div><div class="line"></div><div class="line">;; Query time: 1 msec</div><div class="line">;; SERVER: 10.0.31.199#53(10.0.31.199)</div><div class="line">;; WHEN: Tue May 16 11:42:21 2017</div><div class="line">;; MSG SIZE  rcvd: 23</div></pre></td></tr></table></figure></p>
+<p>关于Dnsmasq网上有一大堆的教程，本文的用了最简单的步骤，使用dnsmasq的默认配置，保证在最短的时间内让DNS服务器跑起来。如果你感兴趣的话，可以仔细研究一下Dnsmasq的配置文件，注释写的很详细，可以尝试配置一下DHCP服务。</p>
+<p>（END）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一提起搭建DNS服务器，你可能会想到Bind这些Linux下的DNS工具，就像&lt;a href=&quot;http://xintq.net/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A
+    
+    </summary>
+    
+      <category term="macOS" scheme="http://xintq.net/categories/macos/"/>
+    
+    
+      <category term="mac" scheme="http://xintq.net/tags/mac/"/>
+    
+      <category term="dns" scheme="http://xintq.net/tags/dns/"/>
+    
+      <category term="dnsmasq" scheme="http://xintq.net/tags/dnsmasq/"/>
+    
+  </entry>
   
   <entry>
     <title>Solaris和Linux的比较、区别、异同云云。。。</title>
@@ -1662,7 +1721,7 @@
     <link href="http://xintq.net/2016/01/01/mac-tricks/"/>
     <id>http://xintq.net/2016/01/01/mac-tricks/</id>
     <published>2016-01-01T06:51:13.000Z</published>
-    <updated>2016-04-20T03:06:28.000Z</updated>
+    <updated>2017-05-16T03:13:08.000Z</updated>
     
     <content type="html"><![CDATA[<p>使用MacbookPro已经有四年的时间，零零总总积累了一些所谓的常用技巧，其中大部分是命令行的。说实话，网上的Mac技巧的文章实在是太多了，一搜一大把，这里我不会把所有搜到的都复制到这里，没有多大意义，只记录一些我正在使用的命令，主要是怕忘了。。。</p>
 <h2 id="通过终端修改finder"><a href="#u901A_u8FC7_u7EC8_u7AEF_u4FEE_u6539Finder" class="headerlink" title="通过终端修改Finder"></a>通过终端修改Finder</h2><h3 id="finder标题中显示文件路径"><a href="#Finder_u6807_u9898_u4E2D_u663E_u793A_u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="Finder标题中显示文件路径"></a>Finder标题中显示文件路径</h3><p>有时，当你查看某个文件时，你并不知道这个文件所在的路径，尤其是当你打开很多窗口时。下面这条命令可以让文件的路径显示在Finder的标题栏中。</p>
@@ -1715,7 +1774,7 @@
     
     </summary>
     
-      <category term="Mac" scheme="http://xintq.net/categories/mac/"/>
+      <category term="macOS" scheme="http://xintq.net/categories/macos/"/>
     
     
       <category term="mac" scheme="http://xintq.net/tags/mac/"/>
@@ -4377,11 +4436,11 @@ Hello, John
       <category term="内家功" scheme="http://xintq.net/categories/%E5%86%85%E5%AE%B6%E5%8A%9F/"/>
     
     
-      <category term="算法" scheme="http://xintq.net/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="heapsort" scheme="http://xintq.net/tags/heapsort/"/>
     
       <category term="堆排序" scheme="http://xintq.net/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="算法" scheme="http://xintq.net/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="堆" scheme="http://xintq.net/tags/%E5%A0%86/"/>
     
@@ -5231,135 +5290,6 @@ Logical volume lv_data successfully resized
       <category term="图论" scheme="http://xintq.net/tags/%E5%9B%BE%E8%AE%BA/"/>
     
       <category term="prim" scheme="http://xintq.net/tags/prim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux进阶练习与回顾</title>
-    <link href="http://xintq.net/2014/07/30/Linux%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E4%B8%8E%E5%9B%9E%E9%A1%BE/"/>
-    <id>http://xintq.net/2014/07/30/Linux进阶练习与回顾/</id>
-    <published>2014-07-30T05:35:10.000Z</published>
-    <updated>2015-11-26T14:02:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文是当时学习RHCE时总结的一些练习资料，涵盖了很多进阶的东西，整理了一下，顺便也回顾一下以前学过的东西。</p>
-<p><strong>注意：</strong> 本文中出现的网址和ip都是实验环境下的配置，请不要直接使用（当然，你也用不了）。</p>
-<h2 id="环境"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h2><ul>
-<li><strong>domainX.xintq.net</strong> 域是 <em>192.168.0.0/24</em> 网络</li>
-<li><strong>remote.test</strong> 域是 <em>192.168.1.0/24</em> 网络</li>
-<li>我的IP是 <em>192.168.0.113</em></li>
-</ul>
-<h2 id="练习1-selinux"><a href="#u7EC3_u4E601_SELINUX" class="headerlink" title="练习1 SELINUX"></a>练习1 SELINUX</h2><p>在RHEL中，默认状态下SELINUX是开启的。将SELINUX状态设置为 enforcing状态。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/sysconfig/selinux
-SELINUX=enforcing
-...
-~$ setenforce 1
-~$ getenforce
-</code></pre><h2 id="练习2-ip转发"><a href="#u7EC3_u4E602_IP_u8F6C_u53D1" class="headerlink" title="练习2 IP转发"></a>练习2 IP转发</h2><p>将ip_forward功能打开，并设置为永久有效。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-1" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/sysctl.conf
-~$ sysctl -p
-~$ iptables -F
-~$ service iptables save
-</code></pre><h2 id="练习3-ssh访问控制"><a href="#u7EC3_u4E603_SSH_u8BBF_u95EE_u63A7_u5236" class="headerlink" title="练习3 SSH访问控制"></a>练习3 SSH访问控制</h2><p>配置SSH允许harson用户访问，拒绝以下域访问。</p>
-<pre><code>remote.test (192.168.1.0/24)
-</code></pre><h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-2" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/hosts.deny
-sshd: 192.168.1.0/255.255.255.0
-</code></pre><h2 id="练习4-ftp访问控制"><a href="#u7EC3_u4E604_ftp_u8BBF_u95EE_u63A7_u5236" class="headerlink" title="练习4 ftp访问控制"></a>练习4 ftp访问控制</h2><p>配置ftp允许匿名从 /var/ftp/pub目录中下载，拒绝 remote.test域访问。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-3" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ chkconfig vsftpd on
-~$ service vsftpd start
-~$ vim /etc/hosts.deny
-vsftpd: 192.168.1.0/255.255.255.0
-</code></pre><h2 id="练习5-挂载iso镜像"><a href="#u7EC3_u4E605__u6302_u8F7DISO_u955C_u50CF" class="headerlink" title="练习5 挂载ISO镜像"></a>练习5 挂载ISO镜像</h2><p>将/root/cdrom.iso挂载到/opt/data下，并设置为开机自动挂载。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-4" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ mkdir -p /opt/data
-~$ vim /etc/fstab
-/root/cdrom.iso    /opt/data    iso9660 loop 0 0
-...    
-~$ mount -a
-</code></pre><h2 id="练习6-配置http服务器"><a href="#u7EC3_u4E606__u914D_u7F6EHTTP_u670D_u52A1_u5668" class="headerlink" title="练习6 配置HTTP服务器"></a>练习6 配置HTTP服务器</h2><p>配置WEB服务器，能被 <a href="http://mail.domain13.xintq.net" target="_blank" rel="external">http://mail.domain13.xintq.net</a> 访问到。<br>页面从 <a href="http://server.xintq.net/example.html" target="_blank" rel="external">http://server.xintq.net/example.html</a> 下载。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-5" class="headerlink" title="参考解答"></a>参考解答</h3><p>省略。</p>
-<h2 id="练习7-http服务器虚拟主机"><a href="#u7EC3_u4E607_HTTP_u670D_u52A1_u5668_u865A_u62DF_u4E3B_u673A" class="headerlink" title="练习7 HTTP服务器虚拟主机"></a>练习7 HTTP服务器虚拟主机</h2><p>配置WEB服务器，实现虚拟主机：</p>
-<pre><code>http://server13.domain13.xintq.net
-</code></pre><p>能访问到/www/virtual目录下的页面，页面可以从</p>
-<pre><code>http://server.xintq.net/server.html
-</code></pre><p>下载，并保证 <a href="http://mail.domain13.xintq.net" target="_blank" rel="external">http://mail.domain13.xintq.net</a> 能同样被访问到。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-6" class="headerlink" title="参考解答"></a>参考解答</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">~$ vim /etc/httpd/conf/httpd.conf</div><div class="line">NameVirtualHost *:80</div><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">    DocumentRoot /var/www/html</div><div class="line">    ServerName mail.domain13.xintq.net</div><div class="line">&lt;/VirtualHost&gt;</div><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">    DocumentRoot /www/virtual</div><div class="line">    ServerName server13.domain13.xintq.net</div><div class="line">&lt;/VirtualHost&gt;</div><div class="line">...</div><div class="line">~$ mkdir -p /www/virtual</div><div class="line">~$ <span class="built_in">cd</span> /www/virtual</div><div class="line">~$ wget http://server.xintq.net/server.html -O index.html</div><div class="line">~$ service httpd restart</div><div class="line">~$ chcon --reference=/var/www/html /www/ -R</div><div class="line">~$ service httpd restart</div></pre></td></tr></table></figure>
-<h2 id="练习8-http服务器访问控制"><a href="#u7EC3_u4E608_HTTP_u670D_u52A1_u5668_u8BBF_u95EE_u63A7_u5236" class="headerlink" title="练习8 HTTP服务器访问控制"></a>练习8 HTTP服务器访问控制</h2><p>从 <a href="http://server.xintq.net/restricted.html" target="_blank" rel="external">http://server.xintq.net/restricted.html</a> 下载文件，能被本地用户harson通过路径 <a href="http://mail.domain13.xintq.net/restricted/" target="_blank" rel="external">http://mail.domain13.xintq.net/restricted/</a> 访问到，但是不可以被 remote.test 访问到。</p>
-<h2 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-7" class="headerlink" title="参考解答"></a>参考解答</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    ~$ <span class="built_in">cd</span> /www/virtual/</div><div class="line">    ~$ mkdir restricted</div><div class="line">    ~$ wget http://server.xintq.net/restricted.html</div><div class="line">    ~$ mv restricted.html restricted/index.html</div><div class="line">    ~$ vim /etc/httpd/httpd.config</div><div class="line">    &lt;VirtualHost *:80&gt;</div><div class="line">        ServerName mail.domain13.xintq.net</div><div class="line">        &lt;Directory <span class="string">"/www/virtual/restriced"</span>&gt;</div><div class="line">            order allow,deny</div><div class="line">            deny remote.test</div><div class="line">        &lt;/Directory&gt;</div><div class="line">    &lt;/VirtualHost&gt;</div><div class="line">```language</div></pre></td></tr></table></figure>
-<h2 id="练习9-nfs配置"><a href="#u7EC3_u4E609_NFS_u914D_u7F6E" class="headerlink" title="练习9 NFS配置"></a>练习9 NFS配置</h2><p>配置nfs服务器，将 /common 目录共享给 domain13.xintq.net 域，并允许客户端以 root 用户访问时，也拥有 root 用户的权限。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-8" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ mkdir -p /common
-~$ chkconfig nfs on
-~$ vim /etc/exports
-/common 192.168.0.0/255.255.255.0(no root squash,rw)
-...
-~$ service nfs restart
-</code></pre><h2 id="练习10-配置samab服务"><a href="#u7EC3_u4E6010__u914D_u7F6ESAMAB_u670D_u52A1" class="headerlink" title="练习10 配置SAMAB服务"></a>练习10 配置SAMAB服务</h2><p>配置samba服务器，将 /common 共享被浏览到，共享名称为：share。<br>拒绝 remote.test域访问，用户 harson 对此共享只读，如果需要，harson用户的密码为 harsonuser。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-9" class="headerlink" title="参考解答"></a>参考解答</h3><p>工作组是STAFF。</p>
-<pre><code>~$ vim /etc/samba/smb.conf
-...
-workgroup = STAFF
-...
-[share]
-...
-~$ chcon -t samba_share_t /common
-</code></pre><h2 id="练习11-邮件服务器"><a href="#u7EC3_u4E6011__u90AE_u4EF6_u670D_u52A1_u5668" class="headerlink" title="练习11 邮件服务器"></a>练习11 邮件服务器</h2><p>配置一台 domain13.xintq.net域的邮件服务器，要求可以在服务器本地或者通过harson用户从网络上连接到服务器收发邮件。</p>
-<p>harson用户的邮箱是 /var/spool/mail/harson。</p>
-<p>注意DNS服务器已经帮你做好了MX记录的解析。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-10" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/postfix/mail.cf
-...
-inet_interface=all
-...
-mydestination=...,domain13.xintq.net
-...
-~$ sercice postfix restart
-</code></pre><h2 id="练习12-邮件测试"><a href="#u7EC3_u4E6012__u90AE_u4EF6_u6D4B_u8BD5" class="headerlink" title="练习12 邮件测试"></a>练习12 邮件测试</h2><p>连接到邮件服务器，给admin发邮件，这份邮件可以被harson用户接收到。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-11" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/alias
-...
-admin: harson,root
-...
-~$ service postfix restart
-</code></pre><h2 id="练习13-内核参数"><a href="#u7EC3_u4E6013__u5185_u6838_u53C2_u6570" class="headerlink" title="练习13 内核参数"></a>练习13 内核参数</h2><p>配置内核参数 max_loop为32，并要求可以通过 /proc/cmdline验证到内核参数。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-12" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/grub.conf
-...
-kernel /vmlinuz ... max_loop=32
-...
-</code></pre><h2 id="练习14-cron访问控制"><a href="#u7EC3_u4E6014_CRON_u8BBF_u95EE_u63A7_u5236" class="headerlink" title="练习14 CRON访问控制"></a>练习14 CRON访问控制</h2><p>配置cron不允许tommy用户使用。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-13" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ vim /etc/cron.deny
-...
-tommy
-...
-</code></pre><h2 id="练习15-shell编程"><a href="#u7EC3_u4E6015_SHELL_u7F16_u7A0B" class="headerlink" title="练习15 SHELL编程"></a>练习15 SHELL编程</h2><p>写一个脚本 /root/program，要求当给脚本输入参数 kernel 时，脚本返回 user；给脚本输入参数 user 时，脚本返回 kernel；脚本没有参数或者参数指定错误时，从辩证错误输出打印：</p>
-<pre><code>usage: /root/program kernel|user
-</code></pre><h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-14" class="headerlink" title="参考解答"></a>参考解答</h3><p>参考 /ect/init.d/vsftpd 这个脚本。</p>
-<h2 id="练习16-iscsi配置"><a href="#u7EC3_u4E6016_ISCSI_u914D_u7F6E" class="headerlink" title="练习16 ISCSI配置"></a>练习16 ISCSI配置</h2><p>访问 iscsi 共享存储，存储服务器的地址是：server.xintq.net，分出 20MB 空间，格式化成ext3文件系统，挂载到 /mnt/iscsi 下，并实现开机自动挂载。</p>
-<h3 id="参考解答"><a href="#u53C2_u8003_u89E3_u7B54-15" class="headerlink" title="参考解答"></a>参考解答</h3><pre><code>~$ yum iscsi-initiator-utils
-~$ man iscsiadm
-...找到 EXAMPLE 所在的地方...
-...
-用fdisk进行分区
-mkfs.ext3 格式化
-blkid /dev/sda1 # 查看uuid
-~$ vim /etc/fstab
-...
-UUID=&quot;XXXXXXXXX&quot;    /mnt/iscsi    ext3 _netdev 0 0
-#一定要用UUID挂载
-...
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文是当时学习RHCE时总结的一些练习资料，涵盖了很多进阶的东西，整理了一下，顺便也回顾一下以前学过的东西。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 本文中出现的网址和ip都是实验环境下的配置，请不要直接使用（当然，你也用不了）。&lt;/p&gt;
-&lt;h2 id=&quot;环
-    
-    </summary>
-    
-      <category term="linux" scheme="http://xintq.net/categories/linux/"/>
-    
-    
-      <category term="rhce" scheme="http://xintq.net/tags/rhce/"/>
-    
-      <category term="认证" scheme="http://xintq.net/tags/%E8%AE%A4%E8%AF%81/"/>
-    
-      <category term="redhat" scheme="http://xintq.net/tags/redhat/"/>
     
   </entry>
   
