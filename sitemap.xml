@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/test.html</loc>
+    
+    <lastmod>2017-05-23T03:34:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2017/05/16/mac-dnsmasq/</loc>
     
     <lastmod>2017-05-16T04:51:04.000Z</lastmod>
@@ -128,28 +135,14 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/05/29/SGD-and-SSO/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2015/05/29/SGD-and-SSO/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
@@ -163,6 +156,13 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
@@ -170,7 +170,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</loc>
+    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
@@ -191,9 +191,9 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/11/19/sgd-v-s-vdi/</loc>
+    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
     
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
   </url>
   
@@ -430,6 +430,13 @@
   
   <url>
     <loc>http://xintq.net/search/index.html</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/11/19/sgd-v-s-vdi/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
