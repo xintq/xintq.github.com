@@ -2927,9 +2927,9 @@
     
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
-      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
-    
       <category term="oem" scheme="http://xintq.net/tags/oem/"/>
+    
+      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
     
       <category term="ome" scheme="http://xintq.net/tags/ome/"/>
     
@@ -3181,9 +3181,9 @@
     
       <category term="sso" scheme="http://xintq.net/tags/sso/"/>
     
-      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
-    
       <category term="单点登录" scheme="http://xintq.net/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
+    
+      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
     
       <category term="webgate" scheme="http://xintq.net/tags/webgate/"/>
     
@@ -3917,13 +3917,13 @@
     
       <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
-      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
-    
       <category term="单点登录" scheme="http://xintq.net/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
     
       <category term="指标" scheme="http://xintq.net/tags/%E6%8C%87%E6%A0%87/"/>
     
       <category term="环境需求" scheme="http://xintq.net/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/"/>
+    
+      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
     
   </entry>
   
@@ -4804,11 +4804,11 @@ thirtyfour --&gt; thirty4
       <category term="linux" scheme="http://xintq.net/categories/linux/"/>
     
     
-      <category term="vi" scheme="http://xintq.net/tags/vi/"/>
-    
       <category term="vim" scheme="http://xintq.net/tags/vim/"/>
     
       <category term="gvim" scheme="http://xintq.net/tags/gvim/"/>
+    
+      <category term="vi" scheme="http://xintq.net/tags/vi/"/>
     
       <category term="替换" scheme="http://xintq.net/tags/%E6%9B%BF%E6%8D%A2/"/>
     
@@ -4999,6 +4999,8 @@ Hello, John
     
       <category term="linux" scheme="http://xintq.net/tags/linux/"/>
     
+      <category term="vi" scheme="http://xintq.net/tags/vi/"/>
+    
       <category term="fc" scheme="http://xintq.net/tags/fc/"/>
     
       <category term="经验" scheme="http://xintq.net/tags/%E7%BB%8F%E9%AA%8C/"/>
@@ -5008,8 +5010,6 @@ Hello, John
       <category term="ubuntu" scheme="http://xintq.net/tags/ubuntu/"/>
     
       <category term="debian" scheme="http://xintq.net/tags/debian/"/>
-    
-      <category term="vi" scheme="http://xintq.net/tags/vi/"/>
     
       <category term="fcitx" scheme="http://xintq.net/tags/fcitx/"/>
     
