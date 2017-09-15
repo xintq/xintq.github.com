@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/about/index-en.html</loc>
+    
+    <lastmod>2017-09-15T02:57:46.119Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/about/index.html</loc>
+    
+    <lastmod>2017-09-15T02:55:42.748Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2017/06/12/everything-about-java-nio/</loc>
     
     <lastmod>2017-06-12T04:47:18.000Z</lastmod>
@@ -61,20 +75,6 @@
     <loc>http://xintq.net/2017/05/02/use-gitment-for-comment/</loc>
     
     <lastmod>2017-05-02T07:37:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/about/index.html</loc>
-    
-    <lastmod>2017-05-02T02:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/about/index-en.html</loc>
-    
-    <lastmod>2017-05-02T01:43:11.000Z</lastmod>
     
   </url>
   
