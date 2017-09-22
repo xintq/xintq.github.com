@@ -119,7 +119,7 @@
 		
 		</div>
 		
-		<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ul>
+		<h2 id="前提条件"><a href="#u524D_u63D0_u6761_u4EF6" class="headerlink" title="前提条件"></a>前提条件</h2><ul>
 <li><p>Oracle Enterprise Manager Cloud Control 12c Release 4 (12.1.0.4)  已经安装好，并可以从 <a href="https://oem.example.com:7802/em" target="_blank" rel="external">https://oem.example.com:7802/em</a> 访问到</p>
 <p>  EM12c的安装过程看<a href="http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/">这里</a>。</p>
 </li>
@@ -127,24 +127,24 @@
 <p>  SGD5.2的安装过程看<a href="http://xintq.net/2015/07/03/sgd-demo-stepbystep/">这里</a>。</p>
 </li>
 </ul>
-<h2 id="sgd服务器侧的设置"><a href="#SGD服务器侧的设置" class="headerlink" title="SGD服务器侧的设置"></a>SGD服务器侧的设置</h2><p>登陆到SGD服务器中，创建<code>oinstall</code>组，创建<code>oracle</code>用户，并将<code>oracle</code>用户组中加入<code>ttaserv</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@demo ~]<span class="comment"># groupadd oinstall</span></div><div class="line">[root@demo ~]<span class="comment"># useradd -G ttaserv,oinstall oracle</span></div><div class="line">[root@demo ~]<span class="comment"># passwd oracle</span></div><div class="line">[root@demo ~]<span class="comment"># id oracle</span></div><div class="line">uid=504(oracle) gid=504(oracle) groups=504(oracle),500(ttaserv),505(oinstall)</div></pre></td></tr></table></figure></p>
+<h2 id="sgd服务器侧的设置"><a href="#SGD_u670D_u52A1_u5668_u4FA7_u7684_u8BBE_u7F6E" class="headerlink" title="SGD服务器侧的设置"></a>SGD服务器侧的设置</h2><p>登陆到SGD服务器中，创建<code>oinstall</code>组，创建<code>oracle</code>用户，并将<code>oracle</code>用户组中加入<code>ttaserv</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@demo ~]<span class="comment"># groupadd oinstall</span></div><div class="line">[root@demo ~]<span class="comment"># useradd -G ttaserv,oinstall oracle</span></div><div class="line">[root@demo ~]<span class="comment"># passwd oracle</span></div><div class="line">[root@demo ~]<span class="comment"># id oracle</span></div><div class="line">uid=504(oracle) gid=504(oracle) groups=504(oracle),500(ttaserv),505(oinstall)</div></pre></td></tr></table></figure></p>
 <p>以root用户修改sudoers文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@demo ~]<span class="comment"># visudo</span></div><div class="line"><span class="comment">#Defaults    requiretty</span></div><div class="line">Defaults    !requiretty</div><div class="line"></div><div class="line"><span class="comment">#Defaults   !visiblepw</span></div><div class="line">Defaults   visiblepw</div><div class="line">...</div><div class="line"><span class="comment">## Allows people in group wheel to run all commands</span></div><div class="line"><span class="comment"># %wheel        ALL=(ALL)       ALL</span></div><div class="line">oracle  ALL=(ALL)       ALL</div></pre></td></tr></table></figure>
-<h2 id="oracle-enterprise-manager-12c中的操作步骤"><a href="#Oracle-Enterprise-Manager-12c中的操作步骤" class="headerlink" title="Oracle Enterprise Manager 12c中的操作步骤"></a>Oracle Enterprise Manager 12c中的操作步骤</h2><p>以下所有操作都是在登录到EM之后进行的。</p>
-<h3 id="在线更新em的plugins软件仓库"><a href="#在线更新EM的Plugins软件仓库" class="headerlink" title="在线更新EM的Plugins软件仓库"></a>在线更新EM的Plugins软件仓库</h3><p>首先确保EM主机能连接外网。以sysman用户名登录到EM之后，选择<code>Setup</code> – <code>My Oracle Support</code> – <code>Set Credentials</code>，然后输入在Oracle注册的账号和密码，最后点击<code>Apply</code>。</p>
+<h2 id="oracle-enterprise-manager-12c中的操作步骤"><a href="#Oracle_Enterprise_Manager_12c_u4E2D_u7684_u64CD_u4F5C_u6B65_u9AA4" class="headerlink" title="Oracle Enterprise Manager 12c中的操作步骤"></a>Oracle Enterprise Manager 12c中的操作步骤</h2><p>以下所有操作都是在登录到EM之后进行的。</p>
+<h3 id="在线更新em的plugins软件仓库"><a href="#u5728_u7EBF_u66F4_u65B0EM_u7684Plugins_u8F6F_u4EF6_u4ED3_u5E93" class="headerlink" title="在线更新EM的Plugins软件仓库"></a>在线更新EM的Plugins软件仓库</h3><p>首先确保EM主机能连接外网。以sysman用户名登录到EM之后，选择<code>Setup</code> – <code>My Oracle Support</code> – <code>Set Credentials</code>，然后输入在Oracle注册的账号和密码，最后点击<code>Apply</code>。</p>
 <p><img src="/img/post/oem-sgd-01.png" alt="Set Credentials"></p>
 <p>再次选择<code>Setup</code> – <code>Extensibility</code> – <code>Self Update</code>。</p>
 <p><img src="/img/post/oem-sgd-02.png" alt="Self Update"></p>
 <p>在Self Update页面的Status部分，选择<code>Check Updates</code>，同时确保Connection Mode是<code>Online</code>状态。</p>
 <p><img src="/img/post/oem-sgd-03.png" alt="Self Update-Check Updates"></p>
-<h3 id="将sgd插件下载到omr中"><a href="#将SGD插件下载到OMR中" class="headerlink" title="将SGD插件下载到OMR中"></a>将SGD插件下载到OMR中</h3><p>等待几分钟，待所有数据更新完毕之后，在列表中找到Plug-in部分，点击进去。</p>
+<h3 id="将sgd插件下载到omr中"><a href="#u5C06SGD_u63D2_u4EF6_u4E0B_u8F7D_u5230OMR_u4E2D" class="headerlink" title="将SGD插件下载到OMR中"></a>将SGD插件下载到OMR中</h3><p>等待几分钟，待所有数据更新完毕之后，在列表中找到Plug-in部分，点击进去。</p>
 <p><img src="/img/post/oem-sgd-04.png" alt="Self Update-Check Updates-Plugin"></p>
 <p>在Plug-in页面中，向下滚动找到Oracle Secure Global Desktop和Oracle Secure Global Desktop Gateway两个插件所在的行，选择其中一个插件，先点击列表上方的<code>Download</code>，等待几秒中，直到下载完成。</p>
-<h3 id="将sgd插件部署到到oms中"><a href="#将SGD插件部署到到OMS中" class="headerlink" title="将SGD插件部署到到OMS中"></a>将SGD插件部署到到OMS中</h3><p>提示下载完成后，点击<code>Apply</code>，完成在OMS中插件的部署。</p>
+<h3 id="将sgd插件部署到到oms中"><a href="#u5C06SGD_u63D2_u4EF6_u90E8_u7F72_u5230_u5230OMS_u4E2D" class="headerlink" title="将SGD插件部署到到OMS中"></a>将SGD插件部署到到OMS中</h3><p>提示下载完成后，点击<code>Apply</code>，完成在OMS中插件的部署。</p>
 <p><img src="/img/post/oem-sgd-05.png" alt="Plugin"></p>
 <p>在点击上图的<code>Apply</code>之后，会弹出提示画面，这时点击<code>OK</code>。</p>
 <p><img src="/img/post/oem-sgd-06.png" alt="Plugin-Apply"></p>
-<h3 id="添加sgd主机并设置自动安装agent"><a href="#添加SGD主机并设置自动安装agent" class="headerlink" title="添加SGD主机并设置自动安装agent"></a>添加SGD主机并设置自动安装agent</h3><p><img src="/img/post/oem-sgd-09.png" alt="Add Targets manually"></p>
+<h3 id="添加sgd主机并设置自动安装agent"><a href="#u6DFB_u52A0SGD_u4E3B_u673A_u5E76_u8BBE_u7F6E_u81EA_u52A8_u5B89_u88C5agent" class="headerlink" title="添加SGD主机并设置自动安装agent"></a>添加SGD主机并设置自动安装agent</h3><p><img src="/img/post/oem-sgd-09.png" alt="Add Targets manually"></p>
 <p>输入SGD主机名<code>demo.example.com</code>，选择Platform为<code>Linux x86-64</code>，并点击<code>Next</code>。</p>
 <p><img src="/img/post/oem-sgd-10.png" alt="Add Host Targets: Host and Platform"></p>
 <p>这时有一些必填选项需要输入：</p>
@@ -160,7 +160,7 @@
 <p><img src="/img/post/oem-sgd-13.png" alt="Add Host Targets: Review"></p>
 <p>等待几分钟后，直到所有的步骤完成，点击<code>Done</code>。</p>
 <p><img src="/img/post/oem-sgd-14.png" alt="Add Host Targets: Review"></p>
-<h3 id="将带有agent的sgd主机设置为sgd插件的监视目标"><a href="#将带有Agent的SGD主机设置为SGD插件的监视目标" class="headerlink" title="将带有Agent的SGD主机设置为SGD插件的监视目标"></a>将带有Agent的SGD主机设置为SGD插件的监视目标</h3><p>登录到EM之后，选择右上角的<code>Setup</code> – <code>Add Target</code> – <code>Add Targets Manually</code>。在Add Targets manually页面中选择<code>Add Targets Declaratively by Specifying Target Monitoring Properties</code>，<code>Target Type</code>中选择<code>Oracle Secure Global Desktop</code>。</p>
+<h3 id="将带有agent的sgd主机设置为sgd插件的监视目标"><a href="#u5C06_u5E26_u6709Agent_u7684SGD_u4E3B_u673A_u8BBE_u7F6E_u4E3ASGD_u63D2_u4EF6_u7684_u76D1_u89C6_u76EE_u6807" class="headerlink" title="将带有Agent的SGD主机设置为SGD插件的监视目标"></a>将带有Agent的SGD主机设置为SGD插件的监视目标</h3><p>登录到EM之后，选择右上角的<code>Setup</code> – <code>Add Target</code> – <code>Add Targets Manually</code>。在Add Targets manually页面中选择<code>Add Targets Declaratively by Specifying Target Monitoring Properties</code>，<code>Target Type</code>中选择<code>Oracle Secure Global Desktop</code>。</p>
 <p><img src="/img/post/oem-sgd-15.png" alt="Add Targets manually"></p>
 <p>在<code>Monitoring Agent</code>右侧，点击图标，在弹出窗口中选择<code>demo.example.com:3872</code>，点击<code>Select</code>。</p>
 <p><img src="/img/post/oem-sgd-16.png" alt="Add Targets manually - Monitoring Agent"></p>
@@ -169,7 +169,7 @@
 <p><img src="/img/post/oem-sgd-17.png" alt="Add: Oracle Secure Global Desktop"></p>
 <p>之后就可以在<code>Targets</code> – <code>All Targets</code> – <code>Target Type</code> – <code>Server, Storage and Network</code>中看到<code>Oracle Secure Global Desktop</code>，点击刚才添加的<code>SGD_SERVER_2</code>，就可以看到如下EM中的监视画面了。</p>
 <p><img src="/img/post/oem-sgd-18.png" alt="Monitor SGD Host in EM"></p>
-<h2 id="那么sgd-gateway如何监视"><a href="#那么SGD-Gateway如何监视" class="headerlink" title="那么SGD Gateway如何监视"></a>那么SGD Gateway如何监视</h2><p>EM也可以监视SGD Gateway主机，基本操作步骤和监视SGD主机类似。这里就不再赘述。</p>
+<h2 id="那么sgd-gateway如何监视"><a href="#u90A3_u4E48SGD_Gateway_u5982_u4F55_u76D1_u89C6" class="headerlink" title="那么SGD Gateway如何监视"></a>那么SGD Gateway如何监视</h2><p>EM也可以监视SGD Gateway主机，基本操作步骤和监视SGD主机类似。这里就不再赘述。</p>
 <p>(END)</p>
   
 	</div>

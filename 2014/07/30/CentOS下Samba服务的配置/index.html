@@ -104,28 +104,28 @@
 		
 		<p>本文源于网络上的各种教程，但是结合自己的实际情况，个别细节的地方修改了一下。<br>虽然简单，但是我相信好记性不如烂笔头，先记录下来，方便大家，也方便自己。<br>Samba是Linux与Window实现网络共享的一种常用方法。<br>一旦配置好了，Windows用户就可以访问Linux服务器的共享目录，<br>实现跨系统的文件传输。 </p>
 <p>下面给出在CentOS下配置Samba服务器的方法。 </p>
-<h1 id="安装samba软件包"><a href="#安装Samba软件包" class="headerlink" title="安装Samba软件包"></a>安装Samba软件包</h1><p>首先，确认是否已经安装的samaba的RPM： </p>
+<h1 id="安装samba软件包"><a href="#u5B89_u88C5Samba_u8F6F_u4EF6_u5305" class="headerlink" title="安装Samba软件包"></a>安装Samba软件包</h1><p>首先，确认是否已经安装的samaba的RPM： </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~# rpm -qa|grep samba</div><div class="line">samba-client-3.5.10-114.el6.i686</div><div class="line">samba-3.5.10-114.el6.i686</div><div class="line">samba4-libs-4.0.0-23.alpha11.el6.i686</div><div class="line">samba-winbind-3.5.10-114.el6.i686</div><div class="line">samba-winbind-clients-3.5.10-114.el6.i686</div><div class="line">samba-common-3.5.10-114.el6.i686</div></pre></td></tr></table></figure>
 <p>如果没有看到上面的输出的话，就需要安装缺少的samba包了。<br>建议使用yum安装，只消一个命令就可以装好了：</p>
 <pre><code>~# yum install samba
-</code></pre><h1 id="修改防火墙的设置"><a href="#修改防火墙的设置" class="headerlink" title="修改防火墙的设置"></a>修改防火墙的设置</h1><p>为了简单起见，用下面的命令清空防火墙规则 </p>
+</code></pre><h1 id="修改防火墙的设置"><a href="#u4FEE_u6539_u9632_u706B_u5899_u7684_u8BBE_u7F6E" class="headerlink" title="修改防火墙的设置"></a>修改防火墙的设置</h1><p>为了简单起见，用下面的命令清空防火墙规则 </p>
 <pre><code>~# iptables -F
 ~# service iptables save
 </code></pre><p>(注意：如果你必须使用防火墙的话，那就要添加规则了，这个有点难搞，先略过) </p>
-<h1 id="创建共享目录并设置selinux上下文"><a href="#创建共享目录并设置SElinux上下文" class="headerlink" title="创建共享目录并设置SElinux上下文"></a>创建共享目录并设置SElinux上下文</h1><pre><code>~# mkdir /share  #在根下创建文件夹(除了root的目录下不能创建其他都可以)
+<h1 id="创建共享目录并设置selinux上下文"><a href="#u521B_u5EFA_u5171_u4EAB_u76EE_u5F55_u5E76_u8BBE_u7F6ESElinux_u4E0A_u4E0B_u6587" class="headerlink" title="创建共享目录并设置SElinux上下文"></a>创建共享目录并设置SElinux上下文</h1><pre><code>~# mkdir /share  #在根下创建文件夹(除了root的目录下不能创建其他都可以)
 ~# chmod a+rw #让所有人都可以读写
 </code></pre><p>接下来，修改SELinux的上下文。 </p>
 <p><strong>这一步很关键，特别是SELinux模式是Enforcing的状态下</strong>，如果忘记了的话，无论 /share 目录的权限怎么设置，都没有办法访问共享目录的。 </p>
 <pre><code>~# chcon -t samba_share_t /share
 </code></pre><p>其实，上面的设置方法在samba的配置文件（/etc/samba/sm.conf）里面就有说明<br>，一般在23行开始，关于SELinux设置还有很多的设置。 </p>
-<h1 id="编辑samba配置文件"><a href="#编辑samba配置文件" class="headerlink" title="编辑samba配置文件"></a>编辑samba配置文件</h1><pre><code>~# vi /etc/samba/smb.conf
+<h1 id="编辑samba配置文件"><a href="#u7F16_u8F91samba_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="编辑samba配置文件"></a>编辑samba配置文件</h1><pre><code>~# vi /etc/samba/smb.conf
 </code></pre><p>在文件末尾添加下面的配置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[share]</div><div class="line">comment = Public Stuff</div><div class="line">path = /share</div><div class="line">public = yes</div><div class="line">writable = yes</div></pre></td></tr></table></figure>
-<h1 id="为samba用户设置密码"><a href="#为samba用户设置密码" class="headerlink" title="为samba用户设置密码"></a>为samba用户设置密码</h1><pre><code>~# smbpasswd -a redhat  # redhat是我的用户名
+<h1 id="为samba用户设置密码"><a href="#u4E3Asamba_u7528_u6237_u8BBE_u7F6E_u5BC6_u7801" class="headerlink" title="为samba用户设置密码"></a>为samba用户设置密码</h1><pre><code>~# smbpasswd -a redhat  # redhat是我的用户名
 </code></pre><p>然后输入密码p4ssw0rd，完成密码设置。</p>
-<h1 id="启动samba服务"><a href="#启动samba服务" class="headerlink" title="启动samba服务"></a>启动samba服务</h1><pre><code>~# service smb start #启动smb服务
+<h1 id="启动samba服务"><a href="#u542F_u52A8samba_u670D_u52A1" class="headerlink" title="启动samba服务"></a>启动samba服务</h1><pre><code>~# service smb start #启动smb服务
 ~# chkconfig smb on # 保证samba开机启动
-</code></pre><h1 id="测试samba服务"><a href="#测试samba服务" class="headerlink" title="测试samba服务"></a>测试samba服务</h1><h2 id="windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>在windows下的“运行”里输入linux的\ip，就会弹出用户名和密码，</p>
+</code></pre><h1 id="测试samba服务"><a href="#u6D4B_u8BD5samba_u670D_u52A1" class="headerlink" title="测试samba服务"></a>测试samba服务</h1><h2 id="windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>在windows下的“运行”里输入linux的\ip，就会弹出用户名和密码，</p>
 <ul>
 <li>输入用户名： redhat</li>
 <li>密码： p4ssw0rd </li>

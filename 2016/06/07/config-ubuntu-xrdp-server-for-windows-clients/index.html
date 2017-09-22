@@ -104,29 +104,29 @@
 		
 		<p>提到远程桌面，自然会想到Windows提供的远程桌面服务。其实，在Linux下也可以实现相同的功能。</p>
 <p>本文会详细描述如何实现这一功能。</p>
-<h2 id="复杂的方法"><a href="#复杂的方法" class="headerlink" title="复杂的方法"></a>复杂的方法</h2><h3 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h3><ul>
+<h2 id="复杂的方法"><a href="#u590D_u6742_u7684_u65B9_u6CD5" class="headerlink" title="复杂的方法"></a>复杂的方法</h2><h3 id="实验环境"><a href="#u5B9E_u9A8C_u73AF_u5883" class="headerlink" title="实验环境"></a>实验环境</h3><ul>
 <li>Windows 7 （IP为192.168.56.122）</li>
 <li>Ubuntu 12.04 （IP为192.168.56.123）</li>
 <li>两个系统都在同一LAN上</li>
 <li>两个系统都使用相同的键盘映射，相同的语言环境</li>
 </ul>
-<h3 id="设置ubuntu中的apt-get配置代理-可选"><a href="#设置Ubuntu中的apt-get：配置代理-（可选）" class="headerlink" title="设置Ubuntu中的apt-get：配置代理 （可选）"></a>设置Ubuntu中的apt-get：配置代理 （可选）</h3><p>如果不使用代理服务器，请跳过这一节。</p>
+<h3 id="设置ubuntu中的apt-get配置代理-可选"><a href="#u8BBE_u7F6EUbuntu_u4E2D_u7684apt-get_uFF1A_u914D_u7F6E_u4EE3_u7406__uFF08_u53EF_u9009_uFF09" class="headerlink" title="设置Ubuntu中的apt-get：配置代理 （可选）"></a>设置Ubuntu中的apt-get：配置代理 （可选）</h3><p>如果不使用代理服务器，请跳过这一节。</p>
 <p>首先确保Ubuntu虚拟机能够联网，可以使用apt-get安装软件包。<br>如果是在有代理服务器的情况下使用apt-get，还需要设置代理，具体方法如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> http_proxy=<span class="string">"http://myproxy.example.com:80"</span></div><div class="line"><span class="built_in">export</span> https_proxy=<span class="string">"http://myproxy.example.com:80"</span></div><div class="line"><span class="built_in">export</span> ftp_proxy=<span class="string">"http://myproxy.example.com:80"</span></div></pre></td></tr></table></figure>
 <p>在apt-get的配置目录下新建一个文件 <code>/etc/apt/apt.conf.d/01proxy</code>，输入如下内容：</p>
 <p><code>Acquire::http::Proxy &quot;http://myproxy.example.com:80&quot;;</code></p>
-<h3 id="在ubuntu虚拟机中安装-xrdp"><a href="#在Ubuntu虚拟机中安装-xrdp" class="headerlink" title="在Ubuntu虚拟机中安装 xrdp"></a>在Ubuntu虚拟机中安装 xrdp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install xrdp</div></pre></td></tr></table></figure>
-<h3 id="在ubuntu虚拟机中安装-gnome-session-fallback"><a href="#在Ubuntu虚拟机中安装-Gnome-session-fallback" class="headerlink" title="在Ubuntu虚拟机中安装 Gnome session fallback"></a>在Ubuntu虚拟机中安装 Gnome session fallback</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gnome-session-fallback</div></pre></td></tr></table></figure>
+<h3 id="在ubuntu虚拟机中安装-xrdp"><a href="#u5728Ubuntu_u865A_u62DF_u673A_u4E2D_u5B89_u88C5_xrdp" class="headerlink" title="在Ubuntu虚拟机中安装 xrdp"></a>在Ubuntu虚拟机中安装 xrdp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install xrdp</div></pre></td></tr></table></figure>
+<h3 id="在ubuntu虚拟机中安装-gnome-session-fallback"><a href="#u5728Ubuntu_u865A_u62DF_u673A_u4E2D_u5B89_u88C5_Gnome_session_fallback" class="headerlink" title="在Ubuntu虚拟机中安装 Gnome session fallback"></a>在Ubuntu虚拟机中安装 Gnome session fallback</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gnome-session-fallback</div></pre></td></tr></table></figure>
 <p>在<code>~</code>下创建文件 <code>.xsession</code>，输入以下内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gnome-session --session=gnome-fallback</div></pre></td></tr></table></figure>
 <p>重新启动xrdp服务：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/xrdp restart</div></pre></td></tr></table></figure>
-<h3 id="从windows中远程访问ubuntu虚拟机桌面"><a href="#从Windows中远程访问Ubuntu虚拟机桌面" class="headerlink" title="从Windows中远程访问Ubuntu虚拟机桌面"></a>从Windows中远程访问Ubuntu虚拟机桌面</h3><p>依次点击<code>开始</code> &gt; <code>运行</code>，输入 <code>mstsc</code>，打开Windows远程桌面连接，在计算机名中输入：<br> <code>192.168.56.123</code>。</p>
-<h2 id="更简单的方法"><a href="#更简单的方法" class="headerlink" title="更简单的方法"></a>更简单的方法</h2><p>VirtualBox中也实现了RDP协议，叫做VRDP。该协议与RDP协议兼容，所以VirtualBox可以提供与Windows远程桌面相同的远程桌面服务，叫做Remote Display Server。在实际使用时，只需要为VirtualBox中的虚拟机设置好远程桌面服务端口，外部主机只需要知道VirtualBox主机的IP，就可以通过该端口来访问VirtualBox中的虚拟机。</p>
-<h3 id="如何使用virtualbox的remote-display-server"><a href="#如何使用VirtualBox的Remote-Display-Server" class="headerlink" title="如何使用VirtualBox的Remote Display Server"></a>如何使用VirtualBox的Remote Display Server</h3><p>具体设置方法为：<br>打开<code>Oracle VM VirtualBox Manager</code>，选择虚拟机，点击<code>Settings</code>，选择<code>Display</code>，选择<code>Remote Display</code>标签，勾选<code>Enable Server</code>，然后在Server Port里面输入要绑定的端口号，如:56430。</p>
+<h3 id="从windows中远程访问ubuntu虚拟机桌面"><a href="#u4ECEWindows_u4E2D_u8FDC_u7A0B_u8BBF_u95EEUbuntu_u865A_u62DF_u673A_u684C_u9762" class="headerlink" title="从Windows中远程访问Ubuntu虚拟机桌面"></a>从Windows中远程访问Ubuntu虚拟机桌面</h3><p>依次点击<code>开始</code> &gt; <code>运行</code>，输入 <code>mstsc</code>，打开Windows远程桌面连接，在计算机名中输入：<br> <code>192.168.56.123</code>。</p>
+<h2 id="更简单的方法"><a href="#u66F4_u7B80_u5355_u7684_u65B9_u6CD5" class="headerlink" title="更简单的方法"></a>更简单的方法</h2><p>VirtualBox中也实现了RDP协议，叫做VRDP。该协议与RDP协议兼容，所以VirtualBox可以提供与Windows远程桌面相同的远程桌面服务，叫做Remote Display Server。在实际使用时，只需要为VirtualBox中的虚拟机设置好远程桌面服务端口，外部主机只需要知道VirtualBox主机的IP，就可以通过该端口来访问VirtualBox中的虚拟机。</p>
+<h3 id="如何使用virtualbox的remote-display-server"><a href="#u5982_u4F55_u4F7F_u7528VirtualBox_u7684Remote_Display_Server" class="headerlink" title="如何使用VirtualBox的Remote Display Server"></a>如何使用VirtualBox的Remote Display Server</h3><p>具体设置方法为：<br>打开<code>Oracle VM VirtualBox Manager</code>，选择虚拟机，点击<code>Settings</code>，选择<code>Display</code>，选择<code>Remote Display</code>标签，勾选<code>Enable Server</code>，然后在Server Port里面输入要绑定的端口号，如:56430。</p>
 <p>例如，VirtualBox主机地址为 <code>192.168.56.33</code>。在VirtualBox中运行了Ubuntu虚拟机，并且绑定远程桌面端口为56430，那么任意一台外部主机都可以通过 <code>192.168.56.33:56430</code>来访问到Ubuntu虚拟机桌面。</p>
 <p>远程访问可以使用Windows提供的远程桌面连接工具<code>mstsc</code>，也可以使用开源的<code>rdesktop</code>。</p>
-<h3 id="使用remote-display-server的好处"><a href="#使用Remote-Display-Server的好处" class="headerlink" title="使用Remote Display Server的好处"></a>使用Remote Display Server的好处</h3><p>使用VirtualBox提供的Remote Display Server的好处是：</p>
+<h3 id="使用remote-display-server的好处"><a href="#u4F7F_u7528Remote_Display_Server_u7684_u597D_u5904" class="headerlink" title="使用Remote Display Server的好处"></a>使用Remote Display Server的好处</h3><p>使用VirtualBox提供的Remote Display Server的好处是：</p>
 <ul>
 <li>在虚拟机中不需要做任何配置，无论你的虚拟机是Windows还是Linux，甚至是DOS，VirtualBox都可以提供远程桌面服务。</li>
 <li>远程连接时无需在意虚拟机的网络类型，只需要知道运行VirtualBox的主机地址，无论虚拟机的网络类型是桥接，还是NAT，甚至没有网络的情况下，外部主机都可以访问到虚拟机</li>

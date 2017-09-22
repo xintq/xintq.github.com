@@ -131,12 +131,12 @@
 <p>因为研究工作的需要，我选择了 Linux 作为工作环境，以前只是兴趣索然而去玩 Linux，而这次是来真的，我用了大约一个礼拜对时间才把基本的环境配置好，真是太折磨人了！但是，现在用起来还真顺手，心里有一种成就感。也许这就是 Linux 的魅力所在吧: 必先苦其心志，才能得到最后的果实。</p>
 <p>为了纪念这段难忘的经历，我把它都写下来。如果哪位朋友不幸看到了，如果对你有帮助对话那就更好了。</p>
 <p>我选择的系统是 Fedora Core 6， 还是一个比较新的系统版本。因为以前用过 RedHat。 想必这俩个本是一家的 OS 也应该有几分相似。幸亏有师兄帮忙，要不然就更费事了。</p>
-<h3 id="系统安装进不了图形界面"><a href="#系统安装—进不了图形界面" class="headerlink" title="系统安装—进不了图形界面"></a>系统安装—进不了图形界面</h3><p>从安装开始我就感觉前途迷茫了。因为师兄是从 iso 镜像直接安装的。具体的安装方法网上到处都是，就不再说明了。</p>
+<h3 id="系统安装进不了图形界面"><a href="#u7CFB_u7EDF_u5B89_u88C5_u2014_u8FDB_u4E0D_u4E86_u56FE_u5F62_u754C_u9762" class="headerlink" title="系统安装—进不了图形界面"></a>系统安装—进不了图形界面</h3><p>从安装开始我就感觉前途迷茫了。因为师兄是从 iso 镜像直接安装的。具体的安装方法网上到处都是，就不再说明了。</p>
 <p>问题就出在安装之后 X 怎么也启动不起来，一直报错说什么没有找到显卡缓存，或者没有正确配置显示器之类的。我上网查了一下，有人说什么把 BIOS 里对显卡设置从 1M 改到 8M。我看了一下，我的本来就是8M。</p>
 <p>最后没有办法，我放弃了，选择重装。但是当我第二次引导的时候我看到里有 “update the system” 选择(具体记不住了，反正就是类似于更新，升级之类的话)。死马当活马医，我选择了升级系统。不料，升级完毕之后就能进入图形界面了。</p>
 <p>这个问题到现在我还不知道是为什么。我的显卡是 Intel845 集成显卡。同样的问题发生在我同学的机器上，解决方法也一样，见鬼了!</p>
 <pre><code>NOTE: 当你 FC6 进入不了图形界面时，不要着急重新安装，做一次系统升级试一试。
-</code></pre><h3 id="字体配置中文乱码"><a href="#字体配置—中文乱码" class="headerlink" title="字体配置—中文乱码"></a>字体配置—中文乱码</h3><p>中国人使用 Linux 最郁闷的就是汉字的显示问题。在这个万码奔腾的年代，虽然有UTF-8的包容。但是面对各种本地化的汉字编码，该乱的时候还是乱了。</p>
+</code></pre><h3 id="字体配置中文乱码"><a href="#u5B57_u4F53_u914D_u7F6E_u2014_u4E2D_u6587_u4E71_u7801" class="headerlink" title="字体配置—中文乱码"></a>字体配置—中文乱码</h3><p>中国人使用 Linux 最郁闷的就是汉字的显示问题。在这个万码奔腾的年代，虽然有UTF-8的包容。但是面对各种本地化的汉字编码，该乱的时候还是乱了。</p>
 <p>FC6 默认的汉字编码是 zh_CN.UTF-8， 在访问 Windows 分区的时候会有乱码，曾经有人建议说改一些配置文件:</p>
 <ul>
 <li>/etc/sysconfig/i18n</li>
@@ -161,11 +161,11 @@
 <li>在终端下用 less 或者 more 查看中文文档时还会出现乱码;</li>
 </ul>
 <p>这些问题如果哪位牛人能解决不妨告诉大家。</p>
-<h3 id="桌面环境xfce-4"><a href="#桌面环境—XFce-4" class="headerlink" title="桌面环境—XFce 4"></a>桌面环境—XFce 4</h3><p>装完 FC6 之后，Gnome 的桌面很让人震撼，窗口特效非常棒，巨炫，但是，这些都是以更多的 cpu 和内存消耗为代价的。如果你追求完美，喜欢漂亮华丽的桌面，推荐使用 Gnome，感觉比 Vista 要好很多。其实，在这个版本里，还有两个主题: <strong>KDE</strong> 和 <strong>XFce</strong>。 </p>
+<h3 id="桌面环境xfce-4"><a href="#u684C_u9762_u73AF_u5883_u2014XFce_4" class="headerlink" title="桌面环境—XFce 4"></a>桌面环境—XFce 4</h3><p>装完 FC6 之后，Gnome 的桌面很让人震撼，窗口特效非常棒，巨炫，但是，这些都是以更多的 cpu 和内存消耗为代价的。如果你追求完美，喜欢漂亮华丽的桌面，推荐使用 Gnome，感觉比 Vista 要好很多。其实，在这个版本里，还有两个主题: <strong>KDE</strong> 和 <strong>XFce</strong>。 </p>
 <p>KDE 大家都不陌生，庞大而笨重，但是提供了更多的功能，我系统里的中文字体就是在 KDE 下用图形界面装的，很省事(不要见笑，毕竟是初学者)。但是 KDE 很不稳定，里面有很多的程序用一会儿就崩溃了，而且巨耗资源。</p>
 <p>XFce 我个人看来是很完美的选择。FC6 里面带有 XFce4 的安装包，它占用系统资源少，速度快。是务实、简约的代表。当然，它也有毛病。在 XFce 里提供了很多的设置选项，比如说 Settings Manager，你可以高度自定义桌面的风格，但是不要太贪心，里面的一些功能如: Splash Screen， Window Manager 等最好不要改动，因为把系统主题或者图标更改之后，桌面就会死掉，任凭你重启多少次也进不去 XFce 桌面。</p>
 <p>这个问题的解决办法是，换个主题曲（如 Gnome）或直接进入字符终端，把在 ~/.config/ 里面以 .Xfce* 打头的文件全部删除，接着来个 Ctr + Alt + Backspace ，重新启动 X， 在会话里选择 XFce，重新设置。</p>
-<h3 id="输入法-小企鹅输入法"><a href="#输入法-—-小企鹅输入法" class="headerlink" title="输入法 — 小企鹅输入法"></a>输入法 — 小企鹅输入法</h3><p>虽然在 FC6 里面自带了 SCIM 输入法，但是它的智能拼音经常出现一些不智能的毛病，比如说诺大的工具栏每次都要手动隐藏，输入汉字时输入框老是会定位在一个很 SB 的地方，但是，值得称赞的是智能拼音提供了用音调选字，很不错的。</p>
+<h3 id="输入法-小企鹅输入法"><a href="#u8F93_u5165_u6CD5__u2014__u5C0F_u4F01_u9E45_u8F93_u5165_u6CD5" class="headerlink" title="输入法 — 小企鹅输入法"></a>输入法 — 小企鹅输入法</h3><p>虽然在 FC6 里面自带了 SCIM 输入法，但是它的智能拼音经常出现一些不智能的毛病，比如说诺大的工具栏每次都要手动隐藏，输入汉字时输入框老是会定位在一个很 SB 的地方，但是，值得称赞的是智能拼音提供了用音调选字，很不错的。</p>
 <p>但是，我还是选择了 Fcitx (小企鹅输入法)。</p>
 <p>要想使用 Fcitx，必须屏蔽掉 SCIM，可以在 ~/ 下建立 .xinput.d/zh_CN，在里面输入:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">XIM=fcitx</div><div class="line">XIM_PROGRAM=fcitx</div><div class="line">GTK_IM_MODULE=fcitx</div><div class="line">XMODIFIERS=<span class="string">"@im=fcitx"</span></div><div class="line">gnome-im-settings-daemon &gt;/dev/null</div></pre></td></tr></table></figure></p>
 <p>然后在 /etc/X11/xinit/ 中把 xinputrc 的原来的内容全部注释掉(用#)，加入下面的内容:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    XIM=fcitx</div><div class="line">    XIM_PROGRAM=fcitx</div><div class="line">    GTK_IM_MODULE=fcitx</div><div class="line">    XMODIFIERS=<span class="string">"@im=fcitx"</span></div><div class="line">    gnome-im-settings-daemon &gt;/dev/null</div><div class="line">```language</div></pre></td></tr></table></figure></p>
