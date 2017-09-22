@@ -4,7 +4,7 @@
   <url>
     <loc>http://xintq.net/2017/09/22/silent-install-ora12c-ol7/</loc>
     
-    <lastmod>2017-09-22T07:53:59.888Z</lastmod>
+    <lastmod>2017-09-22T07:59:33.610Z</lastmod>
     
   </url>
   
@@ -149,28 +149,14 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2015/05/29/SGD-and-SSO/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/08/18/oracle-vdi-installation/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
@@ -184,7 +170,28 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/05/19/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADAdobe%20Acrobat%20Reader%20DC%E5%8F%B3%E4%BE%A7%E7%9A%84%E4%BE%A7%E8%BE%B9%E6%A0%8F/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
@@ -198,13 +205,6 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/05/29/SGD-and-SSO/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
@@ -212,14 +212,14 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/11/19/sgd-v-s-vdi/</loc>
+    <loc>http://xintq.net/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/22/rmi/</loc>
+    <loc>http://xintq.net/2014/07/21/fistpost/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -233,20 +233,6 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/03/10/aip/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/2015/05/08/Oracle%20%E5%8F%91%E5%B8%83%E4%BA%86%20Secure%20Global%20Desktop%20Release%205.2/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
@@ -254,14 +240,14 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/23/%E5%9F%B9%E5%85%BB%E7%88%B1%E5%A5%BD%E8%AF%B4/</loc>
+    <loc>http://xintq.net/2014/07/24/google%E8%A2%AB%E5%A2%99%E4%BA%86/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/24/google%E8%A2%AB%E5%A2%99%E4%BA%86/</loc>
+    <loc>http://xintq.net/2015/03/10/aip/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -289,42 +275,14 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/30/Linux%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E4%B8%8E%E5%9B%9E%E9%A1%BE/</loc>
+    <loc>http://xintq.net/2014/07/22/rmi/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/21/fistpost/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/07/30/MacOS%E4%B8%8BMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%88%A0%E9%99%A4/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/07/30/Proxmox%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6%E7%9A%84SSL%E8%AE%BE%E5%AE%9A/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/07/30/WEB%E5%BA%94%E7%94%A8%E8%84%86%E5%BC%B1%E6%80%A7%E9%98%B2%E6%AD%A2%E7%AD%96%E7%95%A5/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/07/30/centos6apache2django1-4%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://xintq.net/2014/07/23/%E5%9F%B9%E5%85%BB%E7%88%B1%E5%A5%BD%E8%AF%B4/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -338,14 +296,21 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/</loc>
+    <loc>http://xintq.net/2014/07/30/centos6apache2django1-4%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/30/%E4%B8%80%E4%B8%AALaTeXCJK%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%E7%9A%84%E7%AE%80%E5%8D%95%E8%80%8C%E5%AE%9E%E7%94%A8%E7%9A%84%E6%A8%A1%E6%9D%BF/</loc>
+    <loc>http://xintq.net/2014/07/30/Proxmox%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6%E7%9A%84SSL%E8%AE%BE%E5%AE%9A/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/07/30/Linux%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E4%B8%8E%E5%9B%9E%E9%A1%BE/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -359,7 +324,21 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/30/%E5%A0%86%E6%8E%92%E5%BA%8F%20(Heap%20Sort)%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E5%AE%9E%E7%8E%B0/</loc>
+    <loc>http://xintq.net/2014/07/30/WEB%E5%BA%94%E7%94%A8%E8%84%86%E5%BC%B1%E6%80%A7%E9%98%B2%E6%AD%A2%E7%AD%96%E7%95%A5/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -373,21 +352,14 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/2014/07/31/about-tds/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/07/30/%E5%A0%86%E6%8E%92%E5%BA%8F%20(Heap%20Sort)%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E5%AE%9E%E7%8E%B0/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -401,6 +373,13 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2014/07/30/%E4%B8%80%E4%B8%AALaTeXCJK%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%E7%9A%84%E7%AE%80%E5%8D%95%E8%80%8C%E5%AE%9E%E7%94%A8%E7%9A%84%E6%A8%A1%E6%9D%BF/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2014/07/31/%E6%88%91%E7%9A%84%20Linux%20%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
@@ -408,7 +387,35 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2014/07/31/Latex%20%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E6%8E%92%E6%A8%A1%E6%9D%BF/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2014/08/07/try-octopress-on-github-fast-forward-error/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/07/30/MacOS%E4%B8%8BMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%88%A0%E9%99%A4/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/07/31/Linux%E4%B8%8B%E5%90%88%E5%B9%B6PDF%E6%96%87%E4%BB%B6/</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -429,21 +436,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2014/08/26/tarantella-virtualization-tools-also-a-poem/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/09/09/Oracle%20Linux%E4%B8%8B%E5%86%85%E7%BD%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2014/10/28/Linux%E8%BF%9E%E6%8E%A5Windows%20AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://xintq.net/2014/11/19/sgd-v-s-vdi/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
@@ -451,6 +444,13 @@
   
   <url>
     <loc>http://xintq.net/search/index.html</loc>
+    
+    <lastmod>2015-11-26T14:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xintq.net/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2015-11-26T14:02:28.000Z</lastmod>
     
