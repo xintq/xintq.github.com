@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xintq.net/2017/04/18/install-db12c-ol73/</loc>
+    
+    <lastmod>2017-09-28T10:02:36.563Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2017/09/22/silent-install-ora12c-ol7/</loc>
     
     <lastmod>2017-09-22T09:22:57.411Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>http://xintq.net/404.html</loc>
     
     <lastmod>2017-05-09T01:00:52.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xintq.net/2017/04/18/install-db12c-ol73/</loc>
-    
-    <lastmod>2017-05-02T07:38:44.000Z</lastmod>
     
   </url>
   
@@ -156,6 +156,13 @@
   </url>
   
   <url>
+    <loc>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</loc>
+    
+    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xintq.net/2015/08/18/oracle-vdi-installation/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
@@ -163,14 +170,14 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
+    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
+    <loc>http://xintq.net/2015/07/29/oracle12c-installation-troubleshooting/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
@@ -191,13 +198,6 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/08/04/sgd-oem-integration/</loc>
-    
-    <lastmod>2015-11-26T14:02:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xintq.net/baidu_verify_n8h3EdGuyJ.html</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
@@ -205,7 +205,7 @@
   </url>
   
   <url>
-    <loc>http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/</loc>
+    <loc>http://xintq.net/2015/07/03/sgd-demo-stepbystep/</loc>
     
     <lastmod>2015-11-26T14:02:30.000Z</lastmod>
     
