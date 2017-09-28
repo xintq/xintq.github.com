@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2017-09-22T09:22:57.411Z</updated>
+  <updated>2017-09-28T10:08:54.330Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://xintq.net/2017/09/22/silent-install-ora12c-ol7/"/>
     <id>http://xintq.net/2017/09/22/silent-install-ora12c-ol7/</id>
     <published>2017-09-22T07:53:59.000Z</published>
-    <updated>2017-09-22T09:22:57.411Z</updated>
+    <updated>2017-09-28T10:08:54.330Z</updated>
     
     <content type="html"><![CDATA[<p>本文记录了在Oracle Linux 7中以静默方式（Silent）安装和配置Oracle Database 12c的具体方法和实施步骤。</p>
+<p>如果想通过图形界面的方式进行安装的话，请参考本站的另一篇文章<a href="http://xintq.net/2017/04/18/install-db12c-ol73/">《Oracle Linux 7.3 下安装 Oracle Database 12c R2》</a>。</p>
 <h2 id="环境"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h2><ul>
 <li><strong>主机</strong>: Windows 10 64bit，内存16GB，处理器Intel i5@2.6GHz 4 core</li>
 <li><strong>虚拟机平台</strong>: VirtualBox 5.1.26</li>
@@ -163,7 +164,7 @@
     <summary type="html">
     
       &lt;p&gt;本文记录了在Oracle Linux 7中以静默方式（Silent）安装和配置Oracle Database 12c的具体方法和实施步骤。&lt;/p&gt;
-&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#u73AF_u5883&quot; class=&quot;headerlink&quot; title=&quot;环境
+&lt;p&gt;如果想通过图形界面的方式进行安装的话，请参考本站的另一篇文章&lt;a href=&quot;http://xintq.net/2017
     
     </summary>
     
