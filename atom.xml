@@ -2040,7 +2040,7 @@
     <link href="http://xintq.net/2017/04/25/some-video-tutorials/"/>
     <id>http://xintq.net/2017/04/25/some-video-tutorials/</id>
     <published>2017-04-25T02:05:11.000Z</published>
-    <updated>2017-09-30T08:03:58.629Z</updated>
+    <updated>2017-09-30T08:21:50.421Z</updated>
     
     <content type="html"><![CDATA[<p>这是之前自己独立制作的一些视频教程（这个产品已经被抛弃了，这里只是为了祭奠一下自己的成果）：</p>
 <ul>
@@ -2059,6 +2059,9 @@
 <li>SGDDYK - 你知道SGD的自适应网络协议么？</li>
 </ul>
 <embed src="http://player.youku.com/player.php/sid/XMjQ3MzkwNjIzMg==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
+
+<p><iframe src="https://player.vimeo.com/video/199634506" width="640" height="360" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></p>
+<p><a href="https://vimeo.com/199634506" target="_blank" rel="external">SGDDYK - DO YOU KNOW AIP FOR SGD</a> from <a href="https://vimeo.com/user57988837" target="_blank" rel="external">K.X</a> on <a href="https://vimeo.com" target="_blank" rel="external">Vimeo</a>.</p>
 ]]></content>
     
     <summary type="html">
