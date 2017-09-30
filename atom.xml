@@ -71,13 +71,14 @@
     <link href="http://xintq.net/2017/09/30/my-atom-packages/"/>
     <id>http://xintq.net/2017/09/30/my-atom-packages/</id>
     <published>2017-09-30T02:31:48.000Z</published>
-    <updated>2017-09-30T07:33:17.343Z</updated>
+    <updated>2017-09-30T07:43:04.183Z</updated>
     
     <content type="html"><![CDATA[<p>不知道什么时候开始放弃了Sublime Text，Vim等等，转而使用Atom作为主力文本编辑器，到现在都无法自拔。</p>
 <p>现在分享一下在Windows 10 系统下，我的Atom的一些常用Package和自定义设置。</p>
-<h3 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h3><p>通过<code>File</code> -&gt; <code>Settings</code> -&gt; <code>Open Config Folder</code>，然后编辑<code>styles.less</code>这个文件，就可以改变Atom的字体设置。</p>
-<p>为了让中文显示起来跟好看，我使用微软雅黑作为中文字体，Monaco作为英文字体，具体配置如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">.tree-view &#123;</div><div class="line">  font-size: 12px; /*配置文件树中的字体大小*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">atom-text-editor &#123;</div><div class="line">  font-family: Monaco, Microsoft YaHei UI; /*配置编辑器的字体*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">atom-text-editor .cursor &#123;</div><div class="line">  // border-color: red;</div><div class="line">&#125;</div><div class="line"></div><div class="line">html, body, .tree-view, .tab-bar .tab, .bottom &#123;</div><div class="line">  font-family: Monaco, Microsoft YaHei UI; /*配置编辑器的各个部件的字体*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">.terminal &#123;</div><div class="line">  font-size: 12px; /*配置终端字体大小*/</div><div class="line">  font-family: Monaco, Microsoft YaHei UI; /*配置终端字体*/</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="常用的package"><a href="#常用的Package" class="headerlink" title="常用的Package"></a>常用的Package</h3><ul>
+<h3 id="字体配置"><a href="#u5B57_u4F53_u914D_u7F6E" class="headerlink" title="字体配置"></a>字体配置</h3><p>通过<code>File</code> -&gt; <code>Settings</code> -&gt; <code>Open Config Folder</code>，然后编辑<code>styles.less</code>这个文件，就可以改变Atom的字体设置。</p>
+<p>为了让中文显示起来跟好看，我使用微软雅黑作为中文字体，Monaco作为英文字体，具体配置如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">.tree-view &#123;</div><div class="line">  font-size: 12px; /*配置文件树中的字体大小*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">atom-text-editor &#123;</div><div class="line">  font-family: Monaco, Microsoft YaHei UI; /*配置编辑器的字体*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">atom-text-editor .cursor &#123;</div><div class="line">  // border-color: red;</div><div class="line">&#125;</div><div class="line"></div><div class="line">html, body, .tree-view, .tab-bar .tab, .bottom &#123;</div><div class="line">  font-family: Monaco, Microsoft YaHei UI; /*配置编辑器的各个部件的字体*/</div><div class="line">&#125;</div><div class="line"></div><div class="line">.terminal &#123;</div><div class="line">  font-size: 12px; /*配置终端字体大小*/</div><div class="line">  font-family: Monaco, Microsoft YaHei UI; /*配置终端字体*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="常用的package"><a href="#u5E38_u7528_u7684Package" class="headerlink" title="常用的Package"></a>常用的Package</h3><ul>
 <li><code>file-icons</code>: 显示文件图标</li>
 <li><code>pigments</code>: 使用不同颜色显示文件和文件夹</li>
 <li><code>platformio-ide-terminal</code>: 在Atom里面打开终端窗口</li>
@@ -291,15 +292,15 @@
     
       <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
-    
-      <category term="yum" scheme="http://xintq.net/tags/yum/"/>
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
     
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
-      <category term="database" scheme="http://xintq.net/tags/database/"/>
-    
       <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
+    
+      <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
+    
+      <category term="yum" scheme="http://xintq.net/tags/yum/"/>
     
       <category term="ora12c" scheme="http://xintq.net/tags/ora12c/"/>
     
@@ -2272,15 +2273,15 @@
     
       <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
-    
-      <category term="yum" scheme="http://xintq.net/tags/yum/"/>
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
     
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
-      <category term="database" scheme="http://xintq.net/tags/database/"/>
-    
       <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
+    
+      <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
+    
+      <category term="yum" scheme="http://xintq.net/tags/yum/"/>
     
       <category term="EM12c" scheme="http://xintq.net/tags/em12c/"/>
     
@@ -3234,11 +3235,11 @@
     
       <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+    
       <category term="oem" scheme="http://xintq.net/tags/oem/"/>
     
       <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
-    
-      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
       <category term="ome" scheme="http://xintq.net/tags/ome/"/>
     
@@ -3287,9 +3288,9 @@
       <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
-    
       <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
       <category term="ORA-00838" scheme="http://xintq.net/tags/ora-00838/"/>
     
