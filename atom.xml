@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xintq.net/"/>
-  <updated>2017-10-11T02:16:09.780Z</updated>
+  <updated>2018-04-02T09:02:22.885Z</updated>
   <id>http://xintq.net/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Oracle 12.2中安装配置APEX</title>
+    <link href="http://xintq.net/2018/04/02/install-apex-in-oracle-12-2/"/>
+    <id>http://xintq.net/2018/04/02/install-apex-in-oracle-12-2/</id>
+    <published>2018-04-02T09:00:55.000Z</published>
+    <updated>2018-04-02T09:02:22.885Z</updated>
+    
+    <content type="html"><![CDATA[<p>从Oracle 12.2开始，默认APEX不会被安装，虽然仍然可以在ORACLE_HOME/apex下找到安装文件，但是仅仅是放在那里而已，没有安装。这样做的好处是在创建PDB时不用再担心要先卸载APEX。</p>
+<p>当然，如果要使用APEX的话就需要手动安装了。不建议安装默认的版本，最好重新下载<a href="http://www.oracle.com/technetwork/developer-tools/apex/downloads/index.html" target="_blank" rel="external">最新版的APEX</a>。需要注意的是，在安装时应该将APEX安装在PDB中，而不是root容器。</p>
+<p>下载后，先解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">[oracle@orcl apex]$ ls</div><div class="line">apex  apex_5.1.4.zip</div><div class="line">[oracle@orcl apex]$ <span class="built_in">pwd</span></div><div class="line">/home/oracle/apex</div><div class="line"></div><div class="line">[oracle@orcl apex]$ <span class="built_in">cd</span> apex/</div><div class="line">[oracle@orcl apex]$ ls</div><div class="line">apex_epg_config_cdb.sql    apex_rest_config_nocdb.sql  apxe102.sql        apxremov_cdb.sql      core</div><div class="line">apex_epg_config_core.sql   apex_rest_config.sql        apxe111.sql        apxremov_nocdb.sql    coreins2.sql</div><div class="line">apex_epg_config_nocdb.sql  appins.sql                  apxe112.sql        apxremov.sql          coreins3.sql</div><div class="line">apex_epg_config.sql        apxchpwd.sql                apxe121.sql        apxrtins_cdb.sql      coreins4.sql</div><div class="line">apexins1.sql               apxconf.sql                 apxexit.sql        apxrtins_cdb_upg.sql  coreins5.sql</div><div class="line">apexins2.sql               apxdbmig.sql                apxldimg_core.sql  apxrtins_nocdb.sql    coreins.sql</div><div class="line">apexins3.sql               apxdevrm_cdb.sql            apxldimg.sql       apxrtins.sql          devins.sql</div><div class="line">apexins_cdb.sql            apxdevrm_nocdb.sql          apxpatch.sql       apxsdoins.sql         endins.sql</div><div class="line">apexins_cdb_upg.sql        apxdevrm.sql                apxpreins.sql      apxsqler.sql          gen_adm_pwd.sql</div><div class="line">apexins_nocdb.sql          apxdvins_cdb.sql            apxprereq.sql      apxupgrd.sql          images</div><div class="line">apexins.sql                apxdvins_nocdb.sql          apxrelod.sql       apxxemig.sql          load_trans.sql</div><div class="line">apex_rest_config_cdb.sql   apxdvins.sql                apxremov1.sql      builder               utilities</div><div class="line">apex_rest_config_core.sql  apxe101.sql                 apxremov2.sql      catapx.sql</div><div class="line">[oracle@orcl apex]$</div></pre></td></tr></table></figure>
+<p>在解压后的apex目录下，以DBA用户登录到数据库中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[oracle@orcl apex]$ sqlplus / as sysdba</div><div class="line"></div><div class="line">SQL*Plus: Release 12.2.0.1.0 Production on Fri Mar 30 16:51:48 2018</div><div class="line"></div><div class="line">Copyright (c) 1982, 2016, Oracle.  All rights reserved.</div><div class="line"></div><div class="line"></div><div class="line">Connected to:</div><div class="line">Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production</div><div class="line"></div><div class="line">SQL&gt;</div></pre></td></tr></table></figure>
+<p>在PDB中，为APEX创建专用的表空间：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SQL&gt; CREATE TABLESPACE apex DATAFILE '/u01/app/oracle/oradata/orcl/apex_tbs.dbf'  SIZE 300M AUTOEXTEND ON NEXT 10M;</div><div class="line"></div><div class="line">Tablespace created.</div></pre></td></tr></table></figure>
+<p>开始安装：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SQL&gt; @apexins.sql APEX APEX TEMP /i/</div></pre></td></tr></table></figure>
+<p>经过几十分钟，会看到：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">Thank you for installing Oracle Application Express 5.1.4.00.08</div><div class="line"></div><div class="line">Oracle Application Express is installed in the APEX_050100 schema.</div><div class="line"></div><div class="line">The structure of the link to the Application Express administration services is as follows:</div><div class="line">http://host:port/pls/apex/apex_admin (Oracle HTTP Server with mod_plsql)</div><div class="line">http://host:port/apex/apex_admin     (Oracle XML DB HTTP listener with the embedded PL/SQL gateway)</div><div class="line">http://host:port/apex/apex_admin     (Oracle REST Data Services)</div><div class="line"></div><div class="line">The structure of the link to the Application Express development interface is as follows:</div><div class="line">http://host:port/pls/apex (Oracle HTTP Server with mod_plsql)</div><div class="line">http://host:port/apex     (Oracle XML DB HTTP listener with the embedded PL/SQL gateway)</div><div class="line">http://host:port/apex     (Oracle REST Data Services)</div><div class="line"></div><div class="line">timing for: Phase 3 (Switch)</div><div class="line">Elapsed: 00:03:24.18</div><div class="line">timing for: Complete Installation</div><div class="line">Elapsed: 00:25:38.64</div><div class="line"></div><div class="line">PL/SQL procedure successfully completed.</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">1 row selected.</div><div class="line"></div><div class="line">...null1.sql</div><div class="line">SYS&gt;</div></pre></td></tr></table></figure>
+<p>修改密码，注意密码必须包含大写字母，数字，以及特殊符号，比如 <code>Welcome1#</code>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">SQL&gt; @apxchpwd.sql</div><div class="line">================================================================================</div><div class="line">This script can be used to change the password of an Application Express</div><div class="line">instance administrator. If the user does not yet exist, a user record will be</div><div class="line">created.</div><div class="line">================================================================================</div><div class="line">Enter the administrator's username [ADMIN]</div><div class="line">User "ADMIN" does not yet exist and will be created.</div><div class="line">Enter ADMIN's email [ADMIN]</div><div class="line">Enter ADMIN's password []</div><div class="line">Created instance administrator ADMIN.</div><div class="line"></div><div class="line">SQL&gt;</div></pre></td></tr></table></figure>
+<p>继续配置REST API的用户密码，为方便起见，都设置为<code>Welcome1#</code>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SQL&gt; @apex_rest_config.sql</div><div class="line"></div><div class="line">Enter a password for the APEX_LISTENER user              []</div><div class="line">Enter a password for the APEX_REST_PUBLIC_USER user              []</div><div class="line">...create APEX_LISTENER and APEX_REST_PUBLIC_USER users</div><div class="line">SQL&gt;</div></pre></td></tr></table></figure>
+<p>加载图片资源：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SQL&gt; @apex_epg_config.sql /home/oracle/apex/</div><div class="line"></div><div class="line">. Loading images directory: /home/oracle/apex//apex/images</div><div class="line">timing for: Load Images</div><div class="line">Elapsed: 00:02:10.24</div></pre></td></tr></table></figure>
+<p>查询，配置端口以及设置用户权限：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">SQL&gt; SELECT DBMS_XDB.gethttpport FROM DUAL;</div><div class="line"></div><div class="line">GETHTTPPORT</div><div class="line">-----------</div><div class="line">          0</div><div class="line">SQL&gt; EXEC DBMS_XDB.sethttpport(8080);</div><div class="line">SQL&gt; SELECT DBMS_XDB.gethttpport FROM DUAL;</div><div class="line"></div><div class="line">GETHTTPPORT</div><div class="line">-----------</div><div class="line">       8080</div><div class="line">SQL&gt; ALTER USER APEX_PUBLIC_USER ACCOUNT UNLOCK;</div><div class="line">SQL&gt; ALTER USER ANONYMOUS ACCOUNT UNLOCK;</div><div class="line">SQL&gt; ALTER USER XDB ACCOUNT UNLOCK;</div><div class="line">SQL&gt; ALTER USER FLOWS_FILES ACCOUNT UNLOCK;</div><div class="line">SQL&gt; ALTER USER APEX_INSTANCE_ADMIN_USER ACCOUNT UNLOCK;</div><div class="line">SQL&gt;</div></pre></td></tr></table></figure>
+<p>这时就可以通过 <code>http://localhost:8080/apex/apex_admin</code> 来访问APEX的管理页面，用户名密码为 ADMIN/Welcome1#.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;从Oracle 12.2开始，默认APEX不会被安装，虽然仍然可以在ORACLE_HOME/apex下找到安装文件，但是仅仅是放在那里而已，没有安装。这样做的好处是在创建PDB时不用再担心要先卸载APEX。&lt;/p&gt;
+&lt;p&gt;当然，如果要使用APEX的话就需要手动安装了。不建议
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+    
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
+    
+      <category term="apex" scheme="http://xintq.net/tags/apex/"/>
+    
+  </entry>
   
   <entry>
     <title>在Windows 10上搭建一个简单的FTP服务器</title>
@@ -340,15 +390,15 @@
     
       <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="database" scheme="http://xintq.net/tags/database/"/>
-    
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
-    
-      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
     
       <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
     
       <category term="yum" scheme="http://xintq.net/tags/yum/"/>
+    
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
     
       <category term="ora12c" scheme="http://xintq.net/tags/ora12c/"/>
     
@@ -2329,15 +2379,15 @@
     
       <category term="virtualbox" scheme="http://xintq.net/tags/virtualbox/"/>
     
-      <category term="database" scheme="http://xintq.net/tags/database/"/>
-    
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
-    
-      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
     
       <category term="vbox" scheme="http://xintq.net/tags/vbox/"/>
     
       <category term="yum" scheme="http://xintq.net/tags/yum/"/>
+    
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
+    
+      <category term="oracle12c" scheme="http://xintq.net/tags/oracle12c/"/>
     
       <category term="EM12c" scheme="http://xintq.net/tags/em12c/"/>
     
@@ -3291,11 +3341,11 @@
     
       <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
-      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
     
       <category term="oem" scheme="http://xintq.net/tags/oem/"/>
     
-      <category term="oracle" scheme="http://xintq.net/tags/oracle/"/>
+      <category term="12c" scheme="http://xintq.net/tags/12c/"/>
     
       <category term="ome" scheme="http://xintq.net/tags/ome/"/>
     
@@ -3344,9 +3394,9 @@
       <category term="数据库" scheme="http://xintq.net/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="database" scheme="http://xintq.net/tags/database/"/>
-    
       <category term="12c" scheme="http://xintq.net/tags/12c/"/>
+    
+      <category term="database" scheme="http://xintq.net/tags/database/"/>
     
       <category term="ORA-00838" scheme="http://xintq.net/tags/ora-00838/"/>
     
@@ -3547,9 +3597,9 @@
     
       <category term="sso" scheme="http://xintq.net/tags/sso/"/>
     
-      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
-    
       <category term="单点登录" scheme="http://xintq.net/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
+    
+      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
     
       <category term="webgate" scheme="http://xintq.net/tags/webgate/"/>
     
@@ -4283,13 +4333,13 @@
     
       <category term="em12c" scheme="http://xintq.net/tags/em12c/"/>
     
-      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
-    
       <category term="单点登录" scheme="http://xintq.net/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
     
       <category term="指标" scheme="http://xintq.net/tags/%E6%8C%87%E6%A0%87/"/>
     
       <category term="环境需求" scheme="http://xintq.net/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/"/>
+    
+      <category term="oam" scheme="http://xintq.net/tags/oam/"/>
     
   </entry>
   
@@ -4467,11 +4517,11 @@
       <category term="虚拟化" scheme="http://xintq.net/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
     
+      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
       <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
       <category term="vpn" scheme="http://xintq.net/tags/vpn/"/>
-    
-      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
       <category term="专用网" scheme="http://xintq.net/tags/%E4%B8%93%E7%94%A8%E7%BD%91/"/>
     
@@ -4952,15 +5002,15 @@ Of fiery coldness, to be gone in a lost soul&apos;s bliss.
       <category term="随笔" scheme="http://xintq.net/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
-    
-      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    
       <category term="tarantella" scheme="http://xintq.net/tags/tarantella/"/>
     
       <category term="poem" scheme="http://xintq.net/tags/poem/"/>
     
       <category term="virtualization" scheme="http://xintq.net/tags/virtualization/"/>
+    
+      <category term="虚拟化" scheme="http://xintq.net/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+      <category term="sgd" scheme="http://xintq.net/tags/sgd/"/>
     
   </entry>
   
@@ -5738,46 +5788,6 @@ collation-server = utf8_general_ci
       <category term="mac" scheme="http://xintq.net/tags/mac/"/>
     
       <category term="mysql" scheme="http://xintq.net/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UnicodeEncodeError: &#39;Ascii&#39; Codec Can&#39;t Encode ...</title>
-    <link href="http://xintq.net/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/"/>
-    <id>http://xintq.net/2014/07/30/unicodeencodeerror-ascii-codec-cant-encode/</id>
-    <published>2014-07-30T14:03:51.000Z</published>
-    <updated>2015-11-26T14:02:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在研究Django，当网站发布到Linux服务器上时，出现了下面的错误：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">UnicodeEncodeError: <span class="string">'ascii'</span> codec can<span class="string">'t encode characters in position 0-5: ordinal not in range(128)</span></div></pre></td></tr></table></figure>
-<p>原因是Python默认的编码不是UTF8的缘故。</p>
-<p>解决方法如下：</p>
-<p>在下面的目录（我机器上Python的安装目录）中新建一个PY文件：sitecustomize.py</p>
-<pre><code>/usr/lib/python2.6/site-packages/
-</code></pre><p>sitecustomize.py的内容如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</div></pre></td></tr></table></figure>
-<p>（完）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在研究Django，当网站发布到Linux服务器上时，出现了下面的错误：&lt;/p&gt;
-&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;
-    
-    </summary>
-    
-      <category term="WEB基础" scheme="http://xintq.net/categories/web%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="django" scheme="http://xintq.net/tags/django/"/>
-    
-      <category term="linux" scheme="http://xintq.net/tags/linux/"/>
-    
-      <category term="python" scheme="http://xintq.net/tags/python/"/>
-    
-      <category term="code" scheme="http://xintq.net/tags/code/"/>
-    
-      <category term="编码" scheme="http://xintq.net/tags/%E7%BC%96%E7%A0%81/"/>
     
   </entry>
   
