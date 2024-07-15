@@ -1,0 +1,1049 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>Oracle Secure Global Desktop 部署考虑事项 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="更新履历 2016年1月： 基于SGD 5.2版本更新 2015年5月： 中文版初版 2013年5月： 初版，仅英文  概要本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。 如果你还不知道Oracle Secure Global Desktop是什么的话，请参考这篇文章。 目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle Secure Global Desktop 部署考虑事项">
+<meta property="og:url" content="http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="更新履历 2016年1月： 基于SGD 5.2版本更新 2015年5月： 中文版初版 2013年5月： 初版，仅英文  概要本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。 如果你还不知道Oracle Secure Global Desktop是什么的话，请参考这篇文章。 目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/1.png">
+<meta property="og:image" content="http://xintq.net/img/post/SGD-Architecture.png">
+<meta property="og:image" content="http://xintq.net/img/post/SGD-Architecture-details.png">
+<meta property="article:published_time" content="2015-05-13T06:47:42.000Z">
+<meta property="article:modified_time" content="2016-01-05T06:34:10.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="sgd">
+<meta property="article:tag" content="aip">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="sizing">
+<meta property="article:tag" content="应用程序供应">
+<meta property="article:tag" content="application provision">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="rdp">
+<meta property="article:tag" content="配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/1.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/13/Oracle Secure Global Desktop 部署考虑事项/" title="Oracle Secure Global Desktop 部署考虑事项" itemprop="url">Oracle Secure Global Desktop 部署考虑事项</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-13T06:47:42.000Z" itemprop="datePublished"> 发表于 2015-05-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%B1%A5%E5%8E%86"><span class="toc-number">1.</span> <span class="toc-text">更新履历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82%E5%92%8C%E6%94%AF%E6%8C%81"><span class="toc-number">3.</span> <span class="toc-text">系统要求和支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%94%AF%E6%8C%81"><span class="toc-number">4.</span> <span class="toc-text">虚拟化支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%92%8C%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.</span> <span class="toc-text">支持的应用程序和协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%9C%80%E6%B1%82"><span class="toc-number">6.</span> <span class="toc-text">网络需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Microsoft-Windows-%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%9C%8D%E5%8A%A1"><span class="toc-number">7.</span> <span class="toc-text">Microsoft Windows 远程桌面服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#X%E5%92%8C%E5%AD%97%E7%AC%A6%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">8.</span> <span class="toc-text">X和字符应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD%E5%A2%9E%E5%BC%BA%E6%A8%A1%E5%9D%97"><span class="toc-number">9.</span> <span class="toc-text">SGD增强模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD-Web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">10.</span> <span class="toc-text">SGD Web服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-number">11.</span> <span class="toc-text">支持的身份认证机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD-Gateway"><span class="toc-number">12.</span> <span class="toc-text">SGD Gateway</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B5%E5%88%97%E7%9A%84%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="toc-number">13.</span> <span class="toc-text">阵列的故障转移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84Active-Directory%E7%89%88%E6%9C%AC"><span class="toc-number">14.</span> <span class="toc-text">支持的Active Directory版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84SecurID%E7%89%88%E6%9C%AC"><span class="toc-number">15.</span> <span class="toc-text">支持的SecurID版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84Oracle-Identity-Management"><span class="toc-number">16.</span> <span class="toc-text">支持的Oracle Identity Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL%E6%94%AF%E6%8C%81"><span class="toc-number">17.</span> <span class="toc-text">SSL支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">18.</span> <span class="toc-text">SGD 客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">19.</span> <span class="toc-text">支持的代理服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E6%94%AF%E6%8C%81"><span class="toc-number">20.</span> <span class="toc-text">打印支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E6%99%BA%E8%83%BD%E5%8D%A1"><span class="toc-number">21.</span> <span class="toc-text">支持的智能卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%951%EF%BC%9AOracle-Secure-Global-Desktop%E6%95%B4%E4%BD%93%E6%9E%84%E6%9E%B6%E5%9B%BE"><span class="toc-number">22.</span> <span class="toc-text">附录1：Oracle Secure Global Desktop整体构架图</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="更新履历"><a href="#更新履历" class="headerlink" title="更新履历"></a>更新履历</h2><ul>
+<li>2016年1月： 基于SGD 5.2版本更新</li>
+<li>2015年5月： 中文版初版</li>
+<li>2013年5月： 初版，仅英文</li>
+</ul>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>本文描述了Oracle Secure Global Desktop部署的设计和测试过程的整体过程。目的是帮助IT部门制定应用程序的部署策略，以满足IT部门和业务部门的需求。</p>
+<p>如果你还不知道Oracle Secure Global Desktop是什么的话，请参考<a href="/2015/05/08/Oracle%20Secure%20Global%20Desktop%E4%BB%8B%E7%BB%8D/">这篇文章</a>。</p>
+<p>目前IT组织的最大挑战就是为分散在各个地域的用户提供对其特定工作区（应用程序和桌面）的即时，可靠，无性能退化的访问。此外，管理者也需要对这些分散到各个地域的工作区进行集中的访问管理。这并不容易。很多客户通过使用Oracle Secure Global Desktop部署工作区来为其数以千计的员工解决这一问题。Oracle Secure Global Desktop能够成为该问题的理想解决方案的优势如下：</p>
+<ul>
+<li><strong>一致的用户体验：</strong> 用户可以使用几乎任何设备，简单地从浏览器访问一个URL，就可以在任何地方来访问他们的工作区。</li>
+<li><strong>无需客户端软件：</strong> IT部门无需在每一个用户终端上维护一份客户端软件，因为用户可以通过任意支持的浏览器来访问Oracle Secure Global Desktop。在桌面设备上无需客户端软件意味着应用程序完全可以在服务器端进行更新，极大的减少了IT环境更新给用户带来的时间损耗。</li>
+<li><strong>移动会话：</strong> 用户可以在Oracle Secure Global Desktop工作区中暂停，继续，或者终止会话。用户可以暂停会话，然后在别的地方从其他设备继续会话（比如，在公司的电脑上暂停会话，然后回到家中用平板设备继续会话）。加之，无需去维护世界各地无数用户桌面上的客户端软件，从总体上极大地削减了IT部门的管理费用。</li>
+<li><strong>简化和内容控制：</strong> Oracle Secure Global Desktop内置了对用户可访问的应用程序和环境的集中管理。具有负载均衡的应用服务器池使得添加，删除，修改服务器等操作对最终用户完全透明。</li>
+<li><strong>性能：</strong> Oracle Secure Global Desktop使用的自适应网络协议（AIP），智能阵列路由算法(IAR)，以及其他各种性能上的优势，使得SGD即使在高延迟的WLAN环境下，也会有很好的性能表现。这非常关键，因为IT部门往往会有分散在世界各地的用户，这些用户会在日常工作中访问多个应用。</li>
+<li><strong>监视：</strong> 通过在Oracle Enterprise Manager Grid Control中创建一个自定义的Oracle Secure Global Desktop基准表，IT部门能够持续的监视多个部署指标，诸如：1）每天的资源利用峰值，2）用户数量，3）性能等，并把这些指标用一张简明的仪表盘来显示出来，便于与管理层和运维部门进行共享。</li>
+</ul>
+<p><img src="/img/post/1.png" alt="Figure 1. Oracle Secure Global Desktop界面和应用程序支持" title="Oracle Secure Global Desktop界面和应用程序支持"></p>
+<h2 id="系统要求和支持"><a href="#系统要求和支持" class="headerlink" title="系统要求和支持"></a>系统要求和支持</h2><pre><code>注意，下面的硬件要求仅作为参考，请不要看成精确的度量标准。
+</code></pre>
+<p>运行Oracle Secure Global Desktop的服务器环境可以计算如下（注意：对客户端的要求是不一样的，本文后续会涉及）：</p>
+<ul>
+<li>为了安装和运行Oracle Secure Global Desktop需要什么</li>
+<li>每个用户登录和运行应用程序又需要什么</li>
+</ul>
+<p>安装和运行Oracle Secure Global Desktop的要求如下：</p>
+<ul>
+<li>2GB的空闲磁盘空间</li>
+<li>2GB的内存</li>
+<li>1GHz处理器</li>
+<li>网卡</li>
+</ul>
+<p>这是<em>除操作系统本身所需的资源之外</em>的要求，且假设此服务器只用于运行Oracle Secure Global Desktop。为支持用户登录并且运行应用程序，还有以下的要求：</p>
+<ul>
+<li>每个用户约80MB的内存</li>
+<li>每个用户约50MHz的CPU</li>
+</ul>
+<p>作为一个典型的用户，在工作区中有10个应用程序，并且运行两个应用程序（这里假设为Windows应用程序）的话，需要大约80MB的内存。对于500个用户的部署，其中每个普通用户运行两个应用程序的话，总计可能需要40GB的内存，5-15GHz的CPU。一个典型的应用程序使用大概10-30MHz的CPU，但是实际上CPU的使用率取决于应用程序自身。某些繁忙的应用程序可能会用到50-100MHz的CPU。</p>
+<p>TABLE 1. 支持的安装平台</p>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>支持的版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Oracle Solaris on SPARC platforms</td>
+<td>• Solaris 10 [至少为版本8&#x2F;11 (update 10)]<br> • Solaris 11<br>• Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Solaris on x86 platforms</td>
+<td>• Solaris 10 [至少为版本8&#x2F;11 (update 10)] <br>• Solaris 11<br>• Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Linux (仅64位)</td>
+<td>• 5 (至少为版本5.8)<br>• 6 (至少为版本6.2)</td>
+</tr>
+</tbody></table>
+<h2 id="虚拟化支持"><a href="#虚拟化支持" class="headerlink" title="虚拟化支持"></a>虚拟化支持</h2><p>受支持的安装平台也会在Type 1 (bare metal) hypervisor 或者Type 2 hypervisor上受到支持。比如，Oracle VM VirtualBox，Oracle VM Server for x86，或者Oracle VM for SPARC (以前称作 Sun Logical Domains or LDoms)。在其他第三方hypervisor上报告的问题会在Oracle的hypervisor进行相应的测试，如果问题不会再现，用户需要联系相应的虚拟化厂商以取得帮助。</p>
+<p>对于Oracle Solaris 平台来说，支持在区域（zone）中安装SGD。Oracle Secure Global Desktop可以安装在全局区域（global zone）中，也可以安装在一个或者多个非全局区域（non-global zone）中。但是，<strong>不支持在全局区域和非全局区域中同时安装SGD</strong>。</p>
+<p>在Oracle Solaris Trusted Extensions平台中，SGD必须被安装在标记的区域（labeled zone）中。不要在全局区域中安装SGD。</p>
+<h2 id="支持的应用程序和协议"><a href="#支持的应用程序和协议" class="headerlink" title="支持的应用程序和协议"></a>支持的应用程序和协议</h2><p>可以使用Oracle Secure Global Desktop来访问如下类型的应用程序：</p>
+<ul>
+<li>Microsoft Windows</li>
+<li>Oracle Solaris，Linux，HP-UX，以及AIX 应用程序服务器的X应用程序</li>
+<li>Oracle Solaris，Linux，HP-UX，以及AIX 应用程序服务器的字符应用程序</li>
+<li>IBM大型主机以及AS&#x2F;400系统的应用程序</li>
+<li>使用HTML和Java技术的Web应用程序</li>
+</ul>
+<p>Oracle Secure Global Desktop支持使用如下的协议来访问应用程序：</p>
+<ul>
+<li>Microsoft Remote Desktop Protocol (RDP)至少是5.2版本</li>
+<li>X11</li>
+<li>HTTP</li>
+<li>HTTPS</li>
+<li>SSH 至少版本2</li>
+<li>Telnet VT, American National Standards Institute (ANSI)</li>
+<li>TN3270E</li>
+<li>TN5250</li>
+</ul>
+<h2 id="网络需求"><a href="#网络需求" class="headerlink" title="网络需求"></a>网络需求</h2><p>使用Oracle Secure Global Desktop的话，必须配置网络。主要要求如下：</p>
+<ul>
+<li>主机必须拥有所有客户机都能够解析到的域名系统（DNS）</li>
+<li>对于任意主机的DNS正向查找和反向查找必须是成功的</li>
+<li>所有的客户机必须使用DNS</li>
+<li>在安装Oracle Secure Global Desktop时，需要输入Oracle Secure Global Desktop服务器的DNS名称，该DNS名称有如下要求：<ul>
+<li>在包含防火墙的网络中，使用<strong>防火墙内部</strong>可识别的DNS名称作为Oracle Secure Global Desktop主机名</li>
+<li>总是使用完整域名。比如：对于<code>example</code>域，请使用<code>us.example.com</code>。</li>
+</ul>
+</li>
+</ul>
+<p>默认情况下，Oracle Secure Global Desktop在DNS请求时使用ANY类型作为查找类型。某些防火墙的配置会拦截此类型的DNS请求。这会导致问题，特别是在使用管理控制台来配置Active Directory认证时。</p>
+<p>从命令行配置时，如果不使用完整域名的话，在一些需要指定Oracle Secure Global Desktop的DNS名称的命令（如<code>tarantella array join</code>）后，会输出一条警告信息。</p>
+<p><a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/documentation/sgd-193668.html">《Oracle Secure Global Desktop 管理指南》</a>描述了Oracle Secure Global Desktop使用的所有端口的详细信息，以及如何配置防火墙。</p>
+<p>下面列出了通常使用的端口。客户端设备必须能够在这些TCP端口上进行TCP&#x2F;IP连接。</p>
+<ul>
+<li><p><strong>80</strong> - 客户端与Oracle Secure Global Desktop Web服务器间的HTTP连接。该端口号取决于安装时选择的端口号。</p>
+</li>
+<li><p><strong>443</strong> - 客户端与Oracle Secure Global Desktop Web服务器间的HTTPs连接。</p>
+</li>
+<li><p><strong>3144</strong> - Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的标准（非安全）连接</p>
+</li>
+<li><p><strong>5307</strong> - Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的安全连接。安全连接使用SSL。</p>
+<p>  注意：Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的连接<strong>总是安全的</strong>。当首次安装SGD时，TCP端口5307必须开放给SGD。</p>
+</li>
+</ul>
+<p>要运行应用程序，Oracle Secure Global Desktop必须建立到应用程序服务器的TCP&#x2F;IP连接。应用程序的类型决定了需要开放的TCP端口号，例如：</p>
+<ul>
+<li><strong>22</strong> – 使用SSH的X应用程序以及字符应用程序</li>
+<li><strong>23</strong> – 使用Telnet的Windows，X，以及字符应用程序</li>
+<li><strong>3389</strong> – 使用Windows Terminal Services的Windows应用程序</li>
+<li><strong>6010</strong> 以上 – X 应用程序</li>
+</ul>
+<p>在使用Oracle Secure Global Desktop时，客户端设备永远不会直接连接到应用程序服务器。取而代之，客户端设备先会使用HTTP或者HTTPS以及Oracle的自适应网络协议（AIP）来连接到Oracle Secure Global Desktop。之后，Oracle Secure Global Desktop才会代替用户连接到应用程序服务器。</p>
+<p>客户端设备通过如下的方式连接到Oracle Secure Global Desktop服务器：</p>
+<ul>
+<li><strong>HTTP连接</strong>： 这是到Oracle Secure Global Desktop的Web服务器的连接。在Oracle Secure Global Desktop的Web服务，Oracle Secure Global Desktop的认证中使用，用以显示工作区。</li>
+<li><strong>AIP连接</strong>： 这是在Oracle Secure Global Desktop客户端与Oracle Secure Global Desktop服务器之间的连接。用于显示应用程序。</li>
+</ul>
+<p>为保证这些连接的安全性，请将Oracle Secure Global Desktop的Web服务器配置为安全Web服务器(HTTPS)，并且开启Oracle Secure Global Desktop安全Web服务。</p>
+<pre><code>注意：SGD Gateway可以在客户端与Oracle Secure Global Desktop服务器间提供更高级别的安全性。在使用SGD Gateway时，客户端设备不会直接连接到Oracle Secure Global Desktop服务器上。
+</code></pre>
+<p>通过Oracle Secure Global Desktop服务器与应用程序服务器间的连接，可以用来启动应用程序服务器上的应用程序，从应用程序中收发数据，如键盘按下，显示更新等。</p>
+<p>Oracle Secure Global Desktop与应用程序服务器间的安全级别取决于应用程序服务器的类型及其所使用的协议。</p>
+<p>当使用Telnet协议时，所有的通信和密码传输都是以明文方式进行的。为保证到UNIX或者Linux应用程序服务器连接的安全性，请使用SSH。SSH会加密所有Oracle Secure Global Desktop主机间的连接，而且密码在传输前也会被加密。默认情况下，Oracle Secure Global Desktop会通过使用X认证来阻止未认证用户对X显示的访问，从而保证X显示的安全性。</p>
+<p>Windows应用程序使用微软远程桌面协议（Microsoft Remote Desktop Protocol，RDP）。即，所有的通信过程都是加密过的，所以到Windows应用程序服务器的连接也是安全的。</p>
+<p>安全水平还取决于运行Web应用程序的Web服务器，如下：</p>
+<ul>
+<li>HTTP Web服务器 - 所有的通信都没有加密</li>
+<li>HTTPS Web服务器 - 所有的通信都有加密</li>
+</ul>
+<p>为了在Web应用程序服务器上使用安全连接，请使用HTTPS Web服务器。</p>
+<p>为了能通过代理服务器连接到Oracle Secure Global Desktop，客户端设备可能会需要配置代理服务器的地址和端口号。Oracle Secure Global Desktop中也可能需要进行配置，以便能为客户端提供关于服务器端代理服务器的信息。</p>
+<h2 id="Microsoft-Windows-远程桌面服务"><a href="#Microsoft-Windows-远程桌面服务" class="headerlink" title="Microsoft Windows 远程桌面服务"></a>Microsoft Windows 远程桌面服务</h2><p>Oracle Secure Global Desktop并不包含Microsoft Windows远程桌面服务的许可证。如果需要访问由Microsoft操作系统产品提供的远程桌面服务器功能，还需要从Microsoft购买额外的许可证。请先咨询你所使用的Microsoft操作系统产品相关的许可证协议，从而决定需要购买哪种类型的许可证。</p>
+<p>Oracle Secure Global Desktop支持如下版本Microsoft Windows的RDP连接：</p>
+<ul>
+<li>Windows Server 2012, 2012 R2</li>
+<li>Windows Server 2008, 2008 R2</li>
+<li>Windows Server 2003, 2003 R2</li>
+<li>Windows 7 SP1</li>
+<li>Windows 8, 8.1</li>
+</ul>
+<p>在Windows 7和Windows 8平台中，只支持Windows桌面会话功能。单独运行应用程序是不被支持的。显然，在这两个平台下，也不支持无缝窗口的应用程序。<br>Oracle Secure Global Desktop 支持如下Windows远程桌面服务功能：</p>
+<ul>
+<li>音频录制</li>
+<li>音频重定向</li>
+<li>剪贴板重定向</li>
+<li>COM端口映射</li>
+<li>压缩</li>
+<li>驱动器重定向</li>
+<li>多显示器</li>
+<li>网络安全性(加密级别)</li>
+<li>会话目录</li>
+<li>智能卡设备重定向</li>
+<li>时区重定向</li>
+<li>Windows打印机映射</li>
+</ul>
+<p>Windows Server 2008 R2 和 Windows 7 支持最高为 44.1 kHz 的音频位速率。默认情况下，SGD 支持最高为 22.05kHz 的位速率。要支持最高为 44.1 kHz 的位速率，请在管理控制台中依次转至<code>Global Settings</code>（全局设置）和 <code>ClientDevice</code>（客户端设备）选项卡，并选择 <code>Windows Audio: High Quality</code>（Windows 音频：高质量）选项。</p>
+<p>Oracle Secure Global Desktop在Windows远程桌面服务器会话中支持8位，16位，24位和32位的色深。</p>
+<p>在Windows Server 2008，Windows Server 2008 R2和Windows 7平台中，也可以使用32位色深。为了显示32位色，客户端设备也必须能够显示32位色。</p>
+<p>15位色深是不支持的。如果远程桌面服务器中指定了这样的色深，Oracle Secure Global Desktop会自动将色深调整为8位。</p>
+<p>在Oracle Secure Global Desktop中，只能使用低级别的，或是与客户端相兼容的，或是高级别的加密。Oracle Secure Global Desktop不支持美国联邦信息处理标准 (Federal Information Processing Standards，FIPS)级别的加密。</p>
+<p>从Microsoft Windows Server 2003开始，可以在服务器认证时使用传输层安全性（TLS）来加密终端服务器的通信过程。Oracle Secure Global Desktop不支持使用TLS。</p>
+<h2 id="X和字符应用程序"><a href="#X和字符应用程序" class="headerlink" title="X和字符应用程序"></a>X和字符应用程序</h2><p>为了运行X应用程序和字符应用程序，Oracle Secure Global Desktop必须能够连接到应用程序服务器。Oracle Secure Global Desktop支持SSH和Telnet连接方式。SSH是安全连接的最佳选择。</p>
+<p>Oracle Secure Global Desktop支持SSH v2或以上版本。由于SSH版本兼容性的问题，请在Oracle Secure Global Desktop服务器和应用程序服务器之间使用同一主要版本的SSH，v2或者v3。</p>
+<p>如果使用SSH连接到X应用程序，还必须开启X转发。X转发功能的开启，可以通过配置SSH来实现，也可以在Oracle Secure Global Desktop中进行配置来实现。</p>
+<p>Oracle Secure Global Desktop支持X安全性扩展。X安全性扩展只能工作在支持 <code>-Y</code> 选项的SSH版本中。对于OpenSSH来说，可以是版本3.8或以上版本。</p>
+<p>Oracle Secure Global Desktop中包含了一个基于X11R7.6的X服务器。SGD支持如下X扩展的X应用程序：</p>
+<ul>
+<li>BIG-REQUESTS</li>
+<li>Composite</li>
+<li>DAMAGE</li>
+<li>DOUBLE-BUFFER</li>
+<li>GLX</li>
+<li>Generic Event Extension</li>
+<li>MIT-SCREEN-SAVER</li>
+<li>MIT-SHM</li>
+<li>RANDR</li>
+<li>RECORD</li>
+<li>RENDER</li>
+<li>SGI-GLX</li>
+<li>SHAPE</li>
+<li>SYNC</li>
+<li>X-Resource</li>
+<li>XC-MISC</li>
+<li>XFIXES</li>
+<li>XINERAMA</li>
+<li>XInputExtension</li>
+<li>XKEYBOARD</li>
+<li>XTEST</li>
+</ul>
+<p>不支持下面的X扩展：</p>
+<ul>
+<li>XVIDEO</li>
+</ul>
+<p>默认情况下，除了C和POSIX之外的locale语言设置下，Oracle Secure Global Desktop为所有UNIX平台的应用程序运行一个输入法（IM）程序。</p>
+<h2 id="SGD增强模块"><a href="#SGD增强模块" class="headerlink" title="SGD增强模块"></a>SGD增强模块</h2><p>SGD增强模块是Oracle Secure Global Desktop中一个软件组件，该组件能够安装在应用程序服务器上，当通过Oracle Secure Global Desktop显示和使用应用程序时提供如下增强机能：</p>
+<ul>
+<li>高级负载均衡</li>
+<li>客户端驱动器映射(只限于UNIX或者Linux平台)</li>
+<li>无缝窗口(只限于Windows平台)</li>
+<li>音频支持 (只限于UNIX或者Linux平台)</li>
+</ul>
+<p>下表列出了SGD增强模块支持的安装平台：</p>
+<p>TABLE 2. SGD增强模块支持的安装平台</p>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>支持的版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Microsoft Windows (64位)</td>
+<td>Windows Server 2008 R2, 2012 R2</td>
+</tr>
+<tr>
+<td>Oracle Solaris on SPARC platforms</td>
+<td>Solaris 10 8&#x2F;11 (update 10) or later<br>Solaris 11<br>Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Solaris on x86 platforms</td>
+<td>Solaris 10 8&#x2F;11 (update 10) or later<br>Solaris 11<br>Trusted Extensions versions of the above</td>
+</tr>
+<tr>
+<td>Oracle Linux (32位和64位)</td>
+<td>5<br>6</td>
+</tr>
+</tbody></table>
+<h2 id="SGD-Web服务器"><a href="#SGD-Web服务器" class="headerlink" title="SGD Web服务器"></a>SGD Web服务器</h2><p>SGD Web服务器由Apache Web服务器和一个Tomcat JavaServer Pages(JSP)容器组成，为使用Oracle Secure Global Desktop而预先进行了配置。</p>
+<p>TABLE 3. SGD Web服务器组件</p>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>SGD5.2中的组件版本</th>
+<th>SGD5.0中的组件版本</th>
+<th>SGD4.7中的组件版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Apache HTTP Server</td>
+<td>2.2.29</td>
+<td>2.2.24</td>
+<td>2.2.22</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td>1.0.1l</td>
+<td>1.0.0.k</td>
+<td>1.0.0.j</td>
+</tr>
+<tr>
+<td>mod_jk</td>
+<td>1.2.40</td>
+<td>1.2.37</td>
+<td>1.2.37</td>
+</tr>
+<tr>
+<td>Apache Jakarta Tomcat</td>
+<td>7.0.57</td>
+<td>7.0.37</td>
+<td>7.0.29</td>
+</tr>
+<tr>
+<td>Apache Axis</td>
+<td>1.4</td>
+<td>1.4</td>
+<td>1.4</td>
+</tr>
+</tbody></table>
+<p>Apache Web服务器中包含了所有标准Apache模块作为共享对象。</p>
+<p>Tomcat JSP容器中Java虚拟机（JVM）的最小堆内存配置是256MB。</p>
+<h2 id="支持的身份认证机制"><a href="#支持的身份认证机制" class="headerlink" title="支持的身份认证机制"></a>支持的身份认证机制</h2><p>对Oracle Secure Global Desktop用户作身份认证时支持如下的身份认证机制：</p>
+<ul>
+<li>轻量级目录访问协议(LDAP) v3</li>
+<li>Microsoft Active Directory</li>
+<li>Network Information Service (NIS)</li>
+<li>Microsoft Windows域</li>
+<li>RSA SecurID</li>
+<li>Web服务器认证(HTTP&#x2F;HTTPS 基本认证), 包含客户端证书的PKI</li>
+</ul>
+<h2 id="SGD-Gateway"><a href="#SGD-Gateway" class="headerlink" title="SGD Gateway"></a>SGD Gateway</h2><p>SGD Gateway是部署在隔离区（DMZ）中，Oracle Secure Global Desktop阵列之前的一个代理服务器。它使得Oracle Secure Global Desktop阵列能够部署在组织的内部网络之中。此外，在所有的连接到达阵列中Oracle Secure Global Desktop服务器之前，这些连接能够在DMZ中被认证。</p>
+<p>SGD Gateway负责管理HTTP连接的负载均衡，因此不再需要使用Oracle Secure Global Desktop中内置的JSP负载均衡页面。</p>
+<p>SGD Gateway由如下组件组成：</p>
+<ul>
+<li>*路由代理器 (Routing Proxy)*：是一个基于Java技术的应用程序，负责到Oracle Secure Global Desktop服务器的自适应网络协议(AIP)数据连接和Web Socket连接的路由功能。路由代理器的秘钥库中包含了SGD Gateway安全连接的证书和私钥。路由代理器使用路由令牌来管理AIP连接。路由令牌是一条经过签名和加密的信息，该令牌能够识别到Oracle Secure Global Desktop服务器路由的原地址和目的地址。</li>
+<li>*反向代理器 (Reverse Proxy)*：是一个Apache Web服务器，配置成反向代理模式。反向代理器也负责执行HTTP连接的负载均衡功能。</li>
+</ul>
+<p><img src="/img/post/SGD-Architecture.png" alt="Figure 2. 使用SGD Gateway的Oracle Secure Global Desktop部署实例" title="使用SGD Gateway的Oracle Secure Global Desktop部署实例"></p>
+<p>下表列出了受支持的SGD Gateway的安装平台：</p>
+<p>TABLE 4. 受支持的SGD Gateway的安装平台</p>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>支持的版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Oracle Solaris on SPARC platforms</td>
+<td>• Solaris 10 [至少版本 8&#x2F;11 (update 10)]<br>• Solaris 11</td>
+</tr>
+<tr>
+<td>Oracle Solaris on x86 platforms</td>
+<td>• Solaris 10 [至少版本 8&#x2F;11 (update 10)]<br>• Solaris 11</td>
+</tr>
+<tr>
+<td>Oracle Linux (仅64位)</td>
+<td>• 5 (至少版本5.8)<br>• 6 (至少版本 6.2)</td>
+</tr>
+</tbody></table>
+<p>默认情况下，SGD Gateway被配置成最大支持同时100个HTTP连接，同时512个自适应网络协议(AIP)连接和同时512个Web Socket连接。<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/documentation/sgd-193668.html">《Oracle Secure Global Desktop 管理指南》</a>的<code>Appendix C</code>中详细描述了如何对SGD Gateway进行调整以支持相应数量的用户。</p>
+<p>Oracle Secure Global Desktop 服务器与SGD Gateway整合部署时，有如下需求：</p>
+<ul>
+<li>安全模式：默认情况下，SGD Gateway使用安全连接连接到Oracle Secure Global Desktop服务器。因此必须在Oracle Secure Global Desktop服务器上开启安全连接。不能开启防火墙转发功能。</li>
+<li>整合模式：在整合模式下，Oracle Secure Global Desktop客户端不能配置成连接到Oracle Secure Global Desktop服务器。</li>
+<li>Oracle Secure Global Desktop版本：最好使用与SGD Gateway相同版本（或高版本）的Oracle Secure Global Desktop服务器。</li>
+<li>时钟同步：Oracle Secure Global Desktop服务器与SGD Gateway的系统时钟同步非常重要。请使用Network Time Protocol (NTP) 或者 <code>rdate</code> 命令来保证时钟同步。</li>
+</ul>
+<p>随SGD Gateway提供的Apache Web服务器版本是Apache 2.2.29。它包含了反向代理和负载均衡的标准Apache模块。这些模块作为动态共享对象（DSO）模块被安装进来。</p>
+<p>SGD Gateway支持如下SSL连接的加密方式：</p>
+<ul>
+<li>SSL_RSA_WITH_RC4_128_MD5</li>
+<li>SSL_RSA_WITH_RC4_128_SHA</li>
+<li>TLS_RSA_WITH_AES_128_CBC_SHA</li>
+<li>TLS_RSA_WITH_AES_256_CBC_SHA</li>
+<li>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</li>
+<li>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</li>
+<li>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</li>
+<li>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</li>
+<li>SSL_RSA_WITH_3DES_EDE_CBC_SHA</li>
+<li>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</li>
+<li>SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA</li>
+</ul>
+<p>也支持如下的加密方式，但是这些方式必须由用户来配置，请参考<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/documentation/sgd-193668.html">《Oracle Secure Global Desktop 管理指南》</a>。</p>
+<ul>
+<li>SSL_RSA_WITH_DES_CBC_SHA</li>
+<li>SSL_DHE_RSA_WITH_DES_CBC_SHA</li>
+<li>SSL_DHE_DSS_WITH_DES_CBC_SHA</li>
+<li>SSL_RSA_EXPORT_WITH_RC4_40_MD5</li>
+<li>SSL_RSA_EXPORT_WITH_DES40_CBC_SHA</li>
+<li>SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA</li>
+<li>SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA</li>
+</ul>
+<h2 id="阵列的故障转移"><a href="#阵列的故障转移" class="headerlink" title="阵列的故障转移"></a>阵列的故障转移</h2><p>阵列是指一组共享配置信息的Oracle Secure Global Desktop服务器集合。</p>
+<p>由于阵列中的Oracle Secure Global Desktop服务器之间会共享关于用户会话以及应用程序会话的信息，所以在Oracle Secure Global Desktop主机之间功保持时钟同步很重要。请使用Network Time Protocol (NTP)软件或者<code>rdate</code>命令来保证所有Oracle Secure Global Desktop主机的时钟同步。</p>
+<p>Oracle Secure Global Desktop阵列的故障转移默认是未开启的。</p>
+<p>当阵列的故障转移启用时，在主服务器出现故障时，阵列会进行自我修复。</p>
+<p>在阵列故障转移中，阵列中的辅助服务器会自动提升为主服务器。</p>
+<p>在故障转移之后，Oracle Secure Global Desktop支持阵列的自动恢复。</p>
+<p>故障转移过程，及其随后的恢复到原来阵列状态的过程叫做<em>阵列回弹</em>。</p>
+<p>只有当要加入阵列的服务器时钟与阵列中其他服务器上的时钟同步时，才可以进行阵列添加操作。如果时间差超过1分钟的话，阵列添加操作会失败。</p>
+<h2 id="支持的Active-Directory版本"><a href="#支持的Active-Directory版本" class="headerlink" title="支持的Active Directory版本"></a>支持的Active Directory版本</h2><p>Active Directory认证和LDAP认证时，支持如下版本的Active Directory：</p>
+<ul>
+<li>Windows Server 2003</li>
+<li>Windows Server 2003 R2</li>
+<li>Windows Server 2008</li>
+<li>Windows Server 2008 R2</li>
+<li>Windows Server 2012</li>
+<li>Windows Server 2012 R2</li>
+<li>受支持的 LDAP 目录</li>
+</ul>
+<p>Oracle Secure Global Desktop支持标准LDAP协议 v3。可以使用与LDAP v3兼容的任何目录服务器来作LDAP身份认证。但是，Oracle Secure Global Desktop仅支持如下版本的目录服务器：</p>
+<ul>
+<li>Oracle Unified Directory 11gR1 (11.1.1.x), 11gR2 (11.1.2.x)</li>
+<li>Oracle Internet Directory 11gR1 (11.1.1.x), 11gR2 (11.1.2.x)</li>
+<li>Oracle Directory Server Enterprise Edition 11gR1 (11.1.1.x)</li>
+<li>以下Windows服务器版本中的Microsoft Active Directory：<ul>
+<li>2003</li>
+<li>2003 R2</li>
+<li>2008</li>
+<li>2008 R2</li>
+<li>2012</li>
+<li>2012 R2</li>
+</ul>
+</li>
+</ul>
+<p>其他目录服务器可能会正常工作，但是不被官方支持。</p>
+<h2 id="支持的SecurID版本"><a href="#支持的SecurID版本" class="headerlink" title="支持的SecurID版本"></a>支持的SecurID版本</h2><p>Oracle Secure Global Desktop可以与如下版本的RSA Authentication Manager (也就是之前的ACE&#x2F;Server)一起工作。</p>
+<ul>
+<li>7.1 SP2, 7.1 SP3, 7.1 SP4</li>
+<li>8.0, 8.1</li>
+</ul>
+<p>Oracle Secure Global Desktop支持系统生成的PIN和用户创建的PIN。</p>
+<h2 id="支持的Oracle-Identity-Management"><a href="#支持的Oracle-Identity-Management" class="headerlink" title="支持的Oracle Identity Management"></a>支持的Oracle Identity Management</h2><p>Oracle Secure Global Desktop可以与如下版本的Oracle Identity Management一起工作:</p>
+<ul>
+<li>Oracle Identity Management 11gR2 (11.1.2.x)</li>
+</ul>
+<h2 id="SSL支持"><a href="#SSL支持" class="headerlink" title="SSL支持"></a>SSL支持</h2><p>Oracle Secure Global Desktop支持TLS版本1.0，1.1以及1.2。</p>
+<p>Oracle Secure Global Desktop支持Privacy Enhanced Mail (PEM) Base 64-encoded X.509证书。这种证书的结构如下：</p>
+<pre><code>-----BEGIN CERTIFICATE-----
+...certificate...
+-----END CERTIFICATE-----
+</code></pre>
+<p>Oracle Secure Global Desktop支持SSL证书的Subject Alternative Name(<code>subjectAltName</code>)扩展。</p>
+<p>Oracle Secure Global Desktop也支持使用 <code>*</code>通配符来匹配域名的开始部分，例如，<code>*.example.com</code>。</p>
+<p>Oracle Secure Global Desktop包含了对很多认证机构（CA）的支持。</p>
+<p>在<code>/opt/tarantella/etc/data/cacerts.txt</code>文件中包含了SGD支持的所有CA证书的X.500 Distinguished Names (DNs) 和 MD5签名。对于未支持的CA签发的SSL证书，需要做额外的配置才能被支持。中级CA机构也是受支持的，但是如果认证链中的存在任何由未支持CA签发的证书，就需要做额外的配置。</p>
+<p>Oracle Secure Global Desktop支持使用外部硬件SSL加速器，但是需要额外的配置。</p>
+<p>Oracle Secure Global Desktop支持如下加密方式：</p>
+<ul>
+<li>RSA_WITH_AES_256_CBC_SHA</li>
+<li>RSA_WITH_AES_128_CBC_SHA</li>
+<li>RSA_WITH_3DES_EDE_CBC_SHA</li>
+<li>RSA_WITH_RC4_128_SHA</li>
+<li>RSA_WITH_RC4_128_MD5</li>
+<li>RSA_WITH_DES_CBC_SHA</li>
+</ul>
+<h2 id="SGD-客户端"><a href="#SGD-客户端" class="headerlink" title="SGD 客户端"></a>SGD 客户端</h2><p>下表列出了SGD客户端支持的客户端平台。同时也包含了在整合模式下使用SGD客户端时，受支持的浏览器和操作系统平台。</p>
+<p>TABLE 6. 受支持的客户端平台</p>
+<table>
+<thead>
+<tr>
+<th>受支持的客户端平台</th>
+<th>受支持的浏览器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Microsoft Windows 8, 8.1 (32位和64位)仅限桌面模式</td>
+<td>Internet Explorer 10, 11<br>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Microsoft Windows 7 (32位和64位)</td>
+<td>Internet Explorer 10, 11<br>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Solaris (x86 and SPARC platforms):<br>Solaris 10 8&#x2F;11 (update 10) or later<br>Solaris 11</td>
+<td>Mozilla Firefox</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Linux (32位和64位):<br>Oracle Linux 5<br>Oracle Linux 6</td>
+<td>Mozilla Firefox<br>Chrome</td>
+</tr>
+<tr>
+<td>Oracle Linux (32位和64位):<br>Oracle Linux 5<br>Oracle Linux 6</td>
+<td>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Ubuntu Linux 12.04, 14.04 (32位和64位)</td>
+<td>Mozilla Firefox 31.5 ESR, 34<br>Chrome</td>
+</tr>
+<tr>
+<td>Mac OS X 10.9, 10.10</td>
+<td>Safari 7, 8<br>Mozilla Firefox<br>Chrome</td>
+</tr>
+<tr>
+<td>Apple iPad on: <br>iOS 7<br>iOS 8</td>
+<td>Safari</td>
+</tr>
+<tr>
+<td>Google Nexus 7 and Google Nexus 10 on:<br>Android 4.0.3 and later<br>Android 5</td>
+<td>Chrome</td>
+</tr>
+<tr>
+<td>Acer Chromebook and HP Chromebook on:<br>Chrome OS 38.0</td>
+<td>Chrome</td>
+</tr>
+</tbody></table>
+<p>无论是在Mac OS X上还是iPad客户端设备上，Oracle Secure Global Desktop的管理员控制台都不支持Safari浏览器。</p>
+<p>不支持测试版或者预览版的浏览器。</p>
+<p>浏览器中必须启用JavaScript支持，必须能接受cookie。</p>
+<p>在桌面环境中，为了支持如下机能，浏览器还必须启用对Java技术的支持：</p>
+<ul>
+<li>SGD客户端的自动下载和安装</li>
+<li>从用户默认的浏览器中获取代理服务器设置</li>
+</ul>
+<p>如果Java技术不可用的话，可以手动下载和安装SGD客户端。手动安装包在所有支持的客户端平台下都可以使用。</p>
+<p>作为Java技术的插件，支持的版本是1.7和1.8。</p>
+<p>在使用如iPad的平板设备时，Oracle Secure Global Desktop使用了基于HTML5的客户端来显示应用程序和桌面，这时会在一个新的标签页中显示（比如，在Safari浏览器中）。Oracle Secure Global Desktop的工作区也可以通过Safari浏览器来访问。</p>
+<p>当用户在同一设备和浏览器上开启多个用户会话时，用户会话会进行合并，而不是用新会话顶替现有会话。对于这种用户会话的参与方式，浏览器必须配置为接受永久cookie。如果不允许永久cookie的话，用户会话总会被关闭，这会导致应用程序窗口消失。</p>
+<p>为了最佳的效果，客户端设备必须配置成至少上千种色。</p>
+<p>SGD客户端和工作区支持如下多国语言：</p>
+<ul>
+<li>English</li>
+<li>French</li>
+<li>German</li>
+<li>Italian</li>
+<li>Japanese</li>
+<li>Korean</li>
+<li>Portuguese (Brazilian)</li>
+<li>Spanish</li>
+<li>简体中文</li>
+<li>繁体中文</li>
+</ul>
+<h2 id="支持的代理服务器"><a href="#支持的代理服务器" class="headerlink" title="支持的代理服务器"></a>支持的代理服务器</h2><p>在通过代理服务器连接到Oracle Secure Global Desktop时，代理服务器必须支持隧道功能。可以使用HTTP，Secure (SSL)或者SOCKS v5的代理服务器。对于SOCKS v5的代理服务器来说，Oracle Secure Global Desktop支持基本认证和No Authentication Required方式。在服务器端无需任何配置。</p>
+<h2 id="打印支持"><a href="#打印支持" class="headerlink" title="打印支持"></a>打印支持</h2><p>Oracle Secure Global Desktop支持两种打印方式：PDF打印和打印机直接打印。</p>
+<ul>
+<li>对于PDF打印来说，Oracle Secure Global Desktop使用Ghostscript来把打印任务转换为PDF格式的文件。Ghostscript的发行版中必须包含ps2pdf程序。为保证最佳效果，请安装最新版本的Ghostscript。</li>
+<li>Oracle Secure Global Desktop支持客户端设备上的如PostScript，Printer Command Language (PCL)以及纯文本打印机的直接打印。Oracle Secure Global Desktop的<code>tta_print_converter</code> 脚本会为客户端打印机正确地格式化打印任务。<code>tta_print_converter</code> 脚本使用Ghostscript把Postscript转化成PCL。为支持这种转换过程，Oracle Secure Global Desktop服务器上必须先安装Ghostscript。为了保证最佳效果，请下载和安装其他需要的字体。</li>
+</ul>
+<p>为了使用PDF打印，在客户端设备上必须安装PDF查看器。Oracle Secure Global Desktop默认支持如下PDF查看器:</p>
+<p>TABLE 7. 受支持的PDF查看器</p>
+<table>
+<thead>
+<tr>
+<th>客户端平台</th>
+<th>默认的PDF查看器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Microsoft Windows platforms</td>
+<td>Adobe Reader, 至少版本4.0</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Solaris (SPARC platforms)</td>
+<td>GNOME PDF Viewer (<strong>gpdf</strong>)<br>Adobe Reader (<strong>acroread</strong>)</td>
+</tr>
+<tr>
+<td>Sun Ray Software on Oracle Solaris (x86 platforms)</td>
+<td>GNOME PDF Viewer (<strong>gpdf</strong>)</td>
+</tr>
+<tr>
+<td>Oracle Linux</td>
+<td>GNOME PDF Viewer (<strong>gpdf</strong>)<br>Evince Document Viewer (<strong>evince</strong>)<br>X PDF Reader (<strong>xpdf</strong>)</td>
+</tr>
+<tr>
+<td>Mac OS X</td>
+<td>Preview App (<strong>&#x2F;Applications&#x2F;Preview.app</strong>)</td>
+</tr>
+</tbody></table>
+<p>在Windows应用程序服务器上默认的PDF打印驱动是<em>HP Color LaserJet 2800 Series PS</em>。在平板设备上，会使用浏览器插件来显示PDF文件。</p>
+<h2 id="支持的智能卡"><a href="#支持的智能卡" class="headerlink" title="支持的智能卡"></a>支持的智能卡</h2><p>Oracle Secure Global Desktop中可以使用与任何Microsoft远程桌面服务支持的，与PC智能卡(PC&#x2F;SC)兼容的智能卡和读卡器。</p>
+<h2 id="附录1：Oracle-Secure-Global-Desktop整体构架图"><a href="#附录1：Oracle-Secure-Global-Desktop整体构架图" class="headerlink" title="附录1：Oracle Secure Global Desktop整体构架图"></a>附录1：Oracle Secure Global Desktop整体构架图</h2><p><img src="/img/post/SGD-Architecture-details.png" alt="Oracle Secure Global Desktop整体构架图" title="Oracle Secure Global Desktop整体构架图"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/sgd/">sgd</a><a href="/tags/aip/">aip</a><a href="/tags/部署/">部署</a><a href="/tags/sizing/">sizing</a><a href="/tags/应用程序供应/">应用程序供应</a><a href="/tags/application-provision/">application provision</a><a href="/tags/ssh/">ssh</a><a href="/tags/rdp/">rdp</a><a href="/tags/配置/">配置</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2015/05/13/Oracle%20Secure%20Global%20Desktop%20%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91%E4%BA%8B%E9%A1%B9/" data-title="Oracle Secure Global Desktop 部署考虑事项 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/19/永久关闭Adobe Acrobat Reader DC右侧的侧边栏/" title="永久关闭Adobe Acrobat Reader DC右侧的侧边栏">
+  <strong>上一篇：</strong><br/>
+  <span>
+  永久关闭Adobe Acrobat Reader DC右侧的侧边栏</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/08/Oracle Secure Global Desktop介绍/"  title="Oracle Secure Global Desktop (SGD) 介绍">
+ <strong>下一篇：</strong><br/> 
+ <span>Oracle Secure Global Desktop (SGD) 介绍
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%B1%A5%E5%8E%86"><span class="toc-number">1.</span> <span class="toc-text">更新履历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82%E5%92%8C%E6%94%AF%E6%8C%81"><span class="toc-number">3.</span> <span class="toc-text">系统要求和支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%94%AF%E6%8C%81"><span class="toc-number">4.</span> <span class="toc-text">虚拟化支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%92%8C%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.</span> <span class="toc-text">支持的应用程序和协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%9C%80%E6%B1%82"><span class="toc-number">6.</span> <span class="toc-text">网络需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Microsoft-Windows-%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%9C%8D%E5%8A%A1"><span class="toc-number">7.</span> <span class="toc-text">Microsoft Windows 远程桌面服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#X%E5%92%8C%E5%AD%97%E7%AC%A6%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">8.</span> <span class="toc-text">X和字符应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD%E5%A2%9E%E5%BC%BA%E6%A8%A1%E5%9D%97"><span class="toc-number">9.</span> <span class="toc-text">SGD增强模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD-Web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">10.</span> <span class="toc-text">SGD Web服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-number">11.</span> <span class="toc-text">支持的身份认证机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD-Gateway"><span class="toc-number">12.</span> <span class="toc-text">SGD Gateway</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B5%E5%88%97%E7%9A%84%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="toc-number">13.</span> <span class="toc-text">阵列的故障转移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84Active-Directory%E7%89%88%E6%9C%AC"><span class="toc-number">14.</span> <span class="toc-text">支持的Active Directory版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84SecurID%E7%89%88%E6%9C%AC"><span class="toc-number">15.</span> <span class="toc-text">支持的SecurID版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84Oracle-Identity-Management"><span class="toc-number">16.</span> <span class="toc-text">支持的Oracle Identity Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL%E6%94%AF%E6%8C%81"><span class="toc-number">17.</span> <span class="toc-text">SSL支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SGD-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">18.</span> <span class="toc-text">SGD 客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">19.</span> <span class="toc-text">支持的代理服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E6%94%AF%E6%8C%81"><span class="toc-number">20.</span> <span class="toc-text">打印支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E6%99%BA%E8%83%BD%E5%8D%A1"><span class="toc-number">21.</span> <span class="toc-text">支持的智能卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%951%EF%BC%9AOracle-Secure-Global-Desktop%E6%95%B4%E4%BD%93%E6%9E%84%E6%9E%B6%E5%9B%BE"><span class="toc-number">22.</span> <span class="toc-text">附录1：Oracle Secure Global Desktop整体构架图</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

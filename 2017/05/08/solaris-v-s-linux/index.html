@@ -1,0 +1,1456 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>Solaris和Linux的比较、区别、异同云云。。。 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="关于Solaris与Linux，特别是Red Hat Enterprise Linux (RHEL)的比较，是一个很老很老的话题，网上也有一大把的资料。今天这篇文章里面，就把我收集到的资料做个汇总，整理一下，作为日后参考。 前提如不特殊说明，接下来提到的：  Linux是指 Red Hat Enterprise Linux 6.x 和 Red Hat Enterprise Linux 7.x S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solaris和Linux的比较、区别、异同云云。。。">
+<meta property="og:url" content="http://xintq.net/2017/05/08/solaris-v-s-linux/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="关于Solaris与Linux，特别是Red Hat Enterprise Linux (RHEL)的比较，是一个很老很老的话题，网上也有一大把的资料。今天这篇文章里面，就把我收集到的资料做个汇总，整理一下，作为日后参考。 前提如不特殊说明，接下来提到的：  Linux是指 Red Hat Enterprise Linux 6.x 和 Red Hat Enterprise Linux 7.x S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/solaris-svcs.png">
+<meta property="og:image" content="http://xintq.net/img/post/solaris-zfs01.png">
+<meta property="og:image" content="http://xintq.net/img/post/solaris-slice.png">
+<meta property="og:image" content="http://xintq.net/img/post/docker-solariszone.png">
+<meta property="og:image" content="http://xintq.net/img/post/kvm-ovm.png">
+<meta property="article:published_time" content="2017-05-08T09:40:15.000Z">
+<meta property="article:modified_time" content="2017-05-09T02:44:00.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="redhat">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="solaris">
+<meta property="article:tag" content="rhel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/solaris-svcs.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/08/solaris-v-s-linux/" title="Solaris和Linux的比较、区别、异同云云。。。" itemprop="url">Solaris和Linux的比较、区别、异同云云。。。</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-08T09:40:15.000Z" itemprop="datePublished"> 发表于 2017-05-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E5%92%8C%E5%85%B3%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">系统启动和关机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">系统启动流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux"><span class="toc-number">3.1.1.</span> <span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris"><span class="toc-number">3.2.</span> <span class="toc-text">Solaris</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%85%B3%E6%9C%BA%E5%92%8C%E9%87%8D%E5%90%AF"><span class="toc-number">3.3.</span> <span class="toc-text">系统关机和重启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86"><span class="toc-number">3.4.</span> <span class="toc-text">启动环境管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">软件包管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris%E4%B8%AD%E7%99%BB%E9%99%86%E6%97%B6%E7%9A%84%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-number">5.1.</span> <span class="toc-text">Solaris中登陆时的用户身份认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F"><span class="toc-number">5.2.</span> <span class="toc-text">用户密码的有效期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84shell"><span class="toc-number">5.4.</span> <span class="toc-text">修改默认的shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">网络管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-number">6.1.</span> <span class="toc-text">各个命令的说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris-1"><span class="toc-number">6.1.1.</span> <span class="toc-text">Solaris</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-1"><span class="toc-number">6.1.2.</span> <span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%91%BD%E4%BB%A4%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">6.2.</span> <span class="toc-text">各个命令的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BD%91%E5%8D%A1%E6%8E%A5%E5%8F%A3%E5%92%8C%E8%AE%BE%E7%BD%AEIP%E5%9C%B0%E5%9D%80"><span class="toc-number">6.2.1.</span> <span class="toc-text">创建网卡接口和设置IP地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BAIP%E5%9C%B0%E5%9D%80"><span class="toc-number">6.2.2.</span> <span class="toc-text">显示IP地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris%E4%B8%AD%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">6.2.3.</span> <span class="toc-text">Solaris中配置网络的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris%E4%B8%8B%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A-IPMP"><span class="toc-number">6.2.4.</span> <span class="toc-text">Solaris下网卡绑定 - IPMP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">6.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">7.</span> <span class="toc-text">后台服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RHEL6"><span class="toc-number">7.1.</span> <span class="toc-text">RHEL6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RHEL7"><span class="toc-number">7.2.</span> <span class="toc-text">RHEL7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris-2"><span class="toc-number">7.3.</span> <span class="toc-text">Solaris</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">7.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%AD%98%E5%82%A8"><span class="toc-number">8.</span> <span class="toc-text">文件系统和存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E7%9A%84%E5%8D%B7%E7%AE%A1%E7%90%86-LVM"><span class="toc-number">8.1.</span> <span class="toc-text">Linux的卷管理 - LVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris%E7%9A%84%E5%8D%B7%E7%AE%A1%E7%90%86-ZFS"><span class="toc-number">8.2.</span> <span class="toc-text">Solaris的卷管理 - ZFS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ZFS%E7%9A%84%E5%BF%AB%E7%85%A7%EF%BC%88Snapshot%EF%BC%89%E5%8A%9F%E8%83%BD"><span class="toc-number">8.2.1.</span> <span class="toc-text">ZFS的快照（Snapshot）功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZFS%E5%91%BD%E4%BB%A4"><span class="toc-number">8.2.2.</span> <span class="toc-text">ZFS命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-number">8.3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%851-Solaris%E7%9A%84%E5%8D%B7%E6%A0%87%E5%92%8C%E8%AE%BE%E5%A4%87%E8%B7%AF%E5%BE%84"><span class="toc-number">8.4.</span> <span class="toc-text">补充1 - Solaris的卷标和设备路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%852-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-number">8.5.</span> <span class="toc-text">补充2 - 磁盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%853-%E6%8C%82%E8%BD%BDISO%E6%96%87%E4%BB%B6"><span class="toc-number">8.6.</span> <span class="toc-text">补充3 - 挂载ISO文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%854-Solaris%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9E%84%E6%88%90"><span class="toc-number">8.7.</span> <span class="toc-text">补充4 - Solaris的文件系统构成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E8%A7%86"><span class="toc-number">9.</span> <span class="toc-text">系统监视</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="toc-number">9.1.</span> <span class="toc-text">日志文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E8%A7%86%E5%91%BD%E4%BB%A4"><span class="toc-number">9.2.</span> <span class="toc-text">系统监视命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">10.</span> <span class="toc-text">虚拟化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E4%B8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">10.1.</span> <span class="toc-text">Linux下的虚拟化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker"><span class="toc-number">10.1.1.</span> <span class="toc-text">Docker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KVM"><span class="toc-number">10.1.2.</span> <span class="toc-text">KVM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris%E4%B8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">10.2.</span> <span class="toc-text">Solaris下的虚拟化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris-Zone"><span class="toc-number">10.2.1.</span> <span class="toc-text">Solaris Zone</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Oracle-VM-Server-for-SPARC"><span class="toc-number">10.2.2.</span> <span class="toc-text">Oracle VM Server for SPARC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E4%B8%80%E4%B8%8B"><span class="toc-number">10.3.</span> <span class="toc-text">比较一下</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker%E5%92%8CSolaris-Zone"><span class="toc-number">10.3.1.</span> <span class="toc-text">Docker和Solaris Zone</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KVM%E5%92%8COracle-VM-Server-for-SPARC"><span class="toc-number">10.3.2.</span> <span class="toc-text">KVM和Oracle VM Server for SPARC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">10.4.</span> <span class="toc-text">虚拟环境下的命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%EF%BC%8C%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8"><span class="toc-number">10.4.1.</span> <span class="toc-text">Docker：创建容器，删除容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris-Zone-%E5%88%9B%E5%BB%BAzone%EF%BC%8C%E5%88%A0%E9%99%A4zone"><span class="toc-number">10.4.2.</span> <span class="toc-text">Solaris Zone: 创建zone，删除zone</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KVM%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%8C%E5%85%B3%E9%97%AD%E5%AE%A2%E6%88%B7%E6%9C%BA"><span class="toc-number">10.4.3.</span> <span class="toc-text">KVM：创建客户机操作系统，关闭客户机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Oracle-VM-Server-for-SPARC-DomU%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD"><span class="toc-number">10.4.4.</span> <span class="toc-text">Oracle VM Server for SPARC: DomU的创建和关闭</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">11.</span> <span class="toc-text">参考文档</span></a></li></ol>
+		
+		</div>
+		
+		<p>关于Solaris与Linux，特别是Red Hat Enterprise Linux (RHEL)的比较，是一个很老很老的话题，网上也有一大把的资料。今天这篇文章里面，就把我收集到的资料做个汇总，整理一下，作为日后参考。</p>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>如不特殊说明，接下来提到的：</p>
+<ul>
+<li>Linux是指 <code>Red Hat Enterprise Linux 6.x</code> 和 <code>Red Hat Enterprise Linux 7.x</code></li>
+<li>Solaris是指 <code>Oracle Solaris 11.3</code></li>
+</ul>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>曾经以为Solaris和Linux可以使用同样的命令，基本没什么差别，直到碰到下面的问题。。。</p>
+<ul>
+<li>重启Solaris系统的正确命令是什么？</li>
+<li>想修改一下系统的IP地址，怎么搞？</li>
+<li>想看看某一个服务起没起来？</li>
+<li>ZFS又是什么东东？</li>
+<li>怎么搞虚拟环境？</li>
+<li>……</li>
+</ul>
+<p>如果你对上面的问题的答案还不是很有把握，那么请继续往下看吧。</p>
+<h2 id="系统启动和关机"><a href="#系统启动和关机" class="headerlink" title="系统启动和关机"></a>系统启动和关机</h2><p>这里不得不先说一下运行级别（runlevel）。其实RHEL6和Solaris都定义了0~6的运行级别(准确的说Solaris中有8个运行级别)，但每个运行级别的含义是不一样的。而从RHEL7开始，不再提运行级别，变成了target。三者具体比较如下表:</p>
+<table>
+<thead>
+<tr>
+<th>运行级别</th>
+<th>RHEL7的target</th>
+<th>Linux中的含义</th>
+<th>Solaris中的含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>poweroff.target</td>
+<td>关掉电源</td>
+<td>电源关闭状态</td>
+<td>-</td>
+</tr>
+<tr>
+<td>s（或者S）</td>
+<td>-</td>
+<td>-</td>
+<td>单用户模式</td>
+<td>-</td>
+</tr>
+<tr>
+<td>1</td>
+<td>rescue.target</td>
+<td>单用户模式</td>
+<td>管理状态</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>-</td>
+<td>未使用</td>
+<td>多用户状态</td>
+<td>无NFS服务</td>
+</tr>
+<tr>
+<td>3</td>
+<td>multi-user.target</td>
+<td>多用户模式</td>
+<td>共享 NFS 资源的多用户级别</td>
+<td>Solaris默认</td>
+</tr>
+<tr>
+<td>4</td>
+<td>-</td>
+<td>未使用</td>
+<td>替换多用户状态</td>
+<td>在缺省情况下未配置，但是可供客户使用</td>
+</tr>
+<tr>
+<td>5</td>
+<td>graphical.target</td>
+<td>X Window</td>
+<td>电源关闭状态</td>
+<td>Linux默认</td>
+</tr>
+<tr>
+<td>6</td>
+<td>reboot.target</td>
+<td>系统重启</td>
+<td>重新引导状态</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>对于上表，只需记住Solaris中 <strong>0是关机，s是单用户，3是多用户，5是断电，6是重启</strong>。</p>
+<h3 id="系统启动流程"><a href="#系统启动流程" class="headerlink" title="系统启动流程"></a>系统启动流程</h3><h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><ul>
+<li><p>RHEL6</p>
+<ol>
+<li>加载BIOS，取得第一个启动设备</li>
+<li>读取MBR（硬盘第0磁道第一扇区），读入预启动信息和分区表，启动Boot Loader: GRUB</li>
+<li>根据GRUB的设置<code>/boot/grub/grub.cfg</code>加载内核，内核开始检测和加载驱动程序</li>
+<li>内核主动调用<code>/sbin/init</code>进程，进入用户层，init会通过<code>/etc/inittab</code>取得runlevel信息</li>
+<li>init执行<code>/etc/rc.d/rc.sysinit</code>脚本，该脚本会设定PATH变量，配置网络，激活swap分区，设定&#x2F;proc，挂载文件系统等等，并准备软件的运行环境</li>
+<li>init根据<code>/etc/modules.conf</code>和<code>/etc/modules.d</code>来装载内核模块</li>
+<li>init <strong>依次执行</strong> 与当前runlevel对应的脚本(rc0.d~rc6.d)以启动服务</li>
+<li>init执行<code>/etc/rc.d/rc.local</code>，完成用户自定义的初始化脚本</li>
+<li>执行<code>/bin/login</code>，等待用户登陆</li>
+</ol>
+</li>
+<li><p>RHEL7</p>
+<ol>
+<li>加载BIOS，取得第一个启动设备</li>
+<li>读取MBR（硬盘第0磁道第一扇区），读入预启动信息和分区表，启动Boot Loader: GRUB2</li>
+<li>根据GRUB2的设置<code>/boot/grub2/grub.cfg</code>加载内核以及initramfs，初始化initramfs中的硬件</li>
+<li>内核主动调用<code>systemd</code>的初始化进程<code>/sbin/init</code>（指向<code>/lib/systemd/systemd</code>的软链接），systemd通过执行<code>/usr/lib/systemd/system/initrd.target</code>，实例化initramfs（包括挂载root文件系统到<code>/sysroot</code>）</li>
+<li>内核root文件系统从initramfs切换到正常的文件系统（<code>/sysroot.systemd</code>）</li>
+<li>systemd根据<code>/etc/systemd/system/default.target</code>软链接的指向，来启动到对应的运行级别</li>
+<li>systemd会自动解决启动单元之间的依赖关系，挂载文件系统，<strong>按需并发</strong> 启动各个服务</li>
+<li>systemd执行<code>/bin/login</code>，等待用户登陆</li>
+</ol>
+</li>
+</ul>
+<h3 id="Solaris"><a href="#Solaris" class="headerlink" title="Solaris"></a>Solaris</h3><p>为简单起见，只分析x86&#x2F;64平台下，从磁盘设备的启动流程：</p>
+<ol>
+<li>开机通电</li>
+<li>BIOS进行硬件自检和初始化，用户可以修改BIOS设置，并设置启动设备</li>
+<li>因为从磁盘启动，所以会加载MBR，运行设备上的启动器，即GRUB Stage 1，在Linux上可以选择其他的启动器，但是在Solaris上，只能是GRUB。GRUB Stage 1会定位到Stage 2，并运行之</li>
+<li>显示启动界面，列出GRUB配置文件<code>/boot/grub/grub.cfg</code>中定义的各个启动环境，特别是使用ZFS的话，往往会有多个不同的启动环境(BE, boot environment)。此时，用户可以选择或者编辑启动菜单，修改启动选项等等。注意，在Solaris中的GRUB已经被改进以支持从ZFS启动</li>
+<li>GRUB加载引导归档文件，装入并执行内核</li>
+<li>识别并导入根池（<code>rpool</code>）：如果可用，从固件可访问设备导入根池；否则，标识根池路径，确认引导归档文件和根池OS实例匹配，然后导入根池</li>
+<li>挂载根文件系统（<code>/</code>）</li>
+<li>内核运行<code>/sbin/init</code>进程，init进程启动，并读取 <code>svc:/system/environment:init</code> SMF 服务中定义的属性，以设置任何环境变量。缺省情况下，仅设置 TIMEZONE 变量</li>
+<li>init会从运行级别（runlevel）1开始，<strong>依次运行（s –&gt; 1 –&gt; 2 –&gt; 3）</strong> 到指定的运行级别。在 <code>/etc/inittab</code> 文件中，缺省的运行级别指定为运行级别 3</li>
+<li>系统引导到多用户状态（运行级别 3）时，init 读取 <code>/etc/inittab</code> 文件并执行下列操作：<ul>
+<li>执行 action 字段中包含 sysinit 的所有进程项，以便在用户登录系统之前执行所有特殊的初始化</li>
+<li>启动<code>svc.configd</code>和<code>svc.startd</code>，并将启动活动传递到 <code>svc.startd</code></li>
+</ul>
+</li>
+<li><code>svc.startd</code> 启动各个服务</li>
+<li>init执行<code>/bin/login</code>，等待用户登陆</li>
+</ol>
+<h3 id="系统关机和重启"><a href="#系统关机和重启" class="headerlink" title="系统关机和重启"></a>系统关机和重启</h3><p>RHEL6：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># shutdown -h now     -- 关机</span></span><br><span class="line"><span class="comment"># shutdown -r now     -- 重启</span></span><br></pre></td></tr></table></figure>
+
+<p>RHEL7中也可以继续使用上面的命令，但是推荐使用<code>systemctl</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># systemctl poweroff    -- 关机</span></span><br><span class="line"><span class="comment"># systemctl reboot      -- 重启</span></span><br></pre></td></tr></table></figure>
+
+<p>而在Solaris中，也有一个 <code>shutdown</code>命令，但是选项变了。比如：</p>
+<ul>
+<li><code>-g</code> 用来指定多少秒之后关机</li>
+<li><code>-i</code> 用来指定是执行关机命令还是重启命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># shutdown -y -g0 -i5   -- 关机</span></span><br><span class="line"><span class="comment"># shutdown -y -g0 -i6   -- 重启</span></span><br></pre></td></tr></table></figure>
+
+<p>总结起来，就是下面这张表:</p>
+<table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>RHEL6</th>
+<th>RHEL7</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动</td>
+<td>从GRUB菜单启动</td>
+<td>从GRUB2菜单启动</td>
+<td>从OPB环境中执行启动命令 <br/> <code>&#123;0&#125; ok boot</code></td>
+</tr>
+<tr>
+<td>启动到单用户模式</td>
+<td>修改启动选项 <br/> kernel &#x2F;vmlinuz-… root&#x3D;…1</td>
+<td>修改启动选项<br/> systemd.unit&#x3D;rescue.target</td>
+<td>从OPB环境中启动到单用户模式<br/>{0} ok boot -s</td>
+</tr>
+<tr>
+<td>关机</td>
+<td>shutdown -h now</td>
+<td>systemctl poweroff</td>
+<td>shutdown -y -g0 -i5</td>
+</tr>
+<tr>
+<td>重启</td>
+<td>shutdown -r now</td>
+<td>systemctl reboot</td>
+<td>shutdown -y -g0 -i6</td>
+</tr>
+<tr>
+<td>其他实例</td>
+<td>在10点关机： shutdown -h 10:00 <br/> 5分钟后关机：shutdown -h +5</td>
+<td>系统挂起： systemctl suspend <br/> 系统休眠： systemctl hibernate</td>
+<td>从网络启动： {ok} boot net:dhcp <br/> 30秒后重启：shutdown -y -g30 -i6</td>
+</tr>
+</tbody></table>
+<h3 id="启动环境管理"><a href="#启动环境管理" class="headerlink" title="启动环境管理"></a>启动环境管理</h3><p>在Linux中，通过GRUB可以选择系统升级之前的旧版本内核启动，以实现一台机器有多个启动环境的功能。而在Solaris中，对应的功能就叫做BE（Boot Environment)。BE被用来创建，删除，复制启动环境。Solaris BE通过下面的步骤来管理启动环境：</p>
+<ul>
+<li>获取现有的启动环境BE0的一个快照（snapshot），创建新的启动环境BE1。由于BE0和BE1使用的是快照，指向同一块存储区域，新的启动环境BE1并不会占用存储空间</li>
+<li>系统重启后，选择BE1启动，就可以切换到新的启动环境BE1中。现在BE1处于激活状态，在这个环境下的数据更新会消耗BE1指向的存储空间</li>
+<li>这时可以重启，切换回数据更新之前的BE0环境</li>
+</ul>
+<p>如何通过BE恢复系统呢？举个例子：</p>
+<p>假如已经进入系统中，先在BE中确认当前BE名称。注意 <code>solaris-2</code>这个环境中，状态为<code>NR</code>，其中<code>N</code>表示现在的启动环境，<code>R</code>表示下次的启动环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># beadm list</span></span><br><span class="line">BE                 Active Mountpoint Space   Policy  Created</span><br><span class="line">--                 ------ ---------- ------  ------- -------</span><br><span class="line">solaris-1          -      -          9.67M   static  2017-05-03 15:28</span><br><span class="line">solaris-2          NR     /          3.82G   static  2017-05-03 16:02</span><br></pre></td></tr></table></figure>
+
+<p>选择更新前<code>solaris-1</code>环境，重启系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># beadm activate solaris-1</span></span><br><span class="line"><span class="comment"># shutdown -y -g0 -i6</span></span><br></pre></td></tr></table></figure>
+
+<p>再假如还没有进入系统，在OBP上指定BE启动的话，先用<code>boot -L</code>命令在OBP中参看可用的BE，并选择更新前的BE。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;0&#125; ok boot -L</span><br><span class="line">Boot device: /virtual-devices@100/channel-devices@200/disk@1 File and args: -L</span><br><span class="line">1 solaris-1</span><br><span class="line">2 solaris-2</span><br><span class="line">Select environment to boot: [ 1 - 2 ]:1</span><br></pre></td></tr></table></figure>
+
+<p>输入启动命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;0&#125; ok boot -Z rpool/ROOT/solaris-1</span><br></pre></td></tr></table></figure>
+
+<h2 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h2><p>Linux和Solaris的软件包管理原理基本相同，可以从安装介质中直接获取安装包，也可以从提供商的软件仓库中通过网络安装软件包。总结起来就是下面这张表：</p>
+<table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检查更新</td>
+<td>yum check-update</td>
+<td>pkg update -nv</td>
+</tr>
+<tr>
+<td>更新软件包</td>
+<td>yum update 软件包名称</td>
+<td>pkg update 软件包名称</td>
+</tr>
+<tr>
+<td>更新全部</td>
+<td>yum update</td>
+<td>pkg update</td>
+</tr>
+<tr>
+<td>安装</td>
+<td>yum install 软件包名称</td>
+<td>pkg install 软件包名称</td>
+</tr>
+<tr>
+<td>搜索</td>
+<td>yum search 关键字</td>
+<td>pkg search 关键字</td>
+</tr>
+<tr>
+<td>已安装软件一览表</td>
+<td>yum list all</td>
+<td>pkg list</td>
+</tr>
+<tr>
+<td>获取软件包信息</td>
+<td>yum info 软件包名称</td>
+<td>pkg info 软件包名称</td>
+</tr>
+</tbody></table>
+<p>值得注意的是，Solaris中，软件更新时可以结合使用上述的BE功能，确保软件更新中发生问题时也能恢复到软件更新前的状态。但是要记住BE并不是系统备份，如果发生了磁盘故障，还需要使用系统备份来恢复系统。</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p>在Solaris和Linux中可以使用命令行来管理用户，当然，也有基于GUI的用户管理界面。</p>
+<p>用户管理的命令名称（如<code>useradd</code>，<code>usermod</code>， <code>userdel</code>）是相同的，但是选项是有差别的。此外，对于root，在Linux中是以用户（user）方式对待的，基本上所有的一般用户都可以变成root用户（使用<code>sudo</code>, <code>su</code>或者编辑<code>visudo</code>等等）；而在Solaris中，root通常作为一个角色而存在（当然也可以创建root用户），而且只有特定的一般用户才能赋予root的角色。在Linux中，默认情况下，每个用户都属于与其同名的一个用户组；而Solaris中，用户除了用户组除外，还要属于某一个Project。</p>
+<p>Project是Solaris用来做系统资源限制的单位。无论用户属于哪一个Project，用户执行的应用程序和进程都会受到所属Project中设定的资源限制的制约。通过Project，系统中应用程序和中间件的资源消耗都可以以用户为单位来进行限制。</p>
+<h3 id="Solaris中登陆时的用户身份认证"><a href="#Solaris中登陆时的用户身份认证" class="headerlink" title="Solaris中登陆时的用户身份认证"></a>Solaris中登陆时的用户身份认证</h3><p>在Solaris中，本地身份认证文件也有下面两种：</p>
+<ul>
+<li>用户账户信息： <code>/etc/passwd</code>中保存</li>
+<li>用户密码信息： <code>/etc/shadow</code>中加密保存，Solairs默认使用SHA-256加密算法，而Linux使用SHA-512</li>
+</ul>
+<p>用户账户和密码修改时，不会直接编辑上面的文件，而是通过使用<code>usermod</code>， <code>passwd</code>等命令来进行。</p>
+<p>Solaris用户登陆时，通过<code>/etc/default/login</code>文件来设置登录参数：</p>
+<ul>
+<li><code>CONSOLE</code> 一旦设定，只有指定的设备上才能以超级用户身份登陆</li>
+<li><code>PATH</code> 初始化SHELL的PATH环境变量</li>
+<li><code>SUPATH</code> 超级用户使用的初始化SHELL中PATH环境变量</li>
+<li><code>TIMEOUT</code> 登陆会话结束为止的超时设定</li>
+<li><code>SLEEPTIME</code> 登陆失败信息显示为止的等待时间</li>
+<li><code>RETRIES</code> 登陆重试次数</li>
+</ul>
+<h3 id="用户密码的有效期"><a href="#用户密码的有效期" class="headerlink" title="用户密码的有效期"></a>用户密码的有效期</h3><p>Linux中使用<code>chage</code>来设定用户密码期限，而Solaris中使用<code>passwd</code>。</p>
+<table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>设置最长天数</td>
+<td>chage -M 90 用户名</td>
+<td>passwd -x 90 用户名</td>
+</tr>
+<tr>
+<td>设置最短天数</td>
+<td>chage -m 30 用户名</td>
+<td>passwd -n 30 用户名</td>
+</tr>
+<tr>
+<td>显示密码期限信息</td>
+<td>chage -l 用户名</td>
+<td>passwd -s 用户名</td>
+</tr>
+</tbody></table>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建用户</td>
+<td>useradd 用户名</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>修改用户</td>
+<td>usermod -u 新UID 用户名</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>删除用户</td>
+<td>userdel 用户名</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>显示密码有效期</td>
+<td>chage -l 用户名</td>
+<td>passwd -s 用户名</td>
+</tr>
+<tr>
+<td>设置密码有效期</td>
+<td>chage -m 60 用户名</td>
+<td>passwd -x 60 用户名</td>
+</tr>
+<tr>
+<td>修改用户信息</td>
+<td>chfn</td>
+<td>passwd -g</td>
+</tr>
+</tbody></table>
+<h3 id="修改默认的shell"><a href="#修改默认的shell" class="headerlink" title="修改默认的shell"></a>修改默认的shell</h3><p>Linux和Solaris中，用户的默认shell都是bash。要修改用户user01的默认shell，在Linux中可以执行<code>chsh user01</code>，在Solaris中可以使用 <code>passwd -e user01</code>并修改对应的选项。</p>
+<h2 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h2><p>这一部分的变化很大，主要区别如下：</p>
+<table>
+<thead>
+<tr>
+<th>网络管理内容</th>
+<th>RHEL6</th>
+<th>RHEL7</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>配置IP地址</td>
+<td>修改配置文件，重启网络服务</td>
+<td><code>nmcli</code></td>
+<td>通过<code>ipadm</code>配置，配置文件自动更新</td>
+</tr>
+<tr>
+<td>网卡名称</td>
+<td>ethXX，如eth0，eth1</td>
+<td>通过物理设备的连接信息自动生成，如ens1p1，enp0s25</td>
+<td>基于物理设备的逻辑设备名称netXX，如net0，net1</td>
+</tr>
+<tr>
+<td>数据链路层管理</td>
+<td><code>ethtool</code></td>
+<td>同左</td>
+<td><code>dladm</code></td>
+</tr>
+<tr>
+<td>IP层管理</td>
+<td><code>ifconfig</code></td>
+<td><code>ip</code></td>
+<td><code>ipadm</code></td>
+</tr>
+<tr>
+<td>网卡绑定</td>
+<td>Bonding</td>
+<td>同左</td>
+<td>IPMP</td>
+</tr>
+</tbody></table>
+<h3 id="各个命令的说明"><a href="#各个命令的说明" class="headerlink" title="各个命令的说明"></a>各个命令的说明</h3><h4 id="Solaris-1"><a href="#Solaris-1" class="headerlink" title="Solaris"></a>Solaris</h4><ul>
+<li><code>dladm</code> - 数据链路层的管理命令，可以用来创建虚拟网卡接口，设定网络冗余等。</li>
+<li><code>ipadm</code> - IP层的管理命令，以<code>接口名称/任意字符串</code>的形式管理IP地址对象，可以对IP地址对象进行设置，参数操作。</li>
+</ul>
+<h4 id="Linux-1"><a href="#Linux-1" class="headerlink" title="Linux"></a>Linux</h4><ul>
+<li>RHEL6中的<code>ifconfig</code> - 表示网络设置和状态的命令。</li>
+<li>RHEL7中的<code>nmcli</code> - 管理和设置网络的命令，可以进行hostname，IP地址，激活和禁止网卡，创建网卡接口等操作。</li>
+<li>RHEL7中的<code>ip</code>  - 其实就是统一了RHEL6中的<code>ifconfig</code>, <code>route</code>, <code>netstat</code>, <code>arp</code>的命令。</li>
+</ul>
+<h3 id="各个命令的比较"><a href="#各个命令的比较" class="headerlink" title="各个命令的比较"></a>各个命令的比较</h3><h4 id="创建网卡接口和设置IP地址"><a href="#创建网卡接口和设置IP地址" class="headerlink" title="创建网卡接口和设置IP地址"></a>创建网卡接口和设置IP地址</h4><p>在RHEL6中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ifconfig &lt;interface&gt; &lt;addr&gt; netmask &lt;netmask&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在RHEL7中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># nmcli c add type eth ifname &lt;interface&gt; con-name &lt;string&gt;</span><br><span class="line"># nmcli c mod &lt;interface&gt; ipv4.method manual ipv4.addresses &quot;&lt;addr&gt;/&lt;prefixlen&gt; &lt;gateway&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在Solaris中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ipadm create-ip &lt;interface&gt;</span><br><span class="line"># ipadm create-addr -T static -a local=&lt;addr&gt;/&lt;prefixlen&gt; &lt;interface&gt;/&lt;string&gt;</span><br></pre></td></tr></table></figure>
+<p>在RHEL7中，通过<code>nmcli</code>设置后，会自动更新网卡的配置文件；在Solaris中，通过<code>ipadm</code>设置的话，也会自动更新配置文件。</p>
+<h4 id="显示IP地址"><a href="#显示IP地址" class="headerlink" title="显示IP地址"></a>显示IP地址</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># ifconfig   -- RHEL6</span><br><span class="line"># ip address  -- RHEL7</span><br><span class="line"># ipadm show-addr -- Solaris</span><br></pre></td></tr></table></figure>
+
+<h4 id="Solaris中配置网络的过程"><a href="#Solaris中配置网络的过程" class="headerlink" title="Solaris中配置网络的过程"></a>Solaris中配置网络的过程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dladm show-link       -- 确认网络接口的状态</span></span><br><span class="line">LINK      CLASS     MTU     STATE     OVER</span><br><span class="line">net0      phys      1500    up        --</span><br><span class="line">net1      phys      1500    up        --</span><br><span class="line"><span class="comment"># ipadm create-ip net1        -- 创建网络接口</span></span><br><span class="line"><span class="comment"># ipadm create-addr -T static -a local=192.168.78.113/24 net1/v4    -- 配置IP地址</span></span><br><span class="line"><span class="comment"># ipadm show-addr     -- 查看IP地址</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Solaris下网卡绑定-IPMP"><a href="#Solaris下网卡绑定-IPMP" class="headerlink" title="Solaris下网卡绑定 - IPMP"></a>Solaris下网卡绑定 - IPMP</h4><p>IPMP，IP Multipathing，是与Linux下的Bonding等同的功能，作为Solaris的系统特性之一，它将几个网络接口绑定在一起作为一个IPMP组，实现网络接口的冗余。即使其中的一个网络接口发生故障，IPMP上的正承担数据服务的IP不会丢失，会failover到其他接口上，避免了单点网络连接故障。IPMP可用于Oracle RAC的公用网络或私有网络上。IPMP技术说到底是提供了避免单点网络连接故障的一个 <strong>检测－失败－切换</strong> 的机制。</p>
+<p>在配置IPMP时，有两种模式：<code>Active-Active</code>模式和<code>Active-Standby</code>模式。在<code>Active-Active</code>模式中所有网络接口都要在线处于active状态；在<code>Active-Standby</code>模式中，至少有一个网络接口在线处于active状态，其他网络接口处于standby状态。</p>
+<p>拿<code>Active-Standby</code>模式举个为例，配置过程如下：</p>
+<ol>
+<li><p>创建两个网卡接口： net0 和 net1为一对要绑定的网卡</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ipadm create-ip net0</span><br><span class="line"># ipadm create-ip net1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置IPMP接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># ipadm create-ipmp ipmp0</span><br><span class="line"># ipadm add-ipmp -i net0 -i net1 ipmp0</span><br><span class="line"># ipadm create-addr -T static -a local=192.168.78.10/24 ipmp0/v4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定net1为其中的Standby接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ipadm set-ifprop -p standby=on -m ip net1</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>RHEL6</th>
+<th>RHEL7</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>设置IP</td>
+<td># vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0 <br/> IPADDR&#x3D;192.168.78.113 <br/> # service network restart</td>
+<td># nmcli con mod enp0s25 ipv4.method manual ipv4.addresses “192.168.78.113&#x2F;24 192.168.78.254”</td>
+<td># ipadm create-addr -T static -a local&#x3D;192.168.78.113&#x2F;24 net1&#x2F;v4</td>
+</tr>
+<tr>
+<td>设置DHCP</td>
+<td># vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0 <br/> BOOTPROTO&#x3D;dhcp <br/> # service network restart</td>
+<td># nmcli con mod enp0s25 ipv4.method auto</td>
+<td># ipadm create-addr -T dhcp net1</td>
+</tr>
+<tr>
+<td>查看IP</td>
+<td># ifconfig</td>
+<td># ip addr</td>
+<td># ipadm show-addr</td>
+</tr>
+<tr>
+<td>配置网关</td>
+<td># vi &#x2F;etc&#x2F;sysconfig&#x2F;network <br/> GATEWAY&#x3D;192.168.78.254 <br/> # serice network restart</td>
+<td># nmcli con mod enp0s25 ipv4.gateway 192.168.78.254</td>
+<td># route -p add 192.168.78.113 192.168.78.254</td>
+</tr>
+<tr>
+<td>查看网关</td>
+<td># netstat -rn</td>
+<td># ip route</td>
+<td># netstat -rn</td>
+</tr>
+<tr>
+<td>查看网卡</td>
+<td># ethtool eth0</td>
+<td># nmcli device status</td>
+<td># dladm show-link <br/> #dladm show-phys</td>
+</tr>
+</tbody></table>
+<h2 id="后台服务管理"><a href="#后台服务管理" class="headerlink" title="后台服务管理"></a>后台服务管理</h2><p>这里差别也比较大，需要分开说了。</p>
+<h3 id="RHEL6"><a href="#RHEL6" class="headerlink" title="RHEL6"></a>RHEL6</h3><p>RHEL6的服务管理方法相当于Solaris 9以前的旧服务管理方法，主要是通过在系统启动时，按照runlevel，顺次执行<code>/etc/init.d/</code>目录下的各种服务启动脚本(rc脚本)的方法来进行管理的。各个服务间的依赖关系需要通过启动脚本来控制。</p>
+<p>服务的启动与开机自动启动的配置是由两个命令来完成的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># service httpd start     -- 启动服务</span><br><span class="line"># service httpd stop      -- 停止服务</span><br><span class="line"># chkconfig httpd on      -- 开机自动启动</span><br><span class="line"># chkconfig httpd off     -- 禁止开机自动启动</span><br></pre></td></tr></table></figure>
+
+<h3 id="RHEL7"><a href="#RHEL7" class="headerlink" title="RHEL7"></a>RHEL7</h3><p>RHEL7中是通过systemd这个服务管理器来 <strong>按需并发启动</strong> 服务，systemd改善了服务之间依赖关系的管理，大大地缩短了系统启动时间。也可以把重要服务的启动顺序调高，确保优先启动。</p>
+<p>服务的启动与开机自动启动的配置只需要<code>systemctl</code>命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># systemctl start postfix.service     -- 启动服务</span><br><span class="line"># systemctl stop postfix.service      -- 停止服务</span><br><span class="line"># systemctl enable postfix.service    -- 开机自动启动</span><br><span class="line"># systemctl disable postfix.service    -- 禁止开机自动启动</span><br></pre></td></tr></table></figure>
+
+<h3 id="Solaris-2"><a href="#Solaris-2" class="headerlink" title="Solaris"></a>Solaris</h3><p>Solaris中是通过SMF（Service Management Facility）这个工具来管理服务的。SMF可以管理服务间的依赖关系，能够保证某个服务启动或停止时，其所依赖的服务事先启动或停止。有自我修复功能，也就是说当某个服务由于系统故障停止了，SMF会自动重启这个服务。SMF的功能很强大，不仅仅可以启动和停止服务，还可以对运行中的服务进行监视，在出现问题时，SMF还可以用来查看导致某个服务停止，或者对某个服务产生影响的其他服务。同时，为了保持与旧版本的兼容性，Solaris也支持通过调用rc脚本来启动和管理服务的方式。</p>
+<ul>
+<li>SMF中管理的服务启动脚本在<code>/lib/svc/method</code>目录下，通过<code>svc.startd</code>后台进程来统一启动</li>
+<li>服务间依赖关系文件在<code>/var/svc/manifest</code>目录下，以组为单位，由<code>svc.configd</code>后台进程来读取和修改</li>
+<li>由SMF管理的日志文件在<code>/var/svc/log</code>目录下，以服务为单位生成日志文件</li>
+<li>没有依赖关系的服务并发启动，有依赖关系的服务按照依赖关系依次启动</li>
+<li>作为遗留功能，也会根据runlevel来启动对应的rc脚本</li>
+</ul>
+<p><img src="/img/post/solaris-svcs.png" alt="Solaris SMF"></p>
+<p>服务的启动与开机自动启动的配置只需要<code>svcadm</code>命令。但与Linux不同的是，Solaris中服务一旦启动或者停止，下次开机时会继续保持启动或停止的状态。如果不想保持服务启停状态的话，需要使用<code>-t</code>选项，来暂时启动或者停止服务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># svcadm enable -t httpd      -- 启动服务</span><br><span class="line"># svcadm disable -t httpd     -- 停止服务</span><br><span class="line"># svcadm enable httpd         -- 启动服务，并且开机自动启动</span><br><span class="line"># svcadm disable httpd        -- 停止服务，并且禁止开机自动启动</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>RHEL6</th>
+<th>RHEL7</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动服务</td>
+<td>service 服务名 start</td>
+<td>systemctl start 服务名</td>
+<td>svcadm enable -t 服务名 （FMRI）</td>
+</tr>
+<tr>
+<td>启动+开机自动启动</td>
+<td>service 服务名 start <br/> chkconfig 服务名 on</td>
+<td>systemctl start 服务名 <br/> systemctl enable 服务名</td>
+<td>svcadm enable 服务名（FMRI）</td>
+</tr>
+<tr>
+<td>停止服务</td>
+<td>service 服务名 stop</td>
+<td>systemctl stop 服务名</td>
+<td>svcadm disable -t 服务名 （FMRI）</td>
+</tr>
+<tr>
+<td>停止+禁止开机自动启动</td>
+<td>service stop 服务名 <br/> chkconfig 服务名 off</td>
+<td>systemctl stop 服务名 <br/> systemctl disable 服务名</td>
+<td>svcadm disable 服务名 （FMRI）</td>
+</tr>
+<tr>
+<td>查看服务列表</td>
+<td>chkconfig –list</td>
+<td>systemctl list-unit-files –type service</td>
+<td>svcs -a</td>
+</tr>
+<tr>
+<td>查看服务状态</td>
+<td>service 服务名 status</td>
+<td>systemctl status 服务名</td>
+<td>svcs 服务名（FMRI）</td>
+</tr>
+</tbody></table>
+<p>其中，FMRI是指 Fault Managed Resource Identifier。</p>
+<h2 id="文件系统和存储"><a href="#文件系统和存储" class="headerlink" title="文件系统和存储"></a>文件系统和存储</h2><p>由于使用的文件系统格式不一样，这一部分的差别也很大，概括来说如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RHEL6</th>
+<th>RHEL7</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储（卷）管理器</td>
+<td>LVM, Logical Volumn Manager</td>
+<td>同左</td>
+<td>ZFS, Zetta byte File System <br/> <code>zpool</code>命令</td>
+</tr>
+<tr>
+<td>文件系统</td>
+<td>ext3(推荐), ext4</td>
+<td>XFS</td>
+<td>ZFS， <code>zfs</code>命令</td>
+</tr>
+<tr>
+<td>最大文件系统</td>
+<td>16TB</td>
+<td>500TB</td>
+<td>256千万亿ZB(1ZB&#x3D;10亿TB)</td>
+</tr>
+<tr>
+<td>最大文件</td>
+<td>2TB(ext3), 16TB(ext4)</td>
+<td>500TB</td>
+<td>256千万亿ZB(1ZB&#x3D;10亿TB)</td>
+</tr>
+<tr>
+<td>冗余</td>
+<td>基本上通过使用主机本身或者存储器的RAID硬件</td>
+<td>同左</td>
+<td>可使用ZFS的软件RAID，也可使用存储器的RAID硬件</td>
+</tr>
+</tbody></table>
+<h3 id="Linux的卷管理-LVM"><a href="#Linux的卷管理-LVM" class="headerlink" title="Linux的卷管理 - LVM"></a>Linux的卷管理 - LVM</h3><p>关于这部分的详细介绍，请参考<a href="http://xintq.net/2014/07/30/LVM%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E9%83%A8%E7%BD%B2/">本站的这篇文章</a>。</p>
+<h3 id="Solaris的卷管理-ZFS"><a href="#Solaris的卷管理-ZFS" class="headerlink" title="Solaris的卷管理 - ZFS"></a>Solaris的卷管理 - ZFS</h3><p>Solaris的文件系统、卷管理器都使用ZFS。与传统的文件系统不同，ZFS有下面的几个特点：</p>
+<ul>
+<li>由若干个物理磁盘组成一个存储池（pool）</li>
+<li>从存储池中再分割出数据集，在分割数据集的同时会以ZFS格式的文件系统挂载到系统中的同名目录下</li>
+<li>文件系统的大小会随着存储池的容量的增加而自动扩容</li>
+<li>在系统运行时，就可以通过快照功能取得系统备份</li>
+</ul>
+<p><img src="/img/post/solaris-zfs01.png" alt="Solaris ZFS"></p>
+<p><a target="_blank" rel="noopener" href="https://www.getnas.com/2015/01/144.html">ZFS支持的RAID类型</a>如下：</p>
+<ul>
+<li>Stripe: 与 RAID 0 类似，传说中的带条，需要至少一块硬盘。</li>
+<li>Mirror: 与 RAID 1 类似，磁盘镜像，需要至少两块硬盘。</li>
+<li>RAID-Z1: 与 RAID 5 类似，一重奇偶校验，需要至少三块硬盘。</li>
+<li>RAID-Z2: 与 RAID 6 类似，双重奇偶校验，需要至少四块硬盘。</li>
+<li>RAID-Z3: 三重奇偶校验，独门秘籍，需要至少五块硬盘。</li>
+</ul>
+<p>其中：</p>
+<ul>
+<li>性能对比：Stripe &gt; Mirror， Stripe &gt; RAIDZ1 &gt; RAIDZ2 &gt; RAIDZ3</li>
+<li>数据可靠性：Mirror &gt; Stripe，RAIDZ3 &gt; RAIDZ2 &gt; RAIDZ1 &gt; Stripe</li>
+</ul>
+<h4 id="ZFS的快照（Snapshot）功能"><a href="#ZFS的快照（Snapshot）功能" class="headerlink" title="ZFS的快照（Snapshot）功能"></a>ZFS的快照（Snapshot）功能</h4><p>快照（Snapshot）是文件系统或卷的只读副本。在ZFS中，快照几乎可以即时创建，而且最初不会额外占用池中的磁盘空间。但是，当活动数据集中的数据发生更改时，快照通过继续引用旧数据占用磁盘空间，从而阻止释放该空间。</p>
+<ul>
+<li>自动使用空闲空间，无需指定快照的存储区域</li>
+<li>只写入有更新的数据时，才会占用少量的存储空间</li>
+<li>创建快照的操作可以回滚（rollback功能）</li>
+<li>快照可以恢复到原始状态（backup功能）</li>
+<li>可以使用快照来复制文件（clone功能）</li>
+</ul>
+<h4 id="ZFS命令"><a href="#ZFS命令" class="headerlink" title="ZFS命令"></a>ZFS命令</h4><ul>
+<li>备份：<code>zfs send</code> 无需停机，在线状态下将快照作为系统备份输出到标准输出</li>
+<li>恢复：<code>zfs receive</code> 从标准输入接收备份数据流，进行文件系统恢复。如果不是恢复根目录(<code>/</code>)，则无需停机。</li>
+</ul>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>RHEL6</th>
+<th>RHEL7</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Linux：创建卷组 <br/> Solaris：创建存储池</td>
+<td>vgcreate 卷组名 设备名</td>
+<td>同左</td>
+<td>zpool create 池名 RAID设备名</td>
+</tr>
+<tr>
+<td>Linux: 创建逻辑卷 <br/> Solaris：创建ZFS文件系统</td>
+<td>lvcreate -L 大小 -n 逻辑卷名 卷组名</td>
+<td>同左</td>
+<td>zfs create 文件系统名</td>
+</tr>
+<tr>
+<td>创建快照</td>
+<td>lvcreate -s L 大小 -n 快照名 元设备</td>
+<td>同左</td>
+<td>zfs snapshot 快照名</td>
+</tr>
+<tr>
+<td>恢复到快照</td>
+<td>lvconvert –merge 快照名</td>
+<td>同左</td>
+<td>zfs rollback 快照名</td>
+</tr>
+<tr>
+<td>文件系统备份</td>
+<td>dump -0u -f 备份设备 备份源 <br/>0 代表备份级别（0-9），为完全备份</td>
+<td>xfsdump -l 备份级别（0-9） -f 备份设备 备份源</td>
+<td>zfs send 快照名</td>
+</tr>
+<tr>
+<td>文件系统恢复</td>
+<td>restore -r -f 备份文件</td>
+<td>xfsrestore -f 备份文件 -s 会话标识 恢复目标</td>
+<td>zfs receive 快照数据流</td>
+</tr>
+<tr>
+<td>分区</td>
+<td>parted(推荐)，fdisk</td>
+<td>同左</td>
+<td>format</td>
+</tr>
+</tbody></table>
+<h3 id="补充1-Solaris的卷标和设备路径"><a href="#补充1-Solaris的卷标和设备路径" class="headerlink" title="补充1 - Solaris的卷标和设备路径"></a>补充1 - Solaris的卷标和设备路径</h3><p>Solaris支持以下两种卷标方式：</p>
+<ul>
+<li><code>SMI</code>，Sun Microsystems Inc.：系统卷使用的卷标，最大支持2TB的磁盘</li>
+<li><code>EFI(GPT)</code>, Extensible Firmware Interface GUID Partition Table：系统卷之外的ZFS使用的卷标</li>
+</ul>
+<p>Solaris的磁盘路径在<code>/dev/(r)disk</code>目录下，格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/[r]dsk/cXtXdXsX</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li>dsk 块设备</li>
+<li>rdisk 字符设备（raw设备）</li>
+<li>c 逻辑控制器，X指磁盘控制器</li>
+<li>t 物理总线目标，X指磁盘的目标号</li>
+<li>d 磁盘或逻辑单元（LUN）号</li>
+<li>s 分区号，X指磁盘上的分区号</li>
+</ul>
+<h3 id="补充2-磁盘分区"><a href="#补充2-磁盘分区" class="headerlink" title="补充2 - 磁盘分区"></a>补充2 - 磁盘分区</h3><p>在Linux中，一块磁盘可以分成多个分区，每个分区可以作为文件系统或裸设备来使用。磁盘分区时可以使用<code>fdisk</code>命令。</p>
+<p>在Solaris中，分区（Partition）被称为<code>Slice</code>，<code>Slice</code>数的多少取决于使用了哪种类型的卷标（SMI，还是EFI）。设备名称后加<code>s0~s7</code>来作为设备路径名。在SMI中，s2为特殊的Slice，表示磁盘全体Slice。可以使用<code>format</code>命令来对磁盘进行分区操作。</p>
+<p><img src="/img/post/solaris-slice.png" alt="Solaris Slice"></p>
+<h3 id="补充3-挂载ISO文件"><a href="#补充3-挂载ISO文件" class="headerlink" title="补充3 - 挂载ISO文件"></a>补充3 - 挂载ISO文件</h3><p>在Linux下，ISO文件挂载时需要指定文件系统格式为<code>iso9660</code>，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mount -o loop -t iso9660 /ISO/media.iso /mnt</span><br></pre></td></tr></table></figure>
+
+<p>在Solaris中，ISO文件的文件系统格式则为<code>hsfs</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mount -F hsfs /ISO/media.iso /mnt</span><br></pre></td></tr></table></figure>
+
+<h3 id="补充4-Solaris的文件系统构成"><a href="#补充4-Solaris的文件系统构成" class="headerlink" title="补充4 - Solaris的文件系统构成"></a>补充4 - Solaris的文件系统构成</h3><p>除ZFS之外的文件系统，系统启动时会根据<code>/etc/vfstab</code>中的定义自动挂载。Solaris中主要的目录及说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;dev</td>
+<td>包含特殊设备文件的目录</td>
+</tr>
+<tr>
+<td>&#x2F;devices</td>
+<td>devfs文件系统的挂载点</td>
+</tr>
+<tr>
+<td>&#x2F;etc</td>
+<td>系统管理及其配置文件目录</td>
+</tr>
+<tr>
+<td>&#x2F;bin</td>
+<td>普通用户可执行文件目录</td>
+</tr>
+<tr>
+<td>&#x2F;sbin</td>
+<td>启动进程，以及系统手动恢复时的可执行文件目录</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;lib</td>
+<td>应用程序执行时需要的系统库文件</td>
+</tr>
+<tr>
+<td>&#x2F;proc</td>
+<td>进程文件系统挂载点，存储进程运行时信息</td>
+</tr>
+<tr>
+<td>&#x2F;tmp</td>
+<td>临时文件目录。内存文件系统使用tmpfs格式</td>
+</tr>
+</tbody></table>
+<p>注意，<code>swap</code>和<code>dump</code>设备由ZFS卷构成；而<code>/tmp</code>中的文件会占用物理内存，而且重启后该目录下的数据会丢失。</p>
+<h2 id="系统监视"><a href="#系统监视" class="headerlink" title="系统监视"></a>系统监视</h2><h3 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h3><p>在Linux中，系统消息日志文件在<code>/etc/rsyslog.conf</code>中定义。</p>
+<p>在Solaris中，系统消息日志文件在<code>/etc/syslog.conf</code>中定义。与Linux相同，登陆用户可以查看系统消息日志，也可以将日志传送到其他服务器上。</p>
+<table>
+<thead>
+<tr>
+<th>日志</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统日志</td>
+<td>&#x2F;var&#x2F;log&#x2F;messages</td>
+<td>&#x2F;var&#x2F;adm&#x2F;messages</td>
+</tr>
+<tr>
+<td>邮件记录日志</td>
+<td>&#x2F;var&#x2F;log&#x2F;maillog</td>
+<td>&#x2F;var&#x2F;log&#x2F;syslog</td>
+</tr>
+<tr>
+<td>cron运行时日志</td>
+<td>&#x2F;var&#x2F;log&#x2F;cron</td>
+<td>&#x2F;var&#x2F;cron&#x2F;log</td>
+</tr>
+</tbody></table>
+<p>在处理日志文件轮替（logrotate）时，Linux和Solaris一样，都是以日志文件为单位，通过<code>cron</code>定期执行日志轮替。</p>
+<p>Linux中，在<code>/etc/logrotate.conf</code>文件中定义：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">weekly  <span class="comment"># 每周</span></span><br><span class="line">rotate  <span class="comment"># 保留4个日志文件</span></span><br><span class="line">compress  <span class="comment"># 压缩日志文件</span></span><br><span class="line">/var/log/messages &#123;</span><br><span class="line">  sharedscripts</span><br><span class="line">  postrotate</span><br><span class="line">    /bin/kill -HUP `<span class="built_in">cat</span> /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || <span class="literal">true</span></span><br><span class="line">  endscript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Solaris中，在<code>/etc/logadm.conf</code>文件中定义：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/adm/messages -C 4 -a <span class="string">&#x27;/usr/sbin/svccfg -s svc:/system/system-log refresh&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>-C</code>指保存的日志文件数，<code>-a</code> 指日志文件名变化后执行单引号<code>&#39;&#39;</code>内的命令。</p>
+<h3 id="系统监视命令"><a href="#系统监视命令" class="headerlink" title="系统监视命令"></a>系统监视命令</h3><p>可以使用系统命令来查看系统的性能信息（如CPU，内存使用量等）。此外，Solaris也有自己独特的系统监视命令。</p>
+<p>例1：查看系统资源</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看CPU，内存，新设备</td>
+<td>cat &#x2F;proc&#x2F;cpuinfo <br/> cat &#x2F;proc&#x2F;meminfo <br/> lspci</td>
+<td>prtdiag</td>
+</tr>
+</tbody></table>
+<p>例2：系统异常诊断</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>网络状态</td>
+<td>ethtool, ping</td>
+<td>dladm, ping</td>
+</tr>
+<tr>
+<td>服务状态</td>
+<td>service(RHEL6)<br/>systemctl(RHEL7)</td>
+<td>svcs</td>
+</tr>
+<tr>
+<td>进程状态</td>
+<td>pstree, ps</td>
+<td>ptree, ps</td>
+</tr>
+<tr>
+<td>进程追踪</td>
+<td>strace</td>
+<td>truss</td>
+</tr>
+</tbody></table>
+<p>例3：查看系统资源使用量</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统运行时间</td>
+<td>uptime</td>
+<td>uptime</td>
+</tr>
+<tr>
+<td>CPU，内存，IO负载</td>
+<td>mpstat, vmstat <br/> isostat, iotop, netstat</td>
+<td>mpstat, pgstat, vmstat, iostat, fsstat <br/> netstat, flowstat, dlstat, ipmpstat</td>
+</tr>
+<tr>
+<td>进程负载</td>
+<td>top, pidstat</td>
+<td>top, prstat</td>
+</tr>
+</tbody></table>
+<p>总结起来，记住下表的命令一般都够用了：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU，内存，IO负载</td>
+<td>mpstat, vmstat, iostat</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>查看CPU，内存，新设备</td>
+<td>cat &#x2F;proc&#x2F;cpuinfo <br/> cat &#x2F;proc&#x2F;meminfo <br/> lspci</td>
+<td>prtdiag</td>
+</tr>
+<tr>
+<td>网络诊断</td>
+<td>ping</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>查看进程状态</td>
+<td>ps -ef</td>
+<td>同左</td>
+</tr>
+</tbody></table>
+<h2 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h2><h3 id="Linux下的虚拟化技术"><a href="#Linux下的虚拟化技术" class="headerlink" title="Linux下的虚拟化技术"></a>Linux下的虚拟化技术</h3><h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><p>Docker[^1](Docker中文 - <a target="_blank" rel="noopener" href="http://www.docker.org.cn/book/docker/what-is-docker-16.html)%E6%98%AF%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%84%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%BC%95%E6%93%8E%EF%BC%8C%E5%9C%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E4%B8%8A%E4%B8%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%9A%84%E5%8F%AF%E7%A7%BB%E6%A4%8D%E7%9A%84%EF%BC%8C%E5%AE%8C%E5%85%A8%E9%9A%94%E7%A6%BB%E7%9A%84%E7%A9%BA%E9%97%B4%EF%BC%88%E5%AE%B9%E5%99%A8%EF%BC%89%E3%80%82%E4%BD%BF%E7%94%A8%E6%B2%99%E7%AE%B1%E6%9C%BA%E5%88%B6%EF%BC%8C%E5%AE%B9%E5%99%A8%E4%B9%8B%E9%97%B4%E4%B8%8D%E4%BC%9A%E6%9C%89%E4%BB%BB%E4%BD%95%E6%8E%A5%E5%8F%A3%E3%80%82Docker%E6%98%AF%E4%B8%80%E7%A7%8D%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%AF%B9%E7%A1%AC%E4%BB%B6%E8%B5%84%E6%BA%90%E7%9A%84%E6%B6%88%E8%80%97%E9%87%8F%E5%B0%91%EF%BC%8C%E5%8D%B3%E4%BD%BF%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%99%9A%E6%8B%9F%E5%8C%96%E7%9A%84%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%8C%E6%80%A7%E8%83%BD%E4%B9%9F%E4%B8%8D%E4%BC%9A%E6%81%B6%E5%8C%96%E3%80%82%E5%AE%B9%E5%99%A8%E4%BD%9C%E4%B8%BA%E9%95%9C%E5%83%8F%E6%9D%A5%E4%BF%9D%E5%AD%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%89%B9%E9%87%8F%E9%83%A8%E7%BD%B2%E5%9C%A8%E5%85%B6%E4%BB%96%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%8C%85%E6%8B%AC%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%88VMs%EF%BC%89%E3%80%81%E7%89%A9%E7%90%86%E6%9C%BA%EF%BC%88bare">http://www.docker.org.cn/book/docker/what-is-docker-16.html)是一个开源的应用容器引擎，在操作系统之上为应用程序创建一个的可移植的，完全隔离的空间（容器）。使用沙箱机制，容器之间不会有任何接口。Docker是一种轻量级的虚拟化技术，对硬件资源的消耗量少，即使在服务器虚拟化的环境中，性能也不会恶化。容器作为镜像来保存，可以批量部署在其他环境中，包括虚拟机（VMs）、物理机（bare</a> metal）、OpenStack 集群和其他的基础应用平台。</p>
+<h4 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h4><p>作为Type-II虚拟化的Hypervisor，可以在操作系统之上创建各种客户机操作系统（Guest OS）。KVM基于虚拟化扩展（Intel VT或AMD-V）的x86硬件，是Linux原生的全虚拟化技术。KVM通过可加载的内核模块，支持各种客户机操作系统，如Linux，BSD，Solaris，Windows等。</p>
+<p>在KVM构架中，虚拟机实现为常规的Linux进程，由标准的Linux调度进程进行调度，这使得KVM能够享受Linux的所有功能。</p>
+<h3 id="Solaris下的虚拟化技术"><a href="#Solaris下的虚拟化技术" class="headerlink" title="Solaris下的虚拟化技术"></a>Solaris下的虚拟化技术</h3><h4 id="Solaris-Zone"><a href="#Solaris-Zone" class="headerlink" title="Solaris Zone"></a>Solaris Zone</h4><p>Solaris Zone是与Linux下的Docker相当的虚拟机技术。主要是通过在Solaris内核级别对系统资源进行分配和管理，来实现虚拟容器。由于所有的Zone都使用同一个内核，所以可以统一对所有的Zone进行修复或者打补丁。</p>
+<p><img src="/img/post/docker-solariszone.png" alt="Linux Docker v.s. Solaris Zone"></p>
+<p>Solaris Zone的特点是：</p>
+<ul>
+<li>摆脱对硬件的依赖，理论上最多可部署8191个虚拟OS（容器）</li>
+<li>虚拟OS的增加和删除操作简单，执行速度快</li>
+<li>不需要对每一个虚拟OS都安装操作系统</li>
+<li>可以灵活分配CPU，内存等硬件资源</li>
+<li>免费使用</li>
+</ul>
+<h4 id="Oracle-VM-Server-for-SPARC"><a href="#Oracle-VM-Server-for-SPARC" class="headerlink" title="Oracle VM Server for SPARC"></a>Oracle VM Server for SPARC</h4><p>之前也称作Logical Domains，或者LDoms，这是Solaris中与Linux KVM相当的虚拟化技术。主要是通过利用SPARC处理器的硬件优势，在Firmware级别对系统资源进行分配和管理，作为Type-I虚拟化的Hypervisor来实现。其中，每一个虚拟化环境都称作一个Domain，不同的Domain可以使用不同内核，所以在Oracle VM中可以运行不同版本（包括不同的版本，不同的系统补丁）的Solaris系统。</p>
+<p><img src="/img/post/kvm-ovm.png" alt="Linux KVM v.s. OVM"></p>
+<p>Oracle VM Server for SPARC的特点：</p>
+<ul>
+<li>同一环境下使用不同版本的Solaris系统</li>
+<li>以Domain为单位，可以灵活的控制系统资源（CPU，内存，IO）分配</li>
+<li>Domain之间互相隔离，不受软件问题的影响</li>
+<li>免费使用</li>
+</ul>
+<h3 id="比较一下"><a href="#比较一下" class="headerlink" title="比较一下"></a>比较一下</h3><h4 id="Docker和Solaris-Zone"><a href="#Docker和Solaris-Zone" class="headerlink" title="Docker和Solaris Zone"></a>Docker和Solaris Zone</h4><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Docker</th>
+<th>Solaris Zone</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>虚拟环境下支持的OS</td>
+<td>各种Linux发行版（RHEL，CentOS等）</td>
+<td>在Host为Solaris 11的条件下，可支持 Solaris10和Solaris11</td>
+</tr>
+<tr>
+<td>虚拟化对客户机性能的影响</td>
+<td>非常小</td>
+<td>非常小</td>
+</tr>
+<tr>
+<td>对虚拟环境的访问</td>
+<td>需要专门的Docker客户端</td>
+<td>不需要客户端，使用telnet，ssh都可以访问</td>
+</tr>
+</tbody></table>
+<h4 id="KVM和Oracle-VM-Server-for-SPARC"><a href="#KVM和Oracle-VM-Server-for-SPARC" class="headerlink" title="KVM和Oracle VM Server for SPARC"></a>KVM和Oracle VM Server for SPARC</h4><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>KVM</th>
+<th>Oracle VM Server for SPARC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>虚拟环境下支持的OS</td>
+<td>Windows，Linux，Solaris等各种OS</td>
+<td>在Host为Solaris 11的条件下，可支持 Solaris10和Solaris11</td>
+</tr>
+<tr>
+<td>虚拟化对客户机性能的影响</td>
+<td>比较大</td>
+<td>非常小</td>
+</tr>
+</tbody></table>
+<h3 id="虚拟环境下的命令"><a href="#虚拟环境下的命令" class="headerlink" title="虚拟环境下的命令"></a>虚拟环境下的命令</h3><h4 id="Docker：创建容器，删除容器"><a href="#Docker：创建容器，删除容器" class="headerlink" title="Docker：创建容器，删除容器"></a>Docker：创建容器，删除容器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># docker pull registry.access.redhat.com/rhel   -- 下载容器镜像</span><br><span class="line"># docker run -it -h 容器名 rhel /bin/bash        -- 通过容器名启动容器</span><br><span class="line">[容器名]#                                        -- 登陆到容器中</span><br><span class="line">[容器名]# exit                                   -- 登出容器</span><br><span class="line"># docker rm 容器名                               -- 删除容器</span><br></pre></td></tr></table></figure>
+
+<h4 id="Solaris-Zone-创建zone，删除zone"><a href="#Solaris-Zone-创建zone，删除zone" class="headerlink" title="Solaris Zone: 创建zone，删除zone"></a>Solaris Zone: 创建zone，删除zone</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># zonecfg -z Zone名 create                      -- 创建Zone的配置文件</span><br><span class="line"># zoneadm -z Zone名 install                     -- 安装Zone</span><br><span class="line"># zoneadm -z Zone名 boot                        -- 启动Zone</span><br><span class="line"># zlogin -C Zone名                              -- 登陆到Zone终端中</span><br><span class="line">[Zone名]# ~.                                    -- 登出Zone</span><br><span class="line"># zoneadm -zZone名 shutdown                     -- 停止Zone</span><br><span class="line"># zoneadm -zZone名 delete                       -- 删除Zone</span><br></pre></td></tr></table></figure>
+
+<h4 id="KVM：创建客户机操作系统，关闭客户机"><a href="#KVM：创建客户机操作系统，关闭客户机" class="headerlink" title="KVM：创建客户机操作系统，关闭客户机"></a>KVM：创建客户机操作系统，关闭客户机</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># virt-install -各种参数                         -- 生成客户机配置文件并安装系统</span><br><span class="line"># virsh start 客户机名                           -- 启动客户机</span><br><span class="line"># virsh console 客户机名                         -- 登陆到客户机</span><br><span class="line">[客户机名]# Ctrl+]                               -- 登出客户机</span><br><span class="line"># virsh shutdown 客户机名                        -- 关闭客户机</span><br></pre></td></tr></table></figure>
+
+<h4 id="Oracle-VM-Server-for-SPARC-DomU的创建和关闭"><a href="#Oracle-VM-Server-for-SPARC-DomU的创建和关闭" class="headerlink" title="Oracle VM Server for SPARC: DomU的创建和关闭"></a>Oracle VM Server for SPARC: DomU的创建和关闭</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># ldm add-domain Domain名                       -- 创建Domain</span><br><span class="line"># ldm set-core 2 Domain名                       -- 分配Domain可以使用的CPU核心数</span><br><span class="line"># ldm set-memory 4096M Domain名                 -- 分配Domain可以使用的内存量</span><br><span class="line"># ldm bind Domain名                             -- 为Domain绑定系统资源</span><br><span class="line"># ldm start Domain名                            -- 启动Domain</span><br><span class="line"># ldm stop Domain名                             -- 停止Domain</span><br><span class="line"># ldm unbind Domain名                           -- 解除绑定在Domain上的系统资源</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li>SPARC Servers Techinical Park- <a target="_blank" rel="noopener" href="http://www.fujitsu.com/jp/products/computing/servers/unix/sparc/technical/">http://www.fujitsu.com/jp/products/computing/servers/unix/sparc/technical/</a></li>
+<li>Oracle Solaris 11.3 Information Library (简体中文)： <a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E62103_01/">https://docs.oracle.com/cd/E62103_01/</a></li>
+<li>KVM - <a target="_blank" rel="noopener" href="https://www.redhat.com/en/files/resources/en-rh-kvm-kernal-based-virtual-machine.pdf">https://www.redhat.com/en/files/resources/en-rh-kvm-kernal-based-virtual-machine.pdf</a></li>
+<li>RHEL7 Admin Guide - <a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html</a></li>
+<li>高速启动，现在开始systemd - <a target="_blank" rel="noopener" href="http://mtoou.info/hing-systemd/">http://mtoou.info/hing-systemd/</a></li>
+<li>浅析 Linux 初始化 init 系统，第 3 部分: Systemd - <a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html">https://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html</a></li>
+</ul>
+<p>（END）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/redhat/">redhat</a><a href="/tags/linux/">linux</a><a href="/tags/solaris/">solaris</a><a href="/tags/rhel/">rhel</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2017/05/08/solaris-v-s-linux/" data-title="Solaris和Linux的比较、区别、异同云云。。。 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/05/16/mac-dnsmasq/" title="在macOS下用dnsmasq搭建DNS服务器">
+  <strong>上一篇：</strong><br/>
+  <span>
+  在macOS下用dnsmasq搭建DNS服务器</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/05/02/use-gitment-for-comment/"  title="用Gitment替换多说来为基于hexo的静态网站提供评论功能">
+ <strong>下一篇：</strong><br/> 
+ <span>用Gitment替换多说来为基于hexo的静态网站提供评论功能
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E5%92%8C%E5%85%B3%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">系统启动和关机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">系统启动流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux"><span class="toc-number">3.1.1.</span> <span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris"><span class="toc-number">3.2.</span> <span class="toc-text">Solaris</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%85%B3%E6%9C%BA%E5%92%8C%E9%87%8D%E5%90%AF"><span class="toc-number">3.3.</span> <span class="toc-text">系统关机和重启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86"><span class="toc-number">3.4.</span> <span class="toc-text">启动环境管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">软件包管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris%E4%B8%AD%E7%99%BB%E9%99%86%E6%97%B6%E7%9A%84%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-number">5.1.</span> <span class="toc-text">Solaris中登陆时的用户身份认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F"><span class="toc-number">5.2.</span> <span class="toc-text">用户密码的有效期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84shell"><span class="toc-number">5.4.</span> <span class="toc-text">修改默认的shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">网络管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-number">6.1.</span> <span class="toc-text">各个命令的说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris-1"><span class="toc-number">6.1.1.</span> <span class="toc-text">Solaris</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-1"><span class="toc-number">6.1.2.</span> <span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%91%BD%E4%BB%A4%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">6.2.</span> <span class="toc-text">各个命令的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BD%91%E5%8D%A1%E6%8E%A5%E5%8F%A3%E5%92%8C%E8%AE%BE%E7%BD%AEIP%E5%9C%B0%E5%9D%80"><span class="toc-number">6.2.1.</span> <span class="toc-text">创建网卡接口和设置IP地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BAIP%E5%9C%B0%E5%9D%80"><span class="toc-number">6.2.2.</span> <span class="toc-text">显示IP地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris%E4%B8%AD%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">6.2.3.</span> <span class="toc-text">Solaris中配置网络的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris%E4%B8%8B%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A-IPMP"><span class="toc-number">6.2.4.</span> <span class="toc-text">Solaris下网卡绑定 - IPMP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">6.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">7.</span> <span class="toc-text">后台服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RHEL6"><span class="toc-number">7.1.</span> <span class="toc-text">RHEL6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RHEL7"><span class="toc-number">7.2.</span> <span class="toc-text">RHEL7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris-2"><span class="toc-number">7.3.</span> <span class="toc-text">Solaris</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">7.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%AD%98%E5%82%A8"><span class="toc-number">8.</span> <span class="toc-text">文件系统和存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E7%9A%84%E5%8D%B7%E7%AE%A1%E7%90%86-LVM"><span class="toc-number">8.1.</span> <span class="toc-text">Linux的卷管理 - LVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris%E7%9A%84%E5%8D%B7%E7%AE%A1%E7%90%86-ZFS"><span class="toc-number">8.2.</span> <span class="toc-text">Solaris的卷管理 - ZFS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ZFS%E7%9A%84%E5%BF%AB%E7%85%A7%EF%BC%88Snapshot%EF%BC%89%E5%8A%9F%E8%83%BD"><span class="toc-number">8.2.1.</span> <span class="toc-text">ZFS的快照（Snapshot）功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZFS%E5%91%BD%E4%BB%A4"><span class="toc-number">8.2.2.</span> <span class="toc-text">ZFS命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-number">8.3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%851-Solaris%E7%9A%84%E5%8D%B7%E6%A0%87%E5%92%8C%E8%AE%BE%E5%A4%87%E8%B7%AF%E5%BE%84"><span class="toc-number">8.4.</span> <span class="toc-text">补充1 - Solaris的卷标和设备路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%852-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-number">8.5.</span> <span class="toc-text">补充2 - 磁盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%853-%E6%8C%82%E8%BD%BDISO%E6%96%87%E4%BB%B6"><span class="toc-number">8.6.</span> <span class="toc-text">补充3 - 挂载ISO文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%854-Solaris%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9E%84%E6%88%90"><span class="toc-number">8.7.</span> <span class="toc-text">补充4 - Solaris的文件系统构成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E8%A7%86"><span class="toc-number">9.</span> <span class="toc-text">系统监视</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="toc-number">9.1.</span> <span class="toc-text">日志文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E8%A7%86%E5%91%BD%E4%BB%A4"><span class="toc-number">9.2.</span> <span class="toc-text">系统监视命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">10.</span> <span class="toc-text">虚拟化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E4%B8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">10.1.</span> <span class="toc-text">Linux下的虚拟化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker"><span class="toc-number">10.1.1.</span> <span class="toc-text">Docker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KVM"><span class="toc-number">10.1.2.</span> <span class="toc-text">KVM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solaris%E4%B8%8B%E7%9A%84%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">10.2.</span> <span class="toc-text">Solaris下的虚拟化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris-Zone"><span class="toc-number">10.2.1.</span> <span class="toc-text">Solaris Zone</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Oracle-VM-Server-for-SPARC"><span class="toc-number">10.2.2.</span> <span class="toc-text">Oracle VM Server for SPARC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E4%B8%80%E4%B8%8B"><span class="toc-number">10.3.</span> <span class="toc-text">比较一下</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker%E5%92%8CSolaris-Zone"><span class="toc-number">10.3.1.</span> <span class="toc-text">Docker和Solaris Zone</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KVM%E5%92%8COracle-VM-Server-for-SPARC"><span class="toc-number">10.3.2.</span> <span class="toc-text">KVM和Oracle VM Server for SPARC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">10.4.</span> <span class="toc-text">虚拟环境下的命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%EF%BC%8C%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8"><span class="toc-number">10.4.1.</span> <span class="toc-text">Docker：创建容器，删除容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solaris-Zone-%E5%88%9B%E5%BB%BAzone%EF%BC%8C%E5%88%A0%E9%99%A4zone"><span class="toc-number">10.4.2.</span> <span class="toc-text">Solaris Zone: 创建zone，删除zone</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KVM%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%8C%E5%85%B3%E9%97%AD%E5%AE%A2%E6%88%B7%E6%9C%BA"><span class="toc-number">10.4.3.</span> <span class="toc-text">KVM：创建客户机操作系统，关闭客户机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Oracle-VM-Server-for-SPARC-DomU%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD"><span class="toc-number">10.4.4.</span> <span class="toc-text">Oracle VM Server for SPARC: DomU的创建和关闭</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">11.</span> <span class="toc-text">参考文档</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

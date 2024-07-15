@@ -1,0 +1,541 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>使用Hexo快速构建一个基于NodeJs的静态博客 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="好多盆友对本站是如何搭建起来的感兴趣。今天就来自我解剖一下，说说这个站点是如何搭建起来的。 先回顾一下历史吧。其实这个博客最早是跑在GoDadday的WordPress主机上的，正如想象的那样，WordPress让一切都变得那么“简单”，在线更新，评论管理等等，都一手包办了……以至于我都觉得“简单”的没有挑战性。同时，随着GoDadday托管费用像抢钱一样越涨越高，我深深感觉这里的坑太深，迫切需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hexo快速构建一个基于NodeJs的静态博客">
+<meta property="og:url" content="http://xintq.net/2017/09/30/static-blog-on-hexo/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="好多盆友对本站是如何搭建起来的感兴趣。今天就来自我解剖一下，说说这个站点是如何搭建起来的。 先回顾一下历史吧。其实这个博客最早是跑在GoDadday的WordPress主机上的，正如想象的那样，WordPress让一切都变得那么“简单”，在线更新，评论管理等等，都一手包办了……以至于我都觉得“简单”的没有挑战性。同时，随着GoDadday托管费用像抢钱一样越涨越高，我深深感觉这里的坑太深，迫切需要">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/static-blog-based-on-hexo.png">
+<meta property="article:published_time" content="2017-09-30T08:09:28.000Z">
+<meta property="article:modified_time" content="2017-09-30T07:47:58.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="nodejs">
+<meta property="article:tag" content="static blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/static-blog-based-on-hexo.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/09/30/static-blog-on-hexo/" title="使用Hexo快速构建一个基于NodeJs的静态博客" itemprop="url">使用Hexo快速构建一个基于NodeJs的静态博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-30T08:09:28.000Z" itemprop="datePublished"> 发表于 2017-09-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%84%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">整体构架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">评论管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2"><span class="toc-number">5.</span> <span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">日常操作</span></a></li></ol>
+		
+		</div>
+		
+		<p>好多盆友对本站是如何搭建起来的感兴趣。今天就来自我解剖一下，说说这个站点是如何搭建起来的。</p>
+<p>先回顾一下历史吧。其实这个博客最早是跑在GoDadday的WordPress主机上的，正如想象的那样，WordPress让一切都变得那么“简单”，在线更新，评论管理等等，都一手包办了……以至于我都觉得“简单”的没有挑战性。同时，随着GoDadday托管费用像抢钱一样越涨越高，我深深感觉这里的坑太深，迫切需要换一种方式折腾一下。</p>
+<h3 id="整体构架"><a href="#整体构架" class="headerlink" title="整体构架"></a>整体构架</h3><p>于是乎，趁着Node.js的东风，我找到了<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>，一个基于Node.js的静态博客引擎。Hexo的工作方式很简单，就是将写好的Markdown格式的文本转换成静态的HTML文件。同时Hexo提供了一个基于Node.js的Web服务器，让你可以在本地运行静态博客。</p>
+<p>当然，只能在本地运行是没有多少实际意义的，hexo最NB的地方就是和Github集成，将生成的静态资源打包部署到Github仓库上。这样，通过 <code>http://xxx.github.io</code> 的方式，就可以将静态博客托管到Github上了。</p>
+<p>如果你不知道我在讲什么的话，就看看下面这个示意图吧。</p>
+<p><img src="/img/post/static-blog-based-on-hexo.png" alt="基于hexo静态博客"></p>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>可以在<code>[blog_folder]/_config.yml</code>中进行配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">夕阳下的奔跑</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">不积跬步</span> <span class="string">无以至千里</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">个人总结,</span> <span class="string">工作日志,</span> <span class="string">技术原创</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">K.X</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">http://xintq.net</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir:</span> <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir:</span> <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir:</span> <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir:</span> <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir:</span> <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:year-:month-:day-:title.md</span> <span class="comment"># File name of new posts</span></span><br><span class="line"><span class="attr">default_layout:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase:</span> <span class="literal">true</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">render_drafts:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">future:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tab_replace:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map:</span></span><br><span class="line"><span class="attr">tag_map:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format:</span> <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format:</span> <span class="string">HH:mm:ss</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">pagination_dir:</span> <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: http://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: http://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">jacman</span></span><br><span class="line"><span class="comment">#theme: yilia</span></span><br><span class="line"><span class="attr">Plugins:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo-generator-feed</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo-generator-sitemap</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo-footnotes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Server</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">40000</span></span><br><span class="line"><span class="attr">server_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="attr">logger:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">logger_format:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Markdown</span></span><br><span class="line"><span class="comment">## https://github.com/chjj/marked</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">gfm:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">pedantic:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">sanitize:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tables:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">smartLists:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">smartpants:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Feed Atom</span></span><br><span class="line"><span class="attr">feed:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">atom</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">atom.xml</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rss:</span> <span class="string">/atom.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Markdown-toc</span></span><br><span class="line"><span class="comment">##https://github.com/bubkoo/hexo-toc</span></span><br><span class="line"><span class="attr">toc:</span></span><br><span class="line">  <span class="attr">maxDepth:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">class:</span> <span class="string">toc</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/xintq/xintq.github.com.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>Hexo提供了很多漂亮的主题，本站是基于<a target="_blank" rel="noopener" href="https://github.com/wuchong/jacman">jacman</a>这个主题的。<a target="_blank" rel="noopener" href="https://github.com/wuchong/jacman">jacman</a>是一款扁平化，有着响应式设计的 Hexo 主题。通过修改配置文件<code>[blog_folder]/themes/jacman/_config.yml</code>可以进行自定义。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##### Menu</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">Home:</span> <span class="string">/</span></span><br><span class="line">  <span class="attr">Archives:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="attr">About:</span> <span class="string">/about</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## you can create `tags` and `categories` folders in `../source`.</span></span><br><span class="line"><span class="comment">## And create a `index.md` file in each of them.</span></span><br><span class="line"><span class="comment">## set `front-matter`as</span></span><br><span class="line"><span class="comment">## layout: tags (or categories)</span></span><br><span class="line"><span class="comment">## title: tags (or categories)</span></span><br><span class="line"><span class="comment">## ---</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Widgets</span></span><br><span class="line"><span class="attr">widgets:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span></span><br><span class="line"><span class="comment">#- tag</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">tagcloud</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">links</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">rss</span></span><br><span class="line"><span class="comment">## provide seven widgets:category,tag,rss,archive,tagcloud,links,weibo,douban</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### RSS</span></span><br><span class="line"><span class="attr">rss:</span> <span class="string">/atom.xml</span> <span class="comment">## RSS address.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Image</span></span><br><span class="line"><span class="attr">imglogo:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span>             <span class="comment">## display image logo true/false.</span></span><br><span class="line">  <span class="attr">src:</span> <span class="string">img/logo.png</span>        <span class="comment">## `.svg` and `.png` are recommended,please put image into the theme folder `/jacman/source/img`.</span></span><br><span class="line"><span class="attr">favicon:</span> <span class="string">img/favicon.ico</span>   <span class="comment">## size:32px*32px,`.ico` is recommended,please put image into the theme folder `/jacman/source/img`.</span></span><br><span class="line"><span class="attr">apple_icon:</span> <span class="string">img/jacman.jpg</span> <span class="comment">## size:114px*114px,please put image into the theme folder `/jacman/source/img`.</span></span><br><span class="line"><span class="attr">author_img:</span> <span class="string">img/author.jpg</span> <span class="comment">## size:220px*220px.display author avatar picture.if don&#x27;t want to display,please don&#x27;t set this.</span></span><br><span class="line"><span class="attr">banner_img:</span> <span class="string">img/banner.jpg</span> <span class="comment">## size:1920px*200px+. Banner Picture</span></span><br><span class="line"><span class="comment">### Theme Color</span></span><br><span class="line"><span class="attr">theme_color:</span></span><br><span class="line">    <span class="attr">theme:</span> <span class="string">&#x27;#7f7f7f&#x27;</span>    <span class="comment">##the defaut theme color is blue, but I make it black</span></span><br><span class="line"><span class="comment">###    theme: &#x27;#2ca6cb&#x27;    ##the defaut theme color is blue</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### index post is expanding or not</span></span><br><span class="line"><span class="attr">index:</span></span><br><span class="line">  <span class="attr">expand:</span> <span class="literal">false</span>           <span class="comment">## default is unexpanding,so you can only see the short description of each post.</span></span><br><span class="line">  <span class="attr">excerpt_link:</span> <span class="string">Read</span> <span class="string">More</span></span><br><span class="line"></span><br><span class="line"><span class="attr">close_aside:</span> <span class="literal">false</span>  <span class="comment">#close sidebar in post page if true</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">false</span>      <span class="comment">#enable mathjax if true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### Creative Commons License Support, see http://creativecommons.org/</span></span><br><span class="line"><span class="comment">### you can choose: by , by-nc , by-nc-nd , by-nc-sa , by-nd , by-sa , zero</span></span><br><span class="line"><span class="attr">creative_commons:</span> <span class="string">none</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Author information</span></span><br><span class="line"><span class="attr">author:</span></span><br><span class="line">  <span class="attr">intro_line1:</span>  <span class="string">&quot;Hi there, I&#x27;m K.X, a tech guy trying to survive in the IT jungle...&quot;</span>    <span class="comment">## your introduction on the bottom of the page</span></span><br><span class="line">  <span class="attr">intro_line2:</span>  <span class="string">&quot;This is my blog. Hope you find something useful here.&quot;</span>  <span class="comment">## the 2nd line</span></span><br><span class="line">  <span class="attr">weibo:</span>      <span class="comment">## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895</span></span><br><span class="line">  <span class="attr">weibo_verifier:</span>  <span class="comment">## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.</span></span><br><span class="line">  <span class="attr">tsina:</span>      <span class="comment">## e.g. 2176287895  Your weibo ID,It will be used in share button.</span></span><br><span class="line">  <span class="attr">douban:</span>     <span class="comment">## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014</span></span><br><span class="line">  <span class="attr">zhihu:</span>      <span class="comment">## e.g. jark  for http://www.zhihu.com/people/jark</span></span><br><span class="line">  <span class="attr">email:</span>      <span class="string">&quot;test@abc.com&quot;</span> <span class="comment">## e.g. imjark@gmail.com</span></span><br><span class="line">  <span class="attr">twitter:</span>    <span class="comment">## e.g. jarkwu for https://twitter.com/jarkwu</span></span><br><span class="line">  <span class="attr">github:</span>     <span class="string">&quot;test&quot;</span> <span class="comment">## e.g. wuchong for https://github.com/wuchong</span></span><br><span class="line">  <span class="attr">facebook:</span>   <span class="comment">## e.g. imjark for https://facebook.com/imjark</span></span><br><span class="line">  <span class="attr">linkedin:</span>   <span class="string">&quot;test&quot;</span> <span class="comment">## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014</span></span><br><span class="line">  <span class="attr">google_plus:</span>    <span class="comment">## e.g. &quot;111190881341800841449&quot; for https://plus.google.com/u/0/111190881341800841449, the &quot;&quot; is needed!</span></span><br><span class="line">  <span class="attr">stackoverflow:</span>  <span class="comment">## e.g. 3222790 for http://stackoverflow.com/users/3222790/jark</span></span><br><span class="line"><span class="comment">## if you set them, the corresponding  share button will show on the footer</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Toc</span></span><br><span class="line"><span class="attr">toc:</span></span><br><span class="line">  <span class="attr">article:</span> <span class="literal">true</span>   <span class="comment">## show contents in article.</span></span><br><span class="line">  <span class="attr">aside:</span> <span class="literal">true</span>     <span class="comment">## show contents in aside.</span></span><br><span class="line"><span class="comment">## you can set both of the value to true of neither of them.</span></span><br><span class="line"><span class="comment">## if you don&#x27;t want display contents in a specified post,you can modify `front-matter` and add `toc: false`.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Links</span></span><br><span class="line"><span class="attr">links:</span></span><br><span class="line">  <span class="attr">LinkedIn:</span> <span class="string">https://cn.linkedin.com/in/xintq</span></span><br><span class="line">  <span class="string">开源中国:</span> <span class="string">http://my.oschina.net/xintq/blog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Comment</span></span><br><span class="line"><span class="attr">duoshuo_shortname:</span> <span class="comment">## e.g. wuchong   your duoshuo short name.</span></span><br><span class="line"><span class="attr">disqus_shortname:</span>     <span class="comment">## e.g. wuchong   your disqus short name.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Share button</span></span><br><span class="line"><span class="attr">jiathis:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span> <span class="comment">## if you use jiathis as your share tool,the built-in share tool won&#x27;t be display.</span></span><br><span class="line">  <span class="attr">id:</span>    <span class="comment">## e.g. 1889330 your jiathis ID.</span></span><br><span class="line">  <span class="attr">tsina:</span> <span class="comment">## e.g. 2176287895 Your weibo id,It will be used in share button.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Analytics</span></span><br><span class="line"><span class="attr">google_analytics:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">id:</span>        <span class="comment">## e.g. UA-46321946-2 your google analytics ID.</span></span><br><span class="line">  <span class="attr">site:</span>      <span class="comment">## e.g. wuchong.me your google analytics site or set the value as auto.</span></span><br><span class="line"><span class="comment">## You MUST upgrade to Universal Analytics first!</span></span><br><span class="line"><span class="comment">## https://developers.google.com/analytics/devguides/collection/upgrade/?hl=zh_CN</span></span><br><span class="line"><span class="attr">baidu_tongji:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">sitecode:</span>  <span class="comment">## e.g. e6d1f421bbc9962127a50488f9ed37d1 your baidu tongji site code</span></span><br><span class="line"><span class="attr">cnzz_tongji:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">siteid:</span>    <span class="comment">## e.g. 1253575964 your cnzz tongji site id</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Miscellaneous</span></span><br><span class="line"><span class="attr">ShowCustomFont:</span> <span class="literal">true</span>  <span class="comment">## you can change custom font in `variable.styl` and `font.styl` which in the theme folder `/jacman/source/css`.</span></span><br><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span>        <span class="comment">## if you use gallery post or want use fancybox please set the value to true.</span></span><br><span class="line"><span class="attr">totop:</span> <span class="literal">true</span>           <span class="comment">## if you want to scroll to top in every post set the value to true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Custom Search</span></span><br><span class="line"><span class="attr">google_cse:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">cx:</span>   <span class="comment">## e.g. 018294693190868310296:abnhpuysycw your Custom Search ID.</span></span><br><span class="line"><span class="comment">## https://www.google.com/cse/</span></span><br><span class="line"><span class="comment">## To enable the custom search You must create a &quot;search&quot; folder in &#x27;/source&#x27; and a &quot;index.md&quot; file</span></span><br><span class="line"><span class="comment">## set the &#x27;front-matter&#x27; as</span></span><br><span class="line"><span class="comment">## layout: search</span></span><br><span class="line"><span class="comment">## title: search</span></span><br><span class="line"><span class="comment">## ---</span></span><br><span class="line"><span class="attr">baidu_search:</span>     <span class="comment">## http://zn.baidu.com/</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">id:</span>   <span class="comment">## e.g. &quot;783281470518440642&quot;  for your baidu search id</span></span><br><span class="line">  <span class="attr">site:</span> <span class="string">http://zhannei.baidu.com/cse/search</span>  <span class="comment">## your can change to your site instead of the default site</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tinysou_search:</span>     <span class="comment">## http://tinysou.com/</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">id:</span>  <span class="comment">## e.g. &quot;4ac092ad8d749fdc6293&quot; for your tiny search id</span></span><br><span class="line"></span><br><span class="line"><span class="attr">swift_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="评论管理"><a href="#评论管理" class="headerlink" title="评论管理"></a>评论管理</h3><p>可以参考本站的 <a href="http://xintq.net/2017/05/02/use-gitment-for-comment/">《用Gitment替换多说来为基于hexo的静态网站提供评论功能》</a> 进行配置。</p>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>本站使用的是swiftype进行站内搜索的，具体配置方法请参考 <a target="_blank" rel="noopener" href="http://www.jianshu.com/p/f2df26584e87">这篇</a> 教程。</p>
+<h3 id="日常操作"><a href="#日常操作" class="headerlink" title="日常操作"></a>日常操作</h3><ol>
+<li>创建新文章： <code>hexo new &quot;My Post Title&quot;</code></li>
+<li>更新静态资源（将有改动的markdown文件转换成html）： <code>hexo g</code></li>
+<li>运行本地站点： <code>hexo s</code></li>
+<li>部署到Github上： <code>hexo d</code>， 这一步需要Git配合，而且在Windows环境下，最好在Git Bash中执行。</li>
+</ol>
+<p>上面的<code>2</code>和<code>3</code>可以使用<code>hexo s -g</code>来同时进行。<br>同样，上面的<code>2</code>和<code>4</code>可以使用<code>hexo d -g</code>来同时进行。</p>
+<p>&#x3D;&#x3D; THE END &#x3D;&#x3D;</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/github/">github</a><a href="/tags/hexo/">hexo</a><a href="/tags/git/">git</a><a href="/tags/nodejs/">nodejs</a><a href="/tags/static-blog/">static blog</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2017/09/30/static-blog-on-hexo/" data-title="使用Hexo快速构建一个基于NodeJs的静态博客 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/10/11/a-simple-ftp-server-on-windows-10/" title="在Windows 10上搭建一个简单的FTP服务器">
+  <strong>上一篇：</strong><br/>
+  <span>
+  在Windows 10上搭建一个简单的FTP服务器</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/09/30/my-atom-packages/"  title="我的 Atom 配置">
+ <strong>下一篇：</strong><br/> 
+ <span>我的 Atom 配置
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%84%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">整体构架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">评论管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2"><span class="toc-number">5.</span> <span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">日常操作</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

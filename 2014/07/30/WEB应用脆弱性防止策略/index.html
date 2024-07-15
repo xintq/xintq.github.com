@@ -1,0 +1,598 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>WEB应用脆弱性防止策略 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="事实上，WEB应用是很脆弱的。因为这种应用的灵活性很大，用户输入的自由度也很高，所以对于WEB应用的恶意攻击也比较容易。 本文对常见的16种WEB攻击，给出了部分解决方案。 1. SQL注入(SQL Injection)对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个包装类，把这些固定的SQL操作控制起来。 而对于动态生成的SQL语句，就需要对用户的输入进行处理，一般的处理是把【’】转">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEB应用脆弱性防止策略">
+<meta property="og:url" content="http://xintq.net/2014/07/30/WEB%E5%BA%94%E7%94%A8%E8%84%86%E5%BC%B1%E6%80%A7%E9%98%B2%E6%AD%A2%E7%AD%96%E7%95%A5/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="事实上，WEB应用是很脆弱的。因为这种应用的灵活性很大，用户输入的自由度也很高，所以对于WEB应用的恶意攻击也比较容易。 本文对常见的16种WEB攻击，给出了部分解决方案。 1. SQL注入(SQL Injection)对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个包装类，把这些固定的SQL操作控制起来。 而对于动态生成的SQL语句，就需要对用户的输入进行处理，一般的处理是把【’】转">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-07-30T13:38:12.000Z">
+<meta property="article:modified_time" content="2015-11-26T14:02:28.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="脆弱性">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/30/WEB应用脆弱性防止策略/" title="WEB应用脆弱性防止策略" itemprop="url">WEB应用脆弱性防止策略</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-30T13:38:12.000Z" itemprop="datePublished"> 发表于 2014-07-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-SQL%E6%B3%A8%E5%85%A5-SQL-Injection"><span class="toc-number">1.</span> <span class="toc-text">1. SQL注入(SQL Injection)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%EF%BC%88XSS%EF%BC%8CCross-Site-Scripting%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 跨站点脚本攻击（XSS，Cross Site Scripting）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%A6%82%E6%9E%9C%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E5%92%8CURL%E5%8F%82%E6%95%B0%E4%B8%AD%E5%90%AB%E6%9C%89%E4%B8%8B%E5%88%97%E6%95%8F%E6%84%9F%E6%96%87%E5%AD%97%EF%BC%8C%E5%88%99%E5%88%A0%E9%99%A4-%E4%B9%8B%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%A6%82%E6%9E%9C%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E5%92%8CURL%E5%8F%82%E6%95%B0%E4%B8%AD%E5%90%AB%E6%9C%89%E4%B8%8B%E5%88%97%E6%95%8F%E6%84%9F%E6%96%87%E5%AD%97%EF%BC%8C%E5%88%99%E8%BD%AC%E6%8D%A2-%E4%B9%8B%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%EF%BC%88OS-Command-Injection%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. 操作系统命令注入（OS Command Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%8D%A2%E8%A1%8C%E5%AD%97%E7%AC%A6%E6%B3%A8%E5%85%A5%EF%BC%88Line-Feed-Code-Injection%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. 换行字符注入（Line Feed Code Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-LDAP%E6%B3%A8%E5%85%A5%EF%BC%88LDAP-Injection%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">5. LDAP注入（LDAP Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Xpath%E6%B3%A8%E5%85%A5%EF%BC%88XPath-Injection%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">6. Xpath注入（XPath Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-SSI%E6%B3%A8%E5%85%A5%EF%BC%88SSI-Injection%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">7. SSI注入（SSI Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%EF%BC%88Directory-Traversal%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">8. 目录遍历（Directory Traversal）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E5%BC%BA%E5%88%B6%E6%B5%8F%E8%A7%88%EF%BC%88Forced-Browsing%EF%BC%89"><span class="toc-number">9.</span> <span class="toc-text">9. 强制浏览（Forced Browsing）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E8%A3%85%EF%BC%88Cross-Site-Request-Forgery%EF%BC%89"><span class="toc-number">10.</span> <span class="toc-text">10. 跨站点请求伪装（Cross Site Request Forgery）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E4%B8%8D%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E5%88%86%E9%85%8D%EF%BC%88Invalid-Allocation-of-Files-and-Directories%EF%BC%89"><span class="toc-number">11.</span> <span class="toc-text">11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E4%B8%8D%E6%AD%A3%E7%A1%AE%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88Invalid-Error-Handling%EF%BC%89"><span class="toc-number">12.</span> <span class="toc-text">12. 不正确的错误处理（Invalid Error Handling）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E4%BF%A1%E6%81%AF%EF%BC%88Unnecessary-Information%EF%BC%89"><span class="toc-number">13.</span> <span class="toc-text">13. 不必要的信息（Unnecessary Information）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-%E5%90%8E%E9%97%A8%E5%92%8C%E8%B0%83%E8%AF%95%E9%80%89%E9%A1%B9%EF%BC%88Backdoor-Debug-Option%EF%BC%89"><span class="toc-number">14.</span> <span class="toc-text">14. 后门和调试选项（Backdoor &amp; Debug Option）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E9%87%8A%EF%BC%88Client-Side-Comment%EF%BC%89"><span class="toc-number">15.</span> <span class="toc-text">15. 客户端注释（Client Side Comment）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%EF%BC%88Buffer-Over-Flow%EF%BC%89"><span class="toc-number">16.</span> <span class="toc-text">16. 缓冲区溢出（Buffer Over Flow）</span></a></li></ol>
+		
+		</div>
+		
+		<p>事实上，WEB应用是很脆弱的。因为这种应用的灵活性很大，用户输入的自由度也很高，所以对于WEB应用的恶意攻击也比较容易。</p>
+<p>本文对常见的16种WEB攻击，给出了部分解决方案。</p>
+<h1 id="1-SQL注入-SQL-Injection"><a href="#1-SQL注入-SQL-Injection" class="headerlink" title="1. SQL注入(SQL Injection)"></a>1. SQL注入(SQL Injection)</h1><p>对于固定的SQL语句，一般在应用程序层不做处理，推荐添加一个包装类，把这些固定的SQL操作控制起来。</p>
+<p>而对于动态生成的SQL语句，就需要对用户的输入进行处理，一般的处理是把【’】转换成【“】 。如：</p>
+<pre><code>abc”def”ghi’jkl’mno → abc”def”ghi’’jkl’’mno
+</code></pre>
+<h1 id="2-跨站点脚本攻击（XSS，Cross-Site-Scripting）"><a href="#2-跨站点脚本攻击（XSS，Cross-Site-Scripting）" class="headerlink" title="2. 跨站点脚本攻击（XSS，Cross Site Scripting）"></a>2. 跨站点脚本攻击（XSS，Cross Site Scripting）</h1><p>如果用户输入，URL参数在页面上表示时，必须对特殊文字进行过滤处理。</p>
+<h2 id="2-1-如果用户输入和URL参数中含有下列敏感文字，则删除-之："><a href="#2-1-如果用户输入和URL参数中含有下列敏感文字，则删除-之：" class="headerlink" title="2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之："></a>2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之：</h2><ul>
+<li>Script</li>
+<li>Object</li>
+<li>Embed</li>
+<li>Applet</li>
+</ul>
+<h2 id="2-2-如果用户输入和URL参数中含有下列敏感文字，则转换-之："><a href="#2-2-如果用户输入和URL参数中含有下列敏感文字，则转换-之：" class="headerlink" title="2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之："></a>2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之：</h2><pre><code>&amp;    →    &amp;amp;
+&lt;    →    &amp;lt;
+&gt;    →    &amp;gt;
+“     →    &amp;quot;
+‘      →    &amp;#39;
+</code></pre>
+<h1 id="3-操作系统命令注入（OS-Command-Injection）"><a href="#3-操作系统命令注入（OS-Command-Injection）" class="headerlink" title="3. 操作系统命令注入（OS Command Injection）"></a>3. 操作系统命令注入（OS Command Injection）</h1><p>要尽量避免执行系统命令，如果非使用不可的话，要对以下的用户输入或者参数做处理：</p>
+<pre><code>| ! &amp; `      命令执行总要使用的字符
+“ ‘            字符串的区分字符
+/ -            命令参数指定时使用的字符
+“ . / ¥       目录指定时使用的字符
+&lt; &gt;          文件操作是使用的字符
+$             环境变量指定时使用的字符
+( &#123; [ ] &#125; )   命令间的区分字符
+</code></pre>
+<h1 id="4-换行字符注入（Line-Feed-Code-Injection）"><a href="#4-换行字符注入（Line-Feed-Code-Injection）" class="headerlink" title="4. 换行字符注入（Line Feed Code Injection）"></a>4. 换行字符注入（Line Feed Code Injection）</h1><p>在用户的输入信息中，检查是否不包含【0x0d】【0x0a】 这种换行的输入。</p>
+<h1 id="5-LDAP注入（LDAP-Injection）"><a href="#5-LDAP注入（LDAP-Injection）" class="headerlink" title="5. LDAP注入（LDAP Injection）"></a>5. LDAP注入（LDAP Injection）</h1><p>在LDAP使用的场合，要检查用户输入信息中，是否不包含下列LDAP的保留字：</p>
+<pre><code> (    )     *    ¥    NULL
+</code></pre>
+<h1 id="6-Xpath注入（XPath-Injection）"><a href="#6-Xpath注入（XPath-Injection）" class="headerlink" title="6. Xpath注入（XPath Injection）"></a>6. Xpath注入（XPath Injection）</h1><p>在XPath使用的场合，要检查用户输入信息中，是否不包含下列Xpath的保留字：</p>
+<pre><code> &lt;    &gt;    “    ‘    &amp;
+</code></pre>
+<h1 id="7-SSI注入（SSI-Injection）"><a href="#7-SSI注入（SSI-Injection）" class="headerlink" title="7. SSI注入（SSI Injection）"></a>7. SSI注入（SSI Injection）</h1><p>检查用户输入中，是否不包含SSI相关的危险关键字。</p>
+<h1 id="8-目录遍历（Directory-Traversal）"><a href="#8-目录遍历（Directory-Traversal）" class="headerlink" title="8. 目录遍历（Directory Traversal）"></a>8. 目录遍历（Directory Traversal）</h1><p>检查用户输入中，是否不包含访问文件系统的特殊文字【&#x2F;】 和【\】 。</p>
+<h1 id="9-强制浏览（Forced-Browsing）"><a href="#9-强制浏览（Forced-Browsing）" class="headerlink" title="9. 强制浏览（Forced Browsing）"></a>9. 强制浏览（Forced Browsing）</h1><p>这种攻击的防止比较复杂，一般的策略是：</p>
+<ul>
+<li>验证请求是否是从合法的页面发送而来的，一般是检查请求的Referer。</li>
+<li>用户授权控制，认证认可</li>
+</ul>
+<p>对于静态资源来说，WEB程序是无法防止这种强制浏览攻击的，只有通过设置中间件（如WEB服务器）来防止：</p>
+<ul>
+<li>对公开化网站目录的设定（比如在站点目录下禁止显示文件列表）</li>
+<li>在URL中指定目录的时候，必须提供index文件（如index.html等）</li>
+<li>对于下载文件的存放位置，要特别谨慎的设置</li>
+</ul>
+<h1 id="10-跨站点请求伪装（Cross-Site-Request-Forgery）"><a href="#10-跨站点请求伪装（Cross-Site-Request-Forgery）" class="headerlink" title="10. 跨站点请求伪装（Cross Site Request Forgery）"></a>10. 跨站点请求伪装（Cross Site Request Forgery）</h1><p>明确页面的操作流程，对于不符合操作流程而来的请求进行过滤。</p>
+<h1 id="11-不正确的文件和目录分配（Invalid-Allocation-of-Files-and-Directories）"><a href="#11-不正确的文件和目录分配（Invalid-Allocation-of-Files-and-Directories）" class="headerlink" title="11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）"></a>11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）</h1><p>不公开的配置文件，备份文件，数据文件等，不要在站点的公共目录(WebRoot或者www&#x2F;htdocs)下存放WEB应用程序使用的库文件，不要再站点的公共目录下存放。</p>
+<p>适合在公共目录下存放的资源如下所示：</p>
+<pre><code>/var/www/htdocs/
+                Img/
+                css/
+                data/
+                index.html
+</code></pre>
+<h1 id="12-不正确的错误处理（Invalid-Error-Handling）"><a href="#12-不正确的错误处理（Invalid-Error-Handling）" class="headerlink" title="12. 不正确的错误处理（Invalid Error Handling）"></a>12. 不正确的错误处理（Invalid Error Handling）</h1><p>一定要进行错误处理，错误处理的消息要显示为用户可理解的内容，不要把中间件（WEB服务器）的错误消息显示出来。</p>
+<h1 id="13-不必要的信息（Unnecessary-Information）"><a href="#13-不必要的信息（Unnecessary-Information）" class="headerlink" title="13. 不必要的信息（Unnecessary Information）"></a>13. 不必要的信息（Unnecessary Information）</h1><p>比如在用户登陆时，提示的这样的错误信息【用户密码不正确】，从侧面就说明了系统中存在一个叫做【userid】的用户。这就为恶意攻击者提供了情报。</p>
+<p>所以，在处理系统显示的消息是，点到为止，不能暴露多余的用户细节。</p>
+<h1 id="14-后门和调试选项（Backdoor-Debug-Option）"><a href="#14-后门和调试选项（Backdoor-Debug-Option）" class="headerlink" title="14. 后门和调试选项（Backdoor &amp; Debug Option）"></a>14. 后门和调试选项（Backdoor &amp; Debug Option）</h1><ul>
+<li>避免特殊的密码输入和认证策略</li>
+<li>指定调试选项是，调试选项和程序的参数都可以改变和查看</li>
+<li>要做出测试专用的页面</li>
+</ul>
+<p>对于程序后门，可以通过代码复查力度强化来进行防止。<br>而对于调试选择，要统一开发标准，使用统一的调试开关。</p>
+<h1 id="15-客户端注释（Client-Side-Comment）"><a href="#15-客户端注释（Client-Side-Comment）" class="headerlink" title="15. 客户端注释（Client Side Comment）"></a>15. 客户端注释（Client Side Comment）</h1><p>对于WEB应用来说，客户端可以通过浏览器直接看到页面的代码。发送到浏览器的代码中，可以开发者的注释。对于恶意攻击者来说，这些注释信息会暴露出WEB应用的很多细节。</p>
+<p>比如说下面所说的注释就应该引起关注：</p>
+<ul>
+<li>对于请求参数的注释</li>
+<li>Javascript的内部逻辑的注释</li>
+<li>注释外的Javascript内部逻辑和URL请求</li>
+</ul>
+<p>解决方法如下：</p>
+<ul>
+<li>对于代码的注释，事先要有统一的代码规范</li>
+<li>尽量使用服务器端得注释标签，如JSP的【&lt;%– –%&gt;】，这样的注释内容不会发送到客户端。</li>
+</ul>
+<h1 id="16-缓冲区溢出（Buffer-Over-Flow）"><a href="#16-缓冲区溢出（Buffer-Over-Flow）" class="headerlink" title="16. 缓冲区溢出（Buffer Over Flow）"></a>16. 缓冲区溢出（Buffer Over Flow）</h1><p>如果用户输入中包含了超过服务器缓冲区大小的输入，很可能会导致服务器存储不足，甚至导致服务器停机。</p>
+<p>解决方法如下：</p>
+<ul>
+<li>一定要检查用户输入的大小</li>
+<li>文件上传是，对于上传文件的大小进行检查和限制。</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/web%E5%9F%BA%E7%A1%80/">WEB基础</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/web/">web</a><a href="/tags/脆弱性/">脆弱性</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2014/07/30/WEB%E5%BA%94%E7%94%A8%E8%84%86%E5%BC%B1%E6%80%A7%E9%98%B2%E6%AD%A2%E7%AD%96%E7%95%A5/" data-title="WEB应用脆弱性防止策略 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/07/30/CentOS下Samba服务的配置/" title="CentOS下Samba服务的配置">
+  <strong>上一篇：</strong><br/>
+  <span>
+  CentOS下Samba服务的配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/30/LVM的基本概念和部署/"  title="LVM的基本概念和部署">
+ <strong>下一篇：</strong><br/> 
+ <span>LVM的基本概念和部署
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-SQL%E6%B3%A8%E5%85%A5-SQL-Injection"><span class="toc-number">1.</span> <span class="toc-text">1. SQL注入(SQL Injection)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%EF%BC%88XSS%EF%BC%8CCross-Site-Scripting%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 跨站点脚本攻击（XSS，Cross Site Scripting）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%A6%82%E6%9E%9C%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E5%92%8CURL%E5%8F%82%E6%95%B0%E4%B8%AD%E5%90%AB%E6%9C%89%E4%B8%8B%E5%88%97%E6%95%8F%E6%84%9F%E6%96%87%E5%AD%97%EF%BC%8C%E5%88%99%E5%88%A0%E9%99%A4-%E4%B9%8B%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">2-1 如果用户输入和URL参数中含有下列敏感文字，则删除 之：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%A6%82%E6%9E%9C%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E5%92%8CURL%E5%8F%82%E6%95%B0%E4%B8%AD%E5%90%AB%E6%9C%89%E4%B8%8B%E5%88%97%E6%95%8F%E6%84%9F%E6%96%87%E5%AD%97%EF%BC%8C%E5%88%99%E8%BD%AC%E6%8D%A2-%E4%B9%8B%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">2-2 如果用户输入和URL参数中含有下列敏感文字，则转换 之：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%EF%BC%88OS-Command-Injection%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. 操作系统命令注入（OS Command Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%8D%A2%E8%A1%8C%E5%AD%97%E7%AC%A6%E6%B3%A8%E5%85%A5%EF%BC%88Line-Feed-Code-Injection%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. 换行字符注入（Line Feed Code Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-LDAP%E6%B3%A8%E5%85%A5%EF%BC%88LDAP-Injection%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">5. LDAP注入（LDAP Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Xpath%E6%B3%A8%E5%85%A5%EF%BC%88XPath-Injection%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">6. Xpath注入（XPath Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-SSI%E6%B3%A8%E5%85%A5%EF%BC%88SSI-Injection%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">7. SSI注入（SSI Injection）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%EF%BC%88Directory-Traversal%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">8. 目录遍历（Directory Traversal）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E5%BC%BA%E5%88%B6%E6%B5%8F%E8%A7%88%EF%BC%88Forced-Browsing%EF%BC%89"><span class="toc-number">9.</span> <span class="toc-text">9. 强制浏览（Forced Browsing）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E8%A3%85%EF%BC%88Cross-Site-Request-Forgery%EF%BC%89"><span class="toc-number">10.</span> <span class="toc-text">10. 跨站点请求伪装（Cross Site Request Forgery）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E4%B8%8D%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E5%88%86%E9%85%8D%EF%BC%88Invalid-Allocation-of-Files-and-Directories%EF%BC%89"><span class="toc-number">11.</span> <span class="toc-text">11. 不正确的文件和目录分配（Invalid Allocation of Files and Directories）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E4%B8%8D%E6%AD%A3%E7%A1%AE%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88Invalid-Error-Handling%EF%BC%89"><span class="toc-number">12.</span> <span class="toc-text">12. 不正确的错误处理（Invalid Error Handling）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E4%BF%A1%E6%81%AF%EF%BC%88Unnecessary-Information%EF%BC%89"><span class="toc-number">13.</span> <span class="toc-text">13. 不必要的信息（Unnecessary Information）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-%E5%90%8E%E9%97%A8%E5%92%8C%E8%B0%83%E8%AF%95%E9%80%89%E9%A1%B9%EF%BC%88Backdoor-Debug-Option%EF%BC%89"><span class="toc-number">14.</span> <span class="toc-text">14. 后门和调试选项（Backdoor &amp; Debug Option）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E9%87%8A%EF%BC%88Client-Side-Comment%EF%BC%89"><span class="toc-number">15.</span> <span class="toc-text">15. 客户端注释（Client Side Comment）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%EF%BC%88Buffer-Over-Flow%EF%BC%89"><span class="toc-number">16.</span> <span class="toc-text">16. 缓冲区溢出（Buffer Over Flow）</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

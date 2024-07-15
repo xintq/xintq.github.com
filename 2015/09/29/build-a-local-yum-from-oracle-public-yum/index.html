@@ -1,0 +1,575 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>从Oracle Public Yum为Oracle Linux建立本地的Yum源 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。 为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Oracle Public Yum为Oracle Linux建立本地的Yum源">
+<meta property="og:url" content="http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。 为什么需要本地Yum源在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-09-29T09:09:10.000Z">
+<meta property="article:modified_time" content="2015-11-26T14:02:30.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="oracle linux">
+<meta property="article:tag" content="yum">
+<meta property="article:tag" content="repolist">
+<meta property="article:tag" content="reposync">
+<meta property="article:tag" content="createrepo">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/29/build-a-local-yum-from-oracle-public-yum/" title="从Oracle Public Yum为Oracle Linux建立本地的Yum源" itemprop="url">从Oracle Public Yum为Oracle Linux建立本地的Yum源</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-29T09:09:10.000Z" itemprop="datePublished"> 发表于 2015-09-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9C%AC%E5%9C%B0Yum%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">为什么需要本地Yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BB%8E%E5%AE%98%E6%96%B9%E5%A4%8D%E5%88%B6Yum%E6%BA%90"><span class="toc-number">2.</span> <span class="toc-text">为什么需要从官方复制Yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">测试环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%9C%A8%E4%B8%80%E4%B8%AA%E8%83%BD%E4%B8%8A%E5%A4%96%E7%BD%91%EF%BC%8C%E7%BD%91%E9%80%9F%E5%BE%88%E5%BF%AB%E7%9A%84%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6Oracle-Public-Yum%E4%B8%AD%E5%90%84%E4%B8%AA%E4%BB%93%E5%BA%93%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%9B%AE%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text">第一步：在一个能上外网，网速很快的临时环境中，同步复制Oracle Public Yum中各个仓库的软件包到本地目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%B4%E6%97%B6%E7%9A%84%E5%A4%96%E7%BD%91Yum%E6%BA%90"><span class="toc-number">4.1.</span> <span class="toc-text">配置临时的外网Yum源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEFTP"><span class="toc-number">4.2.</span> <span class="toc-text">安装并配置FTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0Yum%E6%BA%90%E7%9A%84%E5%AD%98%E6%94%BE%E7%9B%AE%E5%BD%95"><span class="toc-number">4.3.</span> <span class="toc-text">创建本地Yum源的存放目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85reposync%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">4.4.</span> <span class="toc-text">安装reposync同步工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-number">4.5.</span> <span class="toc-text">开始同步复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%9A%84%E5%8C%85%E5%BB%BA%E7%AB%8B%E6%9C%AC%E5%9C%B0Yum%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">第二步：从复制到本地的包建立本地Yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%B0%86%E5%BB%BA%E7%AB%8B%E5%A5%BD%E7%9A%84%E6%9C%AC%E5%9C%B0Yum%E6%BA%90%E7%A7%BB%E5%8A%A8%E5%88%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%BC%80%E5%A7%8B%E5%9C%A8%E6%97%A0%E5%A4%96%E7%BD%91%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文是在Oracle Linux 6.5下，通过复制Oracle Public Yum源的方式建立一个完整的本地Yum源。由于只是出于测试和快速上手的目的，只进行了一次同步复制。在同步复制完成之后，就可以把外网切断，换到真正的测试和部署环境中使用本地的Yum源了。</p>
+<h2 id="为什么需要本地Yum源"><a href="#为什么需要本地Yum源" class="headerlink" title="为什么需要本地Yum源"></a>为什么需要本地Yum源</h2><p>在Oracle Linux下安装Oracle数据库，Oracle VDI以及其他Oracle产品时，通常都会需要连接外网从Oracle Public Yum中下载最新的安装包和依赖包。不得不说，这是最有效也是最安全的方法。但是，事实上并不是所有的测试和部署环境都能连接外网的，而且即使能连外网，由于带宽的限制，下载速度可能非常慢。这时，就需要建立本地的Yum安装仓库。</p>
+<h2 id="为什么需要从官方复制Yum源"><a href="#为什么需要从官方复制Yum源" class="headerlink" title="为什么需要从官方复制Yum源"></a>为什么需要从官方复制Yum源</h2><p>虽然通过ISO镜像文件可以建立一个基本的本地Yum源，但是比起Oracle Public Yum源来说，ISO镜像中包含的软件包并不是最全的，也不是最新的（比如，Oracle VDI安装时需要的gdm_multiseat仓库在ISO镜像中就没有，还比如Oracle数据库安装时的依赖包在ISO镜像中也没有）。</p>
+<h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><p>本文的思路如下（推荐使用Oracle VirtualBox部署虚拟机，这样就可以随意切换内外网环境了）：</p>
+<ul>
+<li><strong>第一步</strong>：在一个能上外网，网速很快的临时环境中，同步复制Oracle Public Yum中各个仓库的软件包到本地目录</li>
+<li><strong>第二步</strong>：从复制到本地的包建立本地Yum源</li>
+<li><strong>第三步</strong>：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用</li>
+</ul>
+<p>接下来详细介绍每个步骤的实施过程。</p>
+<h2 id="第一步：在一个能上外网，网速很快的临时环境中，同步复制Oracle-Public-Yum中各个仓库的软件包到本地目录"><a href="#第一步：在一个能上外网，网速很快的临时环境中，同步复制Oracle-Public-Yum中各个仓库的软件包到本地目录" class="headerlink" title="第一步：在一个能上外网，网速很快的临时环境中，同步复制Oracle Public Yum中各个仓库的软件包到本地目录"></a>第一步：在一个能上外网，网速很快的临时环境中，同步复制Oracle Public Yum中各个仓库的软件包到本地目录</h2><p>这一步的测试环境和条件如下：</p>
+<ul>
+<li>Oracle Linux可以连接外网，准确的说是可以连接Oracle Pubic Yum</li>
+<li>禁用了SELinux和iptables</li>
+</ul>
+<h3 id="配置临时的外网Yum源"><a href="#配置临时的外网Yum源" class="headerlink" title="配置临时的外网Yum源"></a>配置临时的外网Yum源</h3><p>首先需要保证能上外网，并能够访问<a target="_blank" rel="noopener" href="http://public-yum.oracle.com/"><code>public-yum.oracle.com</code></a>。<br>开始配置Yum源，把<a target="_blank" rel="noopener" href="http://public-yum.oracle.com/public-yum-ol6.repo"><code>public-yum-ol6.repo</code></a>下载到<code>/etc/yum.repo.s</code>目录，并编辑内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[ol6_u5_base]</span><br><span class="line">name=Oracle Linux <span class="variable">$releasever</span> Update 5 installation media copy (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/5/base/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启；但是在安装VDI时，如果你使用安装镜像（ISO）文件作为本地Yum源的话，这里不用开启</span></span><br><span class="line"></span><br><span class="line">[ol6_addons]</span><br><span class="line">name=Oracle Linux <span class="variable">$releasever</span> Add ons (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/addons/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启</span></span><br><span class="line"></span><br><span class="line">[ol6_UEK_base]</span><br><span class="line">name=Unbreakable Enterprise Kernel <span class="keyword">for</span> Oracle Linux <span class="variable">$releasever</span> (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/UEK/base/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启；但是在安装VDI时，如果你使用安装镜像（ISO）文件作为本地Yum源的话，这里不用开启</span></span><br><span class="line"></span><br><span class="line">[ol6_gdm_multiseat]</span><br><span class="line">name=Oracle Linux 6 GDM Multiseat (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/gdm_multiseat/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启</span></span><br></pre></td></tr></table></figure>
+
+<p>本文中，我们需要同步复制下面四个Yum仓库，所以在上面的配置文件中把这四个仓库全部启用：</p>
+<ul>
+<li>ol6_u5_base- 大概25GB以上</li>
+<li>ol6_addons - 大概5GB</li>
+<li>ol6_UEK_base</li>
+<li>ol6_gdm_multiseat - 大概2MB</li>
+</ul>
+<h3 id="安装并配置FTP"><a href="#安装并配置FTP" class="headerlink" title="安装并配置FTP"></a>安装并配置FTP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi ~]# yum install vsftpd</span><br><span class="line">[root@vdi ~]# chkconfig vsftpd on</span><br><span class="line">[root@vdi ~]# service vsftpd start</span><br><span class="line">Starting vsftpd <span class="keyword">for</span> vsftpd:                                [  OK  ]</span><br></pre></td></tr></table></figure>
+<p>在安装完成后，无需任何配置，默认会将<code>/var/ftp/pub</code>作为FTP的主目录。任意存放在这个目录下的文件都可以发布到FTP站点上，通过 <code>ftp://localhost/pub</code> 下载到。</p>
+<h3 id="创建本地Yum源的存放目录"><a href="#创建本地Yum源的存放目录" class="headerlink" title="创建本地Yum源的存放目录"></a>创建本地Yum源的存放目录</h3><p>这里使用FTP默认的公共目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi pub]# <span class="built_in">mkdir</span> -p /var/ftp/pub/repos/x86_64/</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装reposync同步工具"><a href="#安装reposync同步工具" class="headerlink" title="安装reposync同步工具"></a>安装reposync同步工具</h3><p>该工具包含在<code>yum-utils</code>包中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi pub]# <span class="built_in">mkdir</span> -p /var/ftp/pub/repos/x86_64/</span><br><span class="line">[root@vdi pub]# yum install yum-utils</span><br></pre></td></tr></table></figure>
+<h3 id="开始同步复制"><a href="#开始同步复制" class="headerlink" title="开始同步复制"></a>开始同步复制</h3><p>依次同步复制这四个Yum仓库，由于文件量(约30GB)比较大，请预留足够的磁盘空间，而且这一步花费的时间会很长，需要耐心等待。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi pub]# reposync --repoid=ol6_u5_base --repoid=ol6_u5_base -p /var/ftp/pub/repos/x86_64</span><br><span class="line">...</span><br><span class="line">[root@vdi pub]# reposync --repoid=ol6_addons --repoid=ol6_addons -p /var/ftp/pub/repos/x86_64</span><br><span class="line">...</span><br><span class="line">[root@vdi pub]# reposync --repoid=ol6_UEK_base --repoid=ol6_UEK_base -p /var/ftp/pub/repos/x86_64</span><br><span class="line">...</span><br><span class="line">[root@vdi pub]# reposync --repoid=ol6_gdm_multiseat --repoid=ol6_gdm_multiseat -p /var/ftp/pub/repos/x86_64</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二步：从复制到本地的包建立本地Yum源"><a href="#第二步：从复制到本地的包建立本地Yum源" class="headerlink" title="第二步：从复制到本地的包建立本地Yum源"></a>第二步：从复制到本地的包建立本地Yum源</h2><p>先安装仓库创建工具<code>createrepo</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi x86_64]# yum install createrepo</span><br></pre></td></tr></table></figure>
+
+<p>在上一步的同步复制之后，会有如下四个目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi x86_64]# <span class="built_in">pwd</span></span><br><span class="line">/var/ftp/pub/repos/x86_64</span><br><span class="line">[root@vdi x86_64]# <span class="built_in">ls</span></span><br><span class="line">ol6_addons  ol6_gdm_multiseat  ol6_u5_base  ol6_UEK_base</span><br><span class="line">p/pub/repos/x86_64</span><br></pre></td></tr></table></figure>
+<p>其中，每个目录下都会有一个名为<code>getPackage</code>的子目录，该目录中会存放下载到本地的各个软件包。接下来需要使用<code>createrepo</code>创建Yum源的元数据（<code>repodata</code>目录），四个文件依次执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi x86_64]# createrepo /var/ftp/pub/repos/x86_64/ol6_u5_base/getPackage/</span><br><span class="line">...</span><br><span class="line">[root@vdi x86_64]# createrepo /var/ftp/pub/repos/x86_64/ol6_UEK_base/getPackage/</span><br><span class="line">...</span><br><span class="line">[root@vdi x86_64]# createrepo /var/ftp/pub/repos/x86_64/ol6_addons/getPackage/</span><br><span class="line">...</span><br><span class="line">[root@vdi x86_64]# createrepo /var/ftp/pub/repos/x86_64/ol6_gdm_multiseat/getPackage/</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<pre><code>注意： 只有包含`repodata`的目录才可以当成Yum仓库！
+</code></pre>
+<p>接下来就可以配置本地Yum源了。</p>
+<p>先备份<code>public-yum-ol6.repo</code>，然后创建一个空的<code>local.repo</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi x86_64]# <span class="built_in">mv</span> /etc/yum.repos.d/public-yum-ol6.repo /etc/yum.repos.d/public-yum-ol6.repo.orig</span><br><span class="line">[root@vdi x86_64]# vim /etc/yum.repos.d/local.repo</span><br></pre></td></tr></table></figure>
+
+<p>输入以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[ol6_u5_base]</span><br><span class="line">name=ol6_u5_base</span><br><span class="line">baseurl=ftp://localhost/pub/repos/x86_64/ol6_u5_base/getPackage</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">[ol6_UEK_base]</span><br><span class="line">name=ol6_UEK_base</span><br><span class="line">baseurl=ftp://localhost/pub/repos/x86_64/ol6_UEK_base/getPackage</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">[ol6_addons]</span><br><span class="line">name=ol6_addons</span><br><span class="line">baseurl=ftp://localhost/pub/repos/x86_64/ol6_addons/getPackage</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">[ol6_gdm_multiseat]</span><br><span class="line">name=ol6_gdm_multiseat</span><br><span class="line">baseurl=ftp://localhost/pub/repos/x86_64/ol6_gdm_multiseat/getPackage</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+
+<p>测试一下本地Yum源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi x86_64]# yum repolist</span><br><span class="line">...</span><br><span class="line">Loaded plugins: security</span><br><span class="line">ol6_gdm_multiseat     | 2.9 kB     00:00</span><br><span class="line">repo <span class="built_in">id</span>                       repo name          status</span><br><span class="line">ol6_gdm_multiseat             ol6_gdm_multiseat   9</span><br><span class="line">repolist: 9</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用"><a href="#第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用" class="headerlink" title="第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用"></a>第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用</h2><p>这一步很简单，你懂的…略过。</p>
+<p>（完）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/oracle-linux/">oracle linux</a><a href="/tags/yum/">yum</a><a href="/tags/repolist/">repolist</a><a href="/tags/reposync/">reposync</a><a href="/tags/createrepo/">createrepo</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2015/09/29/build-a-local-yum-from-oracle-public-yum/" data-title="从Oracle Public Yum为Oracle Linux建立本地的Yum源 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/01/mac-tricks/" title="Mac OS X下的一些常用命令汇总">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Mac OS X下的一些常用命令汇总</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/08/18/oracle-vdi-installation/"  title="Oracle VDI 安装">
+ <strong>下一篇：</strong><br/> 
+ <span>Oracle VDI 安装
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9C%AC%E5%9C%B0Yum%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">为什么需要本地Yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BB%8E%E5%AE%98%E6%96%B9%E5%A4%8D%E5%88%B6Yum%E6%BA%90"><span class="toc-number">2.</span> <span class="toc-text">为什么需要从官方复制Yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">测试环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%9C%A8%E4%B8%80%E4%B8%AA%E8%83%BD%E4%B8%8A%E5%A4%96%E7%BD%91%EF%BC%8C%E7%BD%91%E9%80%9F%E5%BE%88%E5%BF%AB%E7%9A%84%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6Oracle-Public-Yum%E4%B8%AD%E5%90%84%E4%B8%AA%E4%BB%93%E5%BA%93%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%9B%AE%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text">第一步：在一个能上外网，网速很快的临时环境中，同步复制Oracle Public Yum中各个仓库的软件包到本地目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%B4%E6%97%B6%E7%9A%84%E5%A4%96%E7%BD%91Yum%E6%BA%90"><span class="toc-number">4.1.</span> <span class="toc-text">配置临时的外网Yum源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEFTP"><span class="toc-number">4.2.</span> <span class="toc-text">安装并配置FTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0Yum%E6%BA%90%E7%9A%84%E5%AD%98%E6%94%BE%E7%9B%AE%E5%BD%95"><span class="toc-number">4.3.</span> <span class="toc-text">创建本地Yum源的存放目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85reposync%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">4.4.</span> <span class="toc-text">安装reposync同步工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-number">4.5.</span> <span class="toc-text">开始同步复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%9A%84%E5%8C%85%E5%BB%BA%E7%AB%8B%E6%9C%AC%E5%9C%B0Yum%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">第二步：从复制到本地的包建立本地Yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%B0%86%E5%BB%BA%E7%AB%8B%E5%A5%BD%E7%9A%84%E6%9C%AC%E5%9C%B0Yum%E6%BA%90%E7%A7%BB%E5%8A%A8%E5%88%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%BC%80%E5%A7%8B%E5%9C%A8%E6%97%A0%E5%A4%96%E7%BD%91%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">第三步：将建立好的本地Yum源移动到真正的部署环境中，开始在无外网的情况下使用</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

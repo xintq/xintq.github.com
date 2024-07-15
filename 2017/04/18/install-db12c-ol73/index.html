@@ -1,0 +1,812 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>Oracle Linux 7.3 下安装 Oracle Database 12c R2 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="本文使用VirtualBox，在最小化安装的Oracle Linux 7.3中，安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。 本文会以图形界面的方式安装数据库，如果想通过命令行的方式进行安装的话，请参考本站的另一篇文章《Oracle Linux 7 下静默安装 Oracle 12c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle Linux 7.3 下安装 Oracle Database 12c R2">
+<meta property="og:url" content="http://xintq.net/2017/04/18/install-db12c-ol73/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="本文使用VirtualBox，在最小化安装的Oracle Linux 7.3中，安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。 本文会以图形界面的方式安装数据库，如果想通过命令行的方式进行安装的话，请参考本站的另一篇文章《Oracle Linux 7 下静默安装 Oracle 12c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-000-0.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-000.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-000-1.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-000-2.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-001.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-002.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-003.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-004.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-005.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-006.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-007.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-008.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-009.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-010.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-011.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-012.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-013.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-014.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-015.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-016.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-017.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-018.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-019.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-020.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-021.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-022.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-023.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-024.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-025.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-026.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-027.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-028.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-029.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-030.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-031.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-032.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-033.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-034.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-036.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-037.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-038.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-039.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-040.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-041.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-042.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-043.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-044.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-045.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-046.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-047.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-048.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-049.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-050.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-051.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-052.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-053.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-054.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-055.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-056.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-057.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-058.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-059.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-060.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-061.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-062.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-063.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-064.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-065.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-066.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-067.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-068.png">
+<meta property="og:image" content="http://xintq.net/img/post/ora12c-069.png">
+<meta property="article:published_time" content="2017-04-18T07:42:04.000Z">
+<meta property="article:modified_time" content="2017-09-28T10:07:45.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="virtualbox">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="12c">
+<meta property="article:tag" content="oracle12c">
+<meta property="article:tag" content="vbox">
+<meta property="article:tag" content="yum">
+<meta property="article:tag" content="EM12c">
+<meta property="article:tag" content="ora12c">
+<meta property="article:tag" content="systemctl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/ora12c-000-0.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/18/install-db12c-ol73/" title="Oracle Linux 7.3 下安装 Oracle Database 12c R2" itemprop="url">Oracle Linux 7.3 下安装 Oracle Database 12c R2</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-18T07:42:04.000Z" itemprop="datePublished"> 发表于 2017-04-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VirtualBox%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">VirtualBox设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">创建虚拟机实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">虚拟机设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1"><span class="toc-number">3.1.1.</span> <span class="toc-text">设置虚拟网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95"><span class="toc-number">3.1.2.</span> <span class="toc-text">设置共享目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.</span> <span class="toc-text">安装操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.1.</span> <span class="toc-text">操作系统设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">4.1.1.</span> <span class="toc-text">关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E7%94%A8SELinux"><span class="toc-number">4.1.2.</span> <span class="toc-text">停用SELinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEYUM%E6%BA%90"><span class="toc-number">4.1.3.</span> <span class="toc-text">配置YUM源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">4.1.4.</span> <span class="toc-text">安装必须的软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85VirtualBox-Guest-Additions"><span class="toc-number">4.1.5.</span> <span class="toc-text">安装VirtualBox Guest Additions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6"><span class="toc-number">4.1.6.</span> <span class="toc-text">修改hosts文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.2.</span> <span class="toc-text">数据库安装选项设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEVNC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.3.</span> <span class="toc-text">配置VNC服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">5.</span> <span class="toc-text">安装数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">6.</span> <span class="toc-text">创建数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.1.</span> <span class="toc-text">设置用户配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E6%97%B6%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">6.2.</span> <span class="toc-text">重启时自动启动数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%88%B0EM-Express%E4%B8%AD"><span class="toc-number">6.3.</span> <span class="toc-text">注册到EM Express中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EM-Express%E5%90%AF%E7%94%A8HTTPS"><span class="toc-number">6.3.1.</span> <span class="toc-text">EM Express启用HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BACDB%E5%90%AF%E7%94%A8HTTPS"><span class="toc-number">6.3.1.1.</span> <span class="toc-text">为CDB启用HTTPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BAPDB%E5%90%AF%E7%94%A8HTTPS"><span class="toc-number">6.3.1.2.</span> <span class="toc-text">为PDB启用HTTPS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%90%AF%E7%94%A8%E8%AE%BF%E9%97%AEEM-Express"><span class="toc-number">6.3.2.</span> <span class="toc-text">普通用户启用访问EM Express</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">7.</span> <span class="toc-text">参考文档</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文使用VirtualBox，在最小化安装的Oracle Linux 7.3中，安装一个单实例的Oracle Database 12c Release 2。目的是为Oracle Database 12c的学习和研究提供一个快速可靠的实验环境。</p>
+<p>本文会以图形界面的方式安装数据库，如果想通过命令行的方式进行安装的话，请参考本站的另一篇文章<a href="http://xintq.net/2017/09/22/silent-install-ora12c-ol7/">《Oracle Linux 7 下静默安装 Oracle 12c》</a>。</p>
+<h1 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h1><ul>
+<li><strong>主机</strong>： macOS Sierra (10.12.4)，内存16GB，处理器Intel Core i5 2.4GHz x 4</li>
+<li><strong>虚拟环境</strong>：VirtualBox 5.1.16</li>
+<li><strong>数据库安装操作系统</strong>： Oracle Linux 7.3 x64位</li>
+<li><strong>数据库安装文件</strong>：Oracle Database 12c Release 2(12.2.0.1.0)，可以在Oracle主页中下载到。需要下载的文件名称为 <code>linuxx64_12201_database.zip</code>。</li>
+</ul>
+<p><img src="/img/post/ora12c-000-0.png" alt="数据库安装文件下载"></p>
+<h1 id="VirtualBox设置"><a href="#VirtualBox设置" class="headerlink" title="VirtualBox设置"></a>VirtualBox设置</h1><p>由于是使用虚拟环境，所以对于虚拟网络来说，只需要保证主机可以访问VM实例即可，这里主要设置Host-Only网络。注意在macOS系统中，默认的Host-Only网卡名称为<code>vboxnet0</code>，在Windows系统中的名称为<code>VirtualBox Host-Only Ethernet Adapter</code>。</p>
+<p><img src="/img/post/ora12c-000.png" alt="Host-Only网络设置"></p>
+<p>VirtualBox默认使用192.168.56.1为主机地址，本文改成<code>192.168.78.1</code>，并设置网络掩码为<code>255.255.255.0</code>。</p>
+<p><img src="/img/post/ora12c-000-1.png" alt="修改主机虚拟网络地址"></p>
+<p>VirtualBox默认会为Host-Only网卡启动DHCP服务，讲主机作为DHCP服务器，为各个虚拟机实例自动分配IP。但是，现在我们需要固定IP，所以选择不启用DHCP。</p>
+<p><img src="/img/post/ora12c-000-2.png" alt="不启用DHCP"></p>
+<h1 id="创建虚拟机实例"><a href="#创建虚拟机实例" class="headerlink" title="创建虚拟机实例"></a>创建虚拟机实例</h1><p>虚拟机实例名称为<code>ora12c</code>，选择操作系统类型为<code>Linux</code>，版本为<code>Oracle (64-bit)</code>。为保证数据库的性能，设置内存大小为4GB(主机一共16GB的物理内存)。</p>
+<p><img src="/img/post/ora12c-001.png" alt="创建虚拟机"></p>
+<p>设置虚拟硬盘大小为32GB，虚拟硬盘文件类型为默认的<code>VDI</code>，选择默认<code>动态分配</code>的方式，用多少分配多少物理硬盘空间。点击<code>创建</code>。<br><img src="/img/post/ora12c-002.png" alt="虚拟硬盘设置"></p>
+<h2 id="虚拟机设置"><a href="#虚拟机设置" class="headerlink" title="虚拟机设置"></a>虚拟机设置</h2><p>在上一步创建好的虚拟机实例上点击右键，选择<code>设置</code>，可以看到虚拟机实例的各个设置选择。这一步我们选择<code>存储</code>，为该实例挂载系统安装镜像。选择光驱控制器，点击右侧的光盘符按钮，选择<code>选择一个虚拟光盘文件</code>，在弹出窗口中定位到系统安装镜像，本文使用的是<code>V83439401.OL73.iso</code>文件。（可能你下载下来的文件名称是<code>V83439401.iso</code>）</p>
+<p><img src="/img/post/ora12c-003.png" alt="挂载系统安装镜像"></p>
+<h3 id="设置虚拟网卡"><a href="#设置虚拟网卡" class="headerlink" title="设置虚拟网卡"></a>设置虚拟网卡</h3><p>第一块网卡的连接方式设置为<code>仅主机(Host-Only)网络</code>。</p>
+<p><img src="/img/post/ora12c-004.png" alt="Host-Only网卡"></p>
+<p>启用第二块网卡，并设置连接方式为<code>网络地址转换(NAT)</code>。这里特殊说明一下，如果你不需要从虚拟机实例访问外部网络的话，可以不启用第二块网卡，略过这一步也可以。</p>
+<p><img src="/img/post/ora12c-005.png" alt="NAT网卡"></p>
+<h3 id="设置共享目录"><a href="#设置共享目录" class="headerlink" title="设置共享目录"></a>设置共享目录</h3><p>为了从访问主机中下载的数据库安装文件，需要为虚拟机实例设置共享目录，这样虚拟机实例就可以通过这个目录与主机方便的进行文件共享。本文把数据库安装文件放在主机中的<code>/Users/kevin/VMs/install</code>这个目录下了。</p>
+<p><img src="/img/post/ora12c-006.png" alt="共享目录"></p>
+<h1 id="安装操作系统"><a href="#安装操作系统" class="headerlink" title="安装操作系统"></a>安装操作系统</h1><p>启动虚拟机实例，等待安装界面显示，选择<code>NETWORK &amp; HOST NAME</code>，Host name设置为<code>ora12c.example.com</code>。点击名称为<code>enp0s3</code>的网卡，选择<code>Automatically connect to this network when it is available</code>以自动启用系统中的第一块网卡。</p>
+<p>说几句闲话，从Oracle Linux 7开始，网卡命名不再遵从原来的eth0, eth1, …, ethN，而是使用了一种<a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/zh-CN/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/ch-Consistent_Network_Device_Naming.html">可预测的命名方法：一致网络设备命名</a>，systemd使用这种方法根据固件、拓扑以及位置信息分配固定名称，好处是即使添加或者删除硬件也不发送变化，而且可以毫无影响地替换破坏的硬件。缺点是名称比起之前的ethX难读。虽然通过修改uded规则可以改回原来的名称方式，但是本文不会这么做，也不推荐。</p>
+<p>新的名称也是有一定意义的，具体请参考<a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/zh-CN/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/sec-Understanding_the_Predictable_Network_Interface_Device_Names.html">了解可预期网络接口设备名称</a>。</p>
+<p><img src="/img/post/ora12c-007.png" alt="自动启用系统中的第一块网卡"></p>
+<p>IP地址为手动设置：<code>192.168.78.122</code>，Netmask为：<code>24</code>，Gateway不填。使用自己作为DNS服务器，DNS Servers为<code>192.168.78.122</code>，Search domains为<code>example.com</code>。</p>
+<p><img src="/img/post/ora12c-008.png" alt="第一块网卡的IP设置"></p>
+<p>如果你想从虚拟主机访问外部网络的话，就自动启用第二块网卡（NAT），勾选<code>Automatically connect to this network when it is available</code>。否则，这一步可以省略不做。</p>
+<p><img src="/img/post/ora12c-009.png" alt="启动第二块网卡"></p>
+<p>NAT类型的网卡，IP地址只能选择自动获取，而且为了保留第一块网卡设置好的DNS信息，这里选择<code>Automatic(DHCP) addresses only</code>。</p>
+<p><img src="/img/post/ora12c-010.png" alt="第二块网卡的IP设置"></p>
+<p>设置系统时间为<code>Asia/Shanghai timezone</code>，保持默认的最小化安装<code>Minimal Install</code>。不启用KDUMP。选择好虚拟磁盘。开始安装过程。</p>
+<p><img src="/img/post/ora12c-011.png" alt="系统安装选项设置完成"></p>
+<p>在安装的过程中设置root用户密码为<code>oracle1234</code>。</p>
+<p><img src="/img/post/ora12c-012.png" alt="设置root密码"></p>
+<h2 id="操作系统设置"><a href="#操作系统设置" class="headerlink" title="操作系统设置"></a>操作系统设置</h2><p>系统重启后，以root用户登录到系统中，通过下面的命令查看网卡配置是否生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# ip l</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 08:00:27:a6:47:ea brd ff:ff:ff:ff:ff:ff</span><br><span class="line">3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 08:00:27:f3:03:4e brd ff:ff:ff:ff:ff:ff</span><br></pre></td></tr></table></figure>
+
+<p>主要看<code>enp0s3</code>和<code>enp0s8</code>是否有<code>UP</code>状态。一般来说都没有问题，这时可以使用 putty 或者 其他终端通过ssh远程登录到虚拟机中了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.78.122</span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><p>先查看一下防火墙的状态，发现是<code>Active: active (running)</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# systemctl status firewalld</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Tue 2017-04-11 14:15:38 CST; 6min ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line"> Main PID: 644 (firewalld)</span><br><span class="line">   CGroup: /system.slice/firewalld.service</span><br><span class="line">           └─644 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</span><br><span class="line"></span><br><span class="line">Apr 11 14:15:37 ora12c.example.com systemd[1]: Starting firewalld - dynamic ....</span><br><span class="line">Apr 11 14:15:38 ora12c.example.com systemd[1]: Started firewalld - dynamic f....</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show in full.</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<p>停止防火墙：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+<p>再查看一下状态，发现是<code>Active: inactive (dead)</code>，说明防火墙已经停止运行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# systemctl status firewalld</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: inactive (dead) since Tue 2017-04-11 14:24:11 CST; 8s ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line">  Process: 644 ExecStart=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 644 (code=exited, status=0/SUCCESS)</span><br><span class="line"></span><br><span class="line">Apr 11 14:15:37 ora12c.example.com systemd[1]: Starting firewalld - dynamic ....</span><br><span class="line">Apr 11 14:15:38 ora12c.example.com systemd[1]: Started firewalld - dynamic f....</span><br><span class="line">Apr 11 14:24:10 ora12c.example.com systemd[1]: Stopping firewalld - dynamic ....</span><br><span class="line">Apr 11 14:24:11 ora12c.example.com systemd[1]: Stopped firewalld - dynamic f....</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show in full.</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<p>禁止开机自动启动防火墙：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# systemctl disable firewalld</span><br><span class="line">Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span><br><span class="line">Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.</span><br></pre></td></tr></table></figure>
+
+<p>确认开机启动已经无效：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# systemctl is-enabled firewalld</span><br><span class="line">disabled</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<h3 id="停用SELinux"><a href="#停用SELinux" class="headerlink" title="停用SELinux"></a>停用SELinux</h3><p>修改<code>/etc/selinux/config</code>，将<code>SELINUX</code>从<code>enforcing</code>改为<code>disabled</code>。<br><img src="/img/post/ora12c-013.png"></p>
+<h3 id="配置YUM源"><a href="#配置YUM源" class="headerlink" title="配置YUM源"></a>配置YUM源</h3><p>打开虚拟机实例的窗口，在菜单中选择<code>Devices</code>-&gt; <code>Optical Drives</code> -&gt; <code>Choose Disk Image...</code> 打开刚才的系统安装光盘镜像。</p>
+<p>登录到虚拟机实例中，挂载光盘到 <code>/media/cdrom</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# mkdir /media/cdrom</span><br><span class="line">[root@ora12c ~]# mount -r /dev/cdrom /media/cdrom</span><br></pre></td></tr></table></figure>
+
+<p>备份原来的Yum源，配置新的本地Yum源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# mkdir /etc/yum.repos.d/orig.repo.d</span><br><span class="line">[root@ora12c ~]# mv /etc/yum.repos.d/public-yum-ol7.repo /etc/yum.repos.d/orig.repo.d/</span><br><span class="line">[root@ora12c ~]# cat &lt;&lt;EOF&gt;/etc/yum.repos.d/local.repo</span><br><span class="line">&gt; [Local]</span><br><span class="line">&gt; name=Oracle Linux 7.3 x86_64</span><br><span class="line">&gt; baseurl=file:///media/cdrom</span><br><span class="line">&gt; gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY</span><br><span class="line">&gt; enabled=1</span><br><span class="line">&gt; EOF</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<p>测试新Yum源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# yum repolist</span><br><span class="line">Loaded plugins: ulninfo</span><br><span class="line">Local                                                    | 3.6 kB     00:00</span><br><span class="line">(1/2): Local/group_gz                                      | 134 kB   00:00</span><br><span class="line">(2/2): Local/primary_db                                    | 4.5 MB   00:00</span><br><span class="line">repo id                      repo name                                    status</span><br><span class="line">Local                        Oracle Linux 7.3 x86_64                      4,737</span><br><span class="line">repolist: 4,737</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<h3 id="安装必须的软件包"><a href="#安装必须的软件包" class="headerlink" title="安装必须的软件包"></a>安装必须的软件包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# yum install -y oracle-database-server-12cR2-preinstall</span><br><span class="line">[root@ora12c ~]# yum install tigervnc-server.x86_64 xclock xterm lsof bind bzip2 gcc kernel-uek-devel</span><br><span class="line">[root@ora12c ~]# yum install metacity liberation-mono-fonts</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="安装VirtualBox-Guest-Additions"><a href="#安装VirtualBox-Guest-Additions" class="headerlink" title="安装VirtualBox Guest Additions"></a>安装VirtualBox Guest Additions</h3><p>先卸载安装镜像文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# umount /media/cdrom/</span><br></pre></td></tr></table></figure>
+<p>然后打开虚拟机实例的窗口，在菜单中选择<code>Devices</code>-&gt; <code>Optical Drives</code> -&gt; <code>Remove disk from virtual drive</code> 彻底弹出安装系统关平镜像。</p>
+<p>接着，继续在菜单中选择<code>Devices</code>-&gt; <code>Insert Guest Additions CD Image...</code></p>
+<p>登录到虚拟机实例中，挂载Guest Additions光盘镜像:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# mount -r /dev/cdrom /media/cdrom</span><br></pre></td></tr></table></figure>
+<p>开始安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# sh /media/cdrom/VBoxLinuxAdditions.run</span><br><span class="line">Verifying archive integrity... All good.</span><br><span class="line">Uncompressing VirtualBox 5.1.16 Guest Additions <span class="keyword">for</span> Linux...........</span><br><span class="line">VirtualBox Guest Additions installer</span><br><span class="line">Copying additional installer modules ...</span><br><span class="line">Installing additional modules ...</span><br><span class="line">vboxadd.sh: Building Guest Additions kernel modules.</span><br><span class="line">vboxadd.sh: Starting the VirtualBox Guest Additions.</span><br><span class="line"></span><br><span class="line">Could not find the X.Org or XFree86 Window System, skipping.</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<h3 id="修改hosts文件"><a href="#修改hosts文件" class="headerlink" title="修改hosts文件"></a>修改hosts文件</h3><p>这里不再配置DNS服务器（bind），而简单的配置一个静态的hosts文件，确保主机名永远都能被解析到。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# vi /etc/hosts</span><br><span class="line">[root@ora12c ~]# <span class="built_in">cat</span> /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">192.168.78.122	ora12c.example.com</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<h2 id="数据库安装选项设置"><a href="#数据库安装选项设置" class="headerlink" title="数据库安装选项设置"></a>数据库安装选项设置</h2><p>执行下面的命令，修改<code>/etc/pam.d/login</code>，启用 limits:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &#x27;/session    required     pam_selinux.so open/i\</span><br><span class="line">session    required     \/lib64\/security\/pam_limits.so\</span><br><span class="line">session    required     pam_limits.so&#x27; /etc/pam.d/login</span><br></pre></td></tr></table></figure>
+<p>修改后的文件如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# <span class="built_in">cat</span> /etc/pam.d/login</span><br><span class="line"><span class="comment">#%PAM-1.0</span></span><br><span class="line">auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so</span><br><span class="line">auth       substack     system-auth</span><br><span class="line">auth       include      postlogin</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    include      system-auth</span><br><span class="line">password   include      system-auth</span><br><span class="line"><span class="comment"># pam_selinux.so close should be the first session rule</span></span><br><span class="line">session    required     pam_selinux.so close</span><br><span class="line">session    required     pam_loginuid.so</span><br><span class="line">session    optional     pam_console.so</span><br><span class="line"><span class="comment"># pam_selinux.so open should only be followed by sessions to be executed in the user context</span></span><br><span class="line">session    required     /lib64/security/pam_limits.so</span><br><span class="line">session    required     pam_limits.so</span><br><span class="line">session    required     pam_selinux.so open</span><br><span class="line">session    required     pam_namespace.so</span><br><span class="line">session    optional     pam_keyinit.so force revoke</span><br><span class="line">session    include      system-auth</span><br><span class="line">session    include      postlogin</span><br><span class="line">-session   optional     pam_ck_connector.so</span><br><span class="line">[root@ora12c ~]#</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>修改<code>oracle</code>用户的密码为<code>oracle1234</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# passwd oracle</span><br><span class="line">Changing password <span class="keyword">for</span> user oracle.</span><br><span class="line">New password: oracle1234</span><br><span class="line">BAD PASSWORD: The password contains the user name <span class="keyword">in</span> some form</span><br><span class="line">Retype new password: oracle1234</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+
+<p>创建安装目录，并设置权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# mkdir -p /u01/app</span><br><span class="line">[root@ora12c ~]# chown oracle:oinstall /u01/app</span><br><span class="line">[root@ora12c ~]# usermod -G oinstall,dba,vboxsf oracle</span><br><span class="line">[root@ora12c ~]# id oracle</span><br><span class="line">uid=54321(oracle) gid=54321(oinstall) groups=54321(oinstall),54322(dba),995(vboxsf)</span><br><span class="line">[root@ora12c ~]#</span><br></pre></td></tr></table></figure>
+<p>重启系统。</p>
+<h2 id="配置VNC服务器"><a href="#配置VNC服务器" class="headerlink" title="配置VNC服务器"></a>配置VNC服务器</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# su - oracle</span><br><span class="line">[oracle@ora12c ~]$ vncserver :1</span><br><span class="line"></span><br><span class="line">You will require a password to access your desktops.</span><br><span class="line"></span><br><span class="line">Password: oracle1234</span><br><span class="line">Verify: oracle1234</span><br><span class="line">xauth:  file /home/oracle/.Xauthority does not exist</span><br><span class="line"></span><br><span class="line">New &#x27;ora12c.example.com:1 (oracle)&#x27; desktop is ora12c.example.com:1</span><br><span class="line"></span><br><span class="line">Creating default startup script /home/oracle/.vnc/xstartup</span><br><span class="line">Starting applications specified in /home/oracle/.vnc/xstartup</span><br><span class="line">Log file is /home/oracle/.vnc/ora12c.example.com:1.log</span><br></pre></td></tr></table></figure>
+
+<p>编辑自动生成的VNC配置文件，<code>/home/oracle/.vnc/xstartup</code>，在里面加入一行<code>metacity &amp;</code>，确保VNC服务启动时先启动窗口管理器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ora12c ~]$ vncserver -kill :1</span><br><span class="line">[oracle@ora12c ~]$ cat ~/.vnc/xstartup</span><br><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">unset SESSION_MANAGER</span><br><span class="line">unset DBUS_SESSION_BUS_ADDRESS</span><br><span class="line">metacity &amp;</span><br><span class="line">exec /etc/X11/xinit/xinitrc</span><br><span class="line">[oracle@ora12c ~]$ vncserver :1</span><br></pre></td></tr></table></figure>
+
+<p>使用VNC客户端来，登录到图像界面。本文使用的客户端为VNC Viewer：</p>
+<p><img src="/img/post/ora12c-014.png"></p>
+<p>打开VNC客户端，输入<code>192.168.78.122:1</code>：</p>
+<p><img src="/img/post/ora12c-015.png"></p>
+<p><img src="/img/post/ora12c-016.png"></p>
+<p><img src="/img/post/ora12c-017.png"></p>
+<p><img src="/img/post/ora12c-018.png"></p>
+<h1 id="安装数据库"><a href="#安装数据库" class="headerlink" title="安装数据库"></a>安装数据库</h1><p>先从共享目录中把数据库的安装文件拷贝到<code>oracle</code>用户的主目录中，并解压缩。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ora12c ~]$ mkdir install</span><br><span class="line">[oracle@ora12c ~]$ cp /media/sf_install/linuxx64_12201_database.zip install/</span><br><span class="line">[oracle@ora12c ~]$ cd install/</span><br><span class="line">[oracle@ora12c install]$ unzip linuxx64_12201_database.zip</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/post/ora12c-019.png"></p>
+<p><img src="/img/post/ora12c-020.png"></p>
+<p><img src="/img/post/ora12c-021.png"></p>
+<p><img src="/img/post/ora12c-022.png"></p>
+<p><img src="/img/post/ora12c-023.png"></p>
+<p><img src="/img/post/ora12c-024.png"></p>
+<p><img src="/img/post/ora12c-025.png"></p>
+<p><img src="/img/post/ora12c-026.png"></p>
+<p><img src="/img/post/ora12c-027.png"></p>
+<p><img src="/img/post/ora12c-028.png"></p>
+<p><img src="/img/post/ora12c-029.png"></p>
+<p>以root执行脚本：</p>
+<p><img src="/img/post/ora12c-030.png"></p>
+<p><img src="/img/post/ora12c-031.png"></p>
+<p>安装完成</p>
+<p><img src="/img/post/ora12c-032.png"></p>
+<h1 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ora12c ~]$ /u01/app/oracle/product/12.2.0/dbhome_1/bin/dbca</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/img/post/ora12c-033.png"></p>
+<p><img src="/img/post/ora12c-034.png"></p>
+<p><img src="/img/post/ora12c-036.png"></p>
+<p><img src="/img/post/ora12c-037.png"></p>
+<p><img src="/img/post/ora12c-038.png"></p>
+<p><img src="/img/post/ora12c-039.png"></p>
+<p>先不创建创建监听器：</p>
+<p><img src="/img/post/ora12c-040.png"></p>
+<p><img src="/img/post/ora12c-041.png"></p>
+<p><img src="/img/post/ora12c-042.png"></p>
+<p><img src="/img/post/ora12c-043.png"></p>
+<p>先不注册到EM中</p>
+<p><img src="/img/post/ora12c-044.png"></p>
+<p>为了方便记忆，全部使用一个密码：<code>oracle1234</code></p>
+<p><img src="/img/post/ora12c-045.png"></p>
+<p><img src="/img/post/ora12c-046.png"></p>
+<p>保存响应文件后，开始创建数据库</p>
+<p><img src="/img/post/ora12c-047.png"></p>
+<p><img src="/img/post/ora12c-048.png"></p>
+<p><img src="/img/post/ora12c-049.png"></p>
+<p>创建监听器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ora12c ~]# /u01/app/oracle/product/12.2.0/dbhome_1/bin/netca</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/post/ora12c-050.png"></p>
+<p><img src="/img/post/ora12c-051.png"></p>
+<p><img src="/img/post/ora12c-052.png"></p>
+<p><img src="/img/post/ora12c-053.png"></p>
+<p><img src="/img/post/ora12c-054.png"></p>
+<p><img src="/img/post/ora12c-055.png"></p>
+<p><img src="/img/post/ora12c-056.png"></p>
+<p><img src="/img/post/ora12c-057.png"></p>
+<p><img src="/img/post/ora12c-058.png"></p>
+<p>输入全局数据库（Global database name）名称<code>orcl.example.com</code>：</p>
+<p><img src="/img/post/ora12c-059.png"></p>
+<p><img src="/img/post/ora12c-060.png"></p>
+<p><img src="/img/post/ora12c-061.png"></p>
+<p><img src="/img/post/ora12c-062.png"></p>
+<p>输入用户名<code>system</code>，密码<code>oracle1234</code>进行测试：</p>
+<p><img src="/img/post/ora12c-063.png"></p>
+<p><img src="/img/post/ora12c-064.png"></p>
+<p><img src="/img/post/ora12c-065.png"></p>
+<p><img src="/img/post/ora12c-066.png"></p>
+<p><img src="/img/post/ora12c-067.png"></p>
+<p>至此，数据库安装完成。</p>
+<h2 id="设置用户配置文件"><a href="#设置用户配置文件" class="headerlink" title="设置用户配置文件"></a>设置用户配置文件</h2><p>以<code>oracle</code>用户登录，在<code>/home/oracle/.bash_profile</code>中加入如下配置内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Settings for Oracle Database</span></span><br><span class="line"><span class="built_in">export</span> TMP=/tmp</span><br><span class="line"><span class="built_in">export</span> TMPDIR=<span class="variable">$TMP</span></span><br><span class="line"><span class="built_in">export</span> ORACLE_HOSTNAME=ora12c.example.com</span><br><span class="line"><span class="built_in">export</span> ORACLE_UNQNAME=orcl</span><br><span class="line"><span class="built_in">export</span> ORACLE_BASE=/u01/app/oracle</span><br><span class="line"><span class="built_in">export</span> ORACLE_HOME=<span class="variable">$ORACLE_BASE</span>/product/12.2.0/dbhome_1</span><br><span class="line"><span class="built_in">export</span> ORACLE_SID=orcl</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ORACLE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$ORACLE_HOME</span>/lib:/lib:/usr/lib</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$ORACLE_HOME</span>/jlib:<span class="variable">$ORACLE_HOME</span>/rdbms/jlib</span><br></pre></td></tr></table></figure>
+
+<h2 id="重启时自动启动数据库"><a href="#重启时自动启动数据库" class="headerlink" title="重启时自动启动数据库"></a>重启时自动启动数据库</h2><p>以root用户，修改<code>/etc/oratab</code>的最后一行，将<code>N</code>改成<code>Y</code>，保证数据库在系统重启之后自动启动。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">orcl:/u01/app/oracle/product/12.2.0/dbhome_1:Y</span><br><span class="line">&quot;/etc/oratab&quot; 23L, 788C</span><br></pre></td></tr></table></figure>
+
+<p>参考<a target="_blank" rel="noopener" href="http://docs.oracle.com/database/122/UNXAR/stopping-and-starting-oracle-software.htm#UNXAR417">官方安装文档</a>，创建自启动脚本<code>/etc/init.d/dbora</code>，输入如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh -x</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># chkconfig: 2345 80 05</span></span><br><span class="line"><span class="comment"># description: Oracle auto start-stop script.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Set ORACLE_HOME to be equivalent to the $ORACLE_HOME</span></span><br><span class="line"><span class="comment"># from which you wish to execute dbstart and dbshut;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Set ORA_OWNER to the user id of the owner of the</span></span><br><span class="line"><span class="comment"># Oracle database in ORACLE_HOME.</span></span><br><span class="line"></span><br><span class="line">ORA_HOME=/u01/app/oracle/product/12.2.0/dbhome_1</span><br><span class="line">ORA_OWNER=oracle</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&#x27;start&#x27;</span>)</span><br><span class="line">    <span class="comment"># Start the Oracle databases:</span></span><br><span class="line">    <span class="comment"># The following command assumes that the oracle login</span></span><br><span class="line">    <span class="comment"># will not prompt the user for any values</span></span><br><span class="line">    <span class="comment"># Remove &quot;&amp;&quot; if you don&#x27;t want startup as a background process.</span></span><br><span class="line">    su - <span class="variable">$ORA_OWNER</span> -c <span class="string">&quot;<span class="variable">$ORA_HOME</span>/bin/dbstart <span class="variable">$ORA_HOME</span>&quot;</span> &amp;</span><br><span class="line">    <span class="built_in">touch</span> /var/lock/subsys/dbora</span><br><span class="line">    ;;</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;stop&#x27;</span>)</span><br><span class="line">    <span class="comment"># Stop the Oracle databases:</span></span><br><span class="line">    <span class="comment"># The following command assumes that the oracle login</span></span><br><span class="line">    <span class="comment"># will not prompt the user for any values</span></span><br><span class="line">    su - <span class="variable">$ORA_OWNER</span> -c <span class="string">&quot;<span class="variable">$ORA_HOME</span>/bin/dbshut <span class="variable">$ORA_HOME</span>&quot;</span> &amp;</span><br><span class="line">    <span class="built_in">rm</span> -f /var/lock/subsys/dbora</span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>修改启动脚本的权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># chgrp dba dbora</span><br><span class="line"># chmod 750 dbora</span><br></pre></td></tr></table></figure>
+
+<p>将启动脚本注册为自启动服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># chkconfig --add dbora</span><br><span class="line"># chkconfig dbora on</span><br></pre></td></tr></table></figure>
+
+<p>PDB Pluggable Database是12c中扛鼎的一个新特性， 但是对于CDB中的PDB，默认启动CDB时不会将所有的PDB带起来，这样我们就需要手动alter pluggable database ALL OPEN。解决方法就是使用SYS用户创建如下触发器：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[oracle<span class="variable">@ora12c</span> <span class="operator">~</span>]$ sqlplus <span class="operator">/</span> <span class="keyword">as</span> sysdba</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> open_all_pdbs</span><br><span class="line">   AFTER STARTUP</span><br><span class="line">   <span class="keyword">ON</span> DATABASE</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">   <span class="keyword">EXECUTE</span> IMMEDIATE <span class="string">&#x27;alter pluggable database all open&#x27;</span>;</span><br><span class="line"><span class="keyword">END</span> open_all_pdbs;</span><br><span class="line"><span class="operator">/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="注册到EM-Express中"><a href="#注册到EM-Express中" class="headerlink" title="注册到EM Express中"></a>注册到EM Express中</h2><p>登录到数据库中，保证XDB已经安装好，通过<code>exec DBMS_XDB_CONFIG.setHTTPPort(5500);</code>开启EM Express，并使用默认端口5500.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ora12c ~]$ sqlplus system@orcl</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 12.2.0.1.0 Production on Wed Apr 12 15:37:15 2017</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2016, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Enter password:</span><br><span class="line">Last Successful login time: Wed Apr 12 2017 15:08:54 +08:00</span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production</span><br><span class="line"></span><br><span class="line">SQL&gt; show parameter dispatchers</span><br><span class="line"></span><br><span class="line">NAME				     TYPE	 VALUE</span><br><span class="line">------------------------------------ ----------- ------------------------------</span><br><span class="line">dispatchers			     string	 (PROTOCOL=TCP) (SERVICE=orclXD</span><br><span class="line">						 B)</span><br><span class="line">max_dispatchers 		     <span class="built_in">integer</span></span><br><span class="line">SQL&gt; <span class="built_in">exec</span> DBMS_XDB_CONFIG.setHTTPPort(5500);</span><br><span class="line"></span><br><span class="line">PL/SQL procedure successfully completed.</span><br></pre></td></tr></table></figure>
+
+<p>查看监听器状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ora12c ~]$ lsnrctl status</span><br><span class="line"></span><br><span class="line">LSNRCTL for Linux: Version 12.2.0.1.0 - Production on 12-APR-2017 15:39:53</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2016, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=ora12c.example.com)(PORT=1521)))</span><br><span class="line">STATUS of the LISTENER</span><br><span class="line">------------------------</span><br><span class="line">Alias                     LISTENER</span><br><span class="line">Version                   TNSLSNR for Linux: Version 12.2.0.1.0 - Production</span><br><span class="line">Start Date                12-APR-2017 14:58:34</span><br><span class="line">Uptime                    0 days 0 hr. 41 min. 19 sec</span><br><span class="line">Trace Level               off</span><br><span class="line">Security                  ON: Local OS Authentication</span><br><span class="line">SNMP                      OFF</span><br><span class="line">Listener Parameter File   /u01/app/oracle/product/12.2.0/dbhome_1/network/admin/listener.ora</span><br><span class="line">Listener Log File         /u01/app/oracle/diag/tnslsnr/ora12c/listener/alert/log.xml</span><br><span class="line">Listening Endpoints Summary...</span><br><span class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=ora12c.example.com)(PORT=1521)))</span><br><span class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=ora12c.example.com)(PORT=5500))(Presentation=HTTP)(Session=RAW))</span><br><span class="line">Services Summary...</span><br><span class="line">Service &quot;4ce29b4f34122507e0537a4ea8c0bfe9.example.com&quot; has 1 instance(s).</span><br><span class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</span><br><span class="line">Service &quot;orcl.example.com&quot; has 1 instance(s).</span><br><span class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</span><br><span class="line">Service &quot;orclXDB.example.com&quot; has 1 instance(s).</span><br><span class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</span><br><span class="line">Service &quot;orclpdb.example.com&quot; has 1 instance(s).</span><br><span class="line">  Instance &quot;orcl&quot;, status READY, has 1 handler(s) for this service...</span><br><span class="line">The command completed successfully</span><br><span class="line">[oracle@ora12c ~]$</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>所有服务已经启动完成，可以使用<code>http://192.178.78.122:5500/em</code>来管理数据库了。注意，登录的时候使用用户名<code>sys</code>，密码<code>oracle1234</code>，不指定容器名，并选择<code>以sysdba</code>身份登录。</p>
+<p><img src="/img/post/ora12c-068.png"></p>
+<p><img src="/img/post/ora12c-069.png"></p>
+<h3 id="EM-Express启用HTTPS"><a href="#EM-Express启用HTTPS" class="headerlink" title="EM Express启用HTTPS"></a>EM Express启用HTTPS</h3><h4 id="为CDB启用HTTPS"><a href="#为CDB启用HTTPS" class="headerlink" title="为CDB启用HTTPS"></a>为CDB启用HTTPS</h4><p>确认当前的数据库是CDB：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select name,cdb,con_id from v$database;</span><br><span class="line"></span><br><span class="line">NAME      CDB     CON_ID</span><br><span class="line">--------- --- ----------</span><br><span class="line">ORCL      YES          0</span><br></pre></td></tr></table></figure>
+
+<p>查看，并设置CDB的EM Express的HTTPS访问端口为5501：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select dbms_xdb_config.gethttpsport() from dual;</span><br><span class="line"></span><br><span class="line">DBMS_XDB_CONFIG.GETHTTPSPORT()</span><br><span class="line">------------------------------</span><br><span class="line">                             0</span><br><span class="line"></span><br><span class="line">SQL&gt; exec dbms_xdb_config.sethttpsport(5501);</span><br><span class="line"></span><br><span class="line">PL/SQL procedure successfully completed.</span><br><span class="line"></span><br><span class="line">SQL&gt; select dbms_xdb_config.gethttpsport() from dual;</span><br><span class="line"></span><br><span class="line">DBMS_XDB_CONFIG.GETHTTPSPORT()</span><br><span class="line">------------------------------</span><br><span class="line">                          5501</span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在，CDB的用户就可以通过<code>https://192.178.78.122:5501/em</code>来访问EM Express了。</p>
+<h4 id="为PDB启用HTTPS"><a href="#为PDB启用HTTPS" class="headerlink" title="为PDB启用HTTPS"></a>为PDB启用HTTPS</h4><p>先切换到PDB中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; col name for a20;</span><br><span class="line">SQL&gt; select con_id,name,open_mode from v$pdbs;</span><br><span class="line"></span><br><span class="line">    CON_ID NAME                 OPEN_MODE</span><br><span class="line">---------- -------------------- ----------</span><br><span class="line">         2 PDB$SEED             READ ONLY</span><br><span class="line">         3 PDB                  READ WRITE</span><br><span class="line"></span><br><span class="line">SQL&gt; alter session set container=pdb;</span><br><span class="line"></span><br><span class="line">Session altered.</span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看，并设置PDB的EM Express的HTTPS访问端口为5502：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SQL&gt; exec dbms_xdb_config.sethttpsport(5502);</span><br><span class="line"></span><br><span class="line">PL/SQL procedure successfully completed.</span><br><span class="line"></span><br><span class="line">SQL&gt; select dbms_xdb_config.gethttpsport() from dual;</span><br><span class="line"></span><br><span class="line">DBMS_XDB_CONFIG.GETHTTPSPORT()</span><br><span class="line">------------------------------</span><br><span class="line">                          5502</span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，PDB的用户就可以通过<code>https://192.178.78.122:5502/em</code>来访问EM Express了。这时，从登陆界面上就看不到那个<code>容器名</code>的输入框了。</p>
+<h3 id="普通用户启用访问EM-Express"><a href="#普通用户启用访问EM-Express" class="headerlink" title="普通用户启用访问EM Express"></a>普通用户启用访问EM Express</h3><p>普通用户想要访问EM Express，还需要以下权限：</p>
+<ul>
+<li>EM_EXPRESS_ALL，或者</li>
+<li>EM_EXPRESS_BASIC</li>
+</ul>
+<p>譬如，对于PDB中的一个普通用户<code>test01</code>，可以通过下面的方式赋予访问EM Express的权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; grant EM_EXPRESS_ALL to test01;</span><br><span class="line">Grant succeeded.</span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ol>
+<li>How I Enable Autostarting of Oracle Database for Demonstrations and Development - <a target="_blank" rel="noopener" href="https://blogs.oracle.com/opal/entry/how_i_enable_autostarting_of1">https://blogs.oracle.com/opal/entry/how_i_enable_autostarting_of1</a></li>
+<li>Oracle Database 12c Release 2 Administration - <a target="_blank" rel="noopener" href="http://docs.oracle.com/database/122/nav/administration.htm">http://docs.oracle.com/database/122/nav/administration.htm</a></li>
+<li>Oracle Database 12c Release 2 (12.2) Installation On Oracle Linux 6 (OL6) and 7 (OL7) - <a target="_blank" rel="noopener" href="https://oracle-base.com/articles/12c/oracle-db-12cr2-installation-on-oracle-linux-6-and-7">https://oracle-base.com/articles/12c/oracle-db-12cr2-installation-on-oracle-linux-6-and-7</a></li>
+<li>Getting Started with Oracle Enterprise Manager Express -  <a target="_blank" rel="noopener" href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/db/12c/r1/2day_dba/12cr1db_ch3emexp/12cr1db_ch3emexp.html">http://www.oracle.com/webfolder/technetwork/tutorials/obe/db/12c/r1/2day_dba/12cr1db_ch3emexp/12cr1db_ch3emexp.html</a></li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/virtualbox/">virtualbox</a><a href="/tags/database/">database</a><a href="/tags/12c/">12c</a><a href="/tags/oracle12c/">oracle12c</a><a href="/tags/vbox/">vbox</a><a href="/tags/yum/">yum</a><a href="/tags/em12c/">EM12c</a><a href="/tags/ora12c/">ora12c</a><a href="/tags/systemctl/">systemctl</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2017/04/18/install-db12c-ol73/" data-title="Oracle Linux 7.3 下安装 Oracle Database 12c R2 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/04/25/some-video-tutorials/" title="自己制作的一些视频教程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  自己制作的一些视频教程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/09/27/publish-xfce-of-linux7-via-sgd/"  title="在SGD中发布Oracle Linux 7 的Xfce桌面环境">
+ <strong>下一篇：</strong><br/> 
+ <span>在SGD中发布Oracle Linux 7 的Xfce桌面环境
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VirtualBox%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">VirtualBox设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">创建虚拟机实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">虚拟机设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1"><span class="toc-number">3.1.1.</span> <span class="toc-text">设置虚拟网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95"><span class="toc-number">3.1.2.</span> <span class="toc-text">设置共享目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.</span> <span class="toc-text">安装操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.1.</span> <span class="toc-text">操作系统设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">4.1.1.</span> <span class="toc-text">关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E7%94%A8SELinux"><span class="toc-number">4.1.2.</span> <span class="toc-text">停用SELinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEYUM%E6%BA%90"><span class="toc-number">4.1.3.</span> <span class="toc-text">配置YUM源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">4.1.4.</span> <span class="toc-text">安装必须的软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85VirtualBox-Guest-Additions"><span class="toc-number">4.1.5.</span> <span class="toc-text">安装VirtualBox Guest Additions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6"><span class="toc-number">4.1.6.</span> <span class="toc-text">修改hosts文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.2.</span> <span class="toc-text">数据库安装选项设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEVNC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.3.</span> <span class="toc-text">配置VNC服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">5.</span> <span class="toc-text">安装数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">6.</span> <span class="toc-text">创建数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.1.</span> <span class="toc-text">设置用户配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E6%97%B6%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">6.2.</span> <span class="toc-text">重启时自动启动数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%88%B0EM-Express%E4%B8%AD"><span class="toc-number">6.3.</span> <span class="toc-text">注册到EM Express中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EM-Express%E5%90%AF%E7%94%A8HTTPS"><span class="toc-number">6.3.1.</span> <span class="toc-text">EM Express启用HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BACDB%E5%90%AF%E7%94%A8HTTPS"><span class="toc-number">6.3.1.1.</span> <span class="toc-text">为CDB启用HTTPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BAPDB%E5%90%AF%E7%94%A8HTTPS"><span class="toc-number">6.3.1.2.</span> <span class="toc-text">为PDB启用HTTPS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%90%AF%E7%94%A8%E8%AE%BF%E9%97%AEEM-Express"><span class="toc-number">6.3.2.</span> <span class="toc-text">普通用户启用访问EM Express</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">7.</span> <span class="toc-text">参考文档</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

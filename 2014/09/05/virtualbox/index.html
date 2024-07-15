@@ -1,0 +1,609 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="本文给出了在VirtualBox下搭建一个  虚拟机之间，以及虚拟机和主机之间内网互通 主机和虚拟机都有静态IP 主机和虚拟机都可以访问外网（internet）  的网络配置方案。 前提条件先定义一下名词：  主机： 也叫做host，也就是安装了VirtualBox的环境，物理上存在的实体机 虚拟机：也叫做guest，也就是安装在VirtualBox里面的各个操作系统，不需要硬件，虚拟的系统  环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置">
+<meta property="og:url" content="http://xintq.net/2014/09/05/virtualbox/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="本文给出了在VirtualBox下搭建一个  虚拟机之间，以及虚拟机和主机之间内网互通 主机和虚拟机都有静态IP 主机和虚拟机都可以访问外网（internet）  的网络配置方案。 前提条件先定义一下名词：  主机： 也叫做host，也就是安装了VirtualBox的环境，物理上存在的实体机 虚拟机：也叫做guest，也就是安装在VirtualBox里面的各个操作系统，不需要硬件，虚拟的系统  环">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/1409911319631.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409912584529.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409913441371.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409913793251.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409913824731.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409913965758.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409914087976.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409914190359.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409914251091.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409915127495.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409915280513.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409915369535.png">
+<meta property="og:image" content="http://xintq.net/img/post/1409915445978.png">
+<meta property="article:published_time" content="2014-09-05T14:24:17.000Z">
+<meta property="article:modified_time" content="2015-11-26T14:02:28.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="virtualbox">
+<meta property="article:tag" content="网络配置">
+<meta property="article:tag" content="虚拟机">
+<meta property="article:tag" content="ip">
+<meta property="article:tag" content="dhcp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/1409911319631.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/05/virtualbox/" title="VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置" itemprop="url">VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-05T14:24:17.000Z" itemprop="datePublished"> 发表于 2014-09-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-number">2.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%86%85%E7%BD%91%E9%9D%99%E6%80%81IP"><span class="toc-number">4.</span> <span class="toc-text">配置主机的内网静态IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BD%91%E5%8D%A1"><span class="toc-number">4.1.</span> <span class="toc-text">配置虚拟机的网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E9%83%A8%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1"><span class="toc-number">4.2.</span> <span class="toc-text">在虚拟机内部配置网卡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E9%9C%80%E6%B1%821%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">5.1.</span> <span class="toc-text">对需求1的验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%822%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">5.2.</span> <span class="toc-text">需求2的验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%823%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">5.3.</span> <span class="toc-text">需求3的验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文给出了在VirtualBox下搭建一个</p>
+<ul>
+<li>虚拟机之间，以及虚拟机和主机之间内网互通</li>
+<li>主机和虚拟机都有静态IP</li>
+<li>主机和虚拟机都可以访问外网（internet）</li>
+</ul>
+<p>的网络配置方案。</p>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>先定义一下名词：</p>
+<ul>
+<li><strong>主机</strong>： 也叫做host，也就是安装了VirtualBox的环境，物理上存在的实体机</li>
+<li><strong>虚拟机</strong>：也叫做guest，也就是安装在VirtualBox里面的各个操作系统，不需要硬件，虚拟的系统</li>
+</ul>
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><p>最近在使用VirtualBox搭建一个实验环境，由于公司规定了所有的机器都不能使用固定IP，都必须由DHCP自动获取。</p>
+<p>为了不影响公司整理的网络环境，只能把实验用的网络环境限制在使用内部IP上。因此，这个实验环境必须满足如下的需求（注意这三个需求是AND的关系，必须同时满足）：</p>
+<ul>
+<li><strong>需求1</strong>：从主机可以通过静态IP访问到每一个虚拟机，从虚拟机中可以访问主机（主机也有一个固定的静态IP）</li>
+<li><strong>需求2</strong>：虚拟机之间组成一个由静态IP构成的网络，而且虚拟机之间可以互相访问</li>
+<li><strong>需求3</strong>：从主机，从虚拟机都可以访问internet</li>
+</ul>
+<p>类似于这样：</p>
+<p><img src="/img/post/1409911319631.png" alt="网络配置图"></p>
+<p>为了满足以上需求，我在网上找了很多教程，终于有一个叫做 JOB OPEREL 的老哥，给出了一个比较靠谱的解决方法，你可以在 <strong><a target="_blank" rel="noopener" href="http://technology.amis.nl/2014/01/27/a-short-guide-to-networking-in-virtual-box-with-oracle-linux-inside/#prettyPhoto">这里</a></strong> 找到他的文章。</p>
+<p>我借鉴了他的方法，但是在连接外网的时候，和他的做法（他用的是桥接连接外网，最终还是需要影响外部网络的；而我用的是NAT地址转换来连接外网，不需要外部网络的，如果你不知道我在这里碎碎念什么，那么，无视吧……）不一样。<br>废话少说，开始干活！</p>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>为了满足上面的三个需求，我准备在虚拟机里面加三个网卡来完成，思路如下：</p>
+<ul>
+<li><strong>eth0</strong>: 网卡1，使用 <em><strong>仅主机(Host-Only)适配器</strong></em> 的连接方式，完成 <strong>需求1</strong>，即：从主机可以通过一个静态IP访问到每一个虚拟机，从虚拟机中可以访问主机（主机也有一个固定的静态IP）</li>
+<li><strong>eth1</strong>: 网卡2，使用 <em><strong>内部网络</strong></em> 的连接方式，完成 <strong>需求2</strong>，即：虚拟机之间组成一个由静态IP构成的网络，而且虚拟机之间可以互相访问</li>
+<li><strong>eth2</strong>: 网卡3，使用 <em><strong>网络地址转换(NAT)</strong></em> 的连接方式，完成 <strong>需求3</strong>，即：从主机，从虚拟机都可以访问internet</li>
+</ul>
+<p>说了这么多，其实还差一块，那么到底主机与虚拟机之间是怎么连接的呢？</p>
+<p>细心的人可能会发现，在我们安装好VirtualBox之后，主机的系统里面会多出一个连接，<strong>VirtualBox Host-Only Network</strong>，这个是VirtualBox自动生成的一个连接；而另外一个 <strong>本地连接</strong> 就是实际的网卡的连接:</p>
+<p><img src="/img/post/1409912584529.png" alt="VirtualBox Host-Only Network"></p>
+<p>上图的两个连接，以及虚拟机里面的三块网卡互相配合，组成了下面的网络结构图：</p>
+<p><img src="/img/post/1409913441371.png" alt="网络结构图"></p>
+<h2 id="配置主机的内网静态IP"><a href="#配置主机的内网静态IP" class="headerlink" title="配置主机的内网静态IP"></a>配置主机的内网静态IP</h2><p>打开 Orcale VM VirtualBox管理器，从菜单中选择 <em>管理</em> – <em>全局设定</em>；在弹出的窗口中选择 <em>网络</em>，然后再选择 <em>仅主机（Host-Only）网络（H）</em> 标签页，双击 <em>VirtualBox Host-Only Ethernet Adapter</em>, 修改里面的IP地址，为了尊重传统，我选择192.168.1.1，如下图所示;</p>
+<p><img src="/img/post/1409913793251.png" alt="修改里面的IP地址"></p>
+<p>接着，关闭DHCP服务器，如下图所示：</p>
+<p><img src="/img/post/1409913824731.png" alt="关闭DHCP服务器"></p>
+<p>也就是说，现在主机由一个静态IP：192.168.1.1。之后，虚拟机就可以通过这个IP地址来访问主机了。</p>
+<p>上述设定完成后，查看主机的地址，可以看到如下的信息;</p>
+<p><img src="/img/post/1409913965758.png" alt="主机的地址"></p>
+<h3 id="配置虚拟机的网卡"><a href="#配置虚拟机的网卡" class="headerlink" title="配置虚拟机的网卡"></a>配置虚拟机的网卡</h3><p>加入第一块网卡 eth0，将 eth0 配置成如下图的方式：</p>
+<p><img src="/img/post/1409914087976.png" alt="eth0配置"></p>
+<p>接着加入第二块网卡 eth1，将 eth1 配置成如下图的方式：</p>
+<p><img src="/img/post/1409914190359.png" alt="eth1配置"></p>
+<p>注意，虚拟机之间的内网名字可以随便起，这里叫做 neta。如果在配置在第二个虚拟机的时候，也要记得选择 netca 这个内网名字，这样虚拟机之间才可以互相通信。</p>
+<p>最后，加入第三块网卡 eth2，配置如下：</p>
+<p><img src="/img/post/1409914251091.png" alt="eth2配置"></p>
+<p>保存，启动虚拟机，安装系统。</p>
+<h3 id="在虚拟机内部配置网卡"><a href="#在虚拟机内部配置网卡" class="headerlink" title="在虚拟机内部配置网卡"></a>在虚拟机内部配置网卡</h3><p>在这里我使用了Oracle Linux（其实和CentOS，RHEL是一毛一样的）。在配置IP的时候，用命令行来配置各个网卡的IP信息，如果你喜欢，也可以使用GUI（NetworkManager）。</p>
+<p>首先 eth0，这里要与主机保持的一个网段（192.168.1.），把 eth0 的IP地址配置为 192.168.1.2：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/sysconfig/network-scripts/ifcfg-eth0 </span><br><span class="line">DEVICE=eth0</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">NM_CONTROLLED=<span class="built_in">yes</span></span><br><span class="line">BOOTPROTO=none</span><br><span class="line">IPADDR=192.168.1.2 <span class="comment">#这里要与主机保持的一个网段：192.168.1.</span></span><br><span class="line">PREFIX=24</span><br><span class="line">DEFROUTE=no</span><br><span class="line">IPV4_FAILURE_FATAL=<span class="built_in">yes</span></span><br><span class="line">IPV6INIT=no</span><br><span class="line">NAME=<span class="string">&quot;System eth0&quot;</span></span><br><span class="line">NETWORK=192.168.1.0</span><br><span class="line">BROADCAST=192.168.1.255</span><br><span class="line">HWADDR=08:00:27:86:D8:01</span><br><span class="line">MTU=1500</span><br><span class="line">UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03</span><br><span class="line">LAST_CONNECT=1409908253</span><br></pre></td></tr></table></figure>
+<p>其次，配置 eth1，要注意内网我们选择 192.168.0. 这个网段，eth1 的IP地址配置为 192.168.0.2:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/sysconfig/network-scripts/ifcfg-eth1</span><br><span class="line">DEVICE=eth1</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">NM_CONTROLLED=<span class="built_in">yes</span></span><br><span class="line">BOOTPROTO=none</span><br><span class="line">IPADDR=192.168.0.2 <span class="comment">#内网我们选择 192.168.0\. 这个网段</span></span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">PREFIX=24</span><br><span class="line">DEFROUTE=no</span><br><span class="line">IPV4_FAILURE_FATAL=<span class="built_in">yes</span></span><br><span class="line">IPV6INIT=no</span><br><span class="line">NAME=<span class="string">&quot;System eth1&quot;</span></span><br><span class="line">HWADDR=08:00:27:C6:79:2B</span><br><span class="line">MTU=1500</span><br><span class="line">UUID=9c92fad9-6ecb-3e6c-eb4d-8a47c6f50c04</span><br><span class="line">LAST_CONNECT=1409908255</span><br></pre></td></tr></table></figure>
+<p>再次，配置 eth2, 因为是NAT地址转换的，这块网卡使用DHCP来自动获取IP，具体如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/sysconfig/network-scripts/ifcfg-eth2</span><br><span class="line">DEVICE=eth2</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">NM_CONTROLLED=<span class="built_in">yes</span></span><br><span class="line">BOOTPROTO=dhcp <span class="comment">#注意这里是DHCP</span></span><br><span class="line">NAME=<span class="string">&quot;System eth2&quot;</span></span><br><span class="line">HWADDR=08:00:27:E9:19:A5</span><br><span class="line">DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">PEERDNS=<span class="built_in">yes</span></span><br><span class="line">PEERROUTES=<span class="built_in">yes</span></span><br><span class="line">IPV4_FAILURE_FATAL=<span class="built_in">yes</span></span><br><span class="line">IPV6INIT=no</span><br><span class="line">UUID=3a73717e-65ab-93e8-b518-24f5af32dc0d</span><br><span class="line">LAST_CONNECT=1409908256</span><br></pre></td></tr></table></figure>
+<p>最后，重新启动一下网络服务：</p>
+<pre><code># service network restart
+</code></pre>
+<p>查看一下我们配置后的结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    $ ip addr show</span><br><span class="line">    1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN </span><br><span class="line">        <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">        inet 127.0.0.1/8 scope host lo</span><br><span class="line">        inet6 ::1/128 scope host </span><br><span class="line">           valid_lft forever preferred_lft forever</span><br><span class="line">    2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">        <span class="built_in">link</span>/ether 08:00:27:86:d8:01 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">        inet 192.168.1.2/24 brd 192.168.1.255 scope global eth0</span><br><span class="line">        inet6 fe80::a00:27ff:fe86:d801/64 scope <span class="built_in">link</span> </span><br><span class="line">           valid_lft forever preferred_lft forever</span><br><span class="line">    3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">        <span class="built_in">link</span>/ether 08:00:27:c6:79:2b brd ff:ff:ff:ff:ff:ff</span><br><span class="line">        inet 192.168.0.2/24 brd 192.168.0.255 scope global eth1</span><br><span class="line">        inet6 fe80::a00:27ff:fec6:792b/64 scope <span class="built_in">link</span> </span><br><span class="line">           valid_lft forever preferred_lft forever</span><br><span class="line">    4: eth2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">        <span class="built_in">link</span>/ether 08:00:27:e9:19:a5 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">        inet 10.0.4.15/24 brd 10.0.4.255 scope global eth2</span><br><span class="line">        inet6 fe80::a00:27ff:fee9:19a5/64 scope <span class="built_in">link</span> </span><br><span class="line">           valid_lft forever preferred_lft forever</span><br><span class="line">```language</span><br></pre></td></tr></table></figure>
+<p>也就是说，现在这台虚拟机有三个IP：</p>
+<ul>
+<li>192.168.1.2： 和主机通信使用</li>
+<li>192.168.0.2： 和其他的虚拟机通信使用</li>
+<li>10.0.4.15：   是自动获取的，通过VirtualBox的地址转换功能，用来访问外网internet</li>
+</ul>
+<p>如果再新建一台虚拟机，还是需要参考上面的步骤，为每个虚拟机都设置三块网卡。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="对需求1的验证"><a href="#对需求1的验证" class="headerlink" title="对需求1的验证"></a>对需求1的验证</h3><p>通过主机来 ping 虚拟机，结果如图，成功！</p>
+<p><img src="/img/post/1409915127495.png" alt="主机来ping虚拟机"></p>
+<p>反过来，从虚拟机中ping主机，结果如图，成功！</p>
+<p><img src="/img/post/1409915280513.png" alt="从虚拟机中ping主机"></p>
+<h3 id="需求2的验证"><a href="#需求2的验证" class="headerlink" title="需求2的验证"></a>需求2的验证</h3><p>虚拟机之间互 ping，结果如图，成功！</p>
+<p><img src="/img/post/1409915369535.png" alt="虚拟机之间互ping"></p>
+<h3 id="需求3的验证"><a href="#需求3的验证" class="headerlink" title="需求3的验证"></a>需求3的验证</h3><p>从虚拟机直接上外网，如图，成功！（注意：请确认你的主机和虚拟机都使用了相同的代理服务器设置）</p>
+<p><img src="/img/post/1409915445978.png" alt="虚拟机直接上外网"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过把 VirtualBox 的几种联网方式的混合运用，就能满足我们大多场合的需求。其实回过头想想，如果一种解决方法解决不了问题，可以尝试一下混合几种解决方案，取长补短，这样带来的加乘效果，往往会让你吃惊。</p>
+<p>(END)</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/virtualbox/">virtualbox</a><a href="/tags/网络配置/">网络配置</a><a href="/tags/虚拟机/">虚拟机</a><a href="/tags/ip/">ip</a><a href="/tags/dhcp/">dhcp</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2014/09/05/virtualbox/" data-title="VirtualBox下虚拟机和主机内网互通+虚拟机静态IP的网络配置 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/09/Oracle Linux下内网DNS服务器的配置/" title="Oracle Linux下内网DNS服务器的配置">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Oracle Linux下内网DNS服务器的配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/09/05/Virtualbox中找不到eth0的解决方法/"  title="Virtualbox中找不到eth0的解决方法">
+ <strong>下一篇：</strong><br/> 
+ <span>Virtualbox中找不到eth0的解决方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-number">2.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%86%85%E7%BD%91%E9%9D%99%E6%80%81IP"><span class="toc-number">4.</span> <span class="toc-text">配置主机的内网静态IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BD%91%E5%8D%A1"><span class="toc-number">4.1.</span> <span class="toc-text">配置虚拟机的网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E9%83%A8%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1"><span class="toc-number">4.2.</span> <span class="toc-text">在虚拟机内部配置网卡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E9%9C%80%E6%B1%821%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">5.1.</span> <span class="toc-text">对需求1的验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%822%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">5.2.</span> <span class="toc-text">需求2的验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%823%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">5.3.</span> <span class="toc-text">需求3的验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

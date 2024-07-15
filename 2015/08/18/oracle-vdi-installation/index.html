@@ -1,0 +1,569 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>Oracle VDI 安装 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="虽然说Oracle已经停止了VDI的开发，之后支持服务业很快停止了。但是，作为经典的桌面虚拟化产品，还是值得研究一番。虽然Oracle VDI的文档已经写的很详细了，但是在实际操作过程中，还是会遇到很多问题。最近，终于鼓起勇气，在VDI即将消失之前，把安装过程记录一下。 安装环境和前期条件 OS： Oralce Linux 6 update5 x86-64 Oracle VDI 3.5.2 SEL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle VDI 安装">
+<meta property="og:url" content="http://xintq.net/2015/08/18/oracle-vdi-installation/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="虽然说Oracle已经停止了VDI的开发，之后支持服务业很快停止了。但是，作为经典的桌面虚拟化产品，还是值得研究一番。虽然Oracle VDI的文档已经写的很详细了，但是在实际操作过程中，还是会遇到很多问题。最近，终于鼓起勇气，在VDI即将消失之前，把安装过程记录一下。 安装环境和前期条件 OS： Oralce Linux 6 update5 x86-64 Oracle VDI 3.5.2 SEL">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-08-18T05:20:08.000Z">
+<meta property="article:modified_time" content="2015-11-26T14:02:30.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="vdi">
+<meta property="article:tag" content="ovdi">
+<meta property="article:tag" content="vbox">
+<meta property="article:tag" content="packagekit">
+<meta property="article:tag" content="virtual desktop">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/18/oracle-vdi-installation/" title="Oracle VDI 安装" itemprop="url">Oracle VDI 安装</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-18T05:20:08.000Z" itemprop="datePublished"> 发表于 2015-08-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E5%92%8C%E5%89%8D%E6%9C%9F%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">安装环境和前期条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEYum%E6%BA%90"><span class="toc-number">2.1.</span> <span class="toc-text">配置Yum源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">代理服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEwget%E7%9A%84%E4%BB%A3%E7%90%86"><span class="toc-number">2.2.1.</span> <span class="toc-text">设置wget的代理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEYum%E7%9A%84%E4%BB%A3%E7%90%86"><span class="toc-number">2.2.2.</span> <span class="toc-text">设置Yum的代理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E5%85%88%E5%AE%89%E8%A3%85%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E5%87%BA%E9%94%99%E7%9A%84%E5%8C%85"><span class="toc-number">2.3.</span> <span class="toc-text">预先安装可能导致出错的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85-vda"><span class="toc-number">2.4.</span> <span class="toc-text">开始安装 vda</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-VirtualBox"><span class="toc-number">2.5.</span> <span class="toc-text">安装 VirtualBox</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>虽然说Oracle已经停止了VDI的开发，之后支持服务业很快停止了。但是，作为经典的桌面虚拟化产品，还是值得研究一番。虽然Oracle VDI的文档已经写的很详细了，但是在实际操作过程中，还是会遇到很多问题。最近，终于鼓起勇气，在VDI即将消失之前，把安装过程记录一下。</p>
+<h2 id="安装环境和前期条件"><a href="#安装环境和前期条件" class="headerlink" title="安装环境和前期条件"></a>安装环境和前期条件</h2><ul>
+<li>OS： Oralce Linux 6 update5 x86-64</li>
+<li>Oracle VDI 3.5.2</li>
+<li>SELinux 已经禁用</li>
+<li>防火墙(iptables)已经关闭</li>
+</ul>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="配置Yum源"><a href="#配置Yum源" class="headerlink" title="配置Yum源"></a>配置Yum源</h3><p>首先需要保证能上外网，并能够访问<code>public-yum.oracle.com</code>。</p>
+<p>开始配置Yum环境，把<a target="_blank" rel="noopener" href="http://public-yum.oracle.com/public-yum-ol6.repo">public-yum-ol6.repo</a>下载到<code>/etc/yum.repos.d</code>目录，并编辑内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[ol6_u5_base]</span><br><span class="line">name=Oracle Linux <span class="variable">$releasever</span> Update 5 installation media copy (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/5/base/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启</span></span><br><span class="line"></span><br><span class="line">[ol6_addons]</span><br><span class="line">name=Oracle Linux <span class="variable">$releasever</span> Add ons (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/addons/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启</span></span><br><span class="line"></span><br><span class="line">[ol6_UEK_base]</span><br><span class="line">name=Unbreakable Enterprise Kernel <span class="keyword">for</span> Oracle Linux <span class="variable">$releasever</span> (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/UEK/base/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启</span></span><br><span class="line"></span><br><span class="line">[ol6_gdm_multiseat]</span><br><span class="line">name=Oracle Linux 6 GDM Multiseat (<span class="variable">$basearch</span>)</span><br><span class="line">baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/gdm_multiseat/<span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1 <span class="comment">###开启</span></span><br></pre></td></tr></table></figure>
+
+<p>配置<code>/etc/yum.conf</code>，在文件末尾加入如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启多版本库支持</span></span><br><span class="line">protected_multilib=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="代理服务器配置"><a href="#代理服务器配置" class="headerlink" title="代理服务器配置"></a>代理服务器配置</h3><p>如果使用代理服务器上外网的话，还需要做如下设置。</p>
+<h4 id="设置wget的代理"><a href="#设置wget的代理" class="headerlink" title="设置wget的代理"></a>设置wget的代理</h4><p>在<code>/etc/wgetrc</code>修改为如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You can set the default proxies for Wget to use for http, https, and ftp.</span></span><br><span class="line"><span class="comment"># They will override the value in the environment.</span></span><br><span class="line">https_proxy = http://my-proxy.example.com:80/</span><br><span class="line">http_proxy = http://my-proxy.example.com:80/</span><br><span class="line">ftp_proxy = http://my-proxy.example.com:80/</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置Yum的代理"><a href="#设置Yum的代理" class="headerlink" title="设置Yum的代理"></a>设置Yum的代理</h4><p>在<code>/etc/yum.conf</code>末尾加入如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy=http://my-proxy.example.com:80/</span><br></pre></td></tr></table></figure>
+
+<h3 id="预先安装可能导致出错的包"><a href="#预先安装可能导致出错的包" class="headerlink" title="预先安装可能导致出错的包"></a>预先安装可能导致出错的包</h3><p><code>sssd-client</code>可能在安装过程中出现错误，先手动安装一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi ~]# yum install sssd-client</span><br></pre></td></tr></table></figure>
+
+<p>在64为系统中会安装<code>libXfont.x86_64</code>，但是VDI需要32位的版本 - <code>libXfont.i686</code>，这也可能出现问题，先手动安装一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi]# yum install -y libXfont.i686</span><br></pre></td></tr></table></figure>
+
+<p>安装过程中会需要安装<code>pam.i686</code>，在64位环境下，已经安装了<code>pam.x86-64</code>。同时安装32位和64位的包可能会产生如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Transaction Check Error:</span><br><span class="line">  file /etc/security/limits.conf from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/doc/pam-1.1.1/Linux-PAM_SAG.txt from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/doc/pam-1.1.1/html/sag-pam_cracklib.html from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/doc/pam-1.1.1/html/sag-pam_limits.html from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/doc/pam-1.1.1/html/sag-pam_userdb.html from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/doc/pam-1.1.1/txts/README.pam_cracklib from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/doc/pam-1.1.1/txts/README.pam_userdb from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man5/limits.conf.5.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man5/namespace.conf.5.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/faillock.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/pam_cracklib.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/pam_env.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/pam_faillock.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/pam_lastlog.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/pam_tty_audit.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br><span class="line">  file /usr/share/man/man8/pam_userdb.8.gz from install of pam-1.1.1-20.el6.i686 conflicts with file from package pam-1.1.1-17.el6.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>这个pam包中的一个既存的bug，通过下面的方法解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi ~]# yum install -y yum-downloadonly</span><br><span class="line">[root@vdi ~]# yum install pam.i686 -y --downloadonly --downloaddir=/tmp</span><br><span class="line">[root@vdi ~]# <span class="built_in">cd</span> /tmp</span><br><span class="line">[root@vdi tmp]# rpm -ivh --force --nodeps pam-1.1.1-20.el6.i686.rpm</span><br><span class="line">[root@vdi tmp]# yum reinstall pam.i686</span><br></pre></td></tr></table></figure>
+
+<p>题外话，使用yum安装软件，老是会遇到这种提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Existing lock /var/run/yum.pid: another copy is running as pid 3053.</span><br><span class="line">Another app is currently holding the yum lock; waiting <span class="keyword">for</span> it to <span class="built_in">exit</span>...</span><br><span class="line">The other application is: PackageKit</span><br></pre></td></tr></table></figure>
+
+<p>只要把&#x2F;etc&#x2F;yum&#x2F;pluginconf.d&#x2F;refresh-packagekit.conf改为如下就OK了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enabled=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="开始安装-vda"><a href="#开始安装-vda" class="headerlink" title="开始安装 vda"></a>开始安装 vda</h3><p>由于VDI安装脚本调用了<code>curl</code>来检查联网状态，所以如果是通过代理服务器上外网的，还需要在执行安装命令之前为<code>curl</code>设置如下环境变量以使用代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi vda_3.5.2_linux]# <span class="built_in">export</span> http_proxy=http://my-proxy.example.com:80/</span><br><span class="line">[root@vdi vda_3.5.2_linux]# <span class="built_in">export</span> https_proxy=<span class="variable">$http_proxy</span></span><br><span class="line">[root@vdi vda_3.5.2_linux]# <span class="built_in">export</span> HTTP_PROXY=<span class="variable">$http_proxy</span></span><br><span class="line">[root@vdi vda_3.5.2_linux]# <span class="built_in">export</span> HTTPS_PROXY=<span class="variable">$http_proxy</span></span><br></pre></td></tr></table></figure>
+
+<p>现在可以开始安装了，安装过程中Yum会自动连外网下载依赖的包，过程会很漫长：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi vda_3.5.2_linux]# unzip p21441793_350_Linux-x86-64.zip</span><br><span class="line">[root@vdi vda_3.5.2_linux]# <span class="built_in">cd</span> vda_3.5.2_linux</span><br><span class="line">[root@vdi vda_3.5.2_linux]# ./vda-install </span><br><span class="line"></span><br><span class="line">Oracle Virtual Desktop Infrastructure 3.5.2 Installation</span><br><span class="line">Checking <span class="keyword">for</span> required libraries and packages...</span><br><span class="line"></span><br><span class="line">30 packages are missing and will be installed by the software manager yum:</span><br><span class="line">iscsi-initiator-utils.x86_64, nss.x86_64, nss.i686, libgcc.x86_64, libgcc.i686, libstdc++.x86_64, libstdc++.i686, gtk2.x86_64, gtk2.i686, compat-openldap, compat-openldap.i686, dhcp, gdbm.i686, gdm-multiseat, ksh, libusb.i686, libXcursor.i686, libXfixes.i686, libXfont.i686, libXinerama.i686, libXp.i686, libXpm.i686, libXtst.i686, libXv.i686, openldap-clients, openmotif.i686, sssd-client.i686, tftp, tftp-server, tk</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Do you want to <span class="built_in">continue</span>? ([y]/n) y</span><br><span class="line">   + Installing missing packages...</span><br><span class="line"></span><br><span class="line">Oracle VDI 3.5.2 Installation</span><br><span class="line">   + Installing Oracle VDI Installation Utilities...</span><br><span class="line">   + Installing Java DMK 5.1 Libraries...</span><br><span class="line">   + Installing Common Agent Container - Runtime...</span><br><span class="line">   + Installing Oracle VDI Core...</span><br><span class="line">   + Installing Oracle VDI Center Agent...</span><br><span class="line">   + Installing MySQL Database...</span><br><span class="line">   + Installing Oracle VDI Web server...</span><br><span class="line">   + Installing Oracle VDI Manager...</span><br><span class="line">   + Installing RDP Broker...</span><br><span class="line">   + Installing Java Runtime Environment...</span><br><span class="line">   + Installing Sun Ray Server Software...</span><br><span class="line">   + Installing Sun Ray Client Software...</span><br><span class="line"></span><br><span class="line">Oracle VDI 3.5.2 was successfully installed.</span><br><span class="line">A <span class="built_in">log</span> file is available at <span class="string">&#x27;/var/log/vda-install.2015_08_18_12:14:18.log&#x27;</span>.</span><br><span class="line"></span><br><span class="line">You can <span class="built_in">continue</span> to configure Oracle VDI 3.5.2 with <span class="string">&#x27;/opt/SUNWvda/sbin/vda-config&#x27;</span>.</span><br><span class="line"></span><br><span class="line">Do you want to configure Oracle VDI 3.5.2 now? ([y]/n) y</span><br><span class="line"></span><br><span class="line">Oracle Virtual Desktop Infrastructure 3.5.2 Configuration</span><br><span class="line"></span><br><span class="line">An Oracle VDI Center consists of one or several Oracle VDI Hosts. You can create a new Oracle VDI Center by configuring this server as the Primary Oracle VDI Host.</span><br><span class="line"></span><br><span class="line">High availability requires a second Oracle VDI Host <span class="keyword">in</span> the center. You can add as many Secondary Oracle VDI Hosts to an existing Oracle VDI Center as needed. During configuration, you will be asked to enter user name and password of a privileged account on the Primary Oracle VDI Host.</span><br><span class="line">Please note that joining an Oracle VDI Center causes a short interruption of active sessions on the Primary Oracle VDI Host.</span><br><span class="line"></span><br><span class="line">   1 New Oracle VDI Center</span><br><span class="line">   2 Join Oracle VDI Center</span><br><span class="line"></span><br><span class="line">Select (1/2): 1</span><br><span class="line"></span><br><span class="line">Review the settings <span class="keyword">for</span> a new Oracle VDI Center:</span><br><span class="line">   Name: VDI Center</span><br><span class="line">   Administrator Password: ********</span><br><span class="line">   VDI Administrator (super-user): root</span><br><span class="line">   DNS name of this host: vdi.example.com</span><br><span class="line">   Maximum number of sessions on this host: 100</span><br><span class="line">   User ID range start: 150000</span><br><span class="line">   Database: Embedded Oracle VDI</span><br><span class="line"></span><br><span class="line">Do you want to create the Oracle VDI Center now? Enter <span class="string">&#x27;c&#x27;</span> to customize the settings. ([y]/c): y</span><br><span class="line"></span><br><span class="line">System Configuration</span><br><span class="line">   + Creating new instance of Common Agent Container (vda)...</span><br><span class="line">   + Common Agent Container (vda) is reachable at vdi.example.com:11174</span><br><span class="line">   + Setting properties <span class="keyword">for</span> Common Agent Container (vda)...</span><br><span class="line">   + Enabling Common Agent Container (vda) at system boot...</span><br><span class="line"></span><br><span class="line">Oracle VDI Center Agent Configuration</span><br><span class="line">   + Stopping Common Agent Container (vda)...</span><br><span class="line">   + Deploying center agent module <span class="keyword">in</span> Common Agent Container (vda)...</span><br><span class="line">   + Restarting Common Agent Container (vda)...</span><br><span class="line">   + Creating Oracle VDI Center...</span><br><span class="line">   + Configuring time synchronization...</span><br><span class="line"></span><br><span class="line">Sun Ray Server Software Configuration</span><br><span class="line">   + Configuring Sun Ray Server Software...</span><br><span class="line"></span><br><span class="line">Sun Ray Client Configuration</span><br><span class="line">   + Setting Kiosk Mode Session Type to <span class="string">&#x27;Oracle Virtual Desktop Infrastructure&#x27;</span>...</span><br><span class="line">   + Setting Sun Ray Policy ...</span><br><span class="line">   + Enabling LAN Connections...</span><br><span class="line">   + Restarting Sun Ray Server Software...</span><br><span class="line"></span><br><span class="line">MySQL Database Server Configuration</span><br><span class="line">   + Generating Secure Socket Layer certificates...</span><br><span class="line">   + Creating MySQL group (vdadb)...</span><br><span class="line">   + Creating MySQL user (vdadb)...</span><br><span class="line">   + Setting up MySQL directory...</span><br><span class="line">   + Initializing database...</span><br><span class="line">   + Registering database service...</span><br><span class="line">   + Starting Oracle VDI database (MySQL)...</span><br><span class="line">   + Configuring MySQL Root Password...</span><br><span class="line">   + Creating database user with Administrator privileges...</span><br><span class="line">   + Creating database <span class="built_in">users</span> <span class="keyword">for</span> replication...</span><br><span class="line">   + Configuring MySQL Information...</span><br><span class="line"></span><br><span class="line">MySQL Database Client Configuration</span><br><span class="line">   + Setting user rights...</span><br><span class="line">   + Creating database tables...</span><br><span class="line">   + Configuring database connection...</span><br><span class="line">   + Importing Secure Socket Layer certificates...</span><br><span class="line">   + Updating Common Agent Container properties...</span><br><span class="line"></span><br><span class="line">Oracle VDI Service Configuration</span><br><span class="line">   + Deploying service module <span class="keyword">in</span> Common Agent Container (vda)...</span><br><span class="line">   + Configuring primary administrator root</span><br><span class="line"></span><br><span class="line">Oracle VDI Manager Configuration</span><br><span class="line">   + Registering Oracle VDI Manager...</span><br><span class="line">   + Restarting Oracle VDI Manager...</span><br><span class="line"></span><br><span class="line">RDP Broker Configuration</span><br><span class="line">   + Registering RDP broker...</span><br><span class="line">   + Starting RDP broker...</span><br><span class="line"></span><br><span class="line">The configuration of Oracle VDI 3.5.2 has completed.</span><br><span class="line"></span><br><span class="line">WARNING: The current DBus file descriptor <span class="built_in">limit</span> can only support up to approximately 120 logged-in desktops. It is recommended to reboot the system <span class="keyword">if</span> you require support <span class="keyword">for</span> more desktops.</span><br><span class="line"></span><br><span class="line">This server is configured as a Primary Oracle VDI Host of the new Oracle VDI Center <span class="string">&#x27;VDI Center&#x27;</span>.</span><br><span class="line">A <span class="built_in">log</span> file is available at <span class="string">&#x27;/var/log/vda-config.2015_08_18_12:28:08.log&#x27;</span>.</span><br><span class="line"></span><br><span class="line">The <span class="built_in">command</span> line tools are located at <span class="string">&#x27;/opt/SUNWvda/sbin&#x27;</span>.</span><br><span class="line">You can access the Oracle VDI Manager at http://vdi.example.com:1800</span><br><span class="line">[root@vdi vda_3.5.2_linux]# </span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-VirtualBox"><a href="#安装-VirtualBox" class="headerlink" title="安装 VirtualBox"></a>安装 VirtualBox</h3><p>接下来，需要安装 VirtualBox。需要连外网通过<code>wget</code>来下载VirtualBox的安装文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[root@vdi vda_3.5.2_linux]# unzip vbox_4.2.zip </span><br><span class="line">Archive:  vbox_4.2.zip</span><br><span class="line">   creating: vbox_4.2/</span><br><span class="line">  inflating: vbox_4.2/SLA.txt        </span><br><span class="line">  inflating: vbox_4.2/vda-solaris.conf  </span><br><span class="line">  inflating: vbox_4.2/vb-install     </span><br><span class="line">  inflating: vbox_4.2/httpd.conf     </span><br><span class="line">  inflating: vbox_4.2/config.conf    </span><br><span class="line">  inflating: vbox_4.2/vda-linux.conf  </span><br><span class="line">  inflating: vbox_4.2/ReadMe.txt     </span><br><span class="line">  inflating: vbox_4.2/Oracle_VM_VirtualBox_Extension_Pack-4.2.30-100415-ENTERPRISE.vbox-extpack  </span><br><span class="line">  inflating: vbox_4.2/autoresponse   </span><br><span class="line">[root@vdi vda_3.5.2_linux]# <span class="built_in">cd</span> vbox_4.2</span><br><span class="line">[root@vdi vbox_4.2]# ./vb-install</span><br><span class="line">Oracle VM VirtualBox 4.2.30 Installation <span class="keyword">for</span> Linux</span><br><span class="line"> </span><br><span class="line">Verifying dependencies</span><br><span class="line">VirtualBox 4.2.30 <span class="keyword">for</span> Linux hosts Download</span><br><span class="line">   + Downloading <span class="string">&#x27;&#x27;</span>... </span><br><span class="line"> </span><br><span class="line">Select an existing user <span class="keyword">for</span> VirtualBox [root]: root</span><br><span class="line">Enter the password <span class="keyword">for</span> user <span class="string">&#x27;root&#x27;</span>: </span><br><span class="line"> </span><br><span class="line">Specify the VirtualBox SSL port [443]: </span><br><span class="line"> </span><br><span class="line">Oracle VM VirtualBox 4.2 Installation</span><br><span class="line">   + Installing Oracle VM VirtualBox Core</span><br><span class="line">   + Installing Oracle VM VirtualBox Extension Pack</span><br><span class="line"> </span><br><span class="line">SSH Configuration</span><br><span class="line">   + Enabling root access</span><br><span class="line">   + Restarting SSH Service</span><br><span class="line"> </span><br><span class="line">Oracle VM VirtualBox Webservice Configuration</span><br><span class="line">   + Creating SSL certificates</span><br><span class="line">   + Configuring Webservice</span><br><span class="line">   + Enabling Webservice</span><br><span class="line"> </span><br><span class="line">Oracle VM VirtualBox was successfully installed.</span><br><span class="line">A <span class="built_in">log</span> file is available at <span class="string">&#x27;/var/log/vb-install.2015_08_18_12:34:05.log&#x27;</span>.</span><br><span class="line"> </span><br><span class="line">You can access the Oracle VM VirtualBox host at vdi.example.com, port 443.</span><br><span class="line">[root@vdi vbox_4.2]# </span><br></pre></td></tr></table></figure>
+<p>至此，Oracle VDI的安装已经完成，接下来就可以登录到 Oracle VDI Manager开始配置了:</p>
+<pre><code>http://vdi.example.com:1800
+</code></pre>
+<p>由于接下来的配置工作都是基于图形界面完成的，这里就不再赘述，可以参考<a target="_blank" rel="noopener" href="http://docs.oracle.com/cd/E36500_01/E36513/E36513.pdf">这篇文档</a>来进行。</p>
+<p>(END)</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vdi/">vdi</a><a href="/tags/ovdi/">ovdi</a><a href="/tags/vbox/">vbox</a><a href="/tags/packagekit/">packagekit</a><a href="/tags/virtual-desktop/">virtual desktop</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2015/08/18/oracle-vdi-installation/" data-title="Oracle VDI 安装 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/29/build-a-local-yum-from-oracle-public-yum/" title="从Oracle Public Yum为Oracle Linux建立本地的Yum源">
+  <strong>上一篇：</strong><br/>
+  <span>
+  从Oracle Public Yum为Oracle Linux建立本地的Yum源</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/08/04/sgd-oem-integration/"  title="Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成">
+ <strong>下一篇：</strong><br/> 
+ <span>Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E5%92%8C%E5%89%8D%E6%9C%9F%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">安装环境和前期条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEYum%E6%BA%90"><span class="toc-number">2.1.</span> <span class="toc-text">配置Yum源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">代理服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEwget%E7%9A%84%E4%BB%A3%E7%90%86"><span class="toc-number">2.2.1.</span> <span class="toc-text">设置wget的代理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEYum%E7%9A%84%E4%BB%A3%E7%90%86"><span class="toc-number">2.2.2.</span> <span class="toc-text">设置Yum的代理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E5%85%88%E5%AE%89%E8%A3%85%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E5%87%BA%E9%94%99%E7%9A%84%E5%8C%85"><span class="toc-number">2.3.</span> <span class="toc-text">预先安装可能导致出错的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85-vda"><span class="toc-number">2.4.</span> <span class="toc-text">开始安装 vda</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-VirtualBox"><span class="toc-number">2.5.</span> <span class="toc-text">安装 VirtualBox</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

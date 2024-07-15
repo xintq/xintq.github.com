@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /about/
+
+User-agent: *
+Sitemap: http://xintq.net/sitemap.xml

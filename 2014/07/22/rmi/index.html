@@ -1,0 +1,622 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>RMI教程：入门与编译方法 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。 这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真劲儿的祭奠，现在，越来越少了…… 分布式对象和RMI分布式对象技术主要是在分布式异构环境下简历应用系统框架和对象构件。在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RMI教程：入门与编译方法">
+<meta property="og:url" content="http://xintq.net/2014/07/22/rmi/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。 这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真劲儿的祭奠，现在，越来越少了…… 分布式对象和RMI分布式对象技术主要是在分布式异构环境下简历应用系统框架和对象构件。在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/rmi.png">
+<meta property="article:published_time" content="2014-07-22T09:32:23.000Z">
+<meta property="article:modified_time" content="2015-11-26T14:02:28.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="rmi">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="remote">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/rmi.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/22/rmi/" title="RMI教程：入门与编译方法" itemprop="url">RMI教程：入门与编译方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-22T09:32:23.000Z" itemprop="datePublished"> 发表于 2014-07-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%E5%92%8CRMI"><span class="toc-number">1.</span> <span class="toc-text">分布式对象和RMI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RMI%E7%A8%8B%E5%BA%8F%E6%9E%84%E6%88%90"><span class="toc-number">2.</span> <span class="toc-text">RMI程序构成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E8%AF%A6%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">应用实例详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">系统模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%AF%B9%E8%B1%A1%E6%8E%A5%E5%8F%A3%EF%BC%88RMethod-java%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">远程对象接口（RMethod.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%EF%BC%88RMethodImpl-java%EF%BC%89"><span class="toc-number">3.2.2.</span> <span class="toc-text">远程对象实现（RMethodImpl.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E5%85%B1%E9%85%8D%E7%BD%AE%E6%8E%A5%E5%8F%A3%EF%BC%88Config-java%EF%BC%89"><span class="toc-number">3.2.3.</span> <span class="toc-text">公共配置接口（Config.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%EF%BC%88Server-java%EF%BC%89"><span class="toc-number">3.2.4.</span> <span class="toc-text">RMI服务器端（Server.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%88Client-java%EF%BC%89"><span class="toc-number">3.2.5.</span> <span class="toc-text">RMI客户端（Client.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E6%96%87%E4%BB%B6%EF%BC%88java-policy%EF%BC%89"><span class="toc-number">3.2.6.</span> <span class="toc-text">安全策略文件（java.policy）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%B7%B2%E7%BB%8F%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">编译已经运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">命令行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%EF%BC%9A"><span class="toc-number">4.1.1.</span> <span class="toc-text">编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%EF%BC%9A"><span class="toc-number">4.1.2.</span> <span class="toc-text">运行服务器端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%9A"><span class="toc-number">4.1.3.</span> <span class="toc-text">运行客户端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%AF%B9%E5%BA%94%E7%9A%84%E8%BE%93%E5%87%BA%E4%B8%BA%EF%BC%9A"><span class="toc-number">4.1.4.</span> <span class="toc-text">服务器端对应的输出为：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eclipse%E4%B8%AD%E8%BF%90%E8%A1%8CRMI%E7%A8%8B%E5%BA%8F"><span class="toc-number">4.2.</span> <span class="toc-text">Eclipse中运行RMI程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDRMI-Eclipse%E6%8F%92%E4%BB%B6%EF%BC%9A"><span class="toc-number">4.2.1.</span> <span class="toc-text">下载RMI Eclipse插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">4.2.3.</span> <span class="toc-text">使用方法</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。</p>
+<p>这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真劲儿的祭奠，现在，越来越少了……</p>
+<h1 id="分布式对象和RMI"><a href="#分布式对象和RMI" class="headerlink" title="分布式对象和RMI"></a>分布式对象和RMI</h1><p>分布式对象技术主要是在分布式异构环境下简历应用系统框架和对象构件。在应用系统框架的支撑下，开发者可以将软件功能封装为更易于管理和使用的对象，这些对象可以跨越不同的软、硬件平台进行互操作。目前，分布式互操作标准主要有Microsoft的COM&#x2F;DCOM标准、Oracle（前Sun）公司的Java RMI标准、OMG组织的CORBRA标准。</p>
+<p>在Java中RMI在包java.rmi和java.rmi.server中。RMI是开发网络应用程序的一种强有力的技术，而不用担心底层的网络细节。RMI凭借一个更为通用的原创对象模型胜过了C&#x2F;S模型。在这个模型里，有服务器定义客户端可以远程使用的对象，就好像它确实是一个运行在和客户端相同的环境下的本地对象。RMI隐藏了底层的有关传输方法参数和通过网络返回方法返回值的机制。一个参数或者返回值可以是一个简单值或者任何Serializable（可序列化：即对象可以转化成文件，存储在磁盘上）对象。</p>
+<h1 id="RMI程序构成"><a href="#RMI程序构成" class="headerlink" title="RMI程序构成"></a>RMI程序构成</h1><p>远程方法调用RMI是jdk 1.1 中引入的分布式对象软件包,他的出现大的简化了分布异构环境中Java应用程序直接的通信。</p>
+<p>要开发一个基于RMI的应用程序，必须创建四个主要的类：</p>
+<ul>
+<li><p>远程对象接口（例： RMethod）</p>
+<p>这个接口中包含了所有远程方法的声明。在实际使用中，客户端只知道这个接口的存在，并不关心这个接口是如何实现的。</p>
+</li>
+</ul>
+<p>它扩展了java.rmi.Remote接口，定义了远程对象执行的输出方法。该接口的每个方法都必须定义为抛出一个java.rmi.RemoteException异常，它是许多更专门的RMI异常类的父类。每个远程方法都必须声明为可以RemoteException移除，因为在通过网络调用远程方法的过程中，有很多意想不到的问题可能会引发错误。</p>
+<ul>
+<li><p>远程对象实现（例： RMethodImpl）</p>
+<p>这是远程对象接口（RMethod）的具体实现。它包含了实现远程接口的具体代码，可以在这些远程方法的实现代码中加入一些输出语句（或者log4j），以测试其被调用的情况。</p>
+<p>这个类同时是java.rmi.server.UnicastRemoteObject的子类。它代表了远程对象或者服务器对象。与声明远程方法来抛出RemoteException对象不同，该远程对象不需要做任何专门的事情来允许它的方法被远程调用。UnicastRemoteObject和RMI其余的基本结构将自动进行处理。</p>
+</li>
+<li><p>RMI服务器端（例：Server）</p>
+<p>RMI服务器端生成远程对象的一个实例，并用一个专用的URL进行注册。</p>
+<p>在注册时，首先要提供远程对象所在服务器的地址，同时需要对远程对象进行标识，也就是给远程对象一个名字。这个对象在服务器端和客户端必须一致，这样客户端才能找到服务器端的远程对象。</p>
+<pre><code>    服务器地址（serverAddress）+ 远程对象名字（objectName）
+</code></pre>
+<p>构成了RMI的注册URL。其具体形式为：</p>
+<pre><code>    rmi://serverAddress:port/objectName
+</code></pre>
+<p>端口号可以自己定义，默认端口是1099。如果使用默认端口，在URL里面可以不用给出。下面是一个URL的例子：</p>
+<pre><code>    rmi://192.168.1.123:2222/RemoteMethod
+</code></pre>
+</li>
+<li><p>RMI客户端（例：Client）</p>
+<p>RMI客户端在远程RMI服务器端上查找服务对象，并将它转换成本地接口类型，然后像对待一个本地对象一样使用它。</p>
+</li>
+</ul>
+<h1 id="应用实例详解"><a href="#应用实例详解" class="headerlink" title="应用实例详解"></a>应用实例详解</h1><p>下面是一个简单的RMI实例，RMI客户端通过RMI服务器端提供的方法输出一个语句。例子虽然简单，但是涵盖了Java RMI调用的基本原理的方法。在实现复杂应用时，我们需要做的也只是完善远程对象的实现类而已。</p>
+<h2 id="系统模型"><a href="#系统模型" class="headerlink" title="系统模型"></a>系统模型</h2><p><img src="/img/post/rmi.png" alt="RMI系统模型图" title="RMI系统模型图"></p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="远程对象接口（RMethod-java）"><a href="#远程对象接口（RMethod-java）" class="headerlink" title="远程对象接口（RMethod.java）"></a>远程对象接口（RMethod.java）</h3><p>这里作为实现，只定义了一个远程方法，在实际应用中，我们可以定义很多的远程方法，一起完成我们需要的功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">RMethod</span> <span class="keyword">extends</span> <span class="title class_">Remote</span> &#123;</span><br><span class="line">	String <span class="title function_">sayHello</span><span class="params">(String name)</span> <span class="keyword">throws</span> RemoteException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="远程对象实现（RMethodImpl-java）"><a href="#远程对象实现（RMethodImpl-java）" class="headerlink" title="远程对象实现（RMethodImpl.java）"></a>远程对象实现（RMethodImpl.java）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.server.UnicastRemoteObject;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RMethodImpl</span> <span class="keyword">extends</span> <span class="title class_">UnicastRemoteObject</span> <span class="keyword">implements</span> <span class="title class_">RMethod</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">RMethodImpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> String <span class="title function_">sayHello</span><span class="params">(String name)</span> <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Client-&quot;</span> + name + <span class="string">&quot;: invoking \&quot; sayHello \&quot;&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;Hello &quot;</span> + name + <span class="string">&quot;\n this is a message from Remote Method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="公共配置接口（Config-java）"><a href="#公共配置接口（Config-java）" class="headerlink" title="公共配置接口（Config.java）"></a>公共配置接口（Config.java）</h3><p>在这个接口只能怪，定义了服务器和客户端共同使用的配置信息。这样，让某些信息变化时，只需要修改该接口，而不用去修改其他代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Config</span> &#123;</span><br><span class="line">	<span class="type">String</span> <span class="variable">OBJECT_NAME</span> <span class="operator">=</span> <span class="string">&quot;RemoteMethod&quot;</span>;</span><br><span class="line">	<span class="type">String</span> <span class="variable">SERVER_IP</span> <span class="operator">=</span> <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">1234</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RMI服务器端（Server-java）"><a href="#RMI服务器端（Server-java）" class="headerlink" title="RMI服务器端（Server.java）"></a>RMI服务器端（Server.java）</h3><p>服务器端的主要任务是创建远程对象实现的实例，并按照公用配置文件制定的对象名将这个实例注册到服务器端上。</p>
+<p>当注册成功之后，服务器端程序就处于阻塞状态，等待客户端的远程对象访问请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.*;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">		<span class="keyword">new</span> <span class="title class_">Server</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Server</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">null</span> == System.getSecurityManager()) &#123;</span><br><span class="line">			System.setSecurityManager(<span class="keyword">new</span> <span class="title class_">RMISecurityManager</span>());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				LocateRegistry.createRegistry(Config.PORT);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (java.rmi.server.ExportException ex) &#123;</span><br><span class="line">				System.out.println(<span class="string">&quot;Register the port failed:\n&quot;</span> + ex.getMessage());</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="type">RMethod</span> <span class="variable">rm</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RMethodImpl</span>();</span><br><span class="line">			<span class="type">String</span> <span class="variable">objAddr</span> <span class="operator">=</span> <span class="string">&quot;rmi://&quot;</span> + Config.SERVER_IP</span><br><span class="line">							+ <span class="string">&quot;:&quot;</span> + Config.PORT</span><br><span class="line">							+ <span class="string">&quot;/&quot;</span> + Config.OBJECT_NAME;</span><br><span class="line"></span><br><span class="line">			java.rmi.Naming.rebind(objAddr, rm);</span><br><span class="line">			System.out.println(<span class="string">&quot;Server is running...&quot;</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Server startup failed!&quot;</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RMI客户端（Client-java）"><a href="#RMI客户端（Client-java）" class="headerlink" title="RMI客户端（Client.java）"></a>RMI客户端（Client.java）</h3><p>客户端通过调用服务器端提供的远程方法，来实现与服务器的通信。这样就不需要考虑具体的通信细节。只要像使用本地方法一样调用服务器端的远程方法，完成需要的功能。</p>
+<p>要调用远程方法，客户端必须先构造一个RMI URL来找到远程对象（注意在服务器端我们只使用远程对象接口），然后通过远程对象来调用远程方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> String hostURL;</span><br><span class="line">	<span class="keyword">private</span> String obj;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Client</span><span class="params">(String name)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		hostURL = <span class="string">&quot;rmi://&quot;</span> + Config.SERVER_IP + <span class="string">&quot;:&quot;</span> + Config.PORT + <span class="string">&quot;/&quot;</span>;</span><br><span class="line">		<span class="built_in">this</span>.obj = Config.OBJECT_NAME;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">callRMethod</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			<span class="type">RMethod</span> <span class="variable">rm</span> <span class="operator">=</span> (RMethod) java.rmi.Naming.lookup(hostURL + obj);</span><br><span class="line">			<span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> rm.sayHello(name);</span><br><span class="line">			System.out.println(result);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Client</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Client</span>(<span class="string">&quot;Monica&quot;</span>);</span><br><span class="line">		c1.callRMethod();</span><br><span class="line"></span><br><span class="line">		<span class="type">Client</span> <span class="variable">c2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Client</span>(<span class="string">&quot;Joy&quot;</span>);</span><br><span class="line">		c2.callRMethod();</span><br><span class="line"></span><br><span class="line">		<span class="type">Client</span> <span class="variable">c3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Client</span>(<span class="string">&quot;Ross&quot;</span>);</span><br><span class="line">		c3.callRMethod();</span><br><span class="line"></span><br><span class="line">		<span class="type">Client</span> <span class="variable">c4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Client</span>(<span class="string">&quot;Chandler&quot;</span>);</span><br><span class="line">		c4.callRMethod();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="安全策略文件（java-policy）"><a href="#安全策略文件（java-policy）" class="headerlink" title="安全策略文件（java.policy）"></a>安全策略文件（java.policy）</h3><p>由于Java内置的安全策略对远程方法调用有一定的限制，所以我们必须编写一个安全策略文件（这是一个文本文件，文件名可以随便起）。在启动服务器端时把策略文件加载到虚拟机中，这样服务器端侧才能正常运行。</p>
+<p>策略文件内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grant &#123;</span><br><span class="line">	permission java.security.AllPermission;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编译已经运行方式"><a href="#编译已经运行方式" class="headerlink" title="编译已经运行方式"></a>编译已经运行方式</h1><p>假设所有的文件都在同一个目录下。</p>
+<h2 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h2><h3 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h3><pre><code>    $ javac *.java
+</code></pre>
+<h3 id="运行服务器端："><a href="#运行服务器端：" class="headerlink" title="运行服务器端："></a>运行服务器端：</h3><pre><code>    $ rmic RMethodImpl
+    $ java -Djava.security.policy=java.policy Server
+ 	Server is running...
+</code></pre>
+<h3 id="运行客户端："><a href="#运行客户端：" class="headerlink" title="运行客户端："></a>运行客户端：</h3><pre><code>    $ java Client
+    Hello Monica
+      this is a message from Remote Method
+    Hello Joy
+  	 this is a message from Remote Method
+    Hello Ross
+  	 this is a message from Remote Method
+    Hello Chandler
+      this is a message from Remote Method
+</code></pre>
+<h3 id="服务器端对应的输出为："><a href="#服务器端对应的输出为：" class="headerlink" title="服务器端对应的输出为："></a>服务器端对应的输出为：</h3><pre><code>    $ java -Djava.security.policy=java.policy Server
+    Server is running...
+    Client-Monica: invoking &quot; sayHello &quot;
+    Client-Joy: invoking &quot; sayHello &quot;
+    Client-Ross: invoking &quot; sayHello &quot;
+    Client-Chandler: invoking &quot; sayHello &quot;
+</code></pre>
+<h2 id="Eclipse中运行RMI程序"><a href="#Eclipse中运行RMI程序" class="headerlink" title="Eclipse中运行RMI程序"></a>Eclipse中运行RMI程序</h2><h3 id="下载RMI-Eclipse插件："><a href="#下载RMI-Eclipse插件：" class="headerlink" title="下载RMI Eclipse插件："></a>下载RMI Eclipse插件：</h3><p><a target="_blank" rel="noopener" href="http://rmi-eclipse.sourceforge.net/">http://rmi-eclipse.sourceforge.net</a></p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>将下载后的文件： net.shotwave.eclipse.rmic_x.x.x.jar 复制到Eclipse的安装目录下plugin子目录下：</p>
+<pre><code>$ mv net.shotwave.eclipse.rmic_x.x.x.jar /usr/lib/eclipse/plugins/
+</code></pre>
+<p>重启 Eclipse之后，会发现Eclipse的菜单里多了一项：RMI。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>按照正常的步骤建立工程。</p>
+<p>进行RMI的设置：</p>
+<pre><code>[RMI]---&gt; [Add RMI Builder] ---&gt; 选择当前工程
+</code></pre>
+<p>运行服务器端：</p>
+<pre><code>选择Server.java
+    ---&gt; 右键，[Run As]
+    ---&gt; [Run]
+    ---&gt; [Arguments] ---&gt; [VM arguments]
+    ---&gt; 输入： -Djava.security.policy=java.policy
+    ---&gt; [Run]
+</code></pre>
+<p>这时在Eclipse底部的终端中就会看到服务器端程序已经运行起来了。</p>
+<p>运行客户端：</p>
+<pre><code>选择Client.java
+    ---&gt; 右键，[Run As]
+    ---&gt; [Run]
+    ---&gt; [Java Application]
+    ---&gt; [Run]
+</code></pre>
+<p>这时在Eclipse底部的终端中就会看到客户端程序也已经运行起来了。</p>
+<p>以上就是在Eclipse下运行RMI程序的方法。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/rmi/">rmi</a><a href="/tags/java/">java</a><a href="/tags/remote/">remote</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2014/07/22/rmi/" data-title="RMI教程：入门与编译方法 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/07/23/培养爱好说/" title="培养爱好说">
+  <strong>上一篇：</strong><br/>
+  <span>
+  培养爱好说</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/22/离职信中的打油诗/"  title="对理想生活的向往 - 离职信中的打油诗有感">
+ <strong>下一篇：</strong><br/> 
+ <span>对理想生活的向往 - 离职信中的打油诗有感
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%E5%92%8CRMI"><span class="toc-number">1.</span> <span class="toc-text">分布式对象和RMI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RMI%E7%A8%8B%E5%BA%8F%E6%9E%84%E6%88%90"><span class="toc-number">2.</span> <span class="toc-text">RMI程序构成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E8%AF%A6%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">应用实例详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">系统模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%AF%B9%E8%B1%A1%E6%8E%A5%E5%8F%A3%EF%BC%88RMethod-java%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">远程对象接口（RMethod.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%EF%BC%88RMethodImpl-java%EF%BC%89"><span class="toc-number">3.2.2.</span> <span class="toc-text">远程对象实现（RMethodImpl.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E5%85%B1%E9%85%8D%E7%BD%AE%E6%8E%A5%E5%8F%A3%EF%BC%88Config-java%EF%BC%89"><span class="toc-number">3.2.3.</span> <span class="toc-text">公共配置接口（Config.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%EF%BC%88Server-java%EF%BC%89"><span class="toc-number">3.2.4.</span> <span class="toc-text">RMI服务器端（Server.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMI%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%88Client-java%EF%BC%89"><span class="toc-number">3.2.5.</span> <span class="toc-text">RMI客户端（Client.java）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E6%96%87%E4%BB%B6%EF%BC%88java-policy%EF%BC%89"><span class="toc-number">3.2.6.</span> <span class="toc-text">安全策略文件（java.policy）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%B7%B2%E7%BB%8F%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">编译已经运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">命令行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%EF%BC%9A"><span class="toc-number">4.1.1.</span> <span class="toc-text">编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%EF%BC%9A"><span class="toc-number">4.1.2.</span> <span class="toc-text">运行服务器端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%9A"><span class="toc-number">4.1.3.</span> <span class="toc-text">运行客户端：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%AF%B9%E5%BA%94%E7%9A%84%E8%BE%93%E5%87%BA%E4%B8%BA%EF%BC%9A"><span class="toc-number">4.1.4.</span> <span class="toc-text">服务器端对应的输出为：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eclipse%E4%B8%AD%E8%BF%90%E8%A1%8CRMI%E7%A8%8B%E5%BA%8F"><span class="toc-number">4.2.</span> <span class="toc-text">Eclipse中运行RMI程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDRMI-Eclipse%E6%8F%92%E4%BB%B6%EF%BC%9A"><span class="toc-number">4.2.1.</span> <span class="toc-text">下载RMI Eclipse插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">4.2.3.</span> <span class="toc-text">使用方法</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>

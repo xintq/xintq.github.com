@@ -1,0 +1,862 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="follow, index">
+  
+    <title>Oracle Enterprise Manager 12c 安装过程 | 夕阳下的奔跑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="K.X">
+    
+
+    
+    <meta name="description" content="前提安装Oracle Enterprise Manager 12c的基本测试环境。该环境中，组成完整OEM的下列组件将全部安装在一个主机（Oracle Linux）中。  Oracle Management Repository（OMR，也就是Oracle数据库） Oracle Management Services（OMS，也就是Weblogic服务器） Oracle Enterprise Ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle Enterprise Manager 12c 安装过程">
+<meta property="og:url" content="http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/index.html">
+<meta property="og:site_name" content="夕阳下的奔跑">
+<meta property="og:description" content="前提安装Oracle Enterprise Manager 12c的基本测试环境。该环境中，组成完整OEM的下列组件将全部安装在一个主机（Oracle Linux）中。  Oracle Management Repository（OMR，也就是Oracle数据库） Oracle Management Services（OMS，也就是Weblogic服务器） Oracle Enterprise Ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db1.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db2.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db3.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db4.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db5.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db6.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db7.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db8.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db9.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db10.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db11.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db12.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db13.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db14.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db15.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db16.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db17.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db18.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db19.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db20.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db21.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db22.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem-db23.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-01.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-02.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-03.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-04.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-05.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-06.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-07.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-08.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-09.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-10.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-11.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-12.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-13.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-14.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-15.png">
+<meta property="og:image" content="http://xintq.net/img/post/oem12104-16.png">
+<meta property="article:published_time" content="2015-08-04T07:48:20.000Z">
+<meta property="article:modified_time" content="2015-11-26T14:02:30.000Z">
+<meta property="article:author" content="K.X">
+<meta property="article:tag" content="em12c">
+<meta property="article:tag" content="12c">
+<meta property="article:tag" content="oem">
+<meta property="article:tag" content="oracle">
+<meta property="article:tag" content="ome">
+<meta property="article:tag" content="oms">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="企业管理器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xintq.net/img/post/oem-db1.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="夕阳下的奔跑" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="夕阳下的奔跑" title="夕阳下的奔跑"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="夕阳下的奔跑">夕阳下的奔跑</a></h1>
+				<h2 class="blog-motto">不积跬步 无以至千里</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/04/oracle-enterprise-manager-12c-installation/" title="Oracle Enterprise Manager 12c 安装过程" itemprop="url">Oracle Enterprise Manager 12c 安装过程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-04T07:48:20.000Z" itemprop="datePublished"> 发表于 2015-08-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%9C%80%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text">安装必需的软件包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%81%E7%94%A8iptables%E5%92%8CSELinux"><span class="toc-number">3.1.</span> <span class="toc-text">禁用iptables和SELinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-etc-hosts%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">修改&#x2F;etc&#x2F;hosts文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESSH%E5%92%8CX11%E8%BD%AC%E5%8F%91"><span class="toc-number">3.3.</span> <span class="toc-text">配置SSH和X11转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Oracle%E6%95%B0%E6%8D%AE%E5%BA%9312c"><span class="toc-number">4.</span> <span class="toc-text">安装Oracle数据库12c</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%92%8C%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="toc-number">4.1.</span> <span class="toc-text">创建目录和部署安装文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E7%94%A8%E7%9B%AE%E5%BD%95%EF%BC%88%E6%8C%89%E7%85%A7OFA%E6%A0%87%E5%87%86%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">创建安装用目录（按照OFA标准）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9ulimit%E5%80%BC%EF%BC%9A%E6%9C%80%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E6%95%B0%E4%B8%BA4096"><span class="toc-number">4.3.</span> <span class="toc-text">修改ulimit值：最大文件描述符数为4096</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9ulimit%E5%80%BC%EF%BC%9A%E6%9C%80%E5%A4%A7%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E6%95%B0%E4%B8%BA16384"><span class="toc-number">4.4.</span> <span class="toc-text">修改ulimit值：最大用户进程数为16384</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%A4%A7tmpfs%E5%88%B04GB"><span class="toc-number">4.5.</span> <span class="toc-text">增大tmpfs到4GB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E4%B8%BAoracle%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE-bash-profile"><span class="toc-number">4.6.</span> <span class="toc-text">作为oracle用户配置~&#x2F;.bash_profile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85Oracle%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">4.7.</span> <span class="toc-text">开始安装Oracle数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Configure-Security-Updates"><span class="toc-number">4.7.1.</span> <span class="toc-text">Configure Security Updates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Installation-Option"><span class="toc-number">4.7.2.</span> <span class="toc-text">Select Installation Option</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Server-Class"><span class="toc-number">4.7.3.</span> <span class="toc-text">Server Class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Grid-Installation-Options"><span class="toc-number">4.7.4.</span> <span class="toc-text">Grid Installation Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Install-Type"><span class="toc-number">4.7.5.</span> <span class="toc-text">Select Install Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Product-Languages"><span class="toc-number">4.7.6.</span> <span class="toc-text">Select Product Languages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Database-Edition"><span class="toc-number">4.7.7.</span> <span class="toc-text">Select Database Edition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Installation-Location"><span class="toc-number">4.7.8.</span> <span class="toc-text">Specify Installation Location</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-Inventory"><span class="toc-number">4.7.9.</span> <span class="toc-text">Create Inventory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Configuration-Type"><span class="toc-number">4.7.10.</span> <span class="toc-text">Select Configuration Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Database-Identifiers"><span class="toc-number">4.7.11.</span> <span class="toc-text">Specify Database Identifiers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Configuration-Options"><span class="toc-number">4.7.12.</span> <span class="toc-text">Specify Configuration Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Database-Storage-Options"><span class="toc-number">4.7.13.</span> <span class="toc-text">Specify Database Storage Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Management-Options"><span class="toc-number">4.7.14.</span> <span class="toc-text">Specify Management Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Recovery-Options"><span class="toc-number">4.7.15.</span> <span class="toc-text">Specify Recovery Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Schema-Passwords"><span class="toc-number">4.7.16.</span> <span class="toc-text">Specify Schema Passwords</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Operating-System-groups"><span class="toc-number">4.7.17.</span> <span class="toc-text">Specify Operating System groups</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Summary"><span class="toc-number">4.7.18.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Install-Product"><span class="toc-number">4.7.19.</span> <span class="toc-text">Install Product</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Execute-Configuration-scripts"><span class="toc-number">4.7.20.</span> <span class="toc-text">Execute Configuration scripts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database-Configuration-Assistant"><span class="toc-number">4.8.</span> <span class="toc-text">Database Configuration Assistant</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Finish"><span class="toc-number">4.8.1.</span> <span class="toc-text">Finish</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%90%8E%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.9.</span> <span class="toc-text">数据库安装后设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%82%E6%95%B0%E4%BF%AE%E6%94%B9%E5%92%8C%E7%9B%91%E5%90%AC%E6%9C%8D%E5%8A%A1%E6%9F%A5%E7%9C%8B"><span class="toc-number">4.9.1.</span> <span class="toc-text">数据库参数修改和监听服务查看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">4.9.2.</span> <span class="toc-text">开机自动启动数据库（可选）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Oracle-Enterprise-Manager-12c-R4"><span class="toc-number">5.</span> <span class="toc-text">安装Oracle Enterprise Manager 12c R4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E6%A3%80%E6%9F%A5"><span class="toc-number">5.1.</span> <span class="toc-text">安装前检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%92%8C%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6-1"><span class="toc-number">5.2.</span> <span class="toc-text">创建目录和部署安装文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85EM"><span class="toc-number">5.3.</span> <span class="toc-text">开始安装EM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#My-Oracle-Support-Details"><span class="toc-number">5.3.1.</span> <span class="toc-text">My Oracle Support Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Software-Updates"><span class="toc-number">5.3.2.</span> <span class="toc-text">Software Updates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prerequisite-Checks"><span class="toc-number">5.3.3.</span> <span class="toc-text">Prerequisite Checks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation-Types"><span class="toc-number">5.3.4.</span> <span class="toc-text">Installation Types</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation-Details"><span class="toc-number">5.3.5.</span> <span class="toc-text">Installation Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Plug-ins"><span class="toc-number">5.3.6.</span> <span class="toc-text">Select Plug-ins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebLogic-Server-Configuration-Details"><span class="toc-number">5.3.7.</span> <span class="toc-text">WebLogic Server Configuration Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Database-Connection-Details"><span class="toc-number">5.3.8.</span> <span class="toc-text">Database Connection Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Enterprise-Manager-Configuration-Details"><span class="toc-number">5.3.9.</span> <span class="toc-text">Enterprise Manager Configuration Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Port-Configuration-Details"><span class="toc-number">5.3.10.</span> <span class="toc-text">Port Configuration Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Review"><span class="toc-number">5.3.11.</span> <span class="toc-text">Review</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation-Progress-Details"><span class="toc-number">5.3.12.</span> <span class="toc-text">Installation Progress Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Finish-1"><span class="toc-number">5.3.13.</span> <span class="toc-text">Finish</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>安装Oracle Enterprise Manager 12c的基本测试环境。该环境中，组成完整OEM的下列组件将全部安装在一个主机（Oracle Linux）中。</p>
+<ul>
+<li>Oracle Management Repository（OMR，也就是Oracle数据库）</li>
+<li>Oracle Management Services（OMS，也就是Weblogic服务器）</li>
+<li>Oracle Enterprise Manager Cloud Control（也就是管理用的Web UI）</li>
+</ul>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li><p>VM: Virtualbox 5.0.0.0</p>
+</li>
+<li><p>OS: Oracle Linux 6.5 64bit</p>
+<ul>
+<li>IP: 192.168.56.7</li>
+<li>Hostname: oem.example.com</li>
+<li>Memory: 4GB</li>
+<li>CPU: 2.6GHz, 2 core</li>
+<li>Network: 2 Adapters (Host-Only Adapter + NAT Network)</li>
+<li>HDD: 64GB</li>
+</ul>
+</li>
+<li><p>DB: Oracle Database 12c Release 1(12.1.0.2.0) - Enterprise Edition for Linux x86-64</p>
+</li>
+<li><p>EM: Oracle Enterprise Manager Cloud Control 12c Release 4 (12.1.0.4) for Linux x86-64</p>
+</li>
+</ul>
+<h2 id="安装必需的软件包"><a href="#安装必需的软件包" class="headerlink" title="安装必需的软件包"></a>安装必需的软件包</h2><p>需要连接外网，从Oracle Public Yum仓库来安装<code>oracle-rdbms-server-12cR1-preinstall</code>。</p>
+<p>先下载repo文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">[root@oem yum.repos.d]# wget http://public-yum.oracle.com/public-yum-ol6.repo</span><br><span class="line">--2015-07-31 11:04:04--  http://public-yum.oracle.com/public-yum-ol6.repo</span><br><span class="line">Resolving cn-proxy.jp.oracle.com... 146.56.234.217</span><br><span class="line">Connecting to cn-proxy.jp.oracle.com|146.56.234.217|:80... connected.</span><br><span class="line">Proxy request sent, awaiting response... 200 OK</span><br><span class="line">Length: 5284 (5.2K) [text/plain]</span><br><span class="line">Saving to: “public-yum-ol6.repo”</span><br><span class="line"></span><br><span class="line">100%[======================================&gt;] 5,284       --.-K/s   <span class="keyword">in</span> 0.007s  </span><br><span class="line"></span><br><span class="line">2015-07-31 11:04:05 (767 KB/s) - “public-yum-ol6.repo” saved [5284/5284]</span><br><span class="line"></span><br><span class="line">[root@oem yum.repos.d]# </span><br></pre></td></tr></table></figure>
+
+<p>题外话，如果使用了代理服务器的话，需要先设置一下wget的代理服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oem yum.repos.d]# vim /etc/wgetrc </span><br><span class="line"><span class="comment">#http_proxy = http://proxy.yoyodyne.com:18023/</span></span><br><span class="line">http_proxy = http://myproxy.example.com:80/</span><br></pre></td></tr></table></figure>
+
+<p>还需要设置一下Yum的代理服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@oem yum.repos.d]# vim /etc/yum.conf </span><br><span class="line">proxy=http://myproxy.example.com:80</span><br></pre></td></tr></table></figure>
+
+<p>确保目录下只有一个<code>*.repo</code>文件，测试一下Yum是否正常工作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@oem yum.repos.d]# <span class="built_in">ls</span></span><br><span class="line">public-yum-ol6.repo</span><br><span class="line">[root@oem yum.repos.d]# yum repolist</span><br><span class="line">Loaded plugins: refresh-packagekit, security</span><br><span class="line">ol6_UEK_latest                                           | 1.2 kB     00:00     </span><br><span class="line">ol6_UEK_latest/primary                                   |  22 MB     00:38     </span><br><span class="line">ol6_UEK_latest                                                          463/463</span><br><span class="line">ol6_latest                                               | 1.4 kB     00:00     </span><br><span class="line">ol6_latest/primary                                       |  51 MB     01:25     </span><br><span class="line">ol6_latest                                                          31965/31965</span><br><span class="line">repo <span class="built_in">id</span>        repo name                                                  status</span><br><span class="line">ol6_UEK_latest Latest Unbreakable Enterprise Kernel <span class="keyword">for</span> Oracle Linux 6Ser    463</span><br><span class="line">ol6_latest     Oracle Linux 6Server Latest (x86_64)                       31,965</span><br><span class="line">repolist: 32,428</span><br><span class="line">[root@oem yum.repos.d]# </span><br></pre></td></tr></table></figure>
+
+<p>安装<code>oracle-rdbms-server-12cR1-preinstall</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line">[root@oem yum.repos.d]# yum install oracle-rdbms-server-12cR1-preinstall</span><br><span class="line">Loaded plugins: refresh-packagekit, security</span><br><span class="line">Setting up Install Process</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package oracle-rdbms-server-12cR1-preinstall.x86_64 0:1.0-14.el6 will be installed</span><br><span class="line">--&gt; Processing Dependency: gcc-c++ <span class="keyword">for</span> package: oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: compat-libcap1 <span class="keyword">for</span> package: oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: ksh <span class="keyword">for</span> package: oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: libaio-devel <span class="keyword">for</span> package: oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: compat-libstdc++-33 <span class="keyword">for</span> package: oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: libstdc++-devel <span class="keyword">for</span> package: oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package compat-libcap1.x86_64 0:1.10-1 will be installed</span><br><span class="line">---&gt; Package compat-libstdc++-33.x86_64 0:3.2.3-69.el6 will be installed</span><br><span class="line">---&gt; Package gcc-c++.x86_64 0:4.4.7-16.el6 will be installed</span><br><span class="line">--&gt; Processing Dependency: gcc = 4.4.7-16.el6 <span class="keyword">for</span> package: gcc-c++-4.4.7-16.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: libstdc++ = 4.4.7-16.el6 <span class="keyword">for</span> package: gcc-c++-4.4.7-16.el6.x86_64</span><br><span class="line">---&gt; Package ksh.x86_64 0:20120801-28.el6 will be installed</span><br><span class="line">---&gt; Package libaio-devel.x86_64 0:0.3.107-10.el6 will be installed</span><br><span class="line">---&gt; Package libstdc++-devel.x86_64 0:4.4.7-16.el6 will be installed</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package gcc.x86_64 0:4.4.7-4.el6 will be updated</span><br><span class="line">---&gt; Package gcc.x86_64 0:4.4.7-16.el6 will be an update</span><br><span class="line">--&gt; Processing Dependency: cpp = 4.4.7-16.el6 <span class="keyword">for</span> package: gcc-4.4.7-16.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: libgomp = 4.4.7-16.el6 <span class="keyword">for</span> package: gcc-4.4.7-16.el6.x86_64</span><br><span class="line">--&gt; Processing Dependency: libgcc &gt;= 4.4.7-16.el6 <span class="keyword">for</span> package: gcc-4.4.7-16.el6.x86_64</span><br><span class="line">---&gt; Package libstdc++.x86_64 0:4.4.7-4.el6 will be updated</span><br><span class="line">---&gt; Package libstdc++.x86_64 0:4.4.7-16.el6 will be an update</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package cpp.x86_64 0:4.4.7-4.el6 will be updated</span><br><span class="line">---&gt; Package cpp.x86_64 0:4.4.7-16.el6 will be an update</span><br><span class="line">---&gt; Package libgcc.x86_64 0:4.4.7-4.el6 will be updated</span><br><span class="line">---&gt; Package libgcc.x86_64 0:4.4.7-16.el6 will be an update</span><br><span class="line">---&gt; Package libgomp.x86_64 0:4.4.7-4.el6 will be updated</span><br><span class="line">---&gt; Package libgomp.x86_64 0:4.4.7-16.el6 will be an update</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">================================================================================</span><br><span class="line"> Package                              Arch   Version           Repository  Size</span><br><span class="line">================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> oracle-rdbms-server-12cR1-preinstall x86_64 1.0-14.el6        ol6_latest  17 k</span><br><span class="line">Installing <span class="keyword">for</span> dependencies:</span><br><span class="line"> compat-libcap1                       x86_64 1.10-1            ol6_latest  17 k</span><br><span class="line"> compat-libstdc++-33                  x86_64 3.2.3-69.el6      ol6_latest 183 k</span><br><span class="line"> gcc-c++                              x86_64 4.4.7-16.el6      ol6_latest 4.7 M</span><br><span class="line"> ksh                                  x86_64 20120801-28.el6   ol6_latest 759 k</span><br><span class="line"> libaio-devel                         x86_64 0.3.107-10.el6    ol6_latest  13 k</span><br><span class="line"> libstdc++-devel                      x86_64 4.4.7-16.el6      ol6_latest 1.6 M</span><br><span class="line">Updating <span class="keyword">for</span> dependencies:</span><br><span class="line"> cpp                                  x86_64 4.4.7-16.el6      ol6_latest 3.7 M</span><br><span class="line"> gcc                                  x86_64 4.4.7-16.el6      ol6_latest  10 M</span><br><span class="line"> libgcc                               x86_64 4.4.7-16.el6      ol6_latest 102 k</span><br><span class="line"> libgomp                              x86_64 4.4.7-16.el6      ol6_latest 133 k</span><br><span class="line"> libstdc++                            x86_64 4.4.7-16.el6      ol6_latest 294 k</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">================================================================================</span><br><span class="line">Install       7 Package(s)</span><br><span class="line">Upgrade       5 Package(s)</span><br><span class="line"></span><br><span class="line">Total download size: 22 M</span><br><span class="line">Is this ok [y/N]: y</span><br><span class="line">Downloading Packages:</span><br><span class="line">(1/12): compat-libcap1-1.10-1.x86_64.rpm                 |  17 kB     00:00</span><br><span class="line">(2/12): compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm      | 183 kB     00:00</span><br><span class="line">(3/12): cpp-4.4.7-16.el6.x86_64.rpm                      | 3.7 MB     00:05</span><br><span class="line">(4/12): gcc-4.4.7-16.el6.x86_64.rpm                      |  10 MB     00:16</span><br><span class="line">(5/12): gcc-c++-4.4.7-16.el6.x86_64.rpm                  | 4.7 MB     00:08</span><br><span class="line">(6/12): ksh-20120801-28.el6.x86_64.rpm                   | 759 kB     00:01</span><br><span class="line">(7/12): libaio-devel-0.3.107-10.el6.x86_64.rpm           |  13 kB     00:00</span><br><span class="line">(8/12): libgcc-4.4.7-16.el6.x86_64.rpm                   | 102 kB     00:00</span><br><span class="line">(9/12): libgomp-4.4.7-16.el6.x86_64.rpm                  | 133 kB     00:00</span><br><span class="line">(10/12): libstdc++-4.4.7-16.el6.x86_64.rpm               | 294 kB     00:00</span><br><span class="line">(11/12): libstdc++-devel-4.4.7-16.el6.x86_64.rpm         | 1.6 MB     00:02</span><br><span class="line">(12/12): oracle-rdbms-server-12cR1-preinstall-1.0-14.el6 |  17 kB     00:00</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">Total                                           578 kB/s |  22 MB     00:38</span><br><span class="line">Running rpm_check_debug</span><br><span class="line">Running Transaction Test</span><br><span class="line">Transaction Test Succeeded</span><br><span class="line">Running Transaction</span><br><span class="line">  Updating   : libgcc-4.4.7-16.el6.x86_64                                  1/17 </span><br><span class="line">  Updating   : libstdc++-4.4.7-16.el6.x86_64                               2/17 </span><br><span class="line">  Installing : libstdc++-devel-4.4.7-16.el6.x86_64                         3/17 </span><br><span class="line">  Installing : compat-libstdc++-33-3.2.3-69.el6.x86_64                     4/17 </span><br><span class="line">  Updating   : cpp-4.4.7-16.el6.x86_64                                     5/17 </span><br><span class="line">  Installing : ksh-20120801-28.el6.x86_64                                  6/17 </span><br><span class="line">  Installing : libaio-devel-0.3.107-10.el6.x86_64                          7/17 </span><br><span class="line">  Updating   : libgomp-4.4.7-16.el6.x86_64                                 8/17 </span><br><span class="line">  Updating   : gcc-4.4.7-16.el6.x86_64                                     9/17 </span><br><span class="line">  Installing : gcc-c++-4.4.7-16.el6.x86_64                                10/17 </span><br><span class="line">  Installing : compat-libcap1-1.10-1.x86_64                               11/17 </span><br><span class="line">  Installing : oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64     12/17 </span><br><span class="line">  Cleanup    : gcc-4.4.7-4.el6.x86_64                                     13/17 </span><br><span class="line">  Cleanup    : libstdc++-4.4.7-4.el6.x86_64                               14/17 </span><br><span class="line">  Cleanup    : libgcc-4.4.7-4.el6.x86_64                                  15/17 </span><br><span class="line">  Cleanup    : cpp-4.4.7-4.el6.x86_64                                     16/17 </span><br><span class="line">  Cleanup    : libgomp-4.4.7-4.el6.x86_64                                 17/17 </span><br><span class="line">  Verifying  : compat-libcap1-1.10-1.x86_64                                1/17 </span><br><span class="line">  Verifying  : libgomp-4.4.7-16.el6.x86_64                                 2/17 </span><br><span class="line">  Verifying  : gcc-c++-4.4.7-16.el6.x86_64                                 3/17 </span><br><span class="line">  Verifying  : gcc-4.4.7-16.el6.x86_64                                     4/17 </span><br><span class="line">  Verifying  : libaio-devel-0.3.107-10.el6.x86_64                          5/17 </span><br><span class="line">  Verifying  : libstdc++-4.4.7-16.el6.x86_64                               6/17 </span><br><span class="line">  Verifying  : compat-libstdc++-33-3.2.3-69.el6.x86_64                     7/17 </span><br><span class="line">  Verifying  : ksh-20120801-28.el6.x86_64                                  8/17 </span><br><span class="line">  Verifying  : oracle-rdbms-server-12cR1-preinstall-1.0-14.el6.x86_64      9/17 </span><br><span class="line">  Verifying  : cpp-4.4.7-16.el6.x86_64                                    10/17 </span><br><span class="line">  Verifying  : libstdc++-devel-4.4.7-16.el6.x86_64                        11/17 </span><br><span class="line">  Verifying  : libgcc-4.4.7-16.el6.x86_64                                 12/17 </span><br><span class="line">  Verifying  : libgomp-4.4.7-4.el6.x86_64                                 13/17 </span><br><span class="line">  Verifying  : libgcc-4.4.7-4.el6.x86_64                                  14/17 </span><br><span class="line">  Verifying  : cpp-4.4.7-4.el6.x86_64                                     15/17 </span><br><span class="line">  Verifying  : gcc-4.4.7-4.el6.x86_64                                     16/17 </span><br><span class="line">  Verifying  : libstdc++-4.4.7-4.el6.x86_64                               17/17 </span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  oracle-rdbms-server-12cR1-preinstall.x86_64 0:1.0-14.el6</span><br><span class="line"></span><br><span class="line">Dependency Installed:</span><br><span class="line">  compat-libcap1.x86_64 0:1.10-1</span><br><span class="line">  compat-libstdc++-33.x86_64 0:3.2.3-69.el6</span><br><span class="line">  gcc-c++.x86_64 0:4.4.7-16.el6</span><br><span class="line">  ksh.x86_64 0:20120801-28.el6</span><br><span class="line">  libaio-devel.x86_64 0:0.3.107-10.el6</span><br><span class="line">  libstdc++-devel.x86_64 0:4.4.7-16.el6</span><br><span class="line"></span><br><span class="line">Dependency Updated:</span><br><span class="line">  cpp.x86_64 0:4.4.7-16.el6               gcc.x86_64 0:4.4.7-16.el6</span><br><span class="line">  libgcc.x86_64 0:4.4.7-16.el6            libgomp.x86_64 0:4.4.7-16.el6</span><br><span class="line">  libstdc++.x86_64 0:4.4.7-16.el6</span><br><span class="line"></span><br><span class="line">Complete!</span><br><span class="line">[root@oem yum.repos.d]# </span><br></pre></td></tr></table></figure>
+
+<p>安装完之后，会自动创建oracle用户和oinstall用户组。现在最好给oracle用户设置一下密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# passwd oracle</span><br><span class="line">Changing password <span class="keyword">for</span> user oracle.</span><br><span class="line">New password: </span><br><span class="line">BAD PASSWORD: it is too simplistic/systematic</span><br><span class="line">BAD PASSWORD: is too simple</span><br><span class="line">Retype new password: </span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<h3 id="禁用iptables和SELinux"><a href="#禁用iptables和SELinux" class="headerlink" title="禁用iptables和SELinux"></a>禁用iptables和SELinux</h3><p>为了简化安装过程，先禁用iptables：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# service iptables stop &amp;&amp; service ip6tables stop &amp;&amp; chkconfig iptables off &amp;&amp; chkconfig ip6tables off</span><br><span class="line">iptables: Setting chains to policy ACCEPT: filter          [  OK  ]</span><br><span class="line">iptables: Flushing firewall rules:                         [  OK  ]</span><br><span class="line">iptables: Unloading modules:                               [  OK  ]</span><br><span class="line">ip6tables: Setting chains to policy ACCEPT: filter         [  OK  ]</span><br><span class="line">ip6tables: Flushing firewall rules:                        [  OK  ]</span><br><span class="line">ip6tables: Unloading modules:                              [  OK  ]</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<p>再禁用SELinux：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# vim /etc/sysconfig/selinux </span><br><span class="line"><span class="comment"># This file controls the state of SELinux on the system.</span></span><br><span class="line"><span class="comment"># SELINUX= can take one of these three values:</span></span><br><span class="line"><span class="comment">#     enforcing - SELinux security policy is enforced.</span></span><br><span class="line"><span class="comment">#     permissive - SELinux prints warnings instead of enforcing.</span></span><br><span class="line"><span class="comment">#     disabled - No SELinux policy is loaded.</span></span><br><span class="line"><span class="comment">#SELINUX=enforcing</span></span><br><span class="line">SELINUX=disabled</span><br><span class="line"><span class="comment"># SELINUXTYPE= can take one of these two values:</span></span><br><span class="line"><span class="comment">#     targeted - Targeted processes are protected,</span></span><br><span class="line"><span class="comment">#     mls - Multi Level Security protection.</span></span><br><span class="line">SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure>
+
+<p>此时最好重启一下系统，如果不想马上重启的话，可以使用下面的命令临时禁用SELinux：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# setenforce 0</span><br><span class="line">[root@oem ~]# getenforce </span><br><span class="line">Permissive</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-etc-hosts文件"><a href="#修改-etc-hosts文件" class="headerlink" title="修改&#x2F;etc&#x2F;hosts文件"></a>修改&#x2F;etc&#x2F;hosts文件</h3><p>几乎所有Oracle的产品，包括Enterprise Manager在内，都会依赖<code>/etc/hosts</code>文件的配置内容来保证主机名（短主机名和完整主机名）是可以被ping到的。所以在<code>/etc/hosts</code>文件中一定要使用服务器的公共IP。</p>
+<p>本文使用下面的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# vim /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain </span><br><span class="line">192.168.56.7 oem.example.com oem</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置SSH和X11转发"><a href="#配置SSH和X11转发" class="headerlink" title="配置SSH和X11转发"></a>配置SSH和X11转发</h3><p>如果是在远程连接的情况下来安装EM（比如使用VNC服务等），Oracle Universal Installer (OUI) GUI需要使用X11会话来运行。所以首先需要配置SSH来支持X11转发（默认就是开启的，只需要确认一下即可）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment">#X11Forwarding no</span></span><br><span class="line">X11Forwarding <span class="built_in">yes</span></span><br><span class="line"><span class="comment">#X11DisplayOffset 10</span></span><br><span class="line"><span class="comment">#X11UseLocalhost yes</span></span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<p>还需要安装xauth 和 xorg-x11-apps包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# rpm -qa | grep -i xauth</span><br><span class="line">xorg-x11-xauth-1.0.2-7.1.el6.x86_64</span><br><span class="line">[root@oem ~]# rpm -qa | grep -i xorg-x11-apps</span><br><span class="line">[root@oem ~]# yum -y install xorg-x11-apps xauth</span><br><span class="line">Loaded plugins: refresh-packagekit, security</span><br><span class="line">Setting up Install Process</span><br><span class="line">Package 1:xorg-x11-xauth-1.0.2-7.1.el6.x86_64 already installed and latest version</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package xorg-x11-apps.x86_64 0:7.7-6.el6 will be installed</span><br><span class="line">--&gt; Processing Dependency: libXaw.so.7()(64bit) <span class="keyword">for</span> package: xorg-x11-apps-7.7-6.el6.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package libXaw.x86_64 0:1.0.11-2.el6 will be installed</span><br><span class="line">--&gt; Processing Dependency: libXpm.so.4()(64bit) <span class="keyword">for</span> package: libXaw-1.0.11-2.el6.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package libXpm.x86_64 0:3.5.10-2.el6 will be installed</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">================================================================================</span><br><span class="line"> Package              Arch          Version             Repository         Size</span><br><span class="line">================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> xorg-x11-apps        x86_64        7.7-6.el6           ol6_latest        276 k</span><br><span class="line">Installing <span class="keyword">for</span> dependencies:</span><br><span class="line"> libXaw               x86_64        1.0.11-2.el6        ol6_latest        178 k</span><br><span class="line"> libXpm               x86_64        3.5.10-2.el6        ol6_latest         50 k</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">================================================================================</span><br><span class="line">Install       3 Package(s)</span><br><span class="line"></span><br><span class="line">Total download size: 503 k</span><br><span class="line">Installed size: 1.2 M</span><br><span class="line">Downloading Packages:</span><br><span class="line">(1/3): libXaw-1.0.11-2.el6.x86_64.rpm                    | 178 kB     00:00</span><br><span class="line">(2/3): libXpm-3.5.10-2.el6.x86_64.rpm                    |  50 kB     00:00</span><br><span class="line">(3/3): xorg-x11-apps-7.7-6.el6.x86_64.rpm                | 276 kB     00:00</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">Total                                           256 kB/s | 503 kB     00:01</span><br><span class="line">Running rpm_check_debug</span><br><span class="line">Running Transaction Test</span><br><span class="line">Transaction Test Succeeded</span><br><span class="line">Running Transaction</span><br><span class="line">  Installing : libXpm-3.5.10-2.el6.x86_64                                   1/3</span><br><span class="line">  Installing : libXaw-1.0.11-2.el6.x86_64                                   2/3</span><br><span class="line">  Installing : xorg-x11-apps-7.7-6.el6.x86_64                               3/3</span><br><span class="line">  Verifying  : xorg-x11-apps-7.7-6.el6.x86_64                               1/3</span><br><span class="line">  Verifying  : libXpm-3.5.10-2.el6.x86_64                                   2/3</span><br><span class="line">  Verifying  : libXaw-1.0.11-2.el6.x86_64                                   3/3</span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  xorg-x11-apps.x86_64 0:7.7-6.el6</span><br><span class="line"></span><br><span class="line">Dependency Installed:</span><br><span class="line">  libXaw.x86_64 0:1.0.11-2.el6           libXpm.x86_64 0:3.5.10-2.el6</span><br><span class="line"></span><br><span class="line">Complete!</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<p>为保险起见，这时最好重启一下系统。</p>
+<h2 id="安装Oracle数据库12c"><a href="#安装Oracle数据库12c" class="headerlink" title="安装Oracle数据库12c"></a>安装Oracle数据库12c</h2><p>本章开始在Oracle Linux 6U5上安装Oracle Database 12c Release 1（12.1.0.2.0）。</p>
+<h3 id="创建目录和部署安装文件"><a href="#创建目录和部署安装文件" class="headerlink" title="创建目录和部署安装文件"></a>创建目录和部署安装文件</h3><p>Oracle数据库12c可以从<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html">这里</a>下载到。</p>
+<p>以root用户创建保存安装文件的目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">mkdir</span> -p /u01/stage</span><br><span class="line">[root@oem ~]# <span class="built_in">chown</span> oracle:oinstall -R /u01/*</span><br></pre></td></tr></table></figure>
+
+<p>切换回oracle用户，创建目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ <span class="built_in">mkdir</span> /u01/stage/db12c</span><br></pre></td></tr></table></figure>
+
+<p>将下载好的数据库安装文件拷贝到<code>/u01/stage/db12c</code>目录，并解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ ll /u01/stage/db12c/</span><br><span class="line">total 2625088</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 1673544724 Jul 28 16:47 linuxamd64_12102_database_1of2.zipls</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 1014530602 Jul 28 16:30 linuxamd64_12102_database_2of2.zip</span><br><span class="line">[oracle@oem ~]$ <span class="built_in">cd</span> /u01/stage/db12c/</span><br><span class="line">[oracle@oem db12c]$ <span class="built_in">ls</span></span><br><span class="line">linuxamd64_12102_database_1of2.zip  linuxamd64_12102_database_2of2.zip</span><br><span class="line">[oracle@oem db12c]$ unzip linuxamd64_12102_database_1of2.zip </span><br><span class="line">[oracle@oem db12c]$ unzip linuxamd64_12102_database_2of2.zip </span><br><span class="line">[oracle@oem db12c]$ ll</span><br><span class="line">total 2625092</span><br><span class="line">drwxr-xr-x 7 oracle oinstall       4096 Jul  7  2014 database</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 1673544724 Jul 28 16:47 linuxamd64_12102_database_1of2.zip</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 1014530602 Jul 28 16:30 linuxamd64_12102_database_2of2.zip</span><br><span class="line">[oracle@oem db12c]$ </span><br></pre></td></tr></table></figure>
+
+<h3 id="创建安装用目录（按照OFA标准）"><a href="#创建安装用目录（按照OFA标准）" class="headerlink" title="创建安装用目录（按照OFA标准）"></a>创建安装用目录（按照OFA标准）</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Optimal_Flexible_Architecture">Optimal Flexible Architecture (OFA) 标准</a>是为管理Oracle安装而定义的一套目录推荐命名标准。OFA提供了与Oracle Universal Installer相一致的挂载点，目录，文件名的命名规范。</p>
+<p>以root用户执行以下命令来创建所需的各个目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">mkdir</span> -p /u01/app/oracle/product/12.1.0/dbhome_1</span><br><span class="line">[root@oem ~]# <span class="built_in">chown</span> -R oracle:oinstall /u01/*</span><br><span class="line">[root@oem ~]# <span class="built_in">chmod</span> -R 775 /u01/*</span><br></pre></td></tr></table></figure>
+
+<pre><code>注意： /u01这个目录的拥有者应该是root。
+</code></pre>
+<h3 id="修改ulimit值：最大文件描述符数为4096"><a href="#修改ulimit值：最大文件描述符数为4096" class="headerlink" title="修改ulimit值：最大文件描述符数为4096"></a>修改ulimit值：最大文件描述符数为4096</h3><p>安装完<code>oracle-rdbms-server-12cR1-preinstall</code>之后，会在<code>/etc/security/limits.d</code>自动生成配置文件<code>oracle-rdbms-server-12cR1-preinstall.conf</code>。以root用户修改里面的值如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oem limits.d]# vim oracle-rdbms-server-12cR1-preinstall.conf </span><br><span class="line"><span class="comment">#oracle   soft   nofile   1024</span></span><br><span class="line">oracle   soft   nofile   4096</span><br></pre></td></tr></table></figure>
+
+<p>修改完之后，切换到oracle用户，查看ulimit值是否生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@oem limits.d]# su - oracle</span><br><span class="line">[oracle@oem ~]$ <span class="built_in">ulimit</span> -n</span><br><span class="line">4096</span><br><span class="line">[oracle@oem ~]$ </span><br></pre></td></tr></table></figure>
+
+<h3 id="修改ulimit值：最大用户进程数为16384"><a href="#修改ulimit值：最大用户进程数为16384" class="headerlink" title="修改ulimit值：最大用户进程数为16384"></a>修改ulimit值：最大用户进程数为16384</h3><p>安装完<code>oracle-rdbms-server-12cR1-preinstall</code>之后，会在<code>/etc/security/limits.d</code>自动生成配置文件<code>90-nproc.conf</code>。以root用户修改里面的值如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">cd</span> /etc/security/limits.d/</span><br><span class="line">[root@oem limits.d]# vim 90-nproc.conf </span><br><span class="line"><span class="comment"># Default limit for number of user&#x27;s processes to prevent</span></span><br><span class="line"><span class="comment"># accidental fork bombs.</span></span><br><span class="line"><span class="comment"># See rhbz #432903 for reasoning.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#*          soft    nproc     1024</span></span><br><span class="line">*          -    <span class="built_in">nproc</span>     16384</span><br><span class="line">root       soft    <span class="built_in">nproc</span>     unlimited</span><br></pre></td></tr></table></figure>
+
+<p>切换为oracle用户，查看修改结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem db12c]$ <span class="built_in">ulimit</span> -a</span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 31446</span><br><span class="line">max locked memory       (kbytes, -l) 134217728</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 4096   <span class="comment">##看这里！！！！</span></span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 10240</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 16384  <span class="comment">##看这里！！！！</span></span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br><span class="line">[oracle@oem db12c]$ </span><br></pre></td></tr></table></figure>
+
+<h3 id="增大tmpfs到4GB"><a href="#增大tmpfs到4GB" class="headerlink" title="增大tmpfs到4GB"></a>增大tmpfs到4GB</h3><p>默认的tmpfs的值过小，Oracle数据库启动时可能会报错（ORA-00838，ORA-00845）。为了防止这种错误，先增大tmpfs的值到4GB。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">df</span> -h</span><br><span class="line">Filesystem                  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg_oem-lv_root   50G   12G   35G  26% /</span><br><span class="line">tmpfs                       2.0G  292K  2.0G   1% /dev/shm</span><br><span class="line">/dev/sda1                   477M   55M  397M  13% /boot</span><br><span class="line">/dev/mapper/vg_oem-lv_home  9.4G   23M  8.9G   1% /home</span><br><span class="line">D_DRIVE                     320G  284G   36G  89% /media/sf_D_DRIVE</span><br><span class="line">[root@oem ~]# mount -t tmpfs shmfs -o size=4000m /dev/shm</span><br><span class="line">[root@oem ~]# <span class="built_in">df</span> -h</span><br><span class="line">Filesystem                  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg_oem-lv_root   50G   12G   35G  26% /</span><br><span class="line">tmpfs                       3.5G     0  3.5G   0% /dev/shm</span><br><span class="line">/dev/sda1                   477M   55M  397M  13% /boot</span><br><span class="line">/dev/mapper/vg_oem-lv_home  9.4G   23M  8.9G   1% /home</span><br><span class="line">D_DRIVE                     320G  284G   36G  89% /media/sf_D_DRIVE</span><br><span class="line">shmfs                       4.0G     0  4.0G   0% /dev/shm</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<p>同时修改<code>/etc/fstab</code>文件，使配置永久生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# vim /etc/fstab </span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># /etc/fstab</span></span><br><span class="line"><span class="comment"># Created by anaconda on Thu Jul 30 15:08:36 2015</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Accessible filesystems, by reference, are maintained under &#x27;/dev/disk&#x27;</span></span><br><span class="line"><span class="comment"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">/dev/mapper/vg_oem-lv_root /                       ext4    defaults        1 1</span><br><span class="line">UUID=cb150940-32dd-4b63-9047-2fb7f9ab2b09 /boot                   ext4    defaults        1 2</span><br><span class="line">/dev/mapper/vg_oem-lv_home /home                   ext4    defaults        1 2</span><br><span class="line">/dev/mapper/vg_oem-lv_swap swap                    swap    defaults        0 0</span><br><span class="line">tmpfs                   /dev/shm                tmpfs   size=4000m      0 0</span><br><span class="line">devpts                  /dev/pts                devpts  gid=5,mode=620  0 0</span><br><span class="line">sysfs                   /sys                    sysfs   defaults        0 0</span><br><span class="line">proc                    /proc                   proc    defaults        0 0</span><br></pre></td></tr></table></figure>
+
+<p>重启系统后，应该能看到如下的内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">df</span> -h</span><br><span class="line">Filesystem                  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg_oem-lv_root   50G   12G   35G  26% /</span><br><span class="line">tmpfs                       4.0G  148K  4.0G   1% /dev/shm</span><br><span class="line">/dev/sda1                   477M   55M  397M  13% /boot</span><br><span class="line">/dev/mapper/vg_oem-lv_home  9.4G   23M  8.9G   1% /home</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+<h3 id="作为oracle用户配置-bash-profile"><a href="#作为oracle用户配置-bash-profile" class="headerlink" title="作为oracle用户配置~/.bash_profile"></a>作为oracle用户配置<code>~/.bash_profile</code></h3><p>以oracle用户，在<code>~/.bash_profile</code>的末尾加入如下配置内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Oracle variables</span></span><br><span class="line">TMP=/tmp; <span class="built_in">export</span> TMP</span><br><span class="line">TMPDIR=<span class="variable">$TMP</span>; <span class="built_in">export</span> TMPDIR</span><br><span class="line">ORACLE_HOSTNAME=oem.example.com; <span class="built_in">export</span> ORACLE_HOSTNAME</span><br><span class="line">ORACLE_BASE=/u01/app/oracle; <span class="built_in">export</span> ORACLE_BASE</span><br><span class="line">ORACLE_HOME=<span class="variable">$ORACLE_BASE</span>/product/12.1.0/dbhome_1; <span class="built_in">export</span> ORACLE_HOME</span><br><span class="line">AGENT_HOME=<span class="variable">$ORACLE_BASE</span>/product/agentr4/agent_inst; <span class="built_in">export</span> AGENT_HOME</span><br><span class="line">OMS_HOME=<span class="variable">$ORACLE_BASE</span>/product/MiddlewareR4/oms; <span class="built_in">export</span> OMS_HOME</span><br><span class="line">ORACLE_INSTANCE=/u01/app/oracle/product/gc_inst/WebTierIH1; <span class="built_in">export</span> ORACLE_INSTANCE</span><br><span class="line">ORACLE_SID=omr; <span class="built_in">export</span> ORACLE_SID</span><br><span class="line">ORACLE_UNQNAME=omr; <span class="built_in">export</span> ORACLE_UNQNAME</span><br><span class="line">PATH=/usr/sbin:<span class="variable">$PATH</span>; <span class="built_in">export</span> PATH</span><br><span class="line">PATH=<span class="variable">$ORACLE_HOME</span>/bin:<span class="variable">$PATH</span>; <span class="built_in">export</span> PATH</span><br><span class="line">LD_LIBRARY_PATH=<span class="variable">$ORACLE_HOME</span>/lib:/lib:/usr/lib; <span class="built_in">export</span> LD_LIBRARY_PATH</span><br><span class="line">CLASSPATH=<span class="variable">$ORACLE_HOME</span>/jlib:<span class="variable">$ORACLE_HOME</span>/rdbms/jlib; <span class="built_in">export</span> CLASSPATH</span><br></pre></td></tr></table></figure>
+
+<p>并使之生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ <span class="built_in">source</span> .bash_profile </span><br></pre></td></tr></table></figure>
+
+<h3 id="开始安装Oracle数据库"><a href="#开始安装Oracle数据库" class="headerlink" title="开始安装Oracle数据库"></a>开始安装Oracle数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ <span class="built_in">cd</span> /u01/stage/db12c/database/</span><br><span class="line">[oracle@oem database]$ ./runInstaller </span><br><span class="line">Starting Oracle Universal Installer...</span><br><span class="line"></span><br><span class="line">Checking Temp space: must be greater than 500 MB.   Actual 35581 MB    Passed</span><br><span class="line">Checking swap space: must be greater than 150 MB.   Actual 3967 MB    Passed</span><br><span class="line">Checking monitor: must be configured to display at least 256 colors.    Actual 16777216    Passed</span><br><span class="line">Preparing to launch Oracle Universal Installer from /tmp/OraInstall2015-07-31_01-36-56PM. Please <span class="built_in">wait</span> ...[oracle@oem database]$ </span><br></pre></td></tr></table></figure>
+
+<h4 id="Configure-Security-Updates"><a href="#Configure-Security-Updates" class="headerlink" title="Configure Security Updates"></a>Configure Security Updates</h4><p>不选择<code>I wish to receive security updates via My Oracle Support</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db1.png" alt="Configure Security Updates"></p>
+<h4 id="Select-Installation-Option"><a href="#Select-Installation-Option" class="headerlink" title="Select Installation Option"></a>Select Installation Option</h4><p>勾选<code>Create and configure a database</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db2.png" alt="Select Installation Option"></p>
+<h4 id="Server-Class"><a href="#Server-Class" class="headerlink" title="Server Class"></a>Server Class</h4><p>勾选<code>Server Class</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db3.png" alt="Server Class"></p>
+<h4 id="Grid-Installation-Options"><a href="#Grid-Installation-Options" class="headerlink" title="Grid Installation Options"></a>Grid Installation Options</h4><p>勾选<code>Single instance database installation</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db4.png" alt="Grid Installation Options"></p>
+<h4 id="Select-Install-Type"><a href="#Select-Install-Type" class="headerlink" title="Select Install Type"></a>Select Install Type</h4><p>勾选<code>Advanced install</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db5.png" alt="Select Install Type"></p>
+<h4 id="Select-Product-Languages"><a href="#Select-Product-Languages" class="headerlink" title="Select Product Languages"></a>Select Product Languages</h4><p>如果要支持多语言的话，勾选对应的语言，本文加入了<code>Simplified Chinese</code> 支持，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db6.png" alt="Select Product Languages"></p>
+<h4 id="Select-Database-Edition"><a href="#Select-Database-Edition" class="headerlink" title="Select Database Edition"></a>Select Database Edition</h4><p>保持默认选择（<code>Enterprise Edition (6.4GB)</code>），直接点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db7.png" alt="Select Database Edition"></p>
+<h4 id="Specify-Installation-Location"><a href="#Specify-Installation-Location" class="headerlink" title="Specify Installation Location"></a>Specify Installation Location</h4><p>保持默认选择:</p>
+<ul>
+<li>Oracle base: <code>/u01/app/oracle</code></li>
+<li>Software location: <code>/u01/app/oracle/product/12.1.0/dbhome_1</code></li>
+</ul>
+<p>直接点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db8.png" alt="Specify Installation Location"></p>
+<h4 id="Create-Inventory"><a href="#Create-Inventory" class="headerlink" title="Create Inventory"></a>Create Inventory</h4><p>保持默认选择:</p>
+<ul>
+<li>Inventory Directory: <code>/u01/app/oraInventory</code></li>
+<li>oraInventory Group Name: <code>oinstall</code></li>
+</ul>
+<p>直接点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db9.png" alt="Create Inventory"></p>
+<h4 id="Select-Configuration-Type"><a href="#Select-Configuration-Type" class="headerlink" title="Select Configuration Type"></a>Select Configuration Type</h4><p>保持默认选择（<code>General Purpose / Transaction Processing</code>），直接点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db10.png" alt="Select Configuration Type"></p>
+<h4 id="Specify-Database-Identifiers"><a href="#Specify-Database-Identifiers" class="headerlink" title="Specify Database Identifiers"></a>Specify Database Identifiers</h4><p>设置：</p>
+<ul>
+<li>Global database name: <code>omr.example.com</code></li>
+<li>Oracle system identifier (SID): <code>omr</code></li>
+</ul>
+<p>同时一定不要勾选<code>Create as Container database</code>。点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db11.png" alt="Specify Database Identifiers"></p>
+<h4 id="Specify-Configuration-Options"><a href="#Specify-Configuration-Options" class="headerlink" title="Specify Configuration Options"></a>Specify Configuration Options</h4><p>由于是测试环境的内存容量有限，所以将内存先设置为<code>1024</code>。</p>
+<p><img src="/img/post/oem-db12.png" alt="Specify Configuration Options - Memory"></p>
+<p>字符集选择可以支持任何语言的<code>Use Unicode (AL32UTF8)</code>。点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db13.png" alt="Specify Configuration Options - Character sets"></p>
+<h4 id="Specify-Database-Storage-Options"><a href="#Specify-Database-Storage-Options" class="headerlink" title="Specify Database Storage Options"></a>Specify Database Storage Options</h4><p>保持默认选择（<code>File System</code>）。点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db14.png" alt="Specify Database Storage Options"></p>
+<h4 id="Specify-Management-Options"><a href="#Specify-Management-Options" class="headerlink" title="Specify Management Options"></a>Specify Management Options</h4><p>保持默认选择（先不注册到EM中）。点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db15.png" alt="Specify Management Options"></p>
+<h4 id="Specify-Recovery-Options"><a href="#Specify-Recovery-Options" class="headerlink" title="Specify Recovery Options"></a>Specify Recovery Options</h4><p>保持默认选择（先不启用数据库恢复）。点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db16.png" alt="Specify Recovery Options"></p>
+<h4 id="Specify-Schema-Passwords"><a href="#Specify-Schema-Passwords" class="headerlink" title="Specify Schema Passwords"></a>Specify Schema Passwords</h4><p>选择<code>Use the same password for all accounts</code>，并设置密码，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db17.png" alt="Specify Schema Passwords"></p>
+<h4 id="Specify-Operating-System-groups"><a href="#Specify-Operating-System-groups" class="headerlink" title="Specify Operating System groups"></a>Specify Operating System groups</h4><p>全部都选择<code>dba</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem-db18.png" alt="Specify Operating System groups"></p>
+<h4 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h4><p>最后检查一遍配置，没有问题的话，点击<code>Install</code>。</p>
+<p><img src="/img/post/oem-db19.png" alt="Summary"></p>
+<h4 id="Install-Product"><a href="#Install-Product" class="headerlink" title="Install Product"></a>Install Product</h4><p>开始漫长的安装过程，请耐心等待。。。</p>
+<p><img src="/img/post/oem-db20.png" alt="Install Product"></p>
+<h4 id="Execute-Configuration-scripts"><a href="#Execute-Configuration-scripts" class="headerlink" title="Execute Configuration scripts"></a>Execute Configuration scripts</h4><p>这时需要以root用户执行两个脚本：</p>
+<p><img src="/img/post/oem-db21.png" alt="Execute Configuration scripts"></p>
+<p>打开一个终端，切换到root用户，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ su -</span><br><span class="line">Password: </span><br><span class="line">[root@oem ~]# /u01/app/oraInventory/orainstRoot.sh </span><br><span class="line">Changing permissions of /u01/app/oraInventory.</span><br><span class="line">Adding <span class="built_in">read</span>,write permissions <span class="keyword">for</span> group.</span><br><span class="line">Removing <span class="built_in">read</span>,write,execute permissions <span class="keyword">for</span> world.</span><br><span class="line"></span><br><span class="line">Changing groupname of /u01/app/oraInventory to oinstall.</span><br><span class="line">The execution of the script is complete.</span><br><span class="line">[root@oem ~]# /u01/app/oracle/product/12.1.0/dbhome_1/root.sh </span><br><span class="line">Performing root user operation.</span><br><span class="line"></span><br><span class="line">The following environment variables are <span class="built_in">set</span> as:</span><br><span class="line">    ORACLE_OWNER= oracle</span><br><span class="line">    ORACLE_HOME=  /u01/app/oracle/product/12.1.0/dbhome_1</span><br><span class="line"></span><br><span class="line">Enter the full pathname of the <span class="built_in">local</span> bin directory: [/usr/local/bin]: </span><br><span class="line">   Copying dbhome to /usr/local/bin ...</span><br><span class="line">   Copying oraenv to /usr/local/bin ...</span><br><span class="line">   Copying coraenv to /usr/local/bin ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Creating /etc/oratab file...</span><br><span class="line">Entries will be added to the /etc/oratab file as needed by</span><br><span class="line">Database Configuration Assistant when a database is created</span><br><span class="line">Finished running generic part of root script.</span><br><span class="line">Now product-specific root actions will be performed.</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<h3 id="Database-Configuration-Assistant"><a href="#Database-Configuration-Assistant" class="headerlink" title="Database Configuration Assistant"></a>Database Configuration Assistant</h3><p>看到下面的画面时，说明数据库已经安装完成。</p>
+<p><img src="/img/post/oem-db22.png" alt="Database Configuration Assistant"></p>
+<h4 id="Finish"><a href="#Finish" class="headerlink" title="Finish"></a>Finish</h4><p>这时可以关闭安装向导。</p>
+<p><img src="/img/post/oem-db23.png" alt="Finish"></p>
+<p>顺便说一下，此时如果想删除数据库的话，可以执行<code>$ORACLE_HOME/deinstall/deinstall</code>脚本，简单一个命令就可以搞定了。</p>
+<h3 id="数据库安装后设置"><a href="#数据库安装后设置" class="headerlink" title="数据库安装后设置"></a>数据库安装后设置</h3><h4 id="数据库参数修改和监听服务查看"><a href="#数据库参数修改和监听服务查看" class="headerlink" title="数据库参数修改和监听服务查看"></a>数据库参数修改和监听服务查看</h4><p>以root用户修改<code>/etc/oratab</code>文件，将restart标志位设置为<code>Y</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# vim /etc/oratab </span><br><span class="line"><span class="comment">#omr:/u01/app/oracle/product/12.1.0/dbhome_1:N</span></span><br><span class="line">omr:/u01/app/oracle/product/12.1.0/dbhome_1:Y</span><br></pre></td></tr></table></figure>
+
+<p>以oracle用户，创建Oracle数据库的redo日志文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ <span class="built_in">mkdir</span> /u01/app/oracle/product/redo_logs/</span><br></pre></td></tr></table></figure>
+
+<p>接着，登录到数据库中，先从spfile创建一个pfile：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[oracle<span class="variable">@oem</span> <span class="operator">~</span>]$ sqlplus <span class="operator">/</span> <span class="keyword">as</span> sysdba</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">*</span>Plus: <span class="keyword">Release</span> <span class="number">12.1</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span> Production <span class="keyword">on</span> Fri Jul <span class="number">31</span> <span class="number">14</span>:<span class="number">49</span>:<span class="number">34</span> <span class="number">2015</span></span><br><span class="line"></span><br><span class="line">Copyright (c) <span class="number">1982</span>, <span class="number">2014</span>, Oracle.  <span class="keyword">All</span> rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected <span class="keyword">to</span>:</span><br><span class="line">Oracle Database <span class="number">12</span>c Enterprise Edition <span class="keyword">Release</span> <span class="number">12.1</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span> <span class="operator">-</span> <span class="number">64</span>bit Production</span><br><span class="line"><span class="keyword">With</span> the Partitioning, OLAP, Advanced Analytics <span class="keyword">and</span> <span class="type">Real</span> Application Testing options</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">create</span> pfile <span class="keyword">from</span> spfile;</span><br><span class="line"></span><br><span class="line">File created.</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>然后，修改数据库参数并创建redo文件：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">SYSTEM</span> <span class="keyword">SET</span> processes<span class="operator">=</span><span class="number">300</span> <span class="keyword">SCOPE</span><span class="operator">=</span>SPFILE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">System</span> altered.</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">SYSTEM</span> <span class="keyword">SET</span> session_cached_cursors<span class="operator">=</span><span class="number">200</span> <span class="keyword">SCOPE</span><span class="operator">=</span>SPFILE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">System</span> altered.</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">SYSTEM</span> <span class="keyword">SET</span> db_securefile<span class="operator">=</span>PERMITTED <span class="keyword">SCOPE</span><span class="operator">=</span><span class="keyword">BOTH</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">System</span> altered.</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> DATABASE <span class="keyword">ADD</span> LOGFILE <span class="keyword">GROUP</span> <span class="number">4</span> (<span class="string">&#x27;/u01/app/oracle/product/redo_logs/log1a.rdo&#x27;</span>) SIZE <span class="number">300</span>M REUSE;</span><br><span class="line"></span><br><span class="line">Database altered.</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> DATABASE <span class="keyword">ADD</span> LOGFILE <span class="keyword">GROUP</span> <span class="number">5</span> (<span class="string">&#x27;/u01/app/oracle/product/redo_logs/log2a.rdo&#x27;</span>) SIZE <span class="number">300</span>M REUSE;</span><br><span class="line"></span><br><span class="line">Database altered.</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> DATABASE <span class="keyword">ADD</span> LOGFILE <span class="keyword">GROUP</span> <span class="number">6</span> (<span class="string">&#x27;/u01/app/oracle/product/redo_logs/log3a.rdo&#x27;</span>) SIZE <span class="number">300</span>M REUSE;</span><br><span class="line"></span><br><span class="line">Database altered.</span><br></pre></td></tr></table></figure>
+
+<p>重启数据库，使配置生效：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> SHUTDOWN IMMEDIATE;</span><br><span class="line">Database closed.</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> STARTUP;</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total <span class="keyword">System</span> <span class="keyword">Global</span> Area <span class="number">1073741824</span> bytes</span><br><span class="line">Fixed Size		    <span class="number">2932632</span> bytes</span><br><span class="line">Variable Size		  <span class="number">713031784</span> bytes</span><br><span class="line">Database Buffers	  <span class="number">352321536</span> bytes</span><br><span class="line">Redo Buffers		    <span class="number">5455872</span> bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>确认一下HTTPS的端口是否是5500，并退出sqlplus：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">SELECT</span> dbms_xdb_config.gethttpsport <span class="keyword">FROM</span> dual;</span><br><span class="line"></span><br><span class="line">GETHTTPSPORT</span><br><span class="line"><span class="comment">------------</span></span><br><span class="line">	<span class="number">5500</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> EXIT</span><br><span class="line">Disconnected <span class="keyword">from</span> Oracle Database <span class="number">12</span>c Enterprise Edition <span class="keyword">Release</span> <span class="number">12.1</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span> <span class="operator">-</span> <span class="number">64</span>bit Production</span><br><span class="line"><span class="keyword">With</span> the Partitioning, OLAP, Advanced Analytics <span class="keyword">and</span> <span class="type">Real</span> Application Testing options</span><br></pre></td></tr></table></figure>
+
+<p>最后确认LISTNER的状态，看看监听服务是否正常：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ lsnrctl status</span><br><span class="line"></span><br><span class="line">LSNRCTL <span class="keyword">for</span> Linux: Version 12.1.0.2.0 - Production on 31-JUL-2015 14:59:40</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oem.example.com)(PORT=1521)))</span><br><span class="line">STATUS of the LISTENER</span><br><span class="line">------------------------</span><br><span class="line">Alias                     LISTENER</span><br><span class="line">Version                   TNSLSNR <span class="keyword">for</span> Linux: Version 12.1.0.2.0 - Production</span><br><span class="line">Start Date                31-JUL-2015 14:28:04</span><br><span class="line">Uptime                    0 days 0 hr. 31 min. 36 sec</span><br><span class="line">Trace Level               off</span><br><span class="line">Security                  ON: Local OS Authentication</span><br><span class="line">SNMP                      OFF</span><br><span class="line">Listener Parameter File   /u01/app/oracle/product/12.1.0/dbhome_1/network/admin/listener.ora</span><br><span class="line">Listener Log File         /u01/app/oracle/diag/tnslsnr/oem/listener/alert/log.xml</span><br><span class="line">Listening Endpoints Summary...</span><br><span class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=oem.example.com)(PORT=1521)))</span><br><span class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))</span><br><span class="line">  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcps)(HOST=oem.example.com)(PORT=5500))(Security=(my_wallet_directory=/u01/app/oracle/admin/omr/xdb_wallet))(Presentation=HTTP)(Session=RAW))</span><br><span class="line">Services Summary...</span><br><span class="line">Service <span class="string">&quot;omr.example.com&quot;</span> has 1 instance(s).</span><br><span class="line">  Instance <span class="string">&quot;omr&quot;</span>, status READY, has 1 handler(s) <span class="keyword">for</span> this service...</span><br><span class="line">Service <span class="string">&quot;omrXDB.example.com&quot;</span> has 1 instance(s).</span><br><span class="line">  Instance <span class="string">&quot;omr&quot;</span>, status READY, has 1 handler(s) <span class="keyword">for</span> this service...</span><br><span class="line">The <span class="built_in">command</span> completed successfully</span><br><span class="line">[oracle@oem ~]$ </span><br></pre></td></tr></table></figure>
+
+<p>可以看到数据库服务<code>omr.example.com</code>已经就绪。</p>
+<h4 id="开机自动启动数据库（可选）"><a href="#开机自动启动数据库（可选）" class="headerlink" title="开机自动启动数据库（可选）"></a>开机自动启动数据库（可选）</h4><p>其实到上一步骤为止，Oracle的数据库安装已经完成。<br>如果还需要在开机时自动启动数据服务的话，可以按照下面的步骤实现。</p>
+<p>首先以root用户创建一个自启动脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# vim /etc/init.d/dbora</span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="comment"># chkconfig: 345 99 10</span></span><br><span class="line"><span class="comment"># description: Oracle auto start-stop script.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Set ORA_HOME to be equivalent to the $ORACLE_HOME</span></span><br><span class="line"><span class="comment"># from which you wish to execute dbstart and dbshut;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Set ORA_OWNER to the user id of the owner of the</span></span><br><span class="line"><span class="comment"># Oracle database in ORA_HOME.</span></span><br><span class="line">ORA_HOME=/u01/app/oracle/product/12.1.0/dbhome_1</span><br><span class="line">ORA_OWNER=oracle</span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="variable">$&#123;ORA_HOME&#125;</span>/bin/dbstart ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Oracle startup: cannot start&quot;</span></span><br><span class="line">        <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&#x27;start&#x27;</span>)</span><br><span class="line">    <span class="comment"># Start the Oracle databases:</span></span><br><span class="line">    <span class="comment"># The following command assumes that the oracle login</span></span><br><span class="line">    <span class="comment"># will not prompt the user for any values</span></span><br><span class="line">    su - <span class="variable">$&#123;ORA_OWNER&#125;</span> -c <span class="string">&quot;<span class="variable">$&#123;ORA_HOME&#125;</span>/bin/dbstart <span class="variable">$ORA_HOME</span>&quot;</span></span><br><span class="line">    <span class="built_in">touch</span> /var/lock/subsys/dbora</span><br><span class="line">    ;;</span><br><span class="line"><span class="string">&#x27;stop&#x27;</span>)</span><br><span class="line">    <span class="comment"># Stop the Oracle databases:</span></span><br><span class="line">    <span class="comment"># The following command assumes that the oracle login</span></span><br><span class="line">    <span class="comment"># will not prompt the user for any values</span></span><br><span class="line">    su - <span class="variable">$&#123;ORA_OWNER&#125;</span> -c <span class="string">&quot;<span class="variable">$&#123;ORA_HOME&#125;</span>/bin/dbshut <span class="variable">$ORA_HOME</span>&quot;</span></span><br><span class="line">    <span class="built_in">rm</span> -f /var/lock/subsys/dbora</span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<p>以root用户修改脚本权限，并加入到开机启动服务列表中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">chmod</span> 750 /etc/init.d/dbora </span><br><span class="line">[root@oem ~]# chkconfig dbora on</span><br><span class="line">[root@oem ~]# chkconfig --list|grep dbora</span><br><span class="line">dbora          	0:off	1:off	2:on	3:on	4:on	5:on	6:off</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<p>最后，以root用户创建一些软链接，将自启动脚本加入到Oracle Linux 的启动进程中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# <span class="built_in">ln</span> -s /etc/init.d/dbora /etc/rc.d/rc0.d/K01dbora</span><br><span class="line">[root@oem ~]# <span class="built_in">ln</span> -s /etc/init.d/dbora /etc/rc.d/rc3.d/S96dbora</span><br><span class="line">[root@oem ~]# <span class="built_in">ln</span> -s /etc/init.d/dbora /etc/rc.d/rc5.d/S96dbora</span><br></pre></td></tr></table></figure>
+
+<p>这时可以重启一下系统，验证一下数据库服务有没有随系统自动启动。</p>
+<h2 id="安装Oracle-Enterprise-Manager-12c-R4"><a href="#安装Oracle-Enterprise-Manager-12c-R4" class="headerlink" title="安装Oracle Enterprise Manager 12c R4"></a>安装Oracle Enterprise Manager 12c R4</h2><p>本章开始利用Oracle Universal Installer (OUI)在Oracle Linux 6U5上安装如下组件：</p>
+<ul>
+<li>Oracle Enterprise Manager 12c Release 4 (12.1.0.4)</li>
+<li>Oracle Management Service</li>
+<li>Oracle Management Agent</li>
+</ul>
+<p>安装文件可以从<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/oem/grid-control/downloads/linuxx8664soft-085949.html">这里</a>下载到。</p>
+<h3 id="安装前检查"><a href="#安装前检查" class="headerlink" title="安装前检查"></a>安装前检查</h3><p>以root用户先查看一下必须的软件包是否已经安装完成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# yum list make binutils gcc libaio glib-common libstdc++ libXtst systat glibc-devel glibc libaio glibc-devel.i686</span><br><span class="line">Loaded plugins: refresh-packagekit, security</span><br><span class="line">Installed Packages</span><br><span class="line">binutils.x86_64    2.20.51.0.2-5.36.el6 @anaconda-OracleLinuxServer-201311252058.x86_64/6.5</span><br><span class="line">gcc.x86_64         4.4.7-16.el6         @ol6_latest</span><br><span class="line">glibc.x86_64       2.12-1.132.el6       @anaconda-OracleLinuxServer-201311252058.x86_64/6.5</span><br><span class="line">glibc-devel.x86_64 2.12-1.132.el6       @anaconda-OracleLinuxServer-201311252058.x86_64/6.5</span><br><span class="line">libXtst.x86_64     1.2.1-2.el6          @anaconda-OracleLinuxServer-201311252058.x86_64/6.5</span><br><span class="line">libaio.x86_64      0.3.107-10.el6       @anaconda-OracleLinuxServer-201311252058.x86_64/6.5</span><br><span class="line">libstdc++.x86_64   4.4.7-16.el6         @ol6_latest</span><br><span class="line">make.x86_64        1:3.81-20.el6        @anaconda-OracleLinuxServer-201311252058.x86_64/6.5</span><br><span class="line">Available Packages</span><br><span class="line">binutils.x86_64    2.20.51.0.2-5.43.el6 ol6_latest</span><br><span class="line">glibc.i686         2.12-1.166.el6_7.1   ol6_latest</span><br><span class="line">glibc.x86_64       2.12-1.166.el6_7.1   ol6_latest</span><br><span class="line">glibc-devel.i686   2.12-1.166.el6_7.1   ol6_latest</span><br><span class="line">glibc-devel.x86_64 2.12-1.166.el6_7.1   ol6_latest</span><br><span class="line">libXtst.i686       1.2.2-2.1.el6        ol6_latest</span><br><span class="line">libXtst.x86_64     1.2.2-2.1.el6        ol6_latest</span><br><span class="line">libaio.i686        0.3.107-10.el6       ol6_latest</span><br><span class="line">libstdc++.i686     4.4.7-16.el6         ol6_latest</span><br><span class="line">[root@oem ~]# </span><br></pre></td></tr></table></figure>
+
+<p>安装上面<code>Available Packages</code>中列出的所有必须软件包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# yum install binutils.x86_64 glibc.i686 glibc.x86_64 glibc-devel.i686 glibc-devel.x86_64 libXtst.i686 libXtst.x86_64 libaio.i686 libstdc++.i686</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建目录和部署安装文件-1"><a href="#创建目录和部署安装文件-1" class="headerlink" title="创建目录和部署安装文件"></a>创建目录和部署安装文件</h3><p>以oracle用户，创建EM安装文件保存目录，并将安装文件拷贝到该目录中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem ~]$ <span class="built_in">mkdir</span> -p /u01/stage/em12104</span><br><span class="line">[oracle@oem ~]$ <span class="built_in">cd</span> /u01/stage/em12104/</span><br><span class="line">[oracle@oem em12104]$ ll</span><br><span class="line">total 6640900</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 2195693096 Jul 30 15:34 em12104_linux64_disk1.zip</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 1877449643 Jul 30 13:13 em12104_linux64_disk2.zip</span><br><span class="line">-rwxrwx--- 1 oracle oinstall 2727123784 Jul 30 13:41 em12104_linux64_disk3.zip</span><br><span class="line">[oracle@oem em12104]$ </span><br></pre></td></tr></table></figure>
+
+<p>依次解压缩安装文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem em12104]$ unzip em12104_linux64_disk1.zip </span><br><span class="line">[oracle@oem em12104]$ unzip em12104_linux64_disk2.zip </span><br><span class="line">[oracle@oem em12104]$ unzip em12104_linux64_disk3.zip </span><br><span class="line">[oracle@oem em12104]$ <span class="built_in">ls</span></span><br><span class="line">bipruntime                 install   plugins            stage</span><br><span class="line">em12104_linux64_disk1.zip  jdk       release_notes.pdf  wls</span><br><span class="line">em12104_linux64_disk2.zip  libskgxn  response           WT.zip</span><br><span class="line">em12104_linux64_disk3.zip  oms       runInstaller</span><br></pre></td></tr></table></figure>
+
+<p>以oracle用户创建oms和agent的安装目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem em12104]$ <span class="built_in">mkdir</span> -p /u01/app/oracle/product/MiddlewareR4</span><br><span class="line">[oracle@oem em12104]$ <span class="built_in">mkdir</span> -p /u01/app/oracle/product/agentr4</span><br></pre></td></tr></table></figure>
+
+<h3 id="开始安装EM"><a href="#开始安装EM" class="headerlink" title="开始安装EM"></a>开始安装EM</h3><p>以oracle用户，启动OUI图形界面开始安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oem em12104]$ <span class="built_in">cd</span> /u01/stage/em12104/</span><br><span class="line">[oracle@oem em12104]$ ./runInstaller </span><br><span class="line">Starting Oracle Universal Installer...</span><br><span class="line"></span><br><span class="line">Checking Temp space: must be greater than 400 MB.   Actual 14266 MB    Passed</span><br><span class="line">Checking swap space: must be greater than 150 MB.   Actual 3958 MB    Passed</span><br><span class="line">Checking monitor: must be configured to display at least 256 colors.    Actual 16777216    Passed</span><br><span class="line">Preparing to launch Oracle Universal Installer from /tmp/OraInstall2015-07-31_03-52-55PM. Please <span class="built_in">wait</span> ...[oracle@oem em12104]$ </span><br></pre></td></tr></table></figure>
+
+<h4 id="My-Oracle-Support-Details"><a href="#My-Oracle-Support-Details" class="headerlink" title="My Oracle Support Details"></a>My Oracle Support Details</h4><p>不选择<code>I wish to receive security updates via My Oracle Support</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-01.png" alt="My Oracle Support Details"></p>
+<h4 id="Software-Updates"><a href="#Software-Updates" class="headerlink" title="Software Updates"></a>Software Updates</h4><p>选择<code>Skip</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-02.png" alt="Software Updates"></p>
+<h4 id="Prerequisite-Checks"><a href="#Prerequisite-Checks" class="headerlink" title="Prerequisite Checks"></a>Prerequisite Checks</h4><p>等待所有检查通过，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-03.png" alt="Prerequisite Checks"></p>
+<h4 id="Installation-Types"><a href="#Installation-Types" class="headerlink" title="Installation Types"></a>Installation Types</h4><p>在<code>Create a new Enterprise Manager System</code>下，选择<code>Advanced</code>，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-04.png" alt="Installation Types"></p>
+<h4 id="Installation-Details"><a href="#Installation-Details" class="headerlink" title="Installation Details"></a>Installation Details</h4><p>设置如下：</p>
+<ul>
+<li>Middleware Home Location: <code>/u01/app/oracle/product/MiddlewareR4</code></li>
+<li>Agent Base directory: <code>/u01/app/oracle/product/agentr4</code></li>
+<li>Host Name: oem.example.com (注意，必须是FQDN)</li>
+</ul>
+<p>点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-05.png" alt="Installation Details"></p>
+<h4 id="Select-Plug-ins"><a href="#Select-Plug-ins" class="headerlink" title="Select Plug-ins"></a>Select Plug-ins</h4><p>除了默认的选择之外，选择如下三个插件：</p>
+<ul>
+<li>Oracle Cloud Application</li>
+<li>Oracle Consolidation Planning and Chargeback</li>
+<li>Oracle Virtualization</li>
+</ul>
+<p>然后点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-06.png" alt="Select Plug-ins"></p>
+<h4 id="WebLogic-Server-Configuration-Details"><a href="#WebLogic-Server-Configuration-Details" class="headerlink" title="WebLogic Server Configuration Details"></a>WebLogic Server Configuration Details</h4><p>输入WebLogic GCDomain的密码，以及Node Manager密码。其他保持默认选择，点击<code>Next</code>。</p>
+<pre><code>注意：密码不能以数字开头！
+</code></pre>
+<p><img src="/img/post/oem12104-07.png" alt="WebLogic Server Configuration Details"></p>
+<h4 id="Database-Connection-Details"><a href="#Database-Connection-Details" class="headerlink" title="Database Connection Details"></a>Database Connection Details</h4><p>输入数据库的连接信息：</p>
+<ul>
+<li>Database Host Name: <code>oem.example.com</code></li>
+<li>Port: <code>1521</code></li>
+<li>Service&#x2F;SID: <code>omr</code></li>
+<li>SYS Password: <code>yourpassword</code></li>
+</ul>
+<p>Deployment Size选择<code>SMALL</code>。关于Deployment Size各个选项的含义，可以参考以下说明：</p>
+<ul>
+<li>Small &lt; 100 agents &lt; 1000 targets</li>
+<li>Medium &lt; 1000 agents &lt; 10,000 targets</li>
+<li>Large &gt; 1000 agents &gt; 10,000 targets</li>
+</ul>
+<p>点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-08.png" alt="Database Connection Details"></p>
+<p>安装向导可能还会检查出一些错误的数据库设置，这时按照向导中的提示选择自动修复即可：</p>
+<p><img src="/img/post/oem12104-09.png" alt="Database Connection Details - Error"></p>
+<p>可能还会有一些警告出现。这是一些可能会影响EM的运行性能的警告，不会对EM的正常启动造成影响，所以可以暂时忽略，可以在安装完之后再修改数据库配置文件。</p>
+<p><img src="/img/post/oem12104-10.png" alt="Database Connection Details - Warning"></p>
+<h4 id="Enterprise-Manager-Configuration-Details"><a href="#Enterprise-Manager-Configuration-Details" class="headerlink" title="Enterprise Manager Configuration Details"></a>Enterprise Manager Configuration Details</h4><p>输入SYSMAN和OMA Agent Registration的密码。其他的选项保持默认值，点击<code>Next</code>。</p>
+<pre><code>注意：密码不能以数字开始，而且在安装完成后登陆EM的用户名就是sysman（不区分大小写）。
+</code></pre>
+<p><img src="/img/post/oem12104-11.png" alt="Enterprise Manager Configuration Details"></p>
+<h4 id="Port-Configuration-Details"><a href="#Port-Configuration-Details" class="headerlink" title="Port Configuration Details"></a>Port Configuration Details</h4><p>保持默认值，点击<code>Next</code>。</p>
+<p><img src="/img/post/oem12104-12.png" alt="Port Configuration Details"></p>
+<h4 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h4><p>检查所有设置，确认无误的话，点击<code>Install</code>。</p>
+<p><img src="/img/post/oem12104-13.png" alt="Review"></p>
+<h4 id="Installation-Progress-Details"><a href="#Installation-Progress-Details" class="headerlink" title="Installation Progress Details"></a>Installation Progress Details</h4><p>开始漫长的安装过程，请耐心等待。</p>
+<p><img src="/img/post/oem12104-14.png" alt="Installation Progress Details"></p>
+<p>最后需要以root用户运行一个脚本：</p>
+<p><img src="/img/post/oem12104-15.png" alt="Execute Configuration scripts"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@oem ~]# /u01/app/oracle/product/MiddlewareR4/oms/allroot.sh </span><br><span class="line"></span><br><span class="line">Starting to execute allroot.sh ......... </span><br><span class="line"></span><br><span class="line">Starting to execute /u01/app/oracle/product/MiddlewareR4/oms/root.sh ......</span><br><span class="line">Running Oracle 11g root.sh script...</span><br><span class="line"></span><br><span class="line">The following environment variables are <span class="built_in">set</span> as:</span><br><span class="line">    ORACLE_OWNER= oracle</span><br><span class="line">    ORACLE_HOME=  /u01/app/oracle/product/MiddlewareR4/oms</span><br><span class="line"></span><br><span class="line">Enter the full pathname of the <span class="built_in">local</span> bin directory: [/usr/local/bin]: </span><br><span class="line">The file <span class="string">&quot;dbhome&quot;</span> already exists <span class="keyword">in</span> /usr/local/bin.  Overwrite it? (y/n) </span><br><span class="line">[n]: y</span><br><span class="line">   Copying dbhome to /usr/local/bin ...</span><br><span class="line">The file <span class="string">&quot;oraenv&quot;</span> already exists <span class="keyword">in</span> /usr/local/bin.  Overwrite it? (y/n) </span><br><span class="line">[n]: y</span><br><span class="line">   Copying oraenv to /usr/local/bin ...</span><br><span class="line">The file <span class="string">&quot;coraenv&quot;</span> already exists <span class="keyword">in</span> /usr/local/bin.  Overwrite it? (y/n) </span><br><span class="line">[n]: y</span><br><span class="line">   Copying coraenv to /usr/local/bin ...</span><br><span class="line"></span><br><span class="line">Entries will be added to the /etc/oratab file as needed by</span><br><span class="line">Database Configuration Assistant when a database is created</span><br><span class="line">Finished running generic part of root.sh script.</span><br><span class="line">Now product-specific root actions will be performed.</span><br><span class="line">/etc exist</span><br><span class="line"></span><br><span class="line">Creating /etc/oragchomelist file...</span><br><span class="line">/u01/app/oracle/product/MiddlewareR4/oms</span><br><span class="line">Finished execution of  /u01/app/oracle/product/MiddlewareR4/oms/root.sh ......</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Starting to execute /u01/app/oracle/product/agentr4/core/12.1.0.4.0/root.sh ......</span><br><span class="line">Finished product-specific root actions.</span><br><span class="line">/etc exist</span><br><span class="line">Finished execution of  /u01/app/oracle/product/agentr4/core/12.1.0.4.0/root.sh ......</span><br><span class="line">[root@oem ~]# </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Finish-1"><a href="#Finish-1" class="headerlink" title="Finish"></a>Finish</h4><p>安装结束。</p>
+<p><img src="/img/post/oem12104-16.png" alt="Finish"></p>
+<p>在安装结束画面中会显示下面的信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">This information is also available at: </span><br><span class="line"></span><br><span class="line">	/u01/app/oracle/product/MiddlewareR4/oms/install/setupinfo.txt</span><br><span class="line"></span><br><span class="line">See below for information pertaining to your Enterprise Manager installation:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Use the following URL to access:</span><br><span class="line"></span><br><span class="line">	1. Enterprise Manager Cloud Control URL: https://oem.example.com:7802/em</span><br><span class="line">	2. Admin Server URL: https://oem.example.com:7102/console</span><br><span class="line"></span><br><span class="line">The following details need to be provided during the additional OMS install:</span><br><span class="line"></span><br><span class="line">	1. Admin Server Hostname: oem.example.com</span><br><span class="line">	2. Admin Server Port: 7102</span><br><span class="line"></span><br><span class="line">You can find the details on ports used by this deployment at : /u01/app/oracle/product/MiddlewareR4/oms/install/portlist.ini</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> NOTE:</span><br><span class="line"> An encryption key has been generated to encrypt sensitive data in the Management Repository. If this key is lost, all encrypted data in the Repository becomes unusable. </span><br><span class="line"></span><br><span class="line"> A backup of the OMS configuration is available in /u01/app/oracle/product/gc_inst/em/EMGC_OMS1/sysman/backup on host oem.example.com. See Cloud Control Administrators Guide for details on how to back up and recover an OMS.</span><br><span class="line"></span><br><span class="line"> NOTE: This backup is valid only for the initial OMS configuration. For example, it will not reflect plug-ins installed later, topology changes like the addition of a load balancer, or changes to other properties made using emctl or emcli. Backups should be created on a regular basis to ensure they capture the current OMS configuration. Use the following command to backup the OMS configuration:</span><br><span class="line">/u01/app/oracle/product/MiddlewareR4/oms/bin/emctl exportconfig oms -dir &lt;backup dir&gt; </span><br></pre></td></tr></table></figure>
+
+<p>也就是说，可以从下面的URL访问到EM了：</p>
+<pre><code>https://oem.example.com:7802/em
+</code></pre>
+<p>至此，EM的全部安装过程结束。</p>
+<p>（END）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/em12c/">em12c</a><a href="/tags/12c/">12c</a><a href="/tags/oem/">oem</a><a href="/tags/oracle/">oracle</a><a href="/tags/ome/">ome</a><a href="/tags/oms/">oms</a><a href="/tags/数据库/">数据库</a><a href="/tags/企业管理器/">企业管理器</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2015/08/04/oracle-enterprise-manager-12c-installation/" data-title="Oracle Enterprise Manager 12c 安装过程 | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/08/04/sgd-oem-integration/" title="Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Oracle Secure Global Desktop 与 Oracle Enterprise Manager 12c 集成</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/07/29/oracle12c-installation-troubleshooting/"  title="Oracle Database 12c 安装问题ORA-00838，ORA-00845的解决">
+ <strong>下一篇：</strong><br/> 
+ <span>Oracle Database 12c 安装问题ORA-00838，ORA-00845的解决
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%9C%80%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text">安装必需的软件包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%81%E7%94%A8iptables%E5%92%8CSELinux"><span class="toc-number">3.1.</span> <span class="toc-text">禁用iptables和SELinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-etc-hosts%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">修改&#x2F;etc&#x2F;hosts文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESSH%E5%92%8CX11%E8%BD%AC%E5%8F%91"><span class="toc-number">3.3.</span> <span class="toc-text">配置SSH和X11转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Oracle%E6%95%B0%E6%8D%AE%E5%BA%9312c"><span class="toc-number">4.</span> <span class="toc-text">安装Oracle数据库12c</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%92%8C%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="toc-number">4.1.</span> <span class="toc-text">创建目录和部署安装文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E7%94%A8%E7%9B%AE%E5%BD%95%EF%BC%88%E6%8C%89%E7%85%A7OFA%E6%A0%87%E5%87%86%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">创建安装用目录（按照OFA标准）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9ulimit%E5%80%BC%EF%BC%9A%E6%9C%80%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E6%95%B0%E4%B8%BA4096"><span class="toc-number">4.3.</span> <span class="toc-text">修改ulimit值：最大文件描述符数为4096</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9ulimit%E5%80%BC%EF%BC%9A%E6%9C%80%E5%A4%A7%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E6%95%B0%E4%B8%BA16384"><span class="toc-number">4.4.</span> <span class="toc-text">修改ulimit值：最大用户进程数为16384</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%A4%A7tmpfs%E5%88%B04GB"><span class="toc-number">4.5.</span> <span class="toc-text">增大tmpfs到4GB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E4%B8%BAoracle%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE-bash-profile"><span class="toc-number">4.6.</span> <span class="toc-text">作为oracle用户配置~&#x2F;.bash_profile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85Oracle%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">4.7.</span> <span class="toc-text">开始安装Oracle数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Configure-Security-Updates"><span class="toc-number">4.7.1.</span> <span class="toc-text">Configure Security Updates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Installation-Option"><span class="toc-number">4.7.2.</span> <span class="toc-text">Select Installation Option</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Server-Class"><span class="toc-number">4.7.3.</span> <span class="toc-text">Server Class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Grid-Installation-Options"><span class="toc-number">4.7.4.</span> <span class="toc-text">Grid Installation Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Install-Type"><span class="toc-number">4.7.5.</span> <span class="toc-text">Select Install Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Product-Languages"><span class="toc-number">4.7.6.</span> <span class="toc-text">Select Product Languages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Database-Edition"><span class="toc-number">4.7.7.</span> <span class="toc-text">Select Database Edition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Installation-Location"><span class="toc-number">4.7.8.</span> <span class="toc-text">Specify Installation Location</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-Inventory"><span class="toc-number">4.7.9.</span> <span class="toc-text">Create Inventory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Configuration-Type"><span class="toc-number">4.7.10.</span> <span class="toc-text">Select Configuration Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Database-Identifiers"><span class="toc-number">4.7.11.</span> <span class="toc-text">Specify Database Identifiers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Configuration-Options"><span class="toc-number">4.7.12.</span> <span class="toc-text">Specify Configuration Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Database-Storage-Options"><span class="toc-number">4.7.13.</span> <span class="toc-text">Specify Database Storage Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Management-Options"><span class="toc-number">4.7.14.</span> <span class="toc-text">Specify Management Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Recovery-Options"><span class="toc-number">4.7.15.</span> <span class="toc-text">Specify Recovery Options</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Schema-Passwords"><span class="toc-number">4.7.16.</span> <span class="toc-text">Specify Schema Passwords</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Specify-Operating-System-groups"><span class="toc-number">4.7.17.</span> <span class="toc-text">Specify Operating System groups</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Summary"><span class="toc-number">4.7.18.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Install-Product"><span class="toc-number">4.7.19.</span> <span class="toc-text">Install Product</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Execute-Configuration-scripts"><span class="toc-number">4.7.20.</span> <span class="toc-text">Execute Configuration scripts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database-Configuration-Assistant"><span class="toc-number">4.8.</span> <span class="toc-text">Database Configuration Assistant</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Finish"><span class="toc-number">4.8.1.</span> <span class="toc-text">Finish</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%90%8E%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.9.</span> <span class="toc-text">数据库安装后设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%82%E6%95%B0%E4%BF%AE%E6%94%B9%E5%92%8C%E7%9B%91%E5%90%AC%E6%9C%8D%E5%8A%A1%E6%9F%A5%E7%9C%8B"><span class="toc-number">4.9.1.</span> <span class="toc-text">数据库参数修改和监听服务查看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">4.9.2.</span> <span class="toc-text">开机自动启动数据库（可选）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Oracle-Enterprise-Manager-12c-R4"><span class="toc-number">5.</span> <span class="toc-text">安装Oracle Enterprise Manager 12c R4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E6%A3%80%E6%9F%A5"><span class="toc-number">5.1.</span> <span class="toc-text">安装前检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%92%8C%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6-1"><span class="toc-number">5.2.</span> <span class="toc-text">创建目录和部署安装文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85EM"><span class="toc-number">5.3.</span> <span class="toc-text">开始安装EM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#My-Oracle-Support-Details"><span class="toc-number">5.3.1.</span> <span class="toc-text">My Oracle Support Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Software-Updates"><span class="toc-number">5.3.2.</span> <span class="toc-text">Software Updates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prerequisite-Checks"><span class="toc-number">5.3.3.</span> <span class="toc-text">Prerequisite Checks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation-Types"><span class="toc-number">5.3.4.</span> <span class="toc-text">Installation Types</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation-Details"><span class="toc-number">5.3.5.</span> <span class="toc-text">Installation Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-Plug-ins"><span class="toc-number">5.3.6.</span> <span class="toc-text">Select Plug-ins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebLogic-Server-Configuration-Details"><span class="toc-number">5.3.7.</span> <span class="toc-text">WebLogic Server Configuration Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Database-Connection-Details"><span class="toc-number">5.3.8.</span> <span class="toc-text">Database Connection Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Enterprise-Manager-Configuration-Details"><span class="toc-number">5.3.9.</span> <span class="toc-text">Enterprise Manager Configuration Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Port-Configuration-Details"><span class="toc-number">5.3.10.</span> <span class="toc-text">Port Configuration Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Review"><span class="toc-number">5.3.11.</span> <span class="toc-text">Review</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation-Progress-Details"><span class="toc-number">5.3.12.</span> <span class="toc-text">Installation Progress Details</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Finish-1"><span class="toc-number">5.3.13.</span> <span class="toc-text">Finish</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/web基础/" title="WEB基础">WEB基础<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/macos/" title="macOS">macOS<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/内家功/" title="内家功">内家功<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/操作系统/" title="操作系统">操作系统<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/文本处理/" title="文本处理">文本处理<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/虚拟化/" title="虚拟化">虚拟化<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>8</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/12c/" style="font-size: 16.67px;">12c</a> <a href="/tags/443/" style="font-size: 10px;">443</a> <a href="/tags/bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/em12c/" style="font-size: 10px;">EM12c</a> <a href="/tags/enterprise-manager/" style="font-size: 10px;">Enterprise Manager</a> <a href="/tags/nat/" style="font-size: 10px;">NAT</a> <a href="/tags/ora-00838/" style="font-size: 10px;">ORA-00838</a> <a href="/tags/ora-00845/" style="font-size: 10px;">ORA-00845</a> <a href="/tags/sgd/" style="font-size: 10px;">SGD</a> <a href="/tags/vboxmanage/" style="font-size: 10px;">VBoxManage</a> <a href="/tags/virtualbox/" style="font-size: 13.33px;">VirtualBox</a> <a href="/tags/acrobat/" style="font-size: 10px;">acrobat</a> <a href="/tags/ad/" style="font-size: 10px;">ad</a> <a href="/tags/admin-console/" style="font-size: 10px;">admin console</a> <a href="/tags/adobe/" style="font-size: 10px;">adobe</a> <a href="/tags/aip/" style="font-size: 11.67px;">aip</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apex/" style="font-size: 10px;">apex</a> <a href="/tags/application-provision/" style="font-size: 10px;">application provision</a> <a href="/tags/application-virtulization/" style="font-size: 10px;">application virtulization</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/array/" style="font-size: 10px;">array</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/cdm/" style="font-size: 10px;">cdm</a> <a href="/tags/centos/" style="font-size: 11.67px;">centos</a> <a href="/tags/cjk/" style="font-size: 11.67px;">cjk</a> <a href="/tags/cloud-control/" style="font-size: 10px;">cloud control</a> <a href="/tags/code/" style="font-size: 10px;">code</a> <a href="/tags/createrepo/" style="font-size: 10px;">createrepo</a> <a href="/tags/database/" style="font-size: 16.67px;">database</a> <a href="/tags/debian/" style="font-size: 10px;">debian</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 11.67px;">django</a> <a href="/tags/dnds/" style="font-size: 10px;">dnds</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/em12c/" style="font-size: 15px;">em12c</a> <a href="/tags/eth0/" style="font-size: 10px;">eth0</a> <a href="/tags/fc/" style="font-size: 10px;">fc</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fdisk/" style="font-size: 10px;">fdisk</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/font/" style="font-size: 10px;">font</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/gateway/" style="font-size: 10px;">gateway</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/gitment/" style="font-size: 10px;">gitment</a> <a href="/tags/gnome-session/" style="font-size: 10px;">gnome-session</a> <a href="/tags/gnome3/" style="font-size: 10px;">gnome3</a> <a href="/tags/gs/" style="font-size: 10px;">gs</a> <a href="/tags/gvim/" style="font-size: 10px;">gvim</a> <a href="/tags/ha/" style="font-size: 10px;">ha</a> <a href="/tags/heapsort/" style="font-size: 10px;">heapsort</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/hostname/" style="font-size: 10px;">hostname</a> <a href="/tags/iis/" style="font-size: 10px;">iis</a> <a href="/tags/ip/" style="font-size: 10px;">ip</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/kpi/" style="font-size: 10px;">kpi</a> <a href="/tags/latex/" style="font-size: 13.33px;">latex</a> <a href="/tags/ldap/" style="font-size: 10px;">ldap</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/linux-7/" style="font-size: 10px;">linux 7</a> <a href="/tags/lv/" style="font-size: 10px;">lv</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/mac/" style="font-size: 13.33px;">mac</a> <a href="/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/tags/mstcs/" style="font-size: 10px;">mstcs</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nameserver/" style="font-size: 10px;">nameserver</a> <a href="/tags/netfilter/" style="font-size: 10px;">netfilter</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nslookup/" style="font-size: 10px;">nslookup</a> <a href="/tags/oam/" style="font-size: 13.33px;">oam</a> <a href="/tags/octpress/" style="font-size: 10px;">octpress</a> <a href="/tags/oem/" style="font-size: 13.33px;">oem</a> <a href="/tags/oem13c/" style="font-size: 10px;">oem13c</a> <a href="/tags/ome/" style="font-size: 10px;">ome</a> <a href="/tags/oms/" style="font-size: 10px;">oms</a> <a href="/tags/ora12c/" style="font-size: 11.67px;">ora12c</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oracle-linux/" style="font-size: 10px;">oracle linux</a> <a href="/tags/oracle12c/" style="font-size: 15px;">oracle12c</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/ovdi/" style="font-size: 10px;">ovdi</a> <a href="/tags/packagekit/" style="font-size: 10px;">packagekit</a> <a href="/tags/pdf/" style="font-size: 11.67px;">pdf</a> <a href="/tags/pdf-reader/" style="font-size: 10px;">pdf reader</a> <a href="/tags/poc/" style="font-size: 10px;">poc</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port-forwarding</a> <a href="/tags/prim/" style="font-size: 10px;">prim</a> <a href="/tags/proxmox/" style="font-size: 11.67px;">proxmox</a> <a href="/tags/pvecm/" style="font-size: 10px;">pvecm</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/rdp/" style="font-size: 10px;">rdp</a> <a href="/tags/reddhat/" style="font-size: 10px;">reddhat</a> <a href="/tags/redhat/" style="font-size: 11.67px;">redhat</a> <a href="/tags/remote/" style="font-size: 10px;">remote</a> <a href="/tags/remote-display-server/" style="font-size: 10px;">remote display server</a> <a href="/tags/repolist/" style="font-size: 10px;">repolist</a> <a href="/tags/reposync/" style="font-size: 10px;">reposync</a> <a href="/tags/rhce/" style="font-size: 11.67px;">rhce</a> <a href="/tags/rhel/" style="font-size: 10px;">rhel</a> <a href="/tags/rmi/" style="font-size: 10px;">rmi</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/sbc/" style="font-size: 10px;">sbc</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/selinux/" style="font-size: 11.67px;">selinux</a> <a href="/tags/sgd/" style="font-size: 20px;">sgd</a> <a href="/tags/sgd5-2/" style="font-size: 10px;">sgd5.2</a> <a href="/tags/silent/" style="font-size: 10px;">silent</a> <a href="/tags/sizing/" style="font-size: 11.67px;">sizing</a> <a href="/tags/smb/" style="font-size: 10px;">smb</a> <a href="/tags/solaris/" style="font-size: 10px;">solaris</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/sso/" style="font-size: 13.33px;">sso</a> <a href="/tags/static-blog/" style="font-size: 10px;">static blog</a> <a href="/tags/swig/" style="font-size: 10px;">swig</a> <a href="/tags/systemctl/" style="font-size: 11.67px;">systemctl</a> <a href="/tags/tarantella/" style="font-size: 11.67px;">tarantella</a> <a href="/tags/tds/" style="font-size: 10px;">tds</a> <a href="/tags/tex/" style="font-size: 10px;">tex</a> <a href="/tags/text-editor/" style="font-size: 10px;">text editor</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vbox/" style="font-size: 13.33px;">vbox</a> <a href="/tags/vdi/" style="font-size: 11.67px;">vdi</a> <a href="/tags/vi/" style="font-size: 11.67px;">vi</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/virtual-desktop/" style="font-size: 10px;">virtual desktop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/virtualization/" style="font-size: 10px;">virtualization</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/webgate/" style="font-size: 10px;">webgate</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows-server/" style="font-size: 10px;">windows server</a> <a href="/tags/windows10/" style="font-size: 10px;">windows10</a> <a href="/tags/xfce/" style="font-size: 10px;">xfce</a> <a href="/tags/xrdp/" style="font-size: 10px;">xrdp</a> <a href="/tags/yum/" style="font-size: 13.33px;">yum</a> <a href="/tags/%E4%B8%93%E7%94%A8%E7%BD%91/" style="font-size: 10px;">专用网</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">企业管理器</a> <a href="/tags/%E4%BC%B0%E7%AE%97/" style="font-size: 10px;">估算</a> <a href="/tags/%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">协议</a> <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 11.67px;">单点登录</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 10px;">域名</a> <a href="/tags/%E5%A0%86/" style="font-size: 10px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/" style="font-size: 13.33px;">安全访问</a> <a href="/tags/%E5%B8%A6%E5%AE%BD/" style="font-size: 10px;">带宽</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BE%9B%E5%BA%94/" style="font-size: 10px;">应用程序供应</a> <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">应用程序虚拟化</a> <a href="/tags/%E6%8C%87%E6%A0%87/" style="font-size: 10px;">指标</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%9B%BF%E6%8D%A2/" style="font-size: 10px;">替换</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3/" style="font-size: 10px;">本地接口</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 11.67px;">模板</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/tags/%E6%AF%94%E8%BE%83/" style="font-size: 10px;">比较</a> <a href="/tags/%E6%B0%B4%E8%B4%A8/" style="font-size: 10px;">水质</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%9C%80%E6%B1%82/" style="font-size: 10px;">环境需求</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.67px;">算法</a> <a href="/tags/%E7%BB%8F%E9%AA%8C/" style="font-size: 10px;">经验</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD/" style="font-size: 10px;">网络性能</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">网络配置</a> <a href="/tags/%E8%84%86%E5%BC%B1%E6%80%A7/" style="font-size: 10px;">脆弱性</a> <a href="/tags/%E8%87%AA%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">自签名</a> <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">自适应协议</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 11.67px;">虚拟化</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">虚拟桌面</a> <a href="/tags/%E8%AE%A4%E8%AF%81/" style="font-size: 11.67px;">认证</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 10px;">身份认证</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%8D%B7/" style="font-size: 10px;">逻辑卷</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 11.67px;">配置</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a> <a href="/tags/%E9%98%B5%E5%88%97/" style="font-size: 10px;">阵列</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%B1%BC%E7%BC%B8/" style="font-size: 10px;">鱼缸</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://cn.linkedin.com/in/xintq" target="_blank" title="LinkedIn">LinkedIn</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://my.oschina.net/xintq/blog" target="_blank" title="开源中国">开源中国</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.bigdatalyn.com" target="_blank" title="BigdataLyn&#39;s TECH Blog!">BigdataLyn&#39;s TECH Blog!</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi there, I&#39;m K.X, a tech guy trying to survive in the IT jungle... <br/>
+			This is my blog. Hope you find something useful here.</a></p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/xintq" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/xintq" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<!--a href="mailto:xintq@qq.com" target="_blank" class="icon-email" title="Email Me"></a -->
+		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=ZBwNChAVJBUVSgcLCQ" style="text-decoration:none;" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		 © 2024
+		
+		<a href="/about" target="_blank" title="K.X">K.X</a>
+		
+
+		</p>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','8Rkt4cRcsNr9jyTYgTPD','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<link rel="stylesheet" href="/js/gitment-theme-default.css">
+<script src="/js/gitment.browser.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+<!-- Gitment Start -->
+
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
+<!-- Gitment End -->
+
+  </body>
+</html>
