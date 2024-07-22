@@ -5,21 +5,24 @@
   <meta charset="UTF-8">
   <meta name="robots" content="follow, index">
   
-    <title>夕阳下的奔跑</title>
+    <title>借助Python建立简易的HTTP服务 - Python HTTP Server | 夕阳下的奔跑</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="K.X">
     
 
     
-    <meta name="description" content="个人总结, 工作日志, 技术原创">
-<meta property="og:type" content="website">
-<meta property="og:title" content="夕阳下的奔跑">
-<meta property="og:url" content="http://xintq.net/page/7/index.html">
+    <meta name="description" content="借助Python建立简易的HTTP服务 - Python HTTP Server前言局域网内有个想传的文件，但是跨平台了怪麻烦的。于是想着建立个http服务来传吧，但是又懒得下载东西，哦对了我有Python，那就足够了~ 防火墙打开端口为了开启服务，首先需要打开一个对外端口以便其他机器访问进来，Python中自带的HTTP Server默认占用的是端口8000，当然也可以自己选定特定端口。如果直接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="借助Python建立简易的HTTP服务 - Python HTTP Server">
+<meta property="og:url" content="http://xintq.net/2024/07/22/simple-http-server-with-python/index.html">
 <meta property="og:site_name" content="夕阳下的奔跑">
-<meta property="og:description" content="个人总结, 工作日志, 技术原创">
+<meta property="og:description" content="借助Python建立简易的HTTP服务 - Python HTTP Server前言局域网内有个想传的文件，但是跨平台了怪麻烦的。于是想着建立个http服务来传吧，但是又懒得下载东西，哦对了我有Python，那就足够了~ 防火墙打开端口为了开启服务，首先需要打开一个对外端口以便其他机器访问进来，Python中自带的HTTP Server默认占用的是端口8000，当然也可以自己选定特定端口。如果直接">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-22T08:33:16.000Z">
+<meta property="article:modified_time" content="2024-07-22T08:35:16.527Z">
 <meta property="article:author" content="K.X">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 
     
@@ -76,144 +79,115 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/30/Linux基础练习与回顾/" title="Linux基础练习与回顾" itemprop="url">
-  
-    <h1 itemprop="name">Linux基础练习与回顾</h1>
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >本文是当时学习RHCE时总结的一些练习资料，涵盖了很多基础的东西，整理了一下，顺便也回顾一下以前学过的东西。
-注意： 本文中出现的网址和ip都是实验环境下的配置，请不要直接使用（当然，你也用不了）。
-环境
-domainX.xintq.net 域是 192.168.0.0&amp;#x2F</p>
-        
+      <a href="/2024/07/22/simple-http-server-with-python/" title="借助Python建立简易的HTTP服务 - Python HTTP Server" itemprop="url">借助Python建立简易的HTTP服务 - Python HTTP Server</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="K.X" target="_blank" itemprop="author">K.X</a>
+		
+  <p class="article-time">
+    <time datetime="2024-07-22T08:33:16.000Z" itemprop="datePublished"> 发表于 2024-07-22</time>
     
-    <time datetime="2014-07-30T04:17:26.000Z" itemprop="datePublished">2014-07-30</time>
-  </a>
-</section>
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%9F%E5%8A%A9Python%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1-Python-HTTP-Server"><span class="toc-number">1.</span> <span class="toc-text">借助Python建立简易的HTTP服务 - Python HTTP Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">防火墙打开端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">建立简易HTTP服务器</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="借助Python建立简易的HTTP服务-Python-HTTP-Server"><a href="#借助Python建立简易的HTTP服务-Python-HTTP-Server" class="headerlink" title="借助Python建立简易的HTTP服务 - Python HTTP Server"></a>借助Python建立简易的HTTP服务 - Python HTTP Server</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>局域网内有个想传的文件，但是跨平台了怪麻烦的。<br>于是想着建立个http服务来传吧，但是又懒得下载东西，哦对了我有Python，那就足够了~</p>
+<h2 id="防火墙打开端口"><a href="#防火墙打开端口" class="headerlink" title="防火墙打开端口"></a>防火墙打开端口</h2><p>为了开启服务，首先需要打开一个对外端口以便其他机器访问进来，<br>Python中自带的HTTP Server默认占用的是端口8000，当然也可以自己选定特定端口。<br>如果直接使用命令无法访问的话，那应该就是被防火墙挡住了（下述介绍Linux的防火墙操作）。</p>
+<p>打开端口（python自带的HTTPServer端口是8000）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo firewall-cmd --permanent --add-port=8000/tcp</span><br></pre></td></tr></table></figure>
+
+<p>如果需要再把这个端口关上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo firewall-cmd --permanent --remove-port=8000/tcp</span><br></pre></td></tr></table></figure>
+
+<p>每次操作结束后都需要重启一下防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl restart firewalld</span><br></pre></td></tr></table></figure>
+
+<h2 id="建立简易HTTP服务器"><a href="#建立简易HTTP服务器" class="headerlink" title="建立简易HTTP服务器"></a>建立简易HTTP服务器</h2><p>Python 2 与 Python 3 的命令不同，需要注意</p>
+<p>Python 2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 采用默认端口（8000）建立HTTP服务</span><br><span class="line">$ python -m SimpleHTTPServer</span><br><span class="line"># 采用自定端口（8765）建立HTTP服务</span><br><span class="line">$ python -m SimpleHTTPServer 8765</span><br></pre></td></tr></table></figure>
+
+<p>Python 3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 采用默认端口（8000）建立HTTP服务</span><br><span class="line">$ python -m http.server</span><br><span class="line"># 采用自定端口（8765）建立HTTP服务</span><br><span class="line">$ python -m http.server 8765</span><br></pre></td></tr></table></figure>
 
 
-
-
-
-
+<p>假如开启服务的文件夹下有 index.html，会默认将其作为首页，反之则是如图所示的文件目录</p>
   
-<section class="post" itemscope itemprop="blogitem">
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/web%E5%9F%BA%E7%A1%80/">WEB基础</a>
+</div>
+
+
+  <div class="article-tags">
   
-    <a href="/2014/07/24/google被墙了/" title="Google被墙了，我们就苦逼了" itemprop="url">
-  
-    <h1 itemprop="name">Google被墙了，我们就苦逼了</h1>
-    
-     
-           <p itemprop="description" >wordpress巨慢，加一大堆插件，不使用google web font api，何苦呢，何必呢。。。。。。</p>
-        
-    
-    <time datetime="2014-07-23T17:14:12.000Z" itemprop="datePublished">2014-07-24</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/23/培养爱好说/" title="培养爱好说" itemprop="url">
-  
-    <h1 itemprop="name">培养爱好说</h1>
-    
-     
-           <p itemprop="description" >从13年开始，由于工作压力很大，我开始养一些小鱼小虾的舒缓一下工作的压力。
-作为软件行业的人，以前主要的爱好就是电脑，上网。工作累了怎么办？打游戏放松一下吧。这就是我们这行很多人的放松方式。后来，腰也不行了，眼睛也难受了，感觉打游戏这种放松方式实在是太暴力了，以暴治暴嚯嚯还是自己</p>
-        
-    
-    <time datetime="2014-07-23T05:59:58.000Z" itemprop="datePublished">2014-07-23</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/22/rmi/" title="RMI教程：入门与编译方法" itemprop="url">
-  
-    <h1 itemprop="name">RMI教程：入门与编译方法</h1>
-    
-     
-           <p itemprop="description" >这篇文档，写于2007年。当时的我还是研究生二年级的学生，恰巧有一门课叫做《分布式编程》，又恰巧当时做一个和分布式开发相关的项目。作为一份入门的文档，当时用Latex整理了一下，然后在开发小组内部传阅。
-这次，作为第一篇技术文档，发表在这个站点上。作为纪念，也作为对当时的那股认真</p>
-        
-    
-    <time datetime="2014-07-22T09:32:23.000Z" itemprop="datePublished">2014-07-22</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/22/离职信中的打油诗/" title="对理想生活的向往 - 离职信中的打油诗有感" itemprop="url">
-  
-    <h1 itemprop="name">对理想生活的向往 - 离职信中的打油诗有感</h1>
-    
-     
-           <p itemprop="description" >离职之前，总想着要给工作五年的小伙伴们说点啥，但是思前想后，感觉又没有啥好说的。
-快离开的那几天，在网上四处闲逛，突然看到下面这首“诗”，很感动，也很向往诗中的状态；没错，在老东家的最后一份告别信中，我引用了这首诗。在这里记下，作为对理想生活的向往，是激励也是一种鞭策。
-
-依山傍</p>
-        
-    
-    <time datetime="2014-07-22T03:27:13.000Z" itemprop="datePublished">2014-07-22</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/07/21/fistpost/" title="写在前面..." itemprop="url">
-  
-    <h1 itemprop="name">写在前面...</h1>
-    
-     
-           <p itemprop="description" >To recollect the memories that has been lost…
-I quitted my first job in this summer, and I got a 20-days vacation to take a breathe. Being b</p>
-        
-    
-    <time datetime="2014-07-21T07:26:50.000Z" itemprop="datePublished">2014-07-21</time>
-  </a>
-</section>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/6/">&lt;span&gt;&lt;&#x2F;span&gt;Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
-  </nav>
+  <span></span> <a href="/tags/python/">Python</a>
+  </div>
 
 </div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://xintq.net/2024/07/22/simple-http-server-with-python/" data-title="借助Python建立简易的HTTP服务 - Python HTTP Server | 夕阳下的奔跑" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2024/07/15/latex-一个表格单元显示多行/"  title="Latex 一个表格单元显示多行">
+ <strong>下一篇：</strong><br/> 
+ <span>Latex 一个表格单元显示多行
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comments"  class="comment">
+	<div id="commentContainer"></div>
+</section>
+
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%9F%E5%8A%A9Python%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1-Python-HTTP-Server"><span class="toc-number">1.</span> <span class="toc-text">借助Python建立简易的HTTP服务 - Python HTTP Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">防火墙打开端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">建立简易HTTP服务器</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -408,11 +382,68 @@ $(document).ready(function(){
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
       
+      $('#toc.toc-aside').css('display', 'none');
+      
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
 
 
 
@@ -474,7 +505,21 @@ $(document).ready(function(){
 
 <!-- Gitment Start -->
 
+<script>
+$(document).ready(function(){
+var gitment = new Gitment({
+  owner: 'xintq',
+  repo: 'xintq.net.comment.repo',
+  oauth: {
+    client_id: '7fd3e0a06d0021768bdd',
+    client_secret: '52c4849b9fe5fa053c455238e57c89eeda747403',
+  },
+});
+if($('#commentContainer')) gitment.render('commentContainer');
+});
+</script>
+
 <!-- Gitment End -->
 
   </body>
- </html>
+</html>
